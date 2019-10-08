@@ -5,13 +5,18 @@ from rest_framework import generics, permissions
 
 #Create and List
 class RecipeList(generics.ListCreateAPIView):
+    #overrides and settings
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
 
+    # custom vars
+    # ingredientsList = Ingredient.objects.all()
+
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
-        print(self.request.data['ingredients'])
+        for ingredient in self.request.data['ingredients']:
+            print(Ingredient.objects.get(id=ingredient['ingredientId']))
 
 
 # Retrieve, Update, and Destroy
