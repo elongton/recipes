@@ -5,8 +5,6 @@ from api import views
 urlpatterns = [
     path('recipes/', views.RecipeList.as_view()),
     path('recipes/<int:pk>', views.RecipeDetail.as_view()),
-    path('ingredients/', views.IngredientList.as_view())
+    path('ingredients/', views.IngredientList.as_view()),
+    path('ingredients/<int:pk>', views.IngredientDetail.as_view())
 ]
-
-
-# urlpatterns = format_suffix_patterns(urlpatterns)

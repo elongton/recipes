@@ -21,19 +21,19 @@ class Units(models.Model):
     name = models.CharField(max_length=100)
 
 
-class RecipeIngredient(models.Model):
-    recipeId = models.ForeignKey('Recipe',
-                                 related_name='ri_recipeId', on_delete=models.CASCADE)
-    ingredientId = models.ForeignKey('Ingredient',
-                                     related_name='ri_ingredientId', on_delete=models.CASCADE)
+class RecipeIngredientLink(models.Model):
+    recipe = models.ForeignKey('Recipe',
+                                 related_name='ri_recipe', on_delete=models.CASCADE)
+    ingredient = models.ForeignKey('Ingredient',
+                                     related_name='ri_ingredient', on_delete=models.CASCADE)
 
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
 
 
-class RecipeTag(models.Model):
-    recipeId = models.ForeignKey('Recipe',
-                                 related_name='rt_recipeId', on_delete=models.CASCADE)
-    tagId = models.ForeignKey('Tag',
-                              related_name='rt_tagId', on_delete=models.CASCADE)
+class RecipeTagLink(models.Model):
+    recipe = models.ForeignKey('Recipe',
+                                 related_name='rt_recipe', on_delete=models.CASCADE)
+    tag = models.ForeignKey('Tag',
+                              related_name='rt_tag', on_delete=models.CASCADE)

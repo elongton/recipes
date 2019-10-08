@@ -1,4 +1,4 @@
-from api.models import Recipe, Ingredient
+from api.models import Recipe, Ingredient, RecipeIngredientLink
 from api.serializers import RecipeSerializer, IngredientSerializer
 from rest_framework import generics, permissions
 
@@ -14,9 +14,13 @@ class RecipeList(generics.ListCreateAPIView):
     # ingredientsList = Ingredient.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        recipeItem = serializer.save(author=self.request.user)
         for ingredient in self.request.data['ingredients']:
-            print(Ingredient.objects.get(id=ingredient['ingredientId']))
+            ingredientObj = Ingredient.objects.get(
+                id=ingredient['ingredientId'])
+            tempLink = RecipeIngredientLink(
+                recipe=recipeItem, ingredient=ingredientObj)
+            tempLink.save()
 
 
 # Retrieve, Update, and Destroy
@@ -26,7 +30,13 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = RecipeSerializer
 
 
-class IngredientList(generics.ListAPIView):
+class IngredientList(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Ingredient.objects.all()
+    serializer_class = IngredientSerializer
+
+
+class IngredientDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
