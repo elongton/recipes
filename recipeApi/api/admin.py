@@ -1,8 +1,19 @@
 from django.contrib import admin
-
-# Register your models here.
-from .models import Recipe, Ingredient
+from .models import Recipe, Ingredient, RecipeIngredient
 
 
-admin.site.register(Recipe)
-admin.site.register(Ingredient)
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author')
+
+
+class IngredientAdmin(admin.ModelAdmin):
+    list_display = ('name', 'units')
+
+
+class RecipeIngredientAdmin(admin.ModelAdmin):
+    list_display = ('recipeId', 'ingredientId')
+
+
+admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(Ingredient, IngredientAdmin)
+admin.site.register(RecipeIngredient, RecipeIngredientAdmin)
