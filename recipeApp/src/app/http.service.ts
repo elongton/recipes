@@ -8,10 +8,10 @@ export class HttpService {
   constructor(private http: HttpClient) {}
 
   getRecipes() {
-    return this.http.get(`/recipes/`);
+    return this.http.get(`api/recipes/`);
   }
 
   submitRecipe(recipe) {
-    return this.http.post(`/recipe/`, recipe);
+    return this.http.post(`api/recipe/`, recipe);
   }
 }
