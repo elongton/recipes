@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { HttpService } from "src/app/http.service";
+import { RecipeService } from "../recipe.service";
 
 @Component({
   selector: "app-recipe-list",
@@ -8,12 +8,16 @@ import { HttpService } from "src/app/http.service";
 })
 export class RecipeListComponent implements OnInit {
   recipes;
-  constructor(private http: HttpService) {}
+  constructor(private recipeService: RecipeService) {}
 
   ngOnInit() {
-    this.http.getRecipes().subscribe(result => {
+    this.recipeService.getRecipes().subscribe(result => {
       console.log(result);
       this.recipes = result;
     });
+  }
+
+  selectRecipe(recipe) {
+    this.recipeService.getRecipe(recipe.id);
   }
 }

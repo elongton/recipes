@@ -1,5 +1,7 @@
 <h1 class="sticky">Recipe List</h1>
 
 <ul class="list-group" *ngFor="let recipe of recipes">
-  <li class="list-group-item">{{ recipe.title }}</li>
+  <li class="list-group-item" (click)="selectRecipe(recipe)">
+    {{ recipe.title }}
+  </li>
 </ul>
