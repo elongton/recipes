@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Recipe(models.Model):
-    title = models.CharField(max_length=100, default='new recipe')
+    title = models.CharField(max_length=100, default='')
     description = models.TextField()
     image = models.ImageField(blank=True, null=True)
     instructions = models.TextField()
