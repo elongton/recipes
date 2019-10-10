@@ -8,7 +8,7 @@ import { RecipeService } from "../recipe.service";
 })
 export class RecipeListComponent implements OnInit {
   recipes;
-  constructor(private recipeService: RecipeService) {}
+  constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
     this.recipeService.getRecipes().subscribe(result => {
