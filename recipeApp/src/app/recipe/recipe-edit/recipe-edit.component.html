@@ -7,11 +7,12 @@
             <input type="text" formControlName="title" class="form-control" placeholder="Recipe Title">
             <textarea type="text" formControlName="description" class="form-control"
                 placeholder="Recipe Description"></textarea>
-            <div class="d-flex justify-content-between section-heading">
+            <div class="d-flex section-heading">
                 <h3>Ingredients</h3>
                 <button class="btn btn-light ml-2" (click)="addIngredient();">
                     Add
                 </button>
+
             </div>
             <ng-container formArrayName="ingredients"
                 *ngFor="let ingredient of recipeForm.get('ingredients').controls; let i=index">
@@ -25,11 +26,12 @@
                     </div>
                 </div>
             </ng-container>
-            <div class="d-flex justify-content-between section-heading">
+            <div class="d-flex section-heading">
                 <h3>Steps</h3>
                 <button class="btn btn-light ml-2" (click)="addStep();">
                     Add
                 </button>
+
             </div>
             <ng-container formArrayName="steps" *ngFor="let steps of recipeForm.get('steps').controls; let i=index">
                 <div [formGroupName]="i" class="d-flex">

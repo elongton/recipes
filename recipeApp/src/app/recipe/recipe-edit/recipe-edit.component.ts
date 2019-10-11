@@ -56,6 +56,15 @@ export class RecipeEditComponent implements OnInit {
     this.steps.push(this.createStep());
   }
 
+  removeIngredient(i): void {
+    this.ingredients = this.recipeForm.get('ingredients') as FormArray;
+    this.ingredients.removeAt(i);
+  }
+  removeStep(i): void {
+    this.steps = this.recipeForm.get('steps') as FormArray;
+    this.steps.removeAt(i);
+  }
+
 
   submit() {
     console.log(this.recipeForm.value)
