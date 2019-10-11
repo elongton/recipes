@@ -1,6 +1,7 @@
 from api.models import Recipe, Ingredient, RecipeIngredientLink
 from api.serializers import RecipeSerializer, IngredientSerializer
 from rest_framework import generics, permissions
+from rest_framework.response import Response
 
 
 #Create and List
@@ -12,14 +13,19 @@ class RecipeList(generics.ListCreateAPIView):
 
     # custom vars
     # ingredientsList = Ingredient.objects.all()
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
 
     def perform_create(self, serializer):
         if self.request.user.is_authenticated:
-            print('test')
             recipeItem = serializer.save(author=self.request.user)
         else:
             recipeItem = serializer.save(author=None)
 
+        #get list of ingredients from request, and add them to link table
         for ingredient in self.request.data['ingredients']:
             ingredientObj = Ingredient.objects.get(
                 id=ingredient['ingredientId'])

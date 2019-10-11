@@ -16,6 +16,9 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=100)
     units = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 
 class Units(models.Model):
     name = models.CharField(max_length=100)
@@ -23,9 +26,10 @@ class Units(models.Model):
 
 class RecipeIngredientLink(models.Model):
     recipe = models.ForeignKey('Recipe',
-                               related_name='ri_recipe', on_delete=models.CASCADE)
+                               related_name='ingredients', on_delete=models.CASCADE)
     ingredient = models.ForeignKey('Ingredient',
                                    related_name='ri_ingredient', on_delete=models.CASCADE)
+    quantity = models.FloatField()
 
 
 class Tag(models.Model):
