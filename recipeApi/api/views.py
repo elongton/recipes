@@ -1,4 +1,4 @@
-from api.models import Recipe, Ingredient, RecipeIngredientLink
+from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep
 from api.serializers import RecipeSerializer, IngredientSerializer
 from rest_framework import generics, permissions
 from rest_framework.response import Response
@@ -21,17 +21,31 @@ class RecipeList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         if self.request.user.is_authenticated:
-            recipeItem = serializer.save(author=self.request.user)
+            recipeObj = serializer.save(author=self.request.user)
         else:
-            recipeItem = serializer.save(author=None)
+            recipeObj = serializer.save(author=None)
+
 
         #get list of ingredients from request, and add them to link table
-        for ingredient in self.request.data['ingredients']:
-            ingredientObj = Ingredient.objects.get(
-                id=ingredient['ingredientId'])
-            tempLink = RecipeIngredientLink(
-                recipe=recipeItem, ingredient=ingredientObj)
-            tempLink.save()
+        try:
+            for ingredient in self.request.data['ingredients']:
+                ingredientObj = Ingredient.objects.get(
+                    id=ingredient['ingredientId'])
+                recipeIngredientLink = RecipeIngredientLink(
+                    recipe=recipeObj, ingredient=ingredientObj, quantity=ingredient['quantity'])
+                recipeIngredientLink.save()
+        except:
+            print('no ingredients')
+
+        #get list of steps from request, and add them to link table
+        try:
+            x = 1
+            for instruction in self.request.data['steps']:
+                recipeStep = RecipeStep(recipe=recipeObj, number=x, instruction=instruction)
+                recipeStep.save()
+                x+=1
+        except:
+            print('no steps')
 
 
 # Retrieve, Update, and Destroy

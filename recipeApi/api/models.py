@@ -10,6 +10,13 @@ class Recipe(models.Model):
     instructions = models.TextField()
     author = models.ForeignKey(
         'auth.User', related_name='recipes', on_delete=models.SET_NULL, null=True, blank=True)
+    def __str__(self):
+        return self.title
+
+class RecipeStep(models.Model):
+    recipe = models.ForeignKey('Recipe', related_name='steps', on_delete=models.CASCADE)
+    number = models.IntegerField()
+    instruction = models.TextField()
 
 
 class Ingredient(models.Model):

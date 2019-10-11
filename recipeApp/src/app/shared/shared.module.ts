@@ -4,13 +4,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faPlus, faMinus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { RouterModule } from '@angular/router';
 
 
 library.add(
     faArrowLeft,
     faPlus,
+    faMinus,
+    faTimes
 );
 
 @NgModule({

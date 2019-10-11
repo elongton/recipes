@@ -29,26 +29,18 @@
             </ng-container>
 
           </tbody>
-
         </table>
       </div>
       <div class="instructions recipe-section">
-        {{recipe.instructions}}
-      </div>
-      <div class="instructions recipe-section">
-        {{recipe.instructions}}
-      </div>
-      <div class="instructions recipe-section">
-        {{recipe.instructions}}
-      </div>
-      <div class="instructions recipe-section">
-        {{recipe.instructions}}
-      </div>
-      <div class="instructions recipe-section">
-        {{recipe.instructions}}
-      </div>
-      <div class="instructions recipe-section">
-        {{recipe.instructions}}
+        <h3>Instructions</h3>
+        <ng-container *ngFor="let step of recipe.steps">
+          <div style="display:flex; align-items: center;">
+            <h5 style="margin:0; padding: 0;" class="mr-3">{{step.number}}</h5>
+            <div>
+              {{step.instruction}}
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </app-popover>
