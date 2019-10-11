@@ -3,6 +3,10 @@
     <h1 header style="margin-bottom: 0;">{{recipe.title}}</h1>
     <div body>
 
+      <div class="image recipe-section"
+        [ngStyle]="{ 'background-image': 'url(http://localhost:8000' + recipe.image + ')'}"
+        style="height: 250px; background-position: center;">
+      </div>
       <div class="description recipe-section">
         {{recipe.description}}
       </div>
