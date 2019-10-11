@@ -19,10 +19,8 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.name
 
-
 class Units(models.Model):
     name = models.CharField(max_length=100)
-
 
 class RecipeIngredientLink(models.Model):
     recipe = models.ForeignKey('Recipe',

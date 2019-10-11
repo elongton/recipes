@@ -2,8 +2,31 @@
   <app-popover>
     <h1 header style="margin-bottom: 0;">{{recipe.title}}</h1>
     <div body>
+
       <div class="description recipe-section">
         {{recipe.description}}
+      </div>
+      <div class="ingredients recipe-section">
+        <table>
+          <thead>
+            <tr>
+              <th>Ingredient</th>
+              <th>Quantity</th>
+              <th>Units</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let ingredient of recipe.ingredients">
+              <tr>
+                <td>{{ingredient.ingredient.name}}</td>
+                <td>{{ingredient.quantity}}</td>
+                <td>{{ingredient.ingredient.units}}</td>
+              </tr>
+            </ng-container>
+
+          </tbody>
+
+        </table>
       </div>
       <div class="instructions recipe-section">
         {{recipe.instructions}}
