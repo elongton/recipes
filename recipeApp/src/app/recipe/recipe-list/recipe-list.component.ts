@@ -7,17 +7,10 @@ import { RecipeService } from "../recipe.service";
   styleUrls: ["./recipe-list.component.scss"]
 })
 export class RecipeListComponent implements OnInit {
-  recipes;
+  recipes$ = this.recipeService.recipes$;
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
-    this.recipeService.getRecipes().subscribe(result => {
-      console.log(result);
-      this.recipes = result;
-    });
-  }
 
-  selectRecipe(recipe) {
-    this.recipeService.getRecipe(recipe.id);
   }
 }

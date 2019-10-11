@@ -1,0 +1,16 @@
+<div class="over">
+    <div style="display: flex; align-items: center;">
+        <div style="flex-grow: 1; text-align:center; text-transform: uppercase;">
+            <ng-content select="[header]"></ng-content>
+        </div>
+    </div>
+    <div style="padding: 20px;">
+        <ng-content select="[body]"></ng-content>
+    </div>
+</div>
+
+<a [routerLink]="['../../']">
+    <div style="position: fixed; top: 10px; left: 10px; padding-right: 10px;">
+        <fa-icon icon=arrow-left style="font-size: 25px;"></fa-icon>
+    </div>
+</a>

@@ -6,16 +6,13 @@ import { BehaviorSubject } from "rxjs";
   providedIn: "root"
 })
 export class RecipeService {
-  selectedRecipe$ = new BehaviorSubject(null);
-  constructor(private http: HttpClient) {}
+  recipes$ = new BehaviorSubject(null);
+  constructor(private http: HttpClient) { }
 
   getRecipes() {
-    return this.http.get(`api/recipes/`);
-  }
-
-  getRecipe(id) {
-    return this.http.get(`api/recipes/${id}`).subscribe(result => {
-      this.selectedRecipe$.next(result);
+    return this.http.get(`api/recipes/`).subscribe(result => {
+      this.recipes$.next(result)
+      console.log('got recipes')
     });
   }
 
@@ -23,3 +20,11 @@ export class RecipeService {
     return this.http.post(`api/recipe/`, recipe);
   }
 }
+
+
+
+  // getRecipe(id) {
+  //   return this.http.get(`api/recipes/${id}`).subscribe(result => {
+  //     // this.selectedRecipe$.next(result);
+  //   });
+  // }

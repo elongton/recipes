@@ -1,6 +1,28 @@
-<ng-container *ngIf="selectedRecipe$ | async as selectedRecipe; else default">
-  <h1 class="sticky">{{ selectedRecipe.title }}</h1>
+<ng-container *ngIf="recipe">
+  <app-popover>
+    <h1 header style="margin-bottom: 0;">{{recipe.title}}</h1>
+    <div body>
+      <div class="description recipe-section">
+        {{recipe.description}}
+      </div>
+      <div class="instructions recipe-section">
+        {{recipe.instructions}}
+      </div>
+      <div class="instructions recipe-section">
+        {{recipe.instructions}}
+      </div>
+      <div class="instructions recipe-section">
+        {{recipe.instructions}}
+      </div>
+      <div class="instructions recipe-section">
+        {{recipe.instructions}}
+      </div>
+      <div class="instructions recipe-section">
+        {{recipe.instructions}}
+      </div>
+      <div class="instructions recipe-section">
+        {{recipe.instructions}}
+      </div>
+    </div>
+  </app-popover>
 </ng-container>
-<ng-template #default>
-  <h1 class="sticky">no recipe</h1>
-</ng-template>
