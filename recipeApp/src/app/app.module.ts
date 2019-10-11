@@ -1,4 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from "@angular/core";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -11,6 +12,9 @@ import { HttpClientModule } from "@angular/common/http";
 import { PopoverComponent } from './shared/popover/popover.component';
 import { SharedModule } from './shared/shared.module';
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
+
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +30,9 @@ import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component'
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule,
+    TypeaheadModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

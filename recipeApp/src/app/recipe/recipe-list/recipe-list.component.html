@@ -1,19 +1,24 @@
 <h1 class="sticky">Recipe List</h1>
 
-<ul class="list-group" *ngFor="let recipe of recipes$ | async">
-  <a [routerLink]="['/recipe/view', recipe.id]">
-    <li class="list-group-item">
-      {{ recipe.title }}
-    </li>
+<ng-container *ngIf="recipes">
+  <input [(ngModel)]="selected" [typeahead]="names" class="form-control" placeholder="Search a recipe or ingredient">
+
+  <ul class="list-group mt-3" *ngFor="let recipe of recipes">
+    <a [routerLink]="['/recipe/view', recipe.id]">
+      <li class="list-group-item">
+        {{ recipe.title }}
+      </li>
+    </a>
+
+  </ul>
+
+  <a [routerLink]="['/recipe/new']">
+    <div class="add-recipe-button">
+      <fa-icon icon=plus></fa-icon>
+    </div>
   </a>
+</ng-container>
 
-</ul>
-
-<a [routerLink]="['/recipe/new']">
-  <div class="add-recipe-button">
-    <fa-icon icon=plus></fa-icon>
-  </div>
-</a>
 
 
 

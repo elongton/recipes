@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { RouterModule } from '@angular/router';
 
+
 library.add(
     faArrowLeft,
     faPlus,
