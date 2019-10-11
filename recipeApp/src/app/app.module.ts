@@ -10,6 +10,7 @@ import { RecipeListComponent } from "./recipe/recipe-list/recipe-list.component"
 import { HttpClientModule } from "@angular/common/http";
 import { PopoverComponent } from './shared/popover/popover.component';
 import { SharedModule } from './shared/shared.module';
+import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SharedModule } from './shared/shared.module';
     RecipeComponent,
     RecipeDetailComponent,
     RecipeListComponent,
-    PopoverComponent
+    PopoverComponent,
+    RecipeEditComponent
   ],
   imports: [
     BrowserModule,

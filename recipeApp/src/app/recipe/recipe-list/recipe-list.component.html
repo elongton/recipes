@@ -1,12 +1,20 @@
 <h1 class="sticky">Recipe List</h1>
 
 <ul class="list-group" *ngFor="let recipe of recipes$ | async">
-  <a [routerLink]="['/recipe', recipe.id]">
+  <a [routerLink]="['/recipe/view', recipe.id]">
     <li class="list-group-item">
       {{ recipe.title }}
     </li>
   </a>
 
 </ul>
+
+<a [routerLink]="['/recipe/new']">
+  <div class="add-recipe-button">
+    <fa-icon icon=plus></fa-icon>
+  </div>
+</a>
+
+
 
 <router-outlet></router-outlet>
