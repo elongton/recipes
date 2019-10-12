@@ -19,6 +19,14 @@ export class RecipeService {
   submitRecipe(recipe) {
     return this.http.post(`api/recipe/`, recipe);
   }
+
+  deleteRecipe(recipe) {
+    return this.http.delete(`api/recipes/${recipe.id}`).subscribe(result => {
+      this.recipes$.next(
+        this.recipes$.getValue().filter(r => (r.id !== recipe.id))
+      )
+    })
+  }
 }
 
 

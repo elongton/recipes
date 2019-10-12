@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../recipe.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { read } from 'fs';
+import { faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -11,6 +13,8 @@ import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 export class RecipeEditComponent implements OnInit {
 
   recipeForm: FormGroup;
+  selectedFile: File;
+  uploadedImage;
   ingredients;
   steps;
 
@@ -68,6 +72,16 @@ export class RecipeEditComponent implements OnInit {
 
   submit() {
     console.log(this.recipeForm.value)
+  }
+
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+    let reader = new FileReader();
+    let that = this;
+    reader.onload = function (e) {
+      that.uploadedImage = e.target.result;
+    }
+    reader.readAsDataURL(this.selectedFile);
   }
 
 }
