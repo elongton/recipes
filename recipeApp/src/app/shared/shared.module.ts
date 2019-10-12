@@ -1,19 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { faArrowLeft, faPlus, faMinus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { RouterModule } from '@angular/router';
-
-
-library.add(
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import {
+    fas,
     faArrowLeft,
     faPlus,
     faMinus,
     faTimes
-);
+} from '@fortawesome/free-solid-svg-icons';
+
 
 @NgModule({
     declarations: [
@@ -30,4 +27,14 @@ library.add(
         FontAwesomeModule,
     ]
 })
-export class SharedModule { }
+export class SharedModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(fas);
+        library.addIcons(
+            faArrowLeft,
+            faPlus,
+            faMinus,
+            faTimes);
+    }
+
+}

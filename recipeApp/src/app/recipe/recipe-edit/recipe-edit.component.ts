@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../recipe.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
-import { read } from 'fs';
-import { faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -79,7 +77,7 @@ export class RecipeEditComponent implements OnInit {
     let reader = new FileReader();
     let that = this;
     reader.onload = function (e) {
-      that.uploadedImage = e.target.result;
+      that.uploadedImage = e.target['result'];
     }
     reader.readAsDataURL(this.selectedFile);
   }
