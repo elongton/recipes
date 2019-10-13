@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Recipe, Ingredient, RecipeIngredientLink, Tag, RecipeTagLink, RecipeStep
+from .models import Recipe, Ingredient, RecipeIngredientLink, Tag, RecipeTagLink, RecipeStep, Unit
 
 
 class RecipeAdmin(admin.ModelAdmin):
@@ -7,7 +7,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
 
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ('name', 'units')
+    list_display = ('id', 'name', 'unitType')
 
 
 class RecipeIngredientLinkAdmin(admin.ModelAdmin):
@@ -26,9 +26,14 @@ class RecipeStepAdmin(admin.ModelAdmin):
     list_display = ('recipe', 'number',)
 
 
+class UnitsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'unitType')
+
+
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(RecipeIngredientLink, RecipeIngredientLinkAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(RecipeTagLink, RecipeTagLinkAdmin)
 admin.site.register(RecipeStep, RecipeStepAdmin)
+admin.site.register(Unit, UnitsAdmin)

@@ -1,4 +1,4 @@
-from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep
+from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep, Unit
 from api.serializers import RecipeSerializer, IngredientSerializer
 from rest_framework import generics, permissions
 from rest_framework.response import Response
@@ -22,7 +22,10 @@ class RecipeList(generics.ListCreateAPIView):
         #     recipeObj = serializer.save(author=self.request.user)
         # else:
         #     recipeObj = serializer.save(author=None)
-        image = self.request.data['image']
+        try:
+            image = self.request.data['image']
+        except:
+            image = None
         print(image)
         data = json.loads(self.request.data['fields'])
         ingredients = data['ingredients']
@@ -34,14 +37,19 @@ class RecipeList(generics.ListCreateAPIView):
             image=image
         )
         # get list of ingredients from request, and add them to link table
+        print(ingredients)
         try:
             for ingredient in ingredients:
+                unitObj = Unit.objects.get(id=ingredient['unitId'])
                 ingredientObj = Ingredient.objects.get(
                     id=ingredient['ingredientId'])
                 recipeIngredientLink = RecipeIngredientLink(
-                    recipe=recipeObj, ingredient=ingredientObj, quantity=ingredient['quantity'])
+                    recipe=recipeObj,
+                    ingredient=ingredientObj,
+                    unit=unitObj,
+                    quantity=ingredient['quantity'],)
                 recipeIngredientLink.save()
-        except:
+        except ValueError:
             print('no ingredients')
 
         # get list of steps from request, and add them to link table
@@ -50,7 +58,7 @@ class RecipeList(generics.ListCreateAPIView):
                 recipeStep = RecipeStep(
                     recipe=recipeObj, number=step['number'], instruction=step['instruction'])
                 recipeStep.save()
-        except:
+        except ValueError:
             print('no steps')
 
 

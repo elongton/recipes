@@ -1,6 +1,10 @@
 from django.db import models
 
 # Create your models here.
+UNIT_TYPES = (
+    ('W', 'Wet'),
+    ('D', 'Dry'),
+)
 
 
 class Recipe(models.Model):
@@ -10,24 +14,30 @@ class Recipe(models.Model):
     instructions = models.TextField(blank=True, null=True)
     author = models.ForeignKey(
         'auth.User', related_name='recipes', on_delete=models.SET_NULL, null=True, blank=True)
+
     def __str__(self):
         return self.title
 
+
 class RecipeStep(models.Model):
-    recipe = models.ForeignKey('Recipe', related_name='steps', on_delete=models.CASCADE)
+    recipe = models.ForeignKey(
+        'Recipe', related_name='steps', on_delete=models.CASCADE)
     number = models.IntegerField()
     instruction = models.TextField()
 
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=100)
-    units = models.CharField(max_length=100)
+    unitType = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
 
     def __str__(self):
         return self.name
 
-class Units(models.Model):
+
+class Unit(models.Model):
     name = models.CharField(max_length=100)
+    unitType = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
+
 
 class RecipeIngredientLink(models.Model):
     recipe = models.ForeignKey('Recipe',
@@ -35,6 +45,8 @@ class RecipeIngredientLink(models.Model):
     ingredient = models.ForeignKey('Ingredient',
                                    related_name='ri_ingredient', on_delete=models.CASCADE)
     quantity = models.FloatField()
+    unit = models.ForeignKey(
+        'Unit', related_name="units", on_delete=models.CASCADE)
 
 
 class Tag(models.Model):
