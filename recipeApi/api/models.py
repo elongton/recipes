@@ -37,6 +37,9 @@ class Ingredient(models.Model):
 class Unit(models.Model):
     name = models.CharField(max_length=100)
     unitType = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
+    
+    def __str__(self):
+        return self.name
 
 
 class RecipeIngredientLink(models.Model):

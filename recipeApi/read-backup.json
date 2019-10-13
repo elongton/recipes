@@ -1,0 +1,42 @@
+{ 
+   "recipes":[ 
+      { 
+         "title":"title1",
+         "description":"description1",
+         "image":"image1",
+         "ingredients":"ingredients",
+         "steps":"steps"
+      },
+      { 
+         "title":"title2",
+         "description":"description1",
+         "image":"image1",
+         "ingredients":"ingredients",
+         "steps":"steps"
+      }
+   ],
+   "ingredients":[
+      {
+         "name": "Salt",
+         "unitType": "D"
+      }
+   ],
+   "units":[
+    {
+        "name": "teaspoon",
+        "unitType": "D"
+    },
+    {
+        "name": "fluid ounce",
+        "unitType": "W"
+    },
+    {
+        "name": "tablespoon",
+        "unitType": "D"
+    },
+    {
+        "name": "cup",
+        "unitType": "W"
+    }
+]
+}
