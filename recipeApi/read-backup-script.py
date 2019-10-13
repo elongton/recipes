@@ -25,8 +25,11 @@ with open('read-backup.json') as json_file:
 
 #### CREATE INGREDIENTS
     for ingredient in data['ingredients']:
-        Ingredient.objects.create(
-            name= ingredient['name'],
-            unitType = ingredient['unitType']
-        ) 
+        if Ingredient.objects.filter(name=ingredient['name'], unitType=ingredient['unitType']):
+            pass
+        else:
+            Ingredient.objects.create(
+                name= ingredient['name'],
+                unitType = ingredient['unitType']
+            ) 
     print('ingredients created')
