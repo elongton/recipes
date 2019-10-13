@@ -1,27 +1,33 @@
 <h1 class="sticky">Recipe List</h1>
 
 <ng-container *ngIf="recipes">
-  <input [(ngModel)]="selected" [typeahead]="names" class="form-control" placeholder="Search a recipe or ingredient">
+  <input
+    [(ngModel)]="selected"
+    [typeahead]="names"
+    class="form-control"
+    placeholder="Search a recipe or ingredient"
+  />
 
   <ul class="list-group mt-3" *ngFor="let recipe of recipes">
-    <li class="list-group-item d-flex align-items-center justify-content-between" (click)="nagivateToRecipe(recipe.id)">
+    <li
+      class="list-group-item d-flex align-items-center justify-content-between"
+      (click)="recipeService.nagivateToRecipe(recipe.id)"
+    >
       {{ recipe.title }}
-      <button class="btn btn-outline-danger" (click)="recipeService.deleteRecipe(recipe); $event.stopPropagation();">
-        <fa-icon icon=times></fa-icon>
+      <button
+        class="btn btn-outline-danger"
+        (click)="recipeService.deleteRecipe(recipe); $event.stopPropagation()"
+      >
+        <fa-icon icon="times"></fa-icon>
       </button>
     </li>
   </ul>
 
-
-
   <a [routerLink]="['/recipe/new']">
     <div class="add-recipe-button">
-      <fa-icon icon=plus></fa-icon>
+      <fa-icon icon="plus"></fa-icon>
     </div>
   </a>
 </ng-container>
-
-
-
 
 <router-outlet></router-outlet>

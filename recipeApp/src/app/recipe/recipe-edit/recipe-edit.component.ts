@@ -76,7 +76,7 @@ export class RecipeEditComponent implements OnInit {
     formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
     formDataToSend.append("image", this.selectedFile, this.selectedFile.name);
     this.recipeService.submitRecipe(formDataToSend).subscribe(result => {
-      console.log(result);
+      this.recipeService.nagivateToRecipe(result.id);
     });
   }
 

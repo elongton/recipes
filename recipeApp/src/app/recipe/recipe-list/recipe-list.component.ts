@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { RecipeService } from "../recipe.service";
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-recipe-list",
@@ -12,10 +12,7 @@ export class RecipeListComponent implements OnInit {
   selected;
   names: string[] = [];
 
-
-  constructor(
-    public recipeService: RecipeService,
-    private router: Router, ) { }
+  constructor(public recipeService: RecipeService, private router: Router) {}
 
   ngOnInit() {
     this.recipeService.recipes$.subscribe(result => {
@@ -26,14 +23,8 @@ export class RecipeListComponent implements OnInit {
           that.names.push(element.title);
         });
       }
-
-    })
-
-  }
-  nagivateToRecipe(id) {
-    this.router.navigate(['/recipe/view', id])
+    });
   }
 }
-
 
 // [routerLink]="['/recipe/view', recipe.id]

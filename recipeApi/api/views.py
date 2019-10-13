@@ -32,7 +32,6 @@ class RecipeList(generics.ListCreateAPIView):
             description=data['description'],
             image=image
         )
-
         # get list of ingredients from request, and add them to link table
         try:
             for ingredient in ingredients:
