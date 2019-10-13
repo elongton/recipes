@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject } from "rxjs";
-import { tap } from "rxjs/operators";
+import { BehaviorSubject, of } from "rxjs";
+import { tap, map, catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 
@@ -9,15 +9,19 @@ import { environment } from "src/environments/environment";
   providedIn: "root"
 })
 export class RecipeService {
-  recipes$ = new BehaviorSubject(null);
-  constructor(private http: HttpClient, private router: Router) {}
+  recipes$ = new BehaviorSubject<any[]>([]);
+  constructor(private http: HttpClient, private router: Router) { }
 
   getRecipes() {
-    return this.http.get(`api/recipes/`).subscribe(result => {
+    return this.http.get<any[]>(`api/recipes/`).subscribe(result => {
       this.recipes$.next(result);
       console.log("got recipes");
     });
   }
+  getIngredients() {
+    return this.http.get<any[]>(`api/ingredients/`);
+  }
+
 
   submitRecipe(recipe) {
     return this.http
