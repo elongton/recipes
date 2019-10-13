@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   constructor(private recipeService: RecipeService) {}
 
   ngOnInit() {
-    console.log("load");
+    // console.log("load");
     this.recipeService.getRecipes();
     this.recipeService.getIngredients();
     this.recipeService.getUnits();

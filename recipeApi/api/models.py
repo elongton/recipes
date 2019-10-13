@@ -6,25 +6,15 @@ UNIT_TYPES = (
     ('D', 'Dry'),
 )
 
-
 class Recipe(models.Model):
     title = models.CharField(max_length=100, default='')
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
-    instructions = models.TextField(blank=True, null=True)
     author = models.ForeignKey(
         'auth.User', related_name='recipes', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.title
-
-
-class RecipeStep(models.Model):
-    recipe = models.ForeignKey(
-        'Recipe', related_name='steps', on_delete=models.CASCADE)
-    number = models.IntegerField()
-    instruction = models.TextField()
-
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=100)
@@ -33,13 +23,25 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.name
 
-
 class Unit(models.Model):
     name = models.CharField(max_length=100)
     unitType = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
     
     def __str__(self):
         return self.name
+
+
+
+
+class RecipeStep(models.Model):
+    recipe = models.ForeignKey(
+        'Recipe', related_name='steps', on_delete=models.CASCADE)
+    number = models.IntegerField()
+    instruction = models.TextField()
+
+    def __str__(self):
+        return self.recipe + self.number
+
 
 
 class RecipeIngredientLink(models.Model):
@@ -51,10 +53,8 @@ class RecipeIngredientLink(models.Model):
     unit = models.ForeignKey(
         'Unit', related_name="units", on_delete=models.CASCADE)
 
-
 class Tag(models.Model):
     name = models.CharField(max_length=100)
-
 
 class RecipeTagLink(models.Model):
     recipe = models.ForeignKey('Recipe',

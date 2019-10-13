@@ -29,11 +29,11 @@ export class RecipeEditComponent implements OnInit {
     this.buildForm();
     this.recipeService.ingredients$.subscribe(result => {
       this.ingredientList = result;
-      console.log(this.ingredientList);
+      // console.log(this.ingredientList);
     });
     this.recipeService.units$.subscribe(result => {
       this.unitList = result;
-      console.log(this.unitList);
+      // console.log(this.unitList);
     });
   }
 

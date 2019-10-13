@@ -29,7 +29,7 @@ export class RecipeService {
 
   getUnits(){
     return this.http.get<any[]>(`api/units/`).subscribe(result => {
-      console.log(result)
+      // console.log(result)
       this.units$.next(result)
       console.log("got units")
     })
