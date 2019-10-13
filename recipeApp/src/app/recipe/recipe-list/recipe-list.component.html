@@ -14,12 +14,27 @@
       (click)="recipeService.nagivateToRecipe(recipe.id)"
     >
       {{ recipe.title }}
-      <button
-        class="btn btn-outline-danger"
-        (click)="recipeService.deleteRecipe(recipe); $event.stopPropagation()"
-      >
-        <fa-icon icon="times"></fa-icon>
-      </button>
+      <div>
+        <button
+          #deleteButton
+          class="btn btn-danger mr-2"
+          style="display:none;"
+          (click)="recipeService.deleteRecipe(recipe); $event.stopPropagation()"
+        >
+          Sure?
+        </button>
+        <button
+          class="btn btn-outline-danger"
+          (click)="
+            deleteButton.style.display == 'none'
+              ? (deleteButton.style.display = 'inline')
+              : (deleteButton.style.display = 'none');
+            $event.stopPropagation()
+          "
+        >
+          <fa-icon icon="times"></fa-icon>
+        </button>
+      </div>
     </li>
   </ul>
 

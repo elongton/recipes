@@ -26,5 +26,3 @@ export class RecipeListComponent implements OnInit {
     });
   }
 }
-
-// [routerLink]="['/recipe/view', recipe.id]
