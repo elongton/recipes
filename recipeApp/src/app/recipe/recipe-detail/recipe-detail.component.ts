@@ -10,7 +10,9 @@ import { Subscription } from "rxjs";
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
   recipe;
+  units;
   recipeSubscription: Subscription;
+  unitSubscription: Subscription;
   constructor(
     private recipeService: RecipeService,
     private route: ActivatedRoute
@@ -21,11 +23,24 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.recipeSubscription = this.recipeService.recipes$.subscribe(result => {
       if (result) {
         this.recipe = result.find(x => x.id === Number(recipeId));
+        console.log(this.recipe)
       }
     });
+    this.unitSubscription = this.recipeService.units$.subscribe(result => {
+      this.units = result;
+    })
+  }
+
+  getIngredientUnit(unitId: Number){
+    if (this.units){
+    return this.units.find(item => {return item.id == unitId}).name
+    }else{
+      return null
+    }
   }
 
   ngOnDestroy() {
     this.recipeSubscription.unsubscribe();
+    this.unitSubscription.unsubscribe();
   }
 }

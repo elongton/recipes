@@ -27,7 +27,7 @@
               <tr>
                 <td>{{ ingredient.ingredient.name }}</td>
                 <td>{{ ingredient.quantity }}</td>
-                <td>{{ ingredient.ingredient.unitType }}</td>
+                <td>{{ getIngredientUnit(ingredient.unit) }}</td>
               </tr>
             </ng-container>
           </tbody>
