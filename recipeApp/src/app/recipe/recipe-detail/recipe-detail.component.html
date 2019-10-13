@@ -1,14 +1,17 @@
 <ng-container *ngIf="recipe">
   <app-popover>
-    <h1 header style="margin-bottom: 0;">{{recipe.title}}</h1>
+    <h1 header style="margin-bottom: 0;">{{ recipe.title }}</h1>
     <div body>
-
-      <div class="image recipe-section"
-        [ngStyle]="{ 'background-image': 'url(http://localhost:8000' + recipe.image + ')'}"
-        style="height: 250px; background-position: center;">
-      </div>
+      <div
+        class="image recipe-section"
+        *ngIf="recipe.image"
+        [ngStyle]="{
+          'background-image': 'url(http://localhost:8000' + recipe.image + ')'
+        }"
+        style="height: 250px; background-position: center;"
+      ></div>
       <div class="description recipe-section">
-        {{recipe.description}}
+        {{ recipe.description }}
       </div>
       <div class="ingredients recipe-section">
         <table>
@@ -22,12 +25,11 @@
           <tbody>
             <ng-container *ngFor="let ingredient of recipe.ingredients">
               <tr>
-                <td>{{ingredient.ingredient.name}}</td>
-                <td>{{ingredient.quantity}}</td>
-                <td>{{ingredient.ingredient.units}}</td>
+                <td>{{ ingredient.ingredient.name }}</td>
+                <td>{{ ingredient.quantity }}</td>
+                <td>{{ ingredient.ingredient.units }}</td>
               </tr>
             </ng-container>
-
           </tbody>
         </table>
       </div>
@@ -35,9 +37,11 @@
         <h3>Instructions</h3>
         <ng-container *ngFor="let step of recipe.steps">
           <div style="display:flex; align-items: center;">
-            <h5 style="margin:0; padding: 0;" class="mr-3">{{step.number}}</h5>
+            <h5 style="margin:0; padding: 0;" class="mr-3">
+              {{ step.number }}
+            </h5>
             <div>
-              {{step.instruction}}
+              {{ step.instruction }}
             </div>
           </div>
         </ng-container>
