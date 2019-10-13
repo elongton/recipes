@@ -1,5 +1,10 @@
 from rest_framework import serializers
-from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep
+from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep, Unit
+
+class UnitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Unit
+        fields = ['id', 'name', 'unitType']
 
 
 class IngredientSerializer(serializers.ModelSerializer):

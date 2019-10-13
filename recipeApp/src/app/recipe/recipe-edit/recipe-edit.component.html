@@ -46,7 +46,7 @@
           let i = index
         "
       >
-        <div [formGroupName]="i" class="d-flex" style="width: 50%;">
+        <div [formGroupName]="i" class="d-flex" style="width: 60%;">
           <!-- <input
             type="text"
             formControlName="ingredientId"
@@ -61,13 +61,23 @@
               {{ ingredient.name }}</option
             >
           </select>
-
           <input
-            type="text"
+            type="number"
             formControlName="quantity"
             placeholder="Quantity"
             class="form-control ml-2"
           />
+          <select *ngIf="checkIfIngredient(i)" class="form-control ml-2" formControlName="unitId">
+            <option
+              *ngFor="let unit of unitList | filter:'unitType': getSelectedIngredientUnitType(i)"
+              [ngValue]="unit.id"
+            >
+              {{ unit.name }}</option
+            >
+          </select>
+          
+          <!-- <button class="btn btn-success ml-2" (click)='checkIfIngredient(i)'>Print</button> -->
+
           <div>
             <button class="btn btn-light ml-2" (click)="removeIngredient(i)">
               <fa-icon icon="times"></fa-icon>

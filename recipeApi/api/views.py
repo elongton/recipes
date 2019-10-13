@@ -1,5 +1,5 @@
 from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep, Unit
-from api.serializers import RecipeSerializer, IngredientSerializer
+from api.serializers import RecipeSerializer, IngredientSerializer, UnitSerializer
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 import json
@@ -79,3 +79,10 @@ class IngredientDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+
+
+
+class UnitList(generics.ListCreateAPIView):
+    permission_classes = [permissions.AllowAny]
+    queryset = Unit.objects.all()
+    serializer_class = UnitSerializer

@@ -11,6 +11,7 @@ import { environment } from "src/environments/environment";
 export class RecipeService {
   recipes$ = new BehaviorSubject<any[]>([]);
   ingredients$ = new BehaviorSubject<any[]>([]);
+  units$ = new BehaviorSubject<any[]>([])
   constructor(private http: HttpClient, private router: Router) {}
 
   getRecipes() {
@@ -24,6 +25,14 @@ export class RecipeService {
       this.ingredients$.next(result);
       console.log("got ingredients");
     });
+  }
+
+  getUnits(){
+    return this.http.get<any[]>(`api/units/`).subscribe(result => {
+      console.log(result)
+      this.units$.next(result)
+      console.log("got units")
+    })
   }
 
   submitRecipe(recipe) {

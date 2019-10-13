@@ -13,6 +13,7 @@ export class RecipeEditComponent implements OnInit {
   recipeForm: FormGroup;
   selectedFile: File;
   ingredientList = [];
+  unitList = [];
   uploadedImage;
   ingredients;
   steps;
@@ -30,6 +31,10 @@ export class RecipeEditComponent implements OnInit {
       this.ingredientList = result;
       console.log(this.ingredientList);
     });
+    this.recipeService.units$.subscribe(result => {
+      this.unitList = result;
+      console.log(this.unitList);
+    });
   }
 
   buildForm() {
@@ -44,7 +49,8 @@ export class RecipeEditComponent implements OnInit {
   createIngredient(): FormGroup {
     return this.formBuilder.group({
       ingredientId: "",
-      quantity: ""
+      quantity: "",
+      unitId: 1
     });
   }
   createStep(index): FormGroup {
@@ -78,6 +84,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   submit() {
+    console.log(this.recipeForm.value);
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
     formDataToSend.append("image", this.selectedFile, this.selectedFile.name);
@@ -92,5 +99,13 @@ export class RecipeEditComponent implements OnInit {
       that.uploadedImage = e.target["result"];
     };
     reader.readAsDataURL(this.selectedFile);
+  }
+
+  checkIfIngredient(i){
+    return this.recipeForm.controls.ingredients.value[i].ingredientId ?  true :  false
+  }
+  getSelectedIngredientUnitType(i){
+    let unitId = this.recipeForm.controls.ingredients.value[i].unitId;
+    return this.unitList.filter(u => u.id == unitId)[0].unitType
   }
 }

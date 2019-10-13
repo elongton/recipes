@@ -3,6 +3,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { FilterPipe } from './pipes/filter.pipe'
 import {
     fas,
     faArrowLeft,
@@ -14,6 +15,7 @@ import {
 
 @NgModule({
     declarations: [
+        FilterPipe
     ],
     imports: [
         CommonModule,
@@ -21,6 +23,7 @@ import {
         RouterModule,
     ],
     exports: [
+        FilterPipe,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
