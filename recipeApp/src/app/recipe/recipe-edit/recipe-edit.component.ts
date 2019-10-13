@@ -12,6 +12,7 @@ import { HttpResponse } from "@angular/common/http";
 export class RecipeEditComponent implements OnInit {
   recipeForm: FormGroup;
   selectedFile: File;
+  ingredientList = [];
   uploadedImage;
   ingredients;
   steps;
@@ -25,6 +26,10 @@ export class RecipeEditComponent implements OnInit {
   ngOnInit() {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.buildForm();
+    this.recipeService.ingredients$.subscribe(result => {
+      this.ingredientList = result;
+      console.log(this.ingredientList);
+    });
   }
 
   buildForm() {

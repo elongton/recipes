@@ -10,7 +10,8 @@ import { environment } from "src/environments/environment";
 })
 export class RecipeService {
   recipes$ = new BehaviorSubject<any[]>([]);
-  constructor(private http: HttpClient, private router: Router) { }
+  ingredients$ = new BehaviorSubject<any[]>([]);
+  constructor(private http: HttpClient, private router: Router) {}
 
   getRecipes() {
     return this.http.get<any[]>(`api/recipes/`).subscribe(result => {
@@ -19,45 +20,22 @@ export class RecipeService {
     });
   }
   getIngredients() {
-    return this.http.get<any[]>(`api/ingredients/`);
+    return this.http.get<any[]>(`api/ingredients/`).subscribe(result => {
+      this.ingredients$.next(result);
+      console.log("got ingredients");
+    });
   }
 
-
   submitRecipe(recipe) {
-    return this.http
-      .post<any>(
-        `api/recipes/`,
-        recipe
-        // {
-        //   reportProgress: true,
-        //   observe: "events"
-        // }
-      )
-      .pipe(
-        tap(result => {
-          // try {
-          //   if (result["body"] !== undefined) {
-          //     let currentRecipeList = this.recipes$.getValue();
-          //     currentRecipeList.push(result["body"]);
-          //     this.recipes$.next(currentRecipeList);
-          //     this.nagivateToRecipe(result["body"].id);
-          //   }
-          // } catch (e) {
-          //   console.log(e);
-          // }
-          // console.log(event);
-
-          let currentRecipeList = this.recipes$.getValue();
-          result.image = result.image.replace(environment.domain, "");
-          currentRecipeList.push(result);
-          this.recipes$.next(currentRecipeList);
-          this.nagivateToRecipe(result.id);
-          // let that = this;
-          // setTimeout(function() {
-          //   that.nagivateToRecipe(result.id);
-          // }, 2000);
-        })
-      );
+    return this.http.post<any>(`api/recipes/`, recipe).pipe(
+      tap(result => {
+        let currentRecipeList = this.recipes$.getValue();
+        result.image = result.image.replace(environment.domain, "");
+        currentRecipeList.push(result);
+        this.recipes$.next(currentRecipeList);
+        this.nagivateToRecipe(result.id);
+      })
+    );
   }
 
   deleteRecipe(recipe) {

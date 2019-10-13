@@ -22,14 +22,12 @@ export class RecipeListComponent implements OnInit {
     this.recipeService.recipes$.subscribe(result => {
       this.names = [];
       this.recipes = result;
-      this.spreadContributorsIntoNamesArray(this.ingredients, "name");
-      this.spreadContributorsIntoNamesArray(this.recipes, "title");
+      this.itemsToAdd();
     });
-    this.recipeService.getIngredients().subscribe(result => {
+    this.recipeService.ingredients$.subscribe(result => {
       this.names = [];
       this.ingredients = result;
-      this.spreadContributorsIntoNamesArray(this.ingredients, "name");
-      this.spreadContributorsIntoNamesArray(this.recipes, "title");
+      this.itemsToAdd();
     });
   }
 
@@ -38,5 +36,9 @@ export class RecipeListComponent implements OnInit {
     collection.forEach(element => {
       that.names.push(element[key]);
     });
+  }
+  itemsToAdd() {
+    this.spreadContributorsIntoNamesArray(this.ingredients, "name");
+    this.spreadContributorsIntoNamesArray(this.recipes, "title");
   }
 }

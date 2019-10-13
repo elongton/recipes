@@ -47,12 +47,21 @@
         "
       >
         <div [formGroupName]="i" class="d-flex" style="width: 50%;">
-          <input
+          <!-- <input
             type="text"
             formControlName="ingredientId"
             placeholder="Ingredient"
             class="form-control"
-          />
+          /> -->
+          <select class="form-control" formControlName="ingredientId">
+            <option
+              *ngFor="let ingredient of ingredientList"
+              [ngValue]="ingredient.id"
+            >
+              {{ ingredient.name }}</option
+            >
+          </select>
+
           <input
             type="text"
             formControlName="quantity"
