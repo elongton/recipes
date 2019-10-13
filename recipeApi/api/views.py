@@ -23,6 +23,7 @@ class RecipeList(generics.ListCreateAPIView):
         # else:
         #     recipeObj = serializer.save(author=None)
         image = self.request.data['image']
+        print(image)
         data = json.loads(self.request.data['fields'])
         ingredients = data['ingredients']
         steps = data['steps']
@@ -43,10 +44,11 @@ class RecipeList(generics.ListCreateAPIView):
         except:
             print('no ingredients')
 
-        #get list of steps from request, and add them to link table
+        # get list of steps from request, and add them to link table
         try:
             for step in steps:
-                recipeStep = RecipeStep(recipe=recipeObj, number=step['number'], instruction=step['instruction'])
+                recipeStep = RecipeStep(
+                    recipe=recipeObj, number=step['number'], instruction=step['instruction'])
                 recipeStep.save()
         except:
             print('no steps')

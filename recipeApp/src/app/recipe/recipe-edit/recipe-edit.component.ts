@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { RecipeService } from "../recipe.service";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
+import { HttpResponse } from "@angular/common/http";
 
 @Component({
   selector: "app-recipe-edit",
@@ -75,9 +76,7 @@ export class RecipeEditComponent implements OnInit {
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
     formDataToSend.append("image", this.selectedFile, this.selectedFile.name);
-    this.recipeService.submitRecipe(formDataToSend).subscribe(result => {
-      this.recipeService.nagivateToRecipe(result.id);
-    });
+    this.recipeService.submitRecipe(formDataToSend).subscribe();
   }
 
   onFileChanged(event) {

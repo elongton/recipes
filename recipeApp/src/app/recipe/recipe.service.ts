@@ -1,12 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { tap } from "rxjs/operators";
 import { Router } from "@angular/router";
-
-const HttpUploadOptions = {
-  headers: new HttpHeaders({ Accept: "application/json" })
-};
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -23,13 +20,40 @@ export class RecipeService {
   }
 
   submitRecipe(recipe) {
-    return this.http.post<any>(`api/recipes/`, recipe, HttpUploadOptions).pipe(
-      tap(result => {
-        let currentRecipeList = this.recipes$.getValue();
-        currentRecipeList.push(result);
-        this.recipes$.next(currentRecipeList);
-      })
-    );
+    return this.http
+      .post<any>(
+        `api/recipes/`,
+        recipe
+        // {
+        //   reportProgress: true,
+        //   observe: "events"
+        // }
+      )
+      .pipe(
+        tap(result => {
+          // try {
+          //   if (result["body"] !== undefined) {
+          //     let currentRecipeList = this.recipes$.getValue();
+          //     currentRecipeList.push(result["body"]);
+          //     this.recipes$.next(currentRecipeList);
+          //     this.nagivateToRecipe(result["body"].id);
+          //   }
+          // } catch (e) {
+          //   console.log(e);
+          // }
+          // console.log(event);
+
+          let currentRecipeList = this.recipes$.getValue();
+          result.image = result.image.replace(environment.domain, "");
+          currentRecipeList.push(result);
+          this.recipes$.next(currentRecipeList);
+          this.nagivateToRecipe(result.id);
+          // let that = this;
+          // setTimeout(function() {
+          //   that.nagivateToRecipe(result.id);
+          // }, 2000);
+        })
+      );
   }
 
   deleteRecipe(recipe) {
