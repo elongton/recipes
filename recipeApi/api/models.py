@@ -4,6 +4,7 @@ from django.db import models
 UNIT_TYPES = (
     ('W', 'Wet'),
     ('D', 'Dry'),
+    ('P', 'Poultry')
 )
 
 class Recipe(models.Model):
@@ -29,8 +30,6 @@ class Unit(models.Model):
     
     def __str__(self):
         return self.name
-
-
 
 
 class RecipeStep(models.Model):
