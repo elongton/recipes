@@ -11,6 +11,7 @@ import { HttpResponse } from "@angular/common/http";
 })
 export class RecipeEditComponent implements OnInit {
   recipeForm: FormGroup;
+  recipeToEdit;
   selectedFile: File;
   ingredientList = [];
   unitList = [];
@@ -27,13 +28,19 @@ export class RecipeEditComponent implements OnInit {
   ngOnInit() {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.buildForm();
+    if (recipeId){
+      this.recipeService.recipes$.subscribe(result =>{
+        this.recipeToEdit = result.find(r => r.id == recipeId)
+        if (this.recipeToEdit){
+          this.recipeForm.patchValue(this.recipeToEdit)
+        }
+      })
+    }
     this.recipeService.ingredients$.subscribe(result => {
       this.ingredientList = result;
-      console.log(this.ingredientList);
     });
     this.recipeService.units$.subscribe(result => {
       this.unitList = result;
-      console.log(this.unitList);
     });
   }
 

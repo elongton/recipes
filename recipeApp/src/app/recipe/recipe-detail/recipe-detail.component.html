@@ -2,7 +2,14 @@
   <app-popover>
     <div header>
       <h1 style="margin-bottom: 0;">{{ recipe.title }}</h1>
-      <fa-icon icon=edit></fa-icon>
+      <a [routerLink]="['/recipe/edit/', recipe.id]">
+        <!-- <div style="position:absolute; top: 10px; right: 10px;">
+          <fa-icon icon=edit></fa-icon>
+        </div> -->
+        <div style="position: absolute; top: 10px; right: 10px; padding-left: 10px; padding-top: 10px;">
+            <fa-icon icon=edit style="font-size: 15px;"></fa-icon>
+        </div>
+      </a>
     </div>
 
     <div body>
@@ -40,11 +47,11 @@
       <div class="instructions recipe-section">
         <h3>Instructions</h3>
         <ng-container *ngFor="let step of recipe.steps">
-          <div style="display:flex; align-items: center;">
+          <div style="display:flex;">
             <h5 style="margin:0; padding: 0;" class="mr-3">
               {{ step.number }}
             </h5>
-            <div>
+            <div style="padding-top: 2px;">
               {{ step.instruction }}
             </div>
           </div>

@@ -1,7 +1,13 @@
 <input type="file" (change)="onFileChanged($event)" style="display:none;" #fileInput />
 
 <app-popover>
-  <h1 header style="margin-bottom: 0;">Add Recipe</h1>
+  <div header>
+      <h1 *ngIf="!recipeToEdit; else editRecipe" style="margin-bottom: 0;">Add Recipe</h1>
+      <ng-template #editRecipe>
+          <h1 style="margin-bottom: 0;">EDIT {{recipeToEdit.title}}</h1>
+      </ng-template>
+  </div>
+
   <div body>
     <form [formGroup]="recipeForm">
       <!-- <h4>General</h4> -->
