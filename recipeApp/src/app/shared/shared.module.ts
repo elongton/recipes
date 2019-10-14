@@ -9,7 +9,8 @@ import {
     faArrowLeft,
     faPlus,
     faMinus,
-    faTimes
+    faTimes,
+    faEdit
 } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -37,7 +38,8 @@ export class SharedModule {
             faArrowLeft,
             faPlus,
             faMinus,
-            faTimes);
+            faTimes,
+            faEdit);
     }
 
 }

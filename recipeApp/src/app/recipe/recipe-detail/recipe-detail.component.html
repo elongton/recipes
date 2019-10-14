@@ -1,20 +1,24 @@
 <ng-container *ngIf="recipe">
   <app-popover>
-    <h1 header style="margin-bottom: 0;">{{ recipe.title }}</h1>
+    <div header>
+      <h1 style="margin-bottom: 0;">{{ recipe.title }}</h1>
+      <fa-icon icon=edit></fa-icon>
+    </div>
+
     <div body>
-      <div
-        class="image recipe-section"
-        *ngIf="recipe.image"
-        [ngStyle]="{
+      <div class="image recipe-section" *ngIf="recipe.image" [ngStyle]="{
           'background-image': 'url(http://localhost:8000' + recipe.image + ')'
-        }"
-        style="height: 250px; background-position: center; background-size: cover;"
-      ></div>
+        }" style="height: 250px; background-position: center; background-size: cover;"></div>
       <div class="description recipe-section">
         {{ recipe.description }}
       </div>
       <div class="ingredients recipe-section">
-        <table>
+        <h3>Ingredients</h3>
+        <ng-container *ngFor="let ingredient of recipe.ingredients">
+          <span>{{ ingredient.quantity }} {{ getIngredientUnit(ingredient.unit) }}
+            {{ ingredient.ingredient.name }}</span><br>
+        </ng-container>
+        <!-- <table>
           <thead>
             <tr>
               <th>Ingredient</th>
@@ -31,7 +35,7 @@
               </tr>
             </ng-container>
           </tbody>
-        </table>
+        </table> -->
       </div>
       <div class="instructions recipe-section">
         <h3>Instructions</h3>
