@@ -3,11 +3,8 @@
     <div header>
       <h1 style="margin-bottom: 0;">{{ recipe.title }}</h1>
       <a [routerLink]="['/recipe/edit/', recipe.id]">
-        <!-- <div style="position:absolute; top: 10px; right: 10px;">
-          <fa-icon icon=edit></fa-icon>
-        </div> -->
-        <div style="position: absolute; top: 10px; right: 10px; padding-left: 10px; padding-top: 10px;">
-            <fa-icon icon=edit style="font-size: 15px;"></fa-icon>
+        <div>
+          <fa-icon icon=edit style="font-size: 15px;"></fa-icon>
         </div>
       </a>
     </div>
@@ -25,24 +22,6 @@
           <span>{{ ingredient.quantity }} {{ getIngredientUnit(ingredient.unit) }}
             {{ ingredient.ingredient.name }}</span><br>
         </ng-container>
-        <!-- <table>
-          <thead>
-            <tr>
-              <th>Ingredient</th>
-              <th>Quantity</th>
-              <th>Units</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let ingredient of recipe.ingredients">
-              <tr>
-                <td>{{ ingredient.ingredient.name }}</td>
-                <td>{{ ingredient.quantity }}</td>
-                <td>{{ getIngredientUnit(ingredient.unit) }}</td>
-              </tr>
-            </ng-container>
-          </tbody>
-        </table> -->
       </div>
       <div class="instructions recipe-section">
         <h3>Instructions</h3>

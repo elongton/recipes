@@ -2,15 +2,14 @@
 
 <app-popover>
   <div header>
-      <h1 *ngIf="!recipeToEdit; else editRecipe" style="margin-bottom: 0;">Add Recipe</h1>
-      <ng-template #editRecipe>
-          <h1 style="margin-bottom: 0;">EDIT {{recipeToEdit.title}}</h1>
-      </ng-template>
+    <h1 *ngIf="!recipeToEdit; else editRecipe" style="margin-bottom: 0;">Add Recipe</h1>
+    <ng-template #editRecipe>
+      <h1 style="margin-bottom: 0;">EDIT {{recipeToEdit.title}}</h1>
+    </ng-template>
   </div>
 
   <div body>
     <form [formGroup]="recipeForm">
-      <!-- <h4>General</h4> -->
       <input type="text" formControlName="title" class="form-control" placeholder="Recipe Title" />
       <textarea type="text" formControlName="description" class="form-control"
         placeholder="Recipe Description"></textarea>
@@ -32,27 +31,29 @@
           let ingredient of recipeForm.get('ingredients')['controls'];
           let i = index
         ">
-        <div [formGroupName]="i" class="d-flex" style="width: 60%;">
-          <select class="form-control" formControlName="ingredientId">
+        <div [formGroupName]="i" class="d-flex">
+          <div>
+            <button class="btn btn-light mr-2" (click)="removeIngredient(i)">
+              <fa-icon icon="times"></fa-icon>
+            </button>
+          </div>
+          <select class="form-control ingredient-input" formControlName="ingredientId">
             <option *ngFor="let ingredient of ingredientList" [ngValue]="ingredient.id">
               {{ ingredient.name }}</option>
           </select>
-          <select *ngIf="checkIfIngredient(i)" class="form-control ml-2" formControlName="unitId">
+          <select *ngIf="checkIfIngredient(i)" class="form-control ml-2 ingredient-input" formControlName="unitId">
             <option *ngFor="let unit of unitList | filter:'unitType': getSelectedIngredientUnitType(i)"
               [ngValue]="unit.id">
               {{ unit.name }}</option>
           </select>
 
-          <input type="number" formControlName="quantity" placeholder="Quantity" class="form-control ml-2" />
+          <input type="number" formControlName="quantity" placeholder="Quantity"
+            class="form-control ml-2 ingredient-input" />
 
 
           <!-- <button class="btn btn-success ml-2" (click)='checkIfIngredient(i)'>Print</button> -->
 
-          <div>
-            <button class="btn btn-light ml-2" (click)="removeIngredient(i)">
-              <fa-icon icon="times"></fa-icon>
-            </button>
-          </div>
+
         </div>
       </ng-container>
       <div class="d-flex section-heading">
@@ -63,13 +64,13 @@
       </div>
       <ng-container formArrayName="steps" *ngFor="let steps of recipeForm.get('steps')['controls']; let i = index">
         <div [formGroupName]="i" class="d-flex">
-          <textarea type="text" formControlName="instruction" placeholder="Instructions"
-            class="form-control"></textarea>
           <div>
-            <button class="btn btn-light ml-2" (click)="removeStep(i)">
+            <button class="btn btn-light mr-2" (click)="removeStep(i)">
               <fa-icon icon="times"></fa-icon>
             </button>
           </div>
+          <textarea type="text" formControlName="instruction" placeholder="Instructions"
+            class="form-control"></textarea>
         </div>
       </ng-container>
 

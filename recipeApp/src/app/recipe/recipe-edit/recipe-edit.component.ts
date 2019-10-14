@@ -28,10 +28,26 @@ export class RecipeEditComponent implements OnInit {
   ngOnInit() {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.buildForm();
-    if (recipeId){
-      this.recipeService.recipes$.subscribe(result =>{
+    if (recipeId) {
+      this.recipeService.recipes$.subscribe(result => {
         this.recipeToEdit = result.find(r => r.id == recipeId)
-        if (this.recipeToEdit){
+        if (this.recipeToEdit) {
+          console.log(this.recipeToEdit)
+          let that = this;
+          this.recipeToEdit.ingredients.forEach(element => {
+            that.addIngredient();
+          });
+          this.recipeToEdit.steps.forEach(element => {
+            that.addStep();
+          });
+          this.ingredients = this.recipeForm.get("ingredients") as FormArray;
+          for (let i = 0; i < this.ingredients.length; i++) {
+            this.ingredients.at(i).patchValue({
+              ingredientId: this.recipeToEdit.ingredients[i].ingredient.id,
+              unitId: this.recipeToEdit.ingredients[i].unit
+            });
+          }
+
           this.recipeForm.patchValue(this.recipeToEdit)
         }
       })
@@ -48,8 +64,8 @@ export class RecipeEditComponent implements OnInit {
     this.recipeForm = this.formBuilder.group({
       title: "",
       description: "",
-      ingredients: this.formBuilder.array([this.createIngredient()]),
-      steps: this.formBuilder.array([this.createStep(1)])
+      ingredients: this.formBuilder.array([]),
+      steps: this.formBuilder.array([])
     });
   }
 
@@ -74,7 +90,6 @@ export class RecipeEditComponent implements OnInit {
   addStep(): void {
     this.steps = this.recipeForm.get("steps") as FormArray;
     this.steps.push(this.createStep(this.steps.length + 1));
-    console.log(this.steps);
   }
 
   removeIngredient(i): void {
