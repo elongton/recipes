@@ -1,7 +1,59 @@
 {
-  "people": [
-    { "name": "Scott", "website": "stackabuse.com", "from": "Nebraska" },
-    { "name": "Larry", "website": "google.com", "from": "Michigan" },
-    { "name": "Tim", "website": "apple.com", "from": "Alabama" }
+  "units": [
+    { "name": "teaspoon", "unitType": "D" },
+    { "name": "fluid ounce", "unitType": "W" },
+    { "name": "tablespoon", "unitType": "D" },
+    { "name": "cup", "unitType": "W" }
+  ],
+  "ingredients": [
+    { "name": "Salt", "unitType": "D" },
+    { "name": "Pepper", "unitType": "D" },
+    { "name": "Cardamom", "unitType": "D" }
+  ],
+  "recipes": [
+    {
+      "title": "title1",
+      "description": "description1",
+      "image": "/beef.jpg",
+      "steps": [
+        { "number": 1, "instruction": "test" },
+        { "number": 2, "instruction": "test" },
+        { "number": 3, "instruction": "test" }
+      ],
+      "ingredients": [
+        {
+          "name": "Salt",
+          "unitType": "D",
+          "quantity": 1.0,
+          "unitName": "teaspoon"
+        },
+        {
+          "name": "Pepper",
+          "unitType": "D",
+          "quantity": 1.0,
+          "unitName": "teaspoon"
+        }
+      ]
+    },
+    {
+      "title": "title2",
+      "description": "description2",
+      "image": "/beef.jpg",
+      "steps": [{ "number": 1, "instruction": "test" }],
+      "ingredients": [
+        {
+          "name": "Salt",
+          "unitType": "D",
+          "quantity": 1.0,
+          "unitName": "tablespoon"
+        },
+        {
+          "name": "Cardamom",
+          "unitType": "D",
+          "quantity": 1.0,
+          "unitName": "tablespoon"
+        }
+      ]
+    }
   ]
 }

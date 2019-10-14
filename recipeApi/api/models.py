@@ -39,8 +39,8 @@ class RecipeStep(models.Model):
     number = models.IntegerField()
     instruction = models.TextField()
 
-    def __str__(self):
-        return self.recipe + self.number
+    # def __str__(self):
+    #     return self.recipe + ' - ' + str(self.number)
 
 
 

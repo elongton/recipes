@@ -13,7 +13,7 @@ def getIngredient(name, type):
     return Ingredient.objects.get_or_create(name=name, unitType=type)
 
 
-with open('read-backup.json') as json_file:
+with open('data.json') as json_file:
     data = json.load(json_file)
 
 # CREATE UNITS
