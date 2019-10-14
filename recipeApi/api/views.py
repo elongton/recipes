@@ -26,7 +26,6 @@ class RecipeList(generics.ListCreateAPIView):
             image = self.request.data['image']
         except:
             image = None
-        print(image)
         data = json.loads(self.request.data['fields'])
         ingredients = data['ingredients']
         steps = data['steps']
@@ -37,7 +36,6 @@ class RecipeList(generics.ListCreateAPIView):
             image=image
         )
         # get list of ingredients from request, and add them to link table
-        print(ingredients)
         try:
             for ingredient in ingredients:
                 unitObj = Unit.objects.get(id=ingredient['unitId'])
@@ -67,7 +65,20 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
-
+    def perform_update(self, serializer):
+        try:
+            image = self.request.data['image']
+        except:
+            image = None
+        data = json.loads(self.request.data['fields'])
+        ingredients = data['ingredients']
+        steps = data['steps']
+        recipeObj = serializer.save(
+            author=None,
+            title=data['title'],
+            description=data['description'],
+            image=image
+        )
 
 class IngredientList(generics.ListCreateAPIView):
     permission_classes = [permissions.AllowAny]

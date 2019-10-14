@@ -13,7 +13,6 @@ import {
     faEdit
 } from '@fortawesome/free-solid-svg-icons';
 
-
 @NgModule({
     declarations: [
         FilterPipe

@@ -12,7 +12,7 @@ export class RecipeService {
   recipes$ = new BehaviorSubject<any[]>([]);
   ingredients$ = new BehaviorSubject<any[]>([]);
   units$ = new BehaviorSubject<any[]>([])
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   getRecipes() {
     return this.http.get<any[]>(`api/recipes/`).subscribe(result => {
@@ -27,7 +27,7 @@ export class RecipeService {
     });
   }
 
-  getUnits(){
+  getUnits() {
     return this.http.get<any[]>(`api/units/`).subscribe(result => {
       // console.log(result)
       this.units$.next(result)
@@ -43,6 +43,13 @@ export class RecipeService {
         currentRecipeList.push(result);
         this.recipes$.next(currentRecipeList);
         this.nagivateToRecipe(result.id);
+      })
+    );
+  }
+  updateRecipe(recipe, recipeId) {
+    return this.http.put<any>(`api/recipes/${recipeId}`, recipe).pipe(
+      tap(result => {
+        console.log(result)
       })
     );
   }
