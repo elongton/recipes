@@ -1,59 +1,181 @@
 {
-  "units": [
-    { "name": "teaspoon", "unitType": "D" },
-    { "name": "fluid ounce", "unitType": "W" },
-    { "name": "tablespoon", "unitType": "D" },
-    { "name": "cup", "unitType": "W" }
-  ],
-  "ingredients": [
-    { "name": "Salt", "unitType": "D" },
-    { "name": "Pepper", "unitType": "D" },
-    { "name": "Cardamom", "unitType": "D" }
-  ],
-  "recipes": [
-    {
-      "title": "title1",
-      "description": "description1",
-      "image": "/beef.jpg",
-      "steps": [
-        { "number": 1, "instruction": "test" },
-        { "number": 2, "instruction": "test" },
-        { "number": 3, "instruction": "test" }
-      ],
-      "ingredients": [
+    "units": [
         {
-          "name": "Salt",
-          "unitType": "D",
-          "quantity": 1.0,
-          "unitName": "teaspoon"
+            "name": "teaspoon",
+            "unitType": "D"
         },
         {
-          "name": "Pepper",
-          "unitType": "D",
-          "quantity": 1.0,
-          "unitName": "teaspoon"
-        }
-      ]
-    },
-    {
-      "title": "title2",
-      "description": "description2",
-      "image": "/beef.jpg",
-      "steps": [{ "number": 1, "instruction": "test" }],
-      "ingredients": [
-        {
-          "name": "Salt",
-          "unitType": "D",
-          "quantity": 1.0,
-          "unitName": "tablespoon"
+            "name": "fluid ounce",
+            "unitType": "W"
         },
         {
-          "name": "Cardamom",
-          "unitType": "D",
-          "quantity": 1.0,
-          "unitName": "tablespoon"
+            "name": "tablespoon",
+            "unitType": "D"
+        },
+        {
+            "name": "cup",
+            "unitType": "W"
+        },
+        {
+            "name": "pound (lb)",
+            "unitType": "P"
+        },
+        {
+            "name": "cup",
+            "unitType": "D"
         }
-      ]
-    }
-  ]
+    ],
+    "ingredients": [
+        {
+            "name": "salt",
+            "unitType": "D"
+        },
+        {
+            "name": "black pepper",
+            "unitType": "D"
+        },
+        {
+            "name": "cardamom",
+            "unitType": "D"
+        },
+        {
+            "name": "chicken",
+            "unitType": "P"
+        },
+        {
+            "name": "duck fat",
+            "unitType": "W"
+        },
+        {
+            "name": "chicken stock",
+            "unitType": "W"
+        },
+        {
+            "name": "garlic",
+            "unitType": "D"
+        },
+        {
+            "name": "shallot",
+            "unitType": "D"
+        },
+        {
+            "name": "ghee",
+            "unitType": "W"
+        },
+        {
+            "name": "lemon",
+            "unitType": "W"
+        },
+        {
+            "name": "oregano",
+            "unitType": "D"
+        },
+        {
+            "name": "lemon zest",
+            "unitType": "D"
+        },
+        {
+            "name": "cremini mushrooms",
+            "unitType": "D"
+        }
+    ],
+    "recipes": [
+        {
+            "title": "Chicken en Brodo",
+            "description": "One of the dishes my mom made in regular rotation when I was growing up was chicken a la king, a chicken dish with a creamy white mushroom sauce and biscuits.  This dish is a dairy-free spin on the old Staley family recipe.  What makes this version great, in my opinion, is the richness of the mushroom sauce paired with crispy-skinned and perfectly seasoned chicken.  This dish always feels like the perfect comfort food when the weather starts to cool off in the fall. \n",
+            "image": "/chicken_en_brodo.png",
+            "steps": [
+                {
+                    "number": 1,
+                    "instruction": "Preheat the oven to 400F.  Rinse the chicken under cold water and pat dry with a paper towel. "
+                },
+                {
+                    "number": 2,
+                    "instruction": "Starting breast side up, cut the chicken down the center between the breasts, on either side of the backbone.  Discard the back or save it for stock.  Season the chicken halves with salt.  Heat the duck fat in a 12-inch ovenproof skillet over medium-high heat.  Add the chicken halves and sear on both sides until browned.  Place the pan in the oven (with the chicken skin side up) and roast for 25 minutes.  Remove from the oven and turn the temperature down to 325F.  Pour 1/2 cup of the stock over the chicken, season with pepper, and place back in the oven for 10 minutes, or until the internal temperature of the breast reaches 165F. "
+                },
+                {
+                    "number": 3,
+                    "instruction": "Saute the garlic and shallot in the ghee over medium heat until fragrant, and season with salt and pepper.  Squeeze the lemon juice over the garlic and shallot, add the oregano and lemon zest, and stir.  Add mushrooms and continue to saute until tender.  Add the remaining 3/4 cup of stock and bring to a bubble.  Reduce the heat to low and simmer until the sauce has reduced by almost half."
+                },
+                {
+                    "number": 4,
+                    "instruction": "Divide the sauce and mushrooms between two shallow bowls.  Top each bowl with a chicken half and serve."
+                }
+            ],
+            "ingredients": [
+                {
+                    "name": "chicken",
+                    "unitType": "P",
+                    "quantity": 3.0,
+                    "unitName": "pound (lb)"
+                },
+                {
+                    "name": "salt",
+                    "unitType": "D",
+                    "quantity": 3.0,
+                    "unitName": "tablespoon"
+                },
+                {
+                    "name": "duck fat",
+                    "unitType": "W",
+                    "quantity": 1.5,
+                    "unitName": "fluid ounce"
+                },
+                {
+                    "name": "chicken stock",
+                    "unitType": "W",
+                    "quantity": 1.25,
+                    "unitName": "cup"
+                },
+                {
+                    "name": "black pepper",
+                    "unitType": "D",
+                    "quantity": 1.0,
+                    "unitName": "tablespoon"
+                },
+                {
+                    "name": "garlic",
+                    "unitType": "D",
+                    "quantity": 1.0,
+                    "unitName": "cup"
+                },
+                {
+                    "name": "shallot",
+                    "unitType": "D",
+                    "quantity": 1.0,
+                    "unitName": "cup"
+                },
+                {
+                    "name": "ghee",
+                    "unitType": "W",
+                    "quantity": 1.0,
+                    "unitName": "fluid ounce"
+                },
+                {
+                    "name": "lemon",
+                    "unitType": "W",
+                    "quantity": 1.0,
+                    "unitName": "cup"
+                },
+                {
+                    "name": "oregano",
+                    "unitType": "D",
+                    "quantity": 1.0,
+                    "unitName": "teaspoon"
+                },
+                {
+                    "name": "lemon zest",
+                    "unitType": "D",
+                    "quantity": 1.0,
+                    "unitName": "teaspoon"
+                },
+                {
+                    "name": "cremini mushrooms",
+                    "unitType": "D",
+                    "quantity": 4.0,
+                    "unitName": "cup"
+                }
+            ]
+        }
+    ]
 }

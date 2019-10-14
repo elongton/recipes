@@ -1,81 +1,45 @@
-<input
-  type="file"
-  (change)="onFileChanged($event)"
-  style="display:none;"
-  #fileInput
-/>
+<input type="file" (change)="onFileChanged($event)" style="display:none;" #fileInput />
 
 <app-popover>
   <h1 header style="margin-bottom: 0;">Add Recipe</h1>
   <div body>
     <form [formGroup]="recipeForm">
       <!-- <h4>General</h4> -->
-      <input
-        type="text"
-        formControlName="title"
-        class="form-control"
-        placeholder="Recipe Title"
-      />
-      <textarea
-        type="text"
-        formControlName="description"
-        class="form-control"
-        placeholder="Recipe Description"
-      ></textarea>
+      <input type="text" formControlName="title" class="form-control" placeholder="Recipe Title" />
+      <textarea type="text" formControlName="description" class="form-control"
+        placeholder="Recipe Description"></textarea>
 
       <h4>Image</h4>
       <button class="btn btn-light" (click)="fileInput.click()">
         Select Image
       </button>
-      <div
-        *ngIf="uploadedImage"
-        class="image recipe-section"
+      <div *ngIf="uploadedImage" class="image recipe-section"
         [ngStyle]="{ 'background-image': 'url(' + uploadedImage + ')' }"
-        style="height: 250px; background-position: center; background-size: cover;"
-      ></div>
+        style="height: 250px; background-position: center; background-size: cover;"></div>
       <div class="d-flex section-heading">
         <h4>Ingredients</h4>
         <button class="btn btn-light ml-2" (click)="addIngredient()">
           Add
         </button>
       </div>
-      <ng-container
-        formArrayName="ingredients"
-        *ngFor="
+      <ng-container formArrayName="ingredients" *ngFor="
           let ingredient of recipeForm.get('ingredients')['controls'];
           let i = index
-        "
-      >
+        ">
         <div [formGroupName]="i" class="d-flex" style="width: 60%;">
-          <!-- <input
-            type="text"
-            formControlName="ingredientId"
-            placeholder="Ingredient"
-            class="form-control"
-          /> -->
           <select class="form-control" formControlName="ingredientId">
-            <option
-              *ngFor="let ingredient of ingredientList"
-              [ngValue]="ingredient.id"
-            >
-              {{ ingredient.name }}</option
-            >
+            <option *ngFor="let ingredient of ingredientList" [ngValue]="ingredient.id">
+              {{ ingredient.name }}</option>
           </select>
-          <input
-            type="number"
-            formControlName="quantity"
-            placeholder="Quantity"
-            class="form-control ml-2"
-          />
           <select *ngIf="checkIfIngredient(i)" class="form-control ml-2" formControlName="unitId">
-            <option
-              *ngFor="let unit of unitList | filter:'unitType': getSelectedIngredientUnitType(i)"
-              [ngValue]="unit.id"
-            >
-              {{ unit.name }}</option
-            >
+            <option *ngFor="let unit of unitList | filter:'unitType': getSelectedIngredientUnitType(i)"
+              [ngValue]="unit.id">
+              {{ unit.name }}</option>
           </select>
-          
+
+          <input type="number" formControlName="quantity" placeholder="Quantity" class="form-control ml-2" />
+
+
           <!-- <button class="btn btn-success ml-2" (click)='checkIfIngredient(i)'>Print</button> -->
 
           <div>
@@ -91,17 +55,10 @@
           Add
         </button>
       </div>
-      <ng-container
-        formArrayName="steps"
-        *ngFor="let steps of recipeForm.get('steps')['controls']; let i = index"
-      >
+      <ng-container formArrayName="steps" *ngFor="let steps of recipeForm.get('steps')['controls']; let i = index">
         <div [formGroupName]="i" class="d-flex">
-          <textarea
-            type="text"
-            formControlName="instruction"
-            placeholder="Instructions"
-            class="form-control"
-          ></textarea>
+          <textarea type="text" formControlName="instruction" placeholder="Instructions"
+            class="form-control"></textarea>
           <div>
             <button class="btn btn-light ml-2" (click)="removeStep(i)">
               <fa-icon icon="times"></fa-icon>

@@ -22,18 +22,18 @@ export class RecipeEditComponent implements OnInit {
     private recipeService: RecipeService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.buildForm();
     this.recipeService.ingredients$.subscribe(result => {
       this.ingredientList = result;
-      // console.log(this.ingredientList);
+      console.log(this.ingredientList);
     });
     this.recipeService.units$.subscribe(result => {
       this.unitList = result;
-      // console.log(this.unitList);
+      console.log(this.unitList);
     });
   }
 
@@ -50,7 +50,7 @@ export class RecipeEditComponent implements OnInit {
     return this.formBuilder.group({
       ingredientId: "",
       quantity: "",
-      unitId: 1
+      unitId: "",
     });
   }
   createStep(index): FormGroup {
@@ -71,6 +71,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   removeIngredient(i): void {
+    console.log(i)
     this.ingredients = this.recipeForm.get("ingredients") as FormArray;
     this.ingredients.removeAt(i);
   }
@@ -95,17 +96,18 @@ export class RecipeEditComponent implements OnInit {
     this.selectedFile = event.target.files[0];
     let reader = new FileReader();
     let that = this;
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       that.uploadedImage = e.target["result"];
     };
     reader.readAsDataURL(this.selectedFile);
   }
 
-  checkIfIngredient(i){
-    return this.recipeForm.controls.ingredients.value[i].ingredientId ?  true :  false
+  checkIfIngredient(i) {
+    return this.recipeForm.controls.ingredients.value[i].ingredientId ? true : false
   }
-  getSelectedIngredientUnitType(i){
-    let unitId = this.recipeForm.controls.ingredients.value[i].unitId;
-    return this.unitList.filter(u => u.id == unitId)[0].unitType
+  getSelectedIngredientUnitType(i) {
+    let ingredientId = this.recipeForm.controls.ingredients.value[i].ingredientId;
+    let ingredient = this.ingredientList.filter(u => u.id == ingredientId)[0];
+    return ingredient.unitType
   }
 }
