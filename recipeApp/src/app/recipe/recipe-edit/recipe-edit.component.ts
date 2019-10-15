@@ -74,6 +74,7 @@ export class RecipeEditComponent implements OnInit {
       ingredientId: "",
       quantity: "",
       unitId: "",
+      id: "",
     });
   }
   createStep(index): FormGroup {

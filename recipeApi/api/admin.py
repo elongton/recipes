@@ -3,7 +3,7 @@ from .models import Recipe, Ingredient, RecipeIngredientLink, Tag, RecipeTagLink
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'author')
+    list_display = ('title','author', 'id',  )
 
 
 class IngredientAdmin(admin.ModelAdmin):
@@ -11,7 +11,7 @@ class IngredientAdmin(admin.ModelAdmin):
 
 
 class RecipeIngredientLinkAdmin(admin.ModelAdmin):
-    list_display = ('recipe', 'ingredient')
+    list_display = ('recipe','ingredient', 'id', )
 
 
 class TagAdmin(admin.ModelAdmin):

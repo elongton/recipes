@@ -79,6 +79,49 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
             description=data['description'],
             image=image
         )
+    #     for existingIngredient in recipeObj.ingredients.all():
+    #         print(existingIngredient)
+    #         print(self.checkIfExists('id', ingredients, existingIngredient.id))
+
+    # def checkIfExists(self, key, queryset, existing_id):
+    #     verdict = False
+    #     for x in queryset:
+    #         if x[key] == existing_id:
+    #         # print("i found it!")
+    #             verdict = True
+    #             break
+    #     return verdict
+
+        for ingredient in ingredients:
+            print(ingredient)
+            print(self.checkIfExists('id', recipeObj.ingredients.all(), ingredient['id']))
+
+    def checkIfExists(self, key, queryset, existing_id):
+        print(existing_id)
+        verdict = False
+        for x in queryset:
+            if x[key] == existing_id:
+                verdict = True
+                break
+        return verdict
+
+        # next((True for x in queryset if x[key] == existing_id), None)
+            
+            # print(ingredient)
+            # newIngredient = Ingredient.objects.get(id=ingredient['ingredientId'])
+            # newUnit = Unit.objects.get(id=ingredient['unitId'])
+            # newQuantity = ingredient['quantity']
+            # try:
+            #     ingredientLink = recipeObj.ingredients.all().get(id=ingredient['id'])
+            #     ingredientLink.ingredient = newIngredient
+            #     ingredientLink.unit = newUnit
+            #     ingredientLink.quantity = newQuantity
+            #     ingredientLink.save()
+
+            # except:
+            #     print('nothing')
+            #     pass
+            #     #create new ingredient
 
 class IngredientList(generics.ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
