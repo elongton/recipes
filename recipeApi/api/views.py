@@ -2,6 +2,8 @@ from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep, Uni
 from api.serializers import RecipeSerializer, IngredientSerializer, UnitSerializer
 from rest_framework import generics, permissions
 from rest_framework.response import Response
+
+from .helpers.recipe_helpers import *
 import json
 
 
@@ -38,15 +40,7 @@ class RecipeList(generics.ListCreateAPIView):
         # get list of ingredients from request, and add them to link table
         try:
             for ingredient in ingredients:
-                unitObj = Unit.objects.get(id=ingredient['unitId'])
-                ingredientObj = Ingredient.objects.get(
-                    id=ingredient['ingredientId'])
-                recipeIngredientLink = RecipeIngredientLink(
-                    recipe=recipeObj,
-                    ingredient=ingredientObj,
-                    unit=unitObj,
-                    quantity=ingredient['quantity'],)
-                recipeIngredientLink.save()
+                create_recipe_link(ingredient, recipeObj)
         except ValueError:
             print('no ingredients')
 
@@ -79,28 +73,24 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
             description=data['description'],
             image=image
         )
-    #     for existingIngredient in recipeObj.ingredients.all():
-    #         print(existingIngredient)
-    #         print(self.checkIfExists('id', ingredients, existingIngredient.id))
-
-    # def checkIfExists(self, key, queryset, existing_id):
-    #     verdict = False
-    #     for x in queryset:
-    #         if x[key] == existing_id:
-    #         # print("i found it!")
-    #             verdict = True
-    #             break
-    #     return verdict
-
         for ingredient in ingredients:
-            print(ingredient)
-            print(self.checkIfExists('id', recipeObj.ingredients.all(), ingredient['id']))
+            # print(ingredient)
+            newIngredient = Ingredient.objects.get(id=ingredient['ingredientId'])
+            newUnit = Unit.objects.get(id=ingredient['unitId'])
+            newQuantity = ingredient['quantity']
+            if self.checkIfExists('id', recipeObj.ingredients.all(), ingredient['id']):
+                print('existing, update')
+                update_recipe_link(recipeObj, ingredient, newIngredient, newUnit, newQuantity)
+            else:
+                print('new, create')
+                create_recipe_link(ingredient, recipeObj)
+
 
     def checkIfExists(self, key, queryset, existing_id):
-        print(existing_id)
+        # print(existing_id)
         verdict = False
         for x in queryset:
-            if x[key] == existing_id:
+            if getattr(x, key) == existing_id:
                 verdict = True
                 break
         return verdict
