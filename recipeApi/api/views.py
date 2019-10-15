@@ -20,10 +20,6 @@ class RecipeList(generics.ListCreateAPIView):
         return Response(serializer.data)
 
     def perform_create(self, serializer):
-        # if self.request.user.is_authenticated:
-        #     recipeObj = serializer.save(author=self.request.user)
-        # else:
-        #     recipeObj = serializer.save(author=None)
         try:
             image = self.request.data['image']
         except:
@@ -40,7 +36,7 @@ class RecipeList(generics.ListCreateAPIView):
         # get list of ingredients from request, and add them to link table
         try:
             for ingredient in ingredients:
-                create_recipe_link(ingredient, recipeObj)
+                create_recipe_link(inredient, recipeObj)
         except ValueError:
             print('no ingredients')
 
@@ -73,45 +69,10 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
             description=data['description'],
             image=image
         )
+        delete_recipe_ingredient_links(recipeObj)
         for ingredient in ingredients:
-            # print(ingredient)
-            newIngredient = Ingredient.objects.get(id=ingredient['ingredientId'])
-            newUnit = Unit.objects.get(id=ingredient['unitId'])
-            newQuantity = ingredient['quantity']
-            if self.checkIfExists('id', recipeObj.ingredients.all(), ingredient['id']):
-                print('existing, update')
-                update_recipe_link(recipeObj, ingredient, newIngredient, newUnit, newQuantity)
-            else:
                 print('new, create')
                 create_recipe_link(ingredient, recipeObj)
-
-
-    def checkIfExists(self, key, queryset, existing_id):
-        # print(existing_id)
-        verdict = False
-        for x in queryset:
-            if getattr(x, key) == existing_id:
-                verdict = True
-                break
-        return verdict
-
-        # next((True for x in queryset if x[key] == existing_id), None)
-            
-            # print(ingredient)
-            # newIngredient = Ingredient.objects.get(id=ingredient['ingredientId'])
-            # newUnit = Unit.objects.get(id=ingredient['unitId'])
-            # newQuantity = ingredient['quantity']
-            # try:
-            #     ingredientLink = recipeObj.ingredients.all().get(id=ingredient['id'])
-            #     ingredientLink.ingredient = newIngredient
-            #     ingredientLink.unit = newUnit
-            #     ingredientLink.quantity = newQuantity
-            #     ingredientLink.save()
-
-            # except:
-            #     print('nothing')
-            #     pass
-            #     #create new ingredient
 
 class IngredientList(generics.ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
@@ -130,3 +91,11 @@ class UnitList(generics.ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Unit.objects.all()
     serializer_class = UnitSerializer
+
+
+
+
+# if self.request.user.is_authenticated:
+#     recipeObj = serializer.save(author=self.request.user)
+# else:
+#     recipeObj = serializer.save(author=None)

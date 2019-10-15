@@ -18,3 +18,19 @@ def create_recipe_link(ingredient, recipeObj):
         unit=unitObj,
         quantity=ingredient['quantity'],)
     recipeIngredientLink.save()
+
+
+def delete_recipe_ingredient_links(recipeObj):
+    for ingredientLink in recipeObj.ingredients.all():
+        ingredientLink.delete()
+
+
+
+def checkIfExists(self, key, queryset, existing_id):
+    # print(existing_id)
+    verdict = False
+    for x in queryset:
+        if getattr(x, key) == existing_id:
+            verdict = True
+            break
+    return verdict

@@ -16,7 +16,7 @@
       <div class="description recipe-section">
         {{ recipe.description }}
       </div>
-      <div class="ingredients recipe-section">
+      <div class="ingredients recipe-section" *ngIf="recipe.ingredients">
         <h3>Ingredients</h3>
         <ng-container *ngFor="let ingredient of recipe.ingredients">
           <span>{{ ingredient.quantity }} {{ getIngredientUnit(ingredient.unit) }}
