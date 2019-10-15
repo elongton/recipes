@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { RecipeService } from "../recipe.service";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
-import { HttpResponse } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-recipe-edit",
@@ -47,7 +47,7 @@ export class RecipeEditComponent implements OnInit {
               unitId: this.recipeToEdit.ingredients[i].unit
             });
           }
-
+          this.uploadedImage = environment.backend + this.recipeToEdit.image;
           this.recipeForm.patchValue(this.recipeToEdit)
         }
       })
@@ -111,11 +111,16 @@ export class RecipeEditComponent implements OnInit {
     console.log(this.recipeForm.value);
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
-    try {
-      formDataToSend.append("image", this.selectedFile, this.selectedFile.name);
-    } catch (e) {
-      console.log(e)
+    if (this.selectedFile) {
+      try {
+        formDataToSend.append("image", this.selectedFile, this.selectedFile.name);
+      } catch (e) {
+        console.log(e)
+      }
+    } else {
+      formDataToSend.append("image", '');
     }
+
 
     if (this.recipeToEdit) {
       this.recipeService.updateRecipe(formDataToSend, this.recipeToEdit.id).subscribe();
@@ -124,8 +129,12 @@ export class RecipeEditComponent implements OnInit {
     }
   }
 
-  onFileChanged(event) {
-    this.selectedFile = event.target.files[0];
+  onFileChanged(event, uploadedImage?) {
+    if (uploadedImage) {
+      this.selectedFile = uploadedImage;
+    } else {
+      this.selectedFile = event.target.files[0];
+    }
     let reader = new FileReader();
     let that = this;
     reader.onload = function (e) {

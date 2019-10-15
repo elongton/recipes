@@ -16,14 +16,14 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   constructor(
     private recipeService: RecipeService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.recipeSubscription = this.recipeService.recipes$.subscribe(result => {
       if (result) {
         this.recipe = result.find(x => x.id === Number(recipeId));
-        console.log(this.recipe)
+        // console.log(this.recipe)
       }
     });
     this.unitSubscription = this.recipeService.units$.subscribe(result => {
@@ -31,10 +31,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     })
   }
 
-  getIngredientUnit(unitId: Number){
-    if (this.units){
-    return this.units.find(item => {return item.id == unitId}).name
-    }else{
+  getIngredientUnit(unitId: Number) {
+    if (this.units) {
+      return this.units.find(item => { return item.id == unitId }).name
+    } else {
       return null
     }
   }
