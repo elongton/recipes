@@ -5,6 +5,7 @@ UNIT_TYPES = (
     ('W', 'Wet'),
     ('D', 'Dry'),
     ('P', 'Poultry'),
+    ('G', 'Garlic'),
     ('S', 'Singular'),
 )
 

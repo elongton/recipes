@@ -32,7 +32,7 @@ export class RecipeEditComponent implements OnInit {
       this.recipeService.recipes$.subscribe(result => {
         this.recipeToEdit = result.find(r => r.id == recipeId)
         if (this.recipeToEdit) {
-          console.log(this.recipeToEdit)
+          // console.log(this.recipeToEdit)
           let that = this;
           this.recipeToEdit.ingredients.forEach(element => {
             that.addIngredient();
@@ -77,6 +77,7 @@ export class RecipeEditComponent implements OnInit {
       ingredientId: "",
       quantity: "",
       unitId: "",
+      notes: "",
       id: "",
     });
   }
@@ -111,7 +112,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.recipeForm.value);
+    // console.log(this.recipeForm.value);
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
     if (this.selectedFile) {
