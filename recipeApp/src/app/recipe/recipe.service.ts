@@ -38,20 +38,30 @@ export class RecipeService {
   submitRecipe(recipe) {
     return this.http.post<any>(`api/recipes/`, recipe).pipe(
       tap(result => {
-        let currentRecipeList = this.recipes$.getValue();
-        result.image = result.image.replace(environment.domain, "");
-        currentRecipeList.push(result);
-        this.recipes$.next(currentRecipeList);
-        this.nagivateToRecipe(result.id);
+        this.addRecipeToSubjectAndNavigate(result)
       })
     );
   }
   updateRecipe(recipe, recipeId) {
     return this.http.put<any>(`api/recipes/${recipeId}`, recipe).pipe(
       tap(result => {
-        console.log(result)
+        this.addRecipeToSubjectAndNavigate(result, true)
       })
     );
+  }
+
+  addRecipeToSubjectAndNavigate(result, update?: boolean) {
+    let currentRecipeList = this.recipes$.getValue();
+
+    if (result.image) result.image = result.image.replace(environment.domain, "");
+    if (update) {
+      let updatedRecipeId = currentRecipeList.findIndex(r => { return r.id === result.id })
+      currentRecipeList[updatedRecipeId] = result;
+    } else {
+      currentRecipeList.push(result);
+    }
+    this.recipes$.next(currentRecipeList);
+    this.nagivateToRecipe(result.id);
   }
 
   deleteRecipe(recipe) {

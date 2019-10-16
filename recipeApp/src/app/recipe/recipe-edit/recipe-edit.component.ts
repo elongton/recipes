@@ -42,10 +42,13 @@ export class RecipeEditComponent implements OnInit {
           });
           this.ingredients = this.recipeForm.get("ingredients") as FormArray;
           for (let i = 0; i < this.ingredients.length; i++) {
-            this.ingredients.at(i).patchValue({
-              ingredientId: this.recipeToEdit.ingredients[i].ingredient.id,
-              unitId: this.recipeToEdit.ingredients[i].unit
-            });
+            try {
+              this.ingredients.at(i).patchValue({
+                ingredientId: this.recipeToEdit.ingredients[i].ingredient.id,
+                unitId: this.recipeToEdit.ingredients[i].unit
+              });
+            } catch (e) { }
+
           }
           this.uploadedImage = environment.backend + this.recipeToEdit.image;
           this.recipeForm.patchValue(this.recipeToEdit)
@@ -120,8 +123,6 @@ export class RecipeEditComponent implements OnInit {
     } else {
       formDataToSend.append("image", '');
     }
-
-
     if (this.recipeToEdit) {
       this.recipeService.updateRecipe(formDataToSend, this.recipeToEdit.id).subscribe();
     } else {
@@ -147,8 +148,11 @@ export class RecipeEditComponent implements OnInit {
     return this.recipeForm.controls.ingredients.value[i].ingredientId ? true : false
   }
   getSelectedIngredientUnitType(i) {
-    let ingredientId = this.recipeForm.controls.ingredients.value[i].ingredientId;
-    let ingredient = this.ingredientList.filter(u => u.id == ingredientId)[0];
-    return ingredient.unitType
+    try {
+      let ingredientId = this.recipeForm.controls.ingredients.value[i].ingredientId;
+      let ingredient = this.ingredientList.filter(u => u.id == ingredientId)[0];
+      return ingredient.unitType
+    } catch{ }
+
   }
 }

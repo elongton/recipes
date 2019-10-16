@@ -36,7 +36,7 @@ class RecipeList(generics.ListCreateAPIView):
         # get list of ingredients from request, and add them to link table
         try:
             for ingredient in ingredients:
-                create_recipe_link(inredient, recipeObj)
+                create_recipe_link(ingredient, recipeObj)
         except ValueError:
             print('no ingredients')
 
