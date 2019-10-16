@@ -1,37 +1,27 @@
-<h1 class="sticky">Recipe List</h1>
+<div class="sticky" style="z-index: 1; background-color: white;">
+  <h1>Recipe List</h1>
 
-<input
-  [(ngModel)]="selected"
-  [typeahead]="names"
-  class="form-control mb-3"
-  placeholder="Search a recipe or ingredient"
-/>
+  <input [(ngModel)]="selected" [typeahead]="names" class="form-control mb-3"
+    placeholder="Search a recipe or ingredient" />
+</div>
+
 
 <ng-container *ngIf="recipes.length > 0; else noRecipes">
   <ul class="list-group" *ngFor="let recipe of recipes">
-    <li
-      class="list-group-item d-flex align-items-center justify-content-between mb-1"
-      (click)="recipeService.nagivateToRecipe(recipe.id)"
-    >
+    <li class="list-group-item d-flex align-items-center justify-content-between mb-1"
+      (click)="recipeService.nagivateToRecipe(recipe.id)">
       {{ recipe.title }}
       <div>
-        <button
-          #deleteButton
-          class="btn btn-danger mr-2"
-          style="display:none;"
-          (click)="recipeService.deleteRecipe(recipe); $event.stopPropagation()"
-        >
+        <button #deleteButton class="btn btn-danger mr-2" style="display:none;"
+          (click)="recipeService.deleteRecipe(recipe); $event.stopPropagation()">
           Yes Delete!
         </button>
-        <button
-          class="btn btn-outline-danger"
-          (click)="
+        <button class="btn btn-outline-danger" (click)="
             deleteButton.style.display == 'none'
               ? (deleteButton.style.display = 'inline')
               : (deleteButton.style.display = 'none');
             $event.stopPropagation()
-          "
-        >
+          ">
           <fa-icon icon="times"></fa-icon>
         </button>
       </div>
