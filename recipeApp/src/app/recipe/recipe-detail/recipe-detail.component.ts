@@ -22,6 +22,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.recipeSubscription = this.recipeService.recipes$.subscribe(result => {
       if (result) {
+        console.log(result)
         this.recipe = result.find(x => x.id === Number(recipeId));
         // console.log(this.recipe)
       }

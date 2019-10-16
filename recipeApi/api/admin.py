@@ -7,7 +7,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
 
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'unitType')
+    list_display = ('name', 'unitType', 'id',  )
 
 
 class RecipeIngredientLinkAdmin(admin.ModelAdmin):

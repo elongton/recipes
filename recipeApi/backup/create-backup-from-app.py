@@ -36,7 +36,7 @@ for recipe in recipes:
     ingredientArray = []
     for ingredient in recipe.ingredients.all():
         ingredientArray.append(
-            {"name": ingredient.ingredient.name, "unitType": ingredient.unit.unitType, "quantity": ingredient.quantity, "unitName": ingredient.unit.name,}
+            {"name": ingredient.ingredient.name, "unitType": ingredient.unit.unitType, "quantity": ingredient.quantity, "unitName": ingredient.unit.name, "notes": ingredient.notes}
         )
     data['recipes'].append(
         {

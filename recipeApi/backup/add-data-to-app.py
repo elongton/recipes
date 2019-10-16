@@ -53,7 +53,7 @@ with open('data.json') as json_file:
         for ingredient in recipe['ingredients']:
             unit = getUnit(ingredient['unitName'], ingredient['unitType'])
             listedIngredient = getIngredient(ingredient['name'], ingredient['unitType'])
-            RecipeIngredientLink.objects.create(recipe=createdRecipe, ingredient=listedIngredient[0], quantity=ingredient['quantity'], unit=unit[0])
+            RecipeIngredientLink.objects.create(recipe=createdRecipe, ingredient=listedIngredient[0], quantity=ingredient['quantity'], unit=unit[0], notes=ingredient['notes'])
         #create step links
         for step in recipe['steps']:
             RecipeStep.objects.create(recipe=createdRecipe, number=step['number'], instruction=step['instruction'])

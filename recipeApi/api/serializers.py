@@ -18,7 +18,7 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RecipeIngredientLink
-        fields = ['id', 'ingredient', 'quantity', 'unit']
+        fields = ['id', 'ingredient', 'quantity', 'unit', 'notes']
 
 
 class RecipeStepSerializer(serializers.ModelSerializer):

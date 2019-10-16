@@ -4,7 +4,8 @@ from django.db import models
 UNIT_TYPES = (
     ('W', 'Wet'),
     ('D', 'Dry'),
-    ('P', 'Poultry')
+    ('P', 'Poultry'),
+    ('S', 'Singular'),
 )
 
 class Recipe(models.Model):
@@ -18,6 +19,7 @@ class Recipe(models.Model):
         return self.title
 
 class Ingredient(models.Model):
+    # INGREDIENT_UNIT_TYPES =  UNIT_TYPES + (('S', 'Singular'),)
     name = models.CharField(max_length=100)
     unitType = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
 
@@ -25,7 +27,7 @@ class Ingredient(models.Model):
         return self.name
 
 class Unit(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, blank=True)
     unitType = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
     
     def __str__(self):
@@ -49,6 +51,7 @@ class RecipeIngredientLink(models.Model):
     ingredient = models.ForeignKey('Ingredient',
                                    related_name='ri_ingredient', on_delete=models.CASCADE)
     quantity = models.FloatField()
+    notes = models.CharField(max_length=200, blank=True)
     unit = models.ForeignKey(
         'Unit', related_name="units", on_delete=models.CASCADE)
 
