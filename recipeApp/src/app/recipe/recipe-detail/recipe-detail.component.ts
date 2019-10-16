@@ -32,11 +32,14 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   getIngredientUnit(unitId: Number) {
-    if (this.units) {
-      return this.units.find(item => { return item.id == unitId }).name
-    } else {
-      return null
-    }
+    try {
+      if (this.units) {
+        return this.units.find(item => { return item.id == unitId }).name
+      } else {
+        return null
+      }
+    } catch (e) { }
+
   }
 
   ngOnDestroy() {

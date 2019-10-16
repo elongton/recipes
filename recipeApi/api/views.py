@@ -43,9 +43,7 @@ class RecipeList(generics.ListCreateAPIView):
         # get list of steps from request, and add them to link table
         try:
             for step in steps:
-                recipeStep = RecipeStep(
-                    recipe=recipeObj, number=step['number'], instruction=step['instruction'])
-                recipeStep.save()
+                create_step_link(recipeObj, step)
         except ValueError:
             print('no steps')
 
@@ -59,22 +57,35 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
         data = json.loads(self.request.data['fields'])
         ingredients = data['ingredients']
         steps = data['steps']
+
         pk = self.request.parser_context['kwargs']['pk']
         existingImage = Recipe.objects.get(id=pk).image
+        image = self.request.data['image']
+        
+        # update top level fields
         recipeObj = serializer.save(
             author=None,
             title=data['title'],
             description=data['description'],
         )
-        image = self.request.data['image']
+        # handle image upload
+
         if not image:
             recipeObj = serializer.save(image = existingImage)
         else:
             recipeObj = serializer.save(image = image)
+        
+        # delete and then create new set of ingredients
         delete_recipe_ingredient_links(recipeObj)
         for ingredient in ingredients:
-                print('new, create')
-                create_recipe_link(ingredient, recipeObj)
+            print('new, create')
+            create_recipe_link(ingredient, recipeObj)
+        
+        # delete and then create new set of steps
+        delete_recipe_step_links(recipeObj)
+        for step in steps:
+            create_step_link(recipeObj, step)
+
 
 class IngredientList(generics.ListCreateAPIView):
     permission_classes = [permissions.AllowAny]

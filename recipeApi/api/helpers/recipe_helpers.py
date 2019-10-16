@@ -19,10 +19,17 @@ def create_recipe_link(ingredient, recipeObj):
         quantity=ingredient['quantity'],)
     recipeIngredientLink.save()
 
+def create_step_link(recipeObj, step):
+    recipeStep = RecipeStep(recipe=recipeObj, number=step['number'], instruction=step['instruction'])
+    recipeStep.save()
 
 def delete_recipe_ingredient_links(recipeObj):
     for ingredientLink in recipeObj.ingredients.all():
         ingredientLink.delete()
+
+def delete_recipe_step_links(recipeObj):
+    for stepLink in recipeObj.steps.all():
+        stepLink.delete()
 
 
 
