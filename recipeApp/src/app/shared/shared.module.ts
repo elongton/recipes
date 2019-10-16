@@ -12,10 +12,14 @@ import {
     faTimes,
     faEdit
 } from '@fortawesome/free-solid-svg-icons';
+import { FilterPillComponent } from './components/filter-pill/filter-pill.component';
+import { PopoverComponent } from './components/popover/popover.component';
 
 @NgModule({
     declarations: [
-        FilterPipe
+        FilterPipe,
+        FilterPillComponent,
+        PopoverComponent
     ],
     imports: [
         CommonModule,
@@ -28,6 +32,8 @@ import {
         FormsModule,
         ReactiveFormsModule,
         FontAwesomeModule,
+        FilterPillComponent,
+        PopoverComponent
     ]
 })
 export class SharedModule {

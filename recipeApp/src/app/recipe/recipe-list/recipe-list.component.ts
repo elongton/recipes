@@ -15,7 +15,9 @@ export class RecipeListComponent implements OnInit {
   selected;
   names: string[] = [];
 
-  constructor(public recipeService: RecipeService, private router: Router) {}
+  filterPillArray = [];
+
+  constructor(public recipeService: RecipeService, private router: Router) { }
 
   ngOnInit() {
     //could be much better... look into this, maybe ngrx? or some clever thing
@@ -40,5 +42,15 @@ export class RecipeListComponent implements OnInit {
   itemsToAdd() {
     this.spreadContributorsIntoNamesArray(this.ingredients, "name");
     this.spreadContributorsIntoNamesArray(this.recipes, "title");
+  }
+
+  removeFilter(index) {
+    this.filterPillArray.splice(index, 1)
+  }
+
+  onTab(event) {
+    this.filterPillArray.push(event.target.value)
+    this.selected = ''
+
   }
 }

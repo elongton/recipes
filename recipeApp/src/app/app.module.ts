@@ -9,7 +9,6 @@ import { RecipeComponent } from "./recipe/recipe.component";
 import { RecipeDetailComponent } from "./recipe/recipe-detail/recipe-detail.component";
 import { RecipeListComponent } from "./recipe/recipe-list/recipe-list.component";
 import { HttpClientModule } from "@angular/common/http";
-import { PopoverComponent } from './shared/popover/popover.component';
 import { SharedModule } from './shared/shared.module';
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
 
@@ -22,7 +21,6 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     RecipeComponent,
     RecipeDetailComponent,
     RecipeListComponent,
-    PopoverComponent,
     RecipeEditComponent
   ],
   imports: [
