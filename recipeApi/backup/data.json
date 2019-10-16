@@ -27,6 +27,22 @@
         {
             "name": "",
             "unitType": "S"
+        },
+        {
+            "name": "tablespoon",
+            "unitType": "W"
+        },
+        {
+            "name": "clove",
+            "unitType": "G"
+        },
+        {
+            "name": "quart",
+            "unitType": "W"
+        },
+        {
+            "name": "cup",
+            "unitType": "P"
         }
     ],
     "ingredients": [
@@ -56,11 +72,11 @@
         },
         {
             "name": "garlic",
-            "unitType": "D"
+            "unitType": "G"
         },
         {
             "name": "shallot",
-            "unitType": "D"
+            "unitType": "S"
         },
         {
             "name": "ghee",
@@ -164,10 +180,10 @@
                     "unitType": "P",
                     "quantity": 3.0,
                     "unitName": "pound (lb)",
-                    "notes": "boiled"
+                    "notes": "small"
                 },
                 {
-                    "name": "salt",
+                    "name": "sea salt",
                     "unitType": "D",
                     "quantity": 3.0,
                     "unitName": "tablespoon",
@@ -177,7 +193,7 @@
                     "name": "duck fat",
                     "unitType": "W",
                     "quantity": 1.5,
-                    "unitName": "fluid ounce",
+                    "unitName": "tablespoon",
                     "notes": ""
                 },
                 {
@@ -185,7 +201,7 @@
                     "unitType": "W",
                     "quantity": 1.25,
                     "unitName": "cup",
-                    "notes": ""
+                    "notes": "divided"
                 },
                 {
                     "name": "black pepper",
@@ -196,29 +212,29 @@
                 },
                 {
                     "name": "garlic",
-                    "unitType": "D",
-                    "quantity": 1.0,
-                    "unitName": "cup",
-                    "notes": ""
+                    "unitType": "G",
+                    "quantity": 4.0,
+                    "unitName": "clove",
+                    "notes": "smashed with the side of a knife"
                 },
                 {
                     "name": "shallot",
-                    "unitType": "D",
+                    "unitType": "S",
                     "quantity": 1.0,
-                    "unitName": "cup",
-                    "notes": ""
+                    "unitName": "",
+                    "notes": "sliced"
                 },
                 {
                     "name": "ghee",
                     "unitType": "W",
                     "quantity": 1.0,
-                    "unitName": "fluid ounce",
-                    "notes": ""
+                    "unitName": "tablespoon",
+                    "notes": "store-bought or homemade"
                 },
                 {
                     "name": "lemon",
                     "unitType": "S",
-                    "quantity": 1.0,
+                    "quantity": 0.5,
                     "unitName": "",
                     "notes": ""
                 },
@@ -227,14 +243,14 @@
                     "unitType": "D",
                     "quantity": 1.0,
                     "unitName": "teaspoon",
-                    "notes": ""
+                    "notes": "dried"
                 },
                 {
                     "name": "lemon zest",
                     "unitType": "D",
                     "quantity": 1.0,
                     "unitName": "teaspoon",
-                    "notes": ""
+                    "notes": "grated"
                 },
                 {
                     "name": "cremini mushrooms",
@@ -244,6 +260,190 @@
                     "notes": ""
                 }
             ]
+        },
+        {
+            "title": "Tortilla Soup",
+            "description": "prep time: 20 minutes | cook time: 40 minutes | serves: 4",
+            "image": "/tortilla_soup_FhOR27l.png",
+            "steps": [
+                {
+                    "number": 1,
+                    "instruction": "Core and seed the roasted bell peppers and cut them into small dice.  Set aside."
+                },
+                {
+                    "number": 2,
+                    "instruction": "Heat a large soup pot over medium-high heat and add the lard."
+                },
+                {
+                    "number": 3,
+                    "instruction": "Saute the onion for 12 to 15 minutes, stirring occasionally, until softened and browned.  Add the garlic and cook for 1 more minute."
+                },
+                {
+                    "number": 4,
+                    "instruction": "Add the salt, cumin, coriander, smoked paprika, and chipotle powder and cook for another 30 seconds, stirring constantly."
+                },
+                {
+                    "number": 5,
+                    "instruction": "Add the tomatoes, broth, and roasted peppers and bring to a boil.  Turn the heat down to medium-low and simmer, uncovered, for 25 to 30 minutes."
+                },
+                {
+                    "number": 6,
+                    "instruction": "Add the shredded chicken and cook another minute, or until heated through."
+                },
+                {
+                    "number": 7,
+                    "instruction": "To serve, garnish each bowl with one-quarter of the diced avocado, a lime wedge, cilantro leaves, and small handful of plantain fries. "
+                }
+            ],
+            "ingredients": [
+                {
+                    "name": "bell pepper",
+                    "unitType": "S",
+                    "quantity": 2.0,
+                    "unitName": "",
+                    "notes": "roasted (red, orange, or yellow, or a combination)"
+                },
+                {
+                    "name": "lard",
+                    "unitType": "W",
+                    "quantity": 1.0,
+                    "unitName": "tablespoon",
+                    "notes": ""
+                },
+                {
+                    "name": "onion",
+                    "unitType": "S",
+                    "quantity": 1.0,
+                    "unitName": "",
+                    "notes": "medium, cut into medium dice"
+                },
+                {
+                    "name": "garlic",
+                    "unitType": "G",
+                    "quantity": 4.0,
+                    "unitName": "clove",
+                    "notes": "sliced"
+                },
+                {
+                    "name": "sea salt",
+                    "unitType": "D",
+                    "quantity": 1.0,
+                    "unitName": "teaspoon",
+                    "notes": "finely ground"
+                },
+                {
+                    "name": "cumin",
+                    "unitType": "D",
+                    "quantity": 1.0,
+                    "unitName": "teaspoon",
+                    "notes": "ground"
+                },
+                {
+                    "name": "coriander",
+                    "unitType": "D",
+                    "quantity": 1.0,
+                    "unitName": "teaspoon",
+                    "notes": "ground"
+                },
+                {
+                    "name": "paprika",
+                    "unitType": "D",
+                    "quantity": 2.0,
+                    "unitName": "teaspoon",
+                    "notes": "smoked"
+                },
+                {
+                    "name": "chipotle powder",
+                    "unitType": "D",
+                    "quantity": 0.5,
+                    "unitName": "teaspoon",
+                    "notes": "ground"
+                },
+                {
+                    "name": "diced tomatoes",
+                    "unitType": "D",
+                    "quantity": 2.0,
+                    "unitName": "cup",
+                    "notes": "fresh"
+                },
+                {
+                    "name": "chicken broth",
+                    "unitType": "W",
+                    "quantity": 1.0,
+                    "unitName": "quart",
+                    "notes": ""
+                },
+                {
+                    "name": "chicken",
+                    "unitType": "P",
+                    "quantity": 2.0,
+                    "unitName": "cup",
+                    "notes": "cooked and shredded"
+                }
+            ]
+        },
+        {
+            "title": "Pan Roast Chicken with Bacon and Apples + Roast Veggies",
+            "description": "",
+            "image": "",
+            "steps": [],
+            "ingredients": []
+        },
+        {
+            "title": "Mustard Chicken Thighs + Roast Veggies",
+            "description": "",
+            "image": "",
+            "steps": [],
+            "ingredients": []
+        },
+        {
+            "title": "Ratatouille",
+            "description": "",
+            "image": "",
+            "steps": [],
+            "ingredients": []
+        },
+        {
+            "title": "Cumin Squash and Lentil Soup",
+            "description": "",
+            "image": "",
+            "steps": [],
+            "ingredients": []
+        },
+        {
+            "title": "Beef Stew",
+            "description": "",
+            "image": "",
+            "steps": [],
+            "ingredients": []
+        },
+        {
+            "title": "Cauliflower and Meatballs",
+            "description": "",
+            "image": "",
+            "steps": [],
+            "ingredients": []
+        },
+        {
+            "title": "Roasted Shrimp and Gnocchi Bake + Asparagus",
+            "description": "",
+            "image": "",
+            "steps": [],
+            "ingredients": []
+        },
+        {
+            "title": "Roast Salmon with Cucumber Salsa + Jicama Slaw",
+            "description": "",
+            "image": "",
+            "steps": [],
+            "ingredients": []
+        },
+        {
+            "title": "Ginger Scallion Pork Meatballs + Seasame Zoodles",
+            "description": "",
+            "image": "",
+            "steps": [],
+            "ingredients": []
         }
     ]
 }

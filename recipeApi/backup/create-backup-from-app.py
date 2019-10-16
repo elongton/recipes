@@ -38,11 +38,15 @@ for recipe in recipes:
         ingredientArray.append(
             {"name": ingredient.ingredient.name, "unitType": ingredient.unit.unitType, "quantity": ingredient.quantity, "unitName": ingredient.unit.name, "notes": ingredient.notes}
         )
+    try:
+        imageUrl = recipe.image.url.replace(settings.MEDIA_URL, '/')
+    except:
+        imageUrl = ''
     data['recipes'].append(
         {
             "title":recipe.title,
             "description":recipe.description,
-            "image": recipe.image.url.replace(settings.MEDIA_URL, '/'),
+            "image":  imageUrl,
             "steps": stepArray,
             "ingredients": ingredientArray
         }
