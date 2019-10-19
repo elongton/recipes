@@ -1,8 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { RecipeService } from "../recipe.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { forkJoin, of } from "rxjs";
-import { map, catchError } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: "app-recipe-list",
@@ -13,7 +12,8 @@ export class RecipeListComponent implements OnInit {
   recipes = [];
   ingredients = [];
   selected;
-  names: string[] = [];
+  names: any[] = [];
+  @ViewChild('test', { static: false }) test: ElementRef;
 
   filterPillArray = [];
 
@@ -21,36 +21,35 @@ export class RecipeListComponent implements OnInit {
 
   ngOnInit() {
     //could be much better... look into this, maybe ngrx? or some clever thing
+    this.names = [];
+    let that = this;
     this.recipeService.recipes$.subscribe(result => {
-      this.names = [];
       this.recipes = result;
-      this.itemsToAdd();
+      this.names = this.names.filter(e => { return e.type === "Ingredient" })
+      result.forEach(e => {
+        that.names.push({ name: e.title, id: e.id, type: "Recipe" });
+      })
     });
     this.recipeService.ingredients$.subscribe(result => {
-      this.names = [];
-      this.ingredients = result;
-      this.itemsToAdd();
+      this.names = this.names.filter(e => { return e.type === "Recipe" })
+      result.forEach(e => {
+        that.names.push({ name: e.name, id: e.id, type: "Ingredient" });
+      })
     });
-  }
 
-  spreadContributorsIntoNamesArray(collection, key) {
-    let that = this;
-    collection.forEach(element => {
-      that.names.push(element[key]);
-    });
-  }
-  itemsToAdd() {
-    this.spreadContributorsIntoNamesArray(this.ingredients, "name");
-    this.spreadContributorsIntoNamesArray(this.recipes, "title");
   }
 
   removeFilter(index) {
     this.filterPillArray.splice(index, 1)
   }
 
-  onTab(event) {
-    this.filterPillArray.push(event.target.value)
-    this.selected = ''
 
+  onSelect(event) {
+    if (event.item.type === 'Ingredient') {
+      this.filterPillArray.push(event.item.name)
+    } else if (event.item.type === 'Recipe') {
+      this.router.navigate(['recipe/view/', event.item.id])
+    }
+    this.selected = ''
   }
 }

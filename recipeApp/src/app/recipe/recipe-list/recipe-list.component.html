@@ -1,8 +1,9 @@
-<div class="sticky mb-3 pb-2" style="z-index: 1; background-color: white; ">
+<div class="sticky pb-2" style="z-index: 1; background-color: white; ">
   <h1>Recipe List</h1>
 
-  <input [(ngModel)]=" selected" (keydown.Tab)="onTab($event)" [typeahead]="names" class="form-control mb-2"
-    placeholder="Search a recipe or filter by ingredient" />
+  <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onSelect($event)" [(ngModel)]="selected" [typeahead]="names"
+    class="form-control mb-2" placeholder="Search a recipe or filter by ingredient" typeaheadOptionField="name"
+    typeaheadGroupField="type" />
 
   <ng-container *ngFor="let item of filterPillArray; let i = index">
     <filter-pill [filter]="{name: item, index: i}" (close)="removeFilter($event)"></filter-pill>
