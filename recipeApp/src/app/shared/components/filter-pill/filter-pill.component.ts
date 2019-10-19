@@ -16,7 +16,7 @@ export class FilterPillComponent implements OnInit {
   }
 
   onClose() {
-    this.close.emit(this.filter.index);
+    this.close.emit({ index: this.filter.index, id: this.filter.id });
   }
 
 }

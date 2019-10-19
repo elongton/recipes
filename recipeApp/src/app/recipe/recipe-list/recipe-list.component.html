@@ -6,14 +6,14 @@
     typeaheadGroupField="type" />
 
   <ng-container *ngFor="let item of filterPillArray; let i = index">
-    <filter-pill [filter]="{name: item, index: i}" (close)="removeFilter($event)"></filter-pill>
+    <filter-pill [filter]="{name: item.name, id: item.id, index: i}" (close)="removeFilter($event)"></filter-pill>
   </ng-container>
 
 </div>
 
 
 <ng-container *ngIf="recipes.length > 0; else noRecipes">
-  <ul class="list-group" *ngFor="let recipe of recipes">
+  <ul class="list-group" *ngFor="let recipe of filteredRecipes">
     <li class="list-group-item d-flex align-items-center justify-content-between mb-1"
       (click)="recipeService.nagivateToRecipe(recipe.id)">
       {{ recipe.title }}
