@@ -13,6 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
 
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { ShoppingComponent } from './shopping/shopping.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     RecipeComponent,
     RecipeDetailComponent,
     RecipeListComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    ShoppingComponent
   ],
   imports: [
     BrowserModule,

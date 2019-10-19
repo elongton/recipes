@@ -1,5 +1,13 @@
 <div class="sticky pb-2" style="z-index: 1; background-color: white; ">
-  <h1>Recipe List</h1>
+  <div class="d-flex justify-content-between">
+    <h1>Recipe List</h1>
+    <div class="d-flex align-items-center">
+      <a [routerLink]="['/recipe/new']"><button class="btn btn-success ml-2">New Recipe</button></a>
+      <a [routerLink]="['/shopping-list']"><button class="btn btn-primary ml-2">
+          <fa-icon icon="list"></fa-icon>Shopping List
+        </button></a>
+    </div>
+  </div>
 
   <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onSelect($event)" [(ngModel)]="selected" [typeahead]="names"
     class="form-control mb-2" placeholder="Search a recipe or filter by ingredient" typeaheadOptionField="name"
@@ -12,7 +20,7 @@
 </div>
 
 
-<ng-container *ngIf="recipes.length > 0; else noRecipes">
+<ng-container *ngIf="filteredRecipes.length > 0; else noRecipes">
   <ul class="list-group" *ngFor="let recipe of filteredRecipes">
     <li class="list-group-item d-flex align-items-center justify-content-between mb-1"
       (click)="recipeService.nagivateToRecipe(recipe.id)">
@@ -37,14 +45,14 @@
 
 <ng-template #noRecipes>
   <div class="mt-2">
-    <span class="ml-2">No recipes yet...</span>
+    <span class="ml-2">No recipes found...</span>
   </div>
 </ng-template>
 
-<a [routerLink]="['/recipe/new']">
+<!-- <a [routerLink]="['/recipe/new']">
   <div class="add-recipe-button">
     <fa-icon icon="plus"></fa-icon>
   </div>
-</a>
+</a> -->
 
 <router-outlet></router-outlet>

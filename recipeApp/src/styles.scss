@@ -28,3 +28,11 @@ body {
   position: sticky;
   top: 0;
 }
+
+
+.section-div {
+  height: 100%;
+  padding: 10px 20px;
+  overflow-y: scroll;
+  box-sizing: border-box;
+}
