@@ -6,10 +6,11 @@ export class Recipe {
     id: Number = null;
     steps: Step[] = [];
     ingredients: any[] = [];
+    shoppingListItem: boolean = false;
 
-    constructor(obj?: any) {
-        Object.assign(this, obj);
-    }
+    // constructor(obj?: any) {
+    //     Object.assign(this, obj);
+    // }
 
 }
 

@@ -4,7 +4,10 @@
       <h1 style="margin-bottom: 0;">{{ recipe.title }}</h1>
       <a [routerLink]="['/recipe/edit/', recipe.id]">
         <div>
-          <fa-icon icon=edit style="font-size: 15px;"></fa-icon>
+          <button class="btn btn-success">
+            <fa-icon icon=edit style="font-size: 15px;"></fa-icon> Edit
+          </button>
+
         </div>
       </a>
     </div>

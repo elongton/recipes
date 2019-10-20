@@ -4,18 +4,19 @@ import { BehaviorSubject, of } from "rxjs";
 import { tap, map, catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
+import { Recipe } from '../models/recipe.model';
 
 @Injectable({
   providedIn: "root"
 })
 export class RecipeService {
-  recipes$ = new BehaviorSubject<any[]>([]);
+  recipes$ = new BehaviorSubject<Recipe[]>([]);
   ingredients$ = new BehaviorSubject<any[]>([]);
   units$ = new BehaviorSubject<any[]>([])
   constructor(private http: HttpClient, private router: Router) { }
 
   getRecipes() {
-    return this.http.get<any[]>(`api/recipes/`).subscribe(result => {
+    return this.http.get<Recipe[]>(`api/recipes/`).subscribe(result => {
       this.recipes$.next(result);
       console.log("got recipes");
     });
@@ -35,15 +36,15 @@ export class RecipeService {
     })
   }
 
-  submitRecipe(recipe) {
-    return this.http.post<any>(`api/recipes/`, recipe).pipe(
+  submitRecipe(recipe: Recipe) {
+    return this.http.post<Recipe>(`api/recipes/`, recipe).pipe(
       tap(result => {
         this.addRecipeToSubjectAndNavigate(result)
       })
     );
   }
-  updateRecipe(recipe, recipeId) {
-    return this.http.put<any>(`api/recipes/${recipeId}`, recipe).pipe(
+  updateRecipe(recipe: Recipe, recipeId: Number) {
+    return this.http.put<Recipe>(`api/recipes/${recipeId}`, recipe).pipe(
       tap(result => {
         this.addRecipeToSubjectAndNavigate(result, true)
       })
@@ -52,7 +53,6 @@ export class RecipeService {
 
   addRecipeToSubjectAndNavigate(result, update?: boolean) {
     let currentRecipeList = this.recipes$.getValue();
-
     if (result.image) result.image = result.image.replace(environment.domain, "");
     if (update) {
       let updatedRecipeId = currentRecipeList.findIndex(r => { return r.id === result.id })
@@ -62,6 +62,13 @@ export class RecipeService {
     }
     this.recipes$.next(currentRecipeList);
     this.nagivateToRecipe(result.id);
+  }
+
+  updateRecipeSubject(recipe: Recipe) {
+    let currentRecipeList = this.recipes$.getValue();
+    let updatedRecipeId = currentRecipeList.findIndex(r => { return r.id === recipe.id })
+    currentRecipeList[updatedRecipeId] = recipe;
+    this.recipes$.next(currentRecipeList);
   }
 
   deleteRecipe(recipe) {

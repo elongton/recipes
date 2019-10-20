@@ -3,6 +3,14 @@ import { RecipeService } from "../recipe.service";
 import { Router } from "@angular/router";
 import { forkJoin } from 'rxjs';
 import { HelperService } from 'src/app/shared/helper.service';
+import { Recipe } from 'src/app/models/recipe.model';
+
+
+interface SearchResult {
+  name: String;
+  id: Number;
+  type: String;
+}
 
 @Component({
   selector: "app-recipe-list",
@@ -10,13 +18,12 @@ import { HelperService } from 'src/app/shared/helper.service';
   styleUrls: ["./recipe-list.component.scss"]
 })
 export class RecipeListComponent implements OnInit {
-  recipes = [];
-  filteredRecipes = [];
+  recipes: Recipe[] = [];
+  filteredRecipes: Recipe[] = [];
   ingredients = [];
-  selected;
-  names: any[] = [];
+  selected: string;
+  searchResults: SearchResult[] = [];
   filterPillArray = [];
-  // shoppingListItems = [];
 
   constructor(
     public recipeService: RecipeService,
@@ -24,22 +31,20 @@ export class RecipeListComponent implements OnInit {
     private helpers: HelperService) { }
 
   ngOnInit() {
-    //could be much better... look into this, maybe ngrx? or some clever thing
-    this.names = [];
+    this.searchResults = [];
     let that = this;
     this.recipeService.recipes$.subscribe(result => {
       this.recipes = result;
-      console.log(this.recipes)
       this.filteredRecipes = result;
-      this.names = this.names.filter(e => { return e.type === "Ingredient" })
+      this.searchResults = this.searchResults.filter(e => { return e.type === "Ingredient" })
       result.forEach(e => {
-        that.names.push({ name: e.title, id: e.id, type: "Recipe" });
+        that.searchResults.push({ name: e.title, id: e.id, type: "Recipe" });
       })
     });
     this.recipeService.ingredients$.subscribe(result => {
-      this.names = this.names.filter(e => { return e.type === "Recipe" })
+      this.searchResults = this.searchResults.filter(e => { return e.type === "Recipe" })
       result.forEach(e => {
-        that.names.push({ name: e.name, id: e.id, type: "Ingredient" });
+        that.searchResults.push({ name: e.name, id: e.id, type: "Ingredient" });
       })
     });
 
@@ -59,6 +64,12 @@ export class RecipeListComponent implements OnInit {
     this.selected = ''
   }
 
-  onAddRemoveToShoppingList(recipe) {
+  onAddRemoveToShoppingList(recipe: Recipe) {
+    recipe.shoppingListItem = !recipe.shoppingListItem
+    this.recipeService.updateRecipeSubject(recipe)
+  }
+
+  selectedCount() {
+    return this.recipes.filter(e => { return e.shoppingListItem == true }).length
   }
 }

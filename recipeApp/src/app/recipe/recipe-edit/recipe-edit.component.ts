@@ -30,7 +30,7 @@ export class RecipeEditComponent implements OnInit {
     this.buildForm();
     if (recipeId) {
       this.recipeService.recipes$.subscribe(result => {
-        this.recipeToEdit = result.find(r => r.id == recipeId)
+        this.recipeToEdit = result.find(r => r.id == Number(recipeId))
         if (this.recipeToEdit) {
           // console.log(this.recipeToEdit)
           let that = this;

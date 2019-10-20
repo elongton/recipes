@@ -12,8 +12,7 @@
 
 </div>
 
-<a [routerLink]="['/']">
-    <div style="position: fixed; top: 10px; left: 10px; padding-right: 10px; z-index: 2;">
-        <fa-icon icon=arrow-left style="font-size: 25px;"></fa-icon>
-    </div>
-</a>
+<div (click)="goBack();"
+    style="position: fixed; top: 10px; left: 10px; padding-right: 10px; z-index: 2; color: #007bff;">
+    <fa-icon icon=arrow-left style="font-size: 25px;"></fa-icon>
+</div>
