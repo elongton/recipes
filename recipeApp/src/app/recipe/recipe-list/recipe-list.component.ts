@@ -16,6 +16,7 @@ export class RecipeListComponent implements OnInit {
   selected;
   names: any[] = [];
   filterPillArray = [];
+  // shoppingListItems = [];
 
   constructor(
     public recipeService: RecipeService,
@@ -28,6 +29,7 @@ export class RecipeListComponent implements OnInit {
     let that = this;
     this.recipeService.recipes$.subscribe(result => {
       this.recipes = result;
+      console.log(this.recipes)
       this.filteredRecipes = result;
       this.names = this.names.filter(e => { return e.type === "Ingredient" })
       result.forEach(e => {
@@ -55,5 +57,8 @@ export class RecipeListComponent implements OnInit {
       this.router.navigate(['recipe/view/', event.item.id])
     }
     this.selected = ''
+  }
+
+  onAddRemoveToShoppingList(recipe) {
   }
 }

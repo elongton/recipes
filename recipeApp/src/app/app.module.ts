@@ -11,9 +11,9 @@ import { RecipeListComponent } from "./recipe/recipe-list/recipe-list.component"
 import { HttpClientModule } from "@angular/common/http";
 import { SharedModule } from './shared/shared.module';
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
+import { ShoppingListComponent } from './recipe/shopping-list/shopping-list.component';
 
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { ShoppingComponent } from './shopping/shopping.component';
 
 
 @NgModule({
@@ -23,7 +23,7 @@ import { ShoppingComponent } from './shopping/shopping.component';
     RecipeDetailComponent,
     RecipeListComponent,
     RecipeEditComponent,
-    ShoppingComponent
+    ShoppingListComponent,
   ],
   imports: [
     BrowserModule,
