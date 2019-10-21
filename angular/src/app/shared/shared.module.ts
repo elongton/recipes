@@ -14,6 +14,7 @@ import {
     faList,
     faPrint,
     faBars,
+    faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { FilterPillComponent } from './components/filter-pill/filter-pill.component';
 import { PopoverComponent } from './components/popover/popover.component';
@@ -50,7 +51,8 @@ export class SharedModule {
             faEdit,
             faPrint,
             faList,
-            faBars);
+            faBars,
+            faTrash);
     }
 
 }

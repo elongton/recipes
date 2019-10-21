@@ -8,4 +8,6 @@ urlpatterns = [
     path('ingredients/', views.IngredientList.as_view()),
     path('ingredients/<int:pk>', views.IngredientDetail.as_view()),
     path('units/', views.UnitList.as_view()),
+    path('units/<int:pk>', views.UnitDetail.as_view()),
+    path('unit-types/', views.UnitTypeList.as_view()),
 ]

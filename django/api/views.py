@@ -1,7 +1,13 @@
-from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep, Unit
+from api.models import (Recipe, 
+                        Ingredient, 
+                        RecipeIngredientLink, 
+                        RecipeStep, 
+                        Unit, 
+                        UnitType)
 from api.serializers import (RecipeSerializer,
                             IngredientSerializer,
-                            UnitSerializer)
+                            UnitSerializer,
+                            UnitTypeSerializer)
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 
@@ -106,6 +112,17 @@ class UnitList(generics.ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Unit.objects.all()
     serializer_class = UnitSerializer
+
+class UnitDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.AllowAny]
+    queryset = Unit.objects.all()
+    serializer_class = UnitSerializer
+
+
+class UnitTypeList(generics.ListCreateAPIView):
+    permission_classes = [permissions.AllowAny]
+    queryset = UnitType.objects.all()
+    serializer_class = UnitTypeSerializer
 
 
 

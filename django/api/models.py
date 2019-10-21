@@ -22,7 +22,7 @@ class Recipe(models.Model):
 class Ingredient(models.Model):
     # INGREDIENT_UNIT_TYPES =  UNIT_TYPES + (('S', 'Singular'),)
     name = models.CharField(max_length=100)
-    unit_type = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
+    unit_type = models.ForeignKey('UnitType', on_delete=models.SET_NULL, null=True, related_name='ingredients')
     
 
     def __str__(self):
@@ -30,10 +30,17 @@ class Ingredient(models.Model):
 
 class Unit(models.Model):
     name = models.CharField(max_length=100, blank=True)
-    unit_type = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
-    base_unit = models.ForeignKey('Unit', related_name='base', on_delete=models.SET_NULL, null=True)
+    unit_type = models.ForeignKey('UnitType', on_delete=models.SET_NULL, null=True, related_name='units')
+    base_unit = models.BooleanField(default=False)
     multiplier = models.FloatField(blank=True, null=True)
     
+    def __str__(self):
+        return self.name
+
+
+class UnitType(models.Model):
+    name = models.CharField(max_length=100)
+    symbol = models.CharField(max_length=1)
     def __str__(self):
         return self.name
 
@@ -43,10 +50,6 @@ class RecipeStep(models.Model):
         'Recipe', related_name='steps', on_delete=models.CASCADE)
     number = models.IntegerField()
     instruction = models.TextField()
-
-    # def __str__(self):
-    #     return self.recipe + ' - ' + str(self.number)
-
 
 
 class RecipeIngredientLink(models.Model):
