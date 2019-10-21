@@ -1,5 +1,7 @@
 from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep, Unit
-from api.serializers import RecipeSerializer, IngredientSerializer, UnitSerializer
+from api.serializers import (RecipeSerializer,
+                            IngredientSerializer,
+                            UnitSerializer)
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 

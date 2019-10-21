@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { RecipeService } from "../recipe.service";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
+import { Recipe } from 'src/app/core/models/recipe.model';
 
 @Component({
   selector: "app-recipe-detail",
@@ -9,7 +10,7 @@ import { Subscription } from "rxjs";
   styleUrls: ["./recipe-detail.component.scss"]
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
-  recipe;
+  recipe: Recipe;
   units;
   recipeSubscription: Subscription;
   unitSubscription: Subscription;
@@ -23,6 +24,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.recipeSubscription = this.recipeService.recipes$.subscribe(result => {
       if (result) {
         this.recipe = result.find(x => x.id === Number(recipeId));
+        // console.log(this.recipe)
       }
     });
     this.unitSubscription = this.recipeService.units$.subscribe(result => {
@@ -30,16 +32,16 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     })
   }
 
-  getIngredientUnit(unitId: Number) {
-    try {
-      if (this.units) {
-        return this.units.find(item => { return item.id == unitId }).name
-      } else {
-        return null
-      }
-    } catch (e) { }
+  // getIngredientUnit(unitId: Number) {
+  //   try {
+  //     if (this.units) {
+  //       return this.units.find(item => { return item.id == unitId }).name
+  //     } else {
+  //       return null
+  //     }
+  //   } catch (e) { }
 
-  }
+  // }
 
   ngOnDestroy() {
     this.recipeSubscription.unsubscribe();

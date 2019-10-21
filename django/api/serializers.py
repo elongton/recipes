@@ -14,11 +14,14 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
-    ingredient = IngredientSerializer()
+    name = serializers.CharField(source='ingredient.name')
+    id = serializers.IntegerField(source='ingredient.id')
+    unit = serializers.CharField(source='unit.name')
+    unit_id = serializers.IntegerField(source='unit.id')
 
     class Meta:
         model = RecipeIngredientLink
-        fields = ['id', 'ingredient', 'quantity', 'unit', 'notes']
+        fields = ['id', 'name', 'quantity', 'unit', 'unit_id', 'notes']
 
 
 class RecipeStepSerializer(serializers.ModelSerializer):

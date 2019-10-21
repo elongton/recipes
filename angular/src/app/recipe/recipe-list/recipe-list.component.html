@@ -46,7 +46,7 @@
               ? (deleteButton.style.display = 'inline')
               : (deleteButton.style.display = 'none');
             $event.stopPropagation()
-          ">
+          " (dblclick)="$event.stopPropagation()">
           <fa-icon icon="times"></fa-icon>
         </button>
       </div>

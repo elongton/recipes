@@ -32,6 +32,7 @@ export class RecipeEditComponent implements OnInit {
       this.recipeService.recipes$.subscribe(result => {
         this.recipeToEdit = result.find(r => r.id == Number(recipeId))
         if (this.recipeToEdit) {
+          console.log(this.recipeToEdit)
           // console.log(this.recipeToEdit)
           let that = this;
           this.recipeToEdit.ingredients.forEach(element => {
@@ -44,8 +45,8 @@ export class RecipeEditComponent implements OnInit {
           for (let i = 0; i < this.ingredients.length; i++) {
             try {
               this.ingredients.at(i).patchValue({
-                ingredientId: this.recipeToEdit.ingredients[i].ingredient.id,
-                unitId: this.recipeToEdit.ingredients[i].unit
+                ingredientId: Number(this.recipeToEdit.ingredients[i].id),
+                unitId: this.recipeToEdit.ingredients[i].unit_id
               });
             } catch (e) { }
 

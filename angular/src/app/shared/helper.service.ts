@@ -19,7 +19,7 @@ export class HelperService {
     }
 
     checkIfIngredient(recipeItem, ingredientId) {
-        return recipeItem.ingredients.filter(r => r.ingredient.id === ingredientId).length > 0
+        return recipeItem.ingredients.filter(r => { return r.id == ingredientId }).length > 0
     }
 }
 
