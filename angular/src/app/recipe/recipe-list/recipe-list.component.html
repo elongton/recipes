@@ -1,6 +1,12 @@
+<app-sidenav *ngIf="sidenav" (clickedOutside)="sidenav = !sidenav"></app-sidenav>
+
 <div class="sticky pb-2" style="z-index: 1; background-color: white; ">
   <div class="d-flex justify-content-between">
-    <h1>Recipe List</h1>
+    <div class="d-flex align-items-center">
+      <fa-icon style="font-size: 25px;" (click)="sidenav = !sidenav" class="mr-3" icon=bars></fa-icon>
+      <h1>Recipes</h1>
+    </div>
+
     <div class="d-flex align-items-center">
       <a [routerLink]="['/recipe/new']"><button class="btn btn-success ml-2">New Recipe</button></a>
       <a [routerLink]="['/shopping-list']"><button class="btn btn-primary ml-2" [disabled]="selectedCount() < 1">

@@ -1,0 +1,12 @@
+<div class="backdrop" #backdrop (click)="clickedOutsideMenu();">
+</div>
+
+<aside @openClose class="sidenav">
+    <button class="btn btn-primary" (click)="navigate('/')">Recipes</button>
+    <div>
+        <button class="btn btn-outline-primary" (click)="navigate('/units')">Unit
+            Manager</button>
+        <button class="btn btn-outline-primary" (click)="navigate('/ingredients')">Ingredient
+            Manager</button>
+    </div>
+</aside>

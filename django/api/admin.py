@@ -7,7 +7,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
 
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ('name', 'unitType', 'id',  )
+    list_display = ('name', 'unit_type', 'id',  )
 
 
 class RecipeIngredientLinkAdmin(admin.ModelAdmin):
@@ -27,7 +27,7 @@ class RecipeStepAdmin(admin.ModelAdmin):
 
 
 class UnitsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'unitType')
+    list_display = ('id', 'name', 'unit_type')
 
 
 admin.site.register(Recipe, RecipeAdmin)

@@ -14,6 +14,11 @@ import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component'
 import { ShoppingListComponent } from './recipe/shopping-list/shopping-list.component';
 
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+
+import { SidenavComponent } from './core/sidenav/sidenav.component';
+import { IngredientComponent } from './ingredient/ingredient.component';
+import { UnitComponent } from './unit/unit.component';
 
 
 @NgModule({
@@ -24,6 +29,9 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     RecipeListComponent,
     RecipeEditComponent,
     ShoppingListComponent,
+    SidenavComponent,
+    IngredientComponent,
+    UnitComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +41,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     SharedModule,
     BrowserAnimationsModule,
     TypeaheadModule.forRoot(),
+    AccordionModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

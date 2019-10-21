@@ -3,7 +3,7 @@ import { RecipeService } from "../recipe.service";
 import { Router } from "@angular/router";
 import { forkJoin } from 'rxjs';
 import { HelperService } from 'src/app/shared/helper.service';
-import { Recipe } from 'src/app/models/recipe.model';
+import { Recipe } from 'src/app/core/models/recipe.model';
 
 
 interface SearchResult {
@@ -24,6 +24,8 @@ export class RecipeListComponent implements OnInit {
   selected: string;
   searchResults: SearchResult[] = [];
   filterPillArray = [];
+
+  sidenav: Boolean = false;
 
   constructor(
     public recipeService: RecipeService,
@@ -73,4 +75,5 @@ export class RecipeListComponent implements OnInit {
   selectedCount() {
     return this.recipes.filter(e => { return e.shoppingListItem == true }).length
   }
+
 }

@@ -22,14 +22,17 @@ class Recipe(models.Model):
 class Ingredient(models.Model):
     # INGREDIENT_UNIT_TYPES =  UNIT_TYPES + (('S', 'Singular'),)
     name = models.CharField(max_length=100)
-    unitType = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
+    unit_type = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
+    
 
     def __str__(self):
         return self.name
 
 class Unit(models.Model):
     name = models.CharField(max_length=100, blank=True)
-    unitType = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
+    unit_type = models.CharField(max_length=1, choices=UNIT_TYPES, default='D')
+    base_unit = models.ForeignKey('Unit', related_name='base', on_delete=models.SET_NULL, null=True)
+    multiplier = models.FloatField(blank=True, null=True)
     
     def __str__(self):
         return self.name

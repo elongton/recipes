@@ -12,7 +12,8 @@ import {
     faTimes,
     faEdit,
     faList,
-    faPrint
+    faPrint,
+    faBars,
 } from '@fortawesome/free-solid-svg-icons';
 import { FilterPillComponent } from './components/filter-pill/filter-pill.component';
 import { PopoverComponent } from './components/popover/popover.component';
@@ -48,7 +49,8 @@ export class SharedModule {
             faTimes,
             faEdit,
             faPrint,
-            faList);
+            faList,
+            faBars);
     }
 
 }

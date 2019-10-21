@@ -1,0 +1,28 @@
+aside{
+    box-shadow: 6px 8px 6px 0 rgba(1,1,1,0.3);
+    position:fixed;
+    top: 0; left: 0;
+    bottom: 0;
+    width: 200px;
+    z-index: 3;
+    background-color: white;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.backdrop{
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(1,1,1,0.4);
+}
+
+button{
+    margin-bottom: 15px;
+    width: 100%;
+}

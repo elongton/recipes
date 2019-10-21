@@ -4,13 +4,13 @@ from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep, Uni
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unit
-        fields = ['id', 'name', 'unitType']
+        fields = ['id', 'name', 'unit_type']
 
 
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = ['id', 'name', 'unitType', ]
+        fields = ['id', 'name', 'unit_type', ]
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
