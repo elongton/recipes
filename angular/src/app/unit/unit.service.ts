@@ -10,4 +10,7 @@ export class UnitService {
     getUnits() {
         return this.http.get<any[]>(`api/units/`);
     }
+    getUnitTypes() {
+        return this.http.get<any[]>(`api/unit-types/`);
+    }
 }

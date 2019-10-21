@@ -7,3 +7,6 @@ export class FilterPipe implements PipeTransform {
         return value.filter(item => item[property] === propertyValue);
     }
 }
+
+
+//used in recipe-edit.component.html

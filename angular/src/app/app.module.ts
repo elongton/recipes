@@ -15,6 +15,7 @@ import { ShoppingListComponent } from './recipe/shopping-list/shopping-list.comp
 
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { SidenavComponent } from './core/sidenav/sidenav.component';
 import { IngredientComponent } from './ingredient/ingredient.component';
@@ -42,6 +43,7 @@ import { UnitComponent } from './unit/unit.component';
     BrowserAnimationsModule,
     TypeaheadModule.forRoot(),
     AccordionModule.forRoot(),
+    ModalModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
