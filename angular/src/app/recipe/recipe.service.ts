@@ -36,15 +36,15 @@ export class RecipeService {
     })
   }
 
-  submitRecipe(recipe: Recipe) {
+  submitRecipe(recipe) {
     return this.http.post<Recipe>(`api/recipes/`, recipe).pipe(
       tap(result => {
         this.addRecipeToSubjectAndNavigate(result)
       })
     );
   }
-  updateRecipe(recipe: Recipe, recipeId: Number) {
-    return this.http.put<Recipe>(`api/recipes/${recipeId}`, recipe).pipe(
+  updateRecipe(recipe, recipeId: Number) {
+    return this.http.put(`api/recipes/${recipeId}`, recipe).pipe(
       tap(result => {
         this.addRecipeToSubjectAndNavigate(result, true)
       })

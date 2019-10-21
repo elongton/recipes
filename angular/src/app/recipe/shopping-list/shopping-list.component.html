@@ -1,0 +1,27 @@
+<app-popover>
+    <div header>
+        <h1 style="margin-bottom: 0;">Shopping List</h1>
+        <div class="d-flex align-items-center justify-content-center">
+            <a [routerLink]="['/recipe/new']"><button class="btn btn-success ml-2">
+                    <fa-icon icon="print"></fa-icon> Print
+                </button></a>
+        </div>
+    </div>
+
+    <div body>
+
+        <h4>Recipes Selected:</h4>
+        <ul>
+            <li *ngFor="let recipe of selectedRecipes">{{recipe.title}}</li>
+        </ul>
+        <h4>Shopping List</h4>
+        <div class="row">
+            <div class="col" *ngFor="let recipe of selectedRecipes">
+                <ul>
+                    <li *ngFor="let ingredient of recipe.ingredients">{{ingredient.ingredient.name}}</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</app-popover>

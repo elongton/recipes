@@ -3,7 +3,7 @@
     <h1>Recipe List</h1>
     <div class="d-flex align-items-center">
       <a [routerLink]="['/recipe/new']"><button class="btn btn-success ml-2">New Recipe</button></a>
-      <a [routerLink]="['/shopping-list']"><button class="btn btn-primary ml-2">
+      <a [routerLink]="['/shopping-list']"><button class="btn btn-primary ml-2" [disabled]="selectedCount() < 1">
           Shopping List ({{selectedCount()}})
         </button></a>
     </div>

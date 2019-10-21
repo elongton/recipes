@@ -64,6 +64,7 @@ export class RecipeListComponent implements OnInit {
     this.selected = ''
   }
 
+  //probably needs to go into service...
   onAddRemoveToShoppingList(recipe: Recipe) {
     recipe.shoppingListItem = !recipe.shoppingListItem
     this.recipeService.updateRecipeSubject(recipe)
