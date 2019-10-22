@@ -8,7 +8,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class UnitComponent implements OnInit {
   modalRef: BsModalRef;
-  unitTypes$: any = this.unitService.unitTypes$
+  unitTypes: any
   unitTypeToAdd: { name: String, type: Number };
 
   newUnitName: String = null;
@@ -18,11 +18,14 @@ export class UnitComponent implements OnInit {
 
   ngOnInit() {
     this.unitService.getUnitTypes();
+    this.unitService.unitTypes$.subscribe(result => {
+      this.unitTypes = result;
+    })
   }
 
-  openModal(template: TemplateRef<any>) {
+  openNewUnitModal(addUnit: TemplateRef<any>) {
     console.log(this.unitTypeToAdd)
-    this.modalRef = this.modalService.show(template);
+    this.modalRef = this.modalService.show(addUnit);
   }
 
   createUnit() {
@@ -34,7 +37,6 @@ export class UnitComponent implements OnInit {
     }
 
     this.unitService.createUnit(newUnit).subscribe(result => {
-      this.unitService.getUnitTypes();
       this.modalRef.hide();
       this.newUnitName = null;
       this.newUnitMultiplier = null;
