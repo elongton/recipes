@@ -19,6 +19,12 @@ class UnitTypeSerializer(serializers.ModelSerializer):
         model = UnitType
         fields = ['name', 'units', 'id']
 
+class UnitTypeCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UnitType
+        fields = ['name', 'id']
+
+
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient

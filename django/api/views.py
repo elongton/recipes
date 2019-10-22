@@ -7,9 +7,12 @@ from api.models import (Recipe,
 from api.serializers import (RecipeSerializer,
                             IngredientSerializer,
                             UnitSerializer,
-                            UnitTypeSerializer)
-from rest_framework import generics, permissions
+                            UnitTypeSerializer,
+                            UnitTypeCreateSerializer)
+from rest_framework import generics, permissions, status
+from rest_framework.views import APIView
 from rest_framework.response import Response
+
 
 from .helpers.recipe_helpers import *
 import json
@@ -119,15 +122,28 @@ class UnitDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UnitSerializer
 
 
-class UnitTypeList(generics.ListCreateAPIView):
+class UnitTypeList(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = UnitType.objects.all()
     serializer_class = UnitTypeSerializer
 
 
 
-
-# if self.request.user.is_authenticated:
-#     recipeObj = serializer.save(author=self.request.user)
-# else:
-#     recipeObj = serializer.save(author=None)
+class UnitTypeCreate(APIView):
+    permission_classes = [permissions.AllowAny]
+    def post(self, request, format=None):
+        unit_type_data = {"name": request.data['name']}
+        unit_type_serializer = UnitTypeCreateSerializer(data=unit_type_data)
+        if unit_type_serializer.is_valid():
+            unit_type_obj = unit_type_serializer.save()
+        unit_data = {'name': request.data['base_unit'], 'unit_type': unit_type_obj.id, 'base_unit': True, 'multiplier': 1}
+        unit_serializer = UnitSerializer(data=unit_data)
+        if unit_serializer.is_valid():
+            unit_serializer.save()
+            responseData = {
+                'unitType': unit_type_serializer.data,
+                'baseUnit': unit_serializer.data
+            }
+            return Response(responseData, status=status.HTTP_201_CREATED)
+        return Response(unit_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+ 

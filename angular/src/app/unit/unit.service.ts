@@ -32,6 +32,10 @@ export class UnitService {
         }));
     }
 
+    createUnitType(newUnitType) {
+        return this.http.post(`api/unit_types/`, newUnitType);
+    }
+
     deleteUnit(unitId) {
         return this.http.delete(`api/units/${unitId}`).subscribe(result => {
             let currentUnitTypes = this.unitTypes$.getValue();

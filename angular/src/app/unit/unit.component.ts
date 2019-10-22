@@ -14,6 +14,10 @@ export class UnitComponent implements OnInit {
   newUnitName: String = null;
   newUnitMultiplier: Number = null;
 
+
+  newUnitType: String = null;
+  newBaseUnit: String = null;
+
   constructor(private unitService: UnitService, private modalService: BsModalService) { }
 
   ngOnInit() {
@@ -23,9 +27,9 @@ export class UnitComponent implements OnInit {
     })
   }
 
-  openNewUnitModal(addUnit: TemplateRef<any>) {
+  openModal(template: TemplateRef<any>) {
     console.log(this.unitTypeToAdd)
-    this.modalRef = this.modalService.show(addUnit);
+    this.modalRef = this.modalService.show(template);
   }
 
   createUnit() {
@@ -35,12 +39,20 @@ export class UnitComponent implements OnInit {
       base_unit: false,
       multiplier: this.newUnitMultiplier,
     }
-
     this.unitService.createUnit(newUnit).subscribe(result => {
       this.modalRef.hide();
       this.newUnitName = null;
       this.newUnitMultiplier = null;
     })
+  }
+
+  createUnitType() {
+    let newUnitType = {
+      name: this.newUnitType,
+      base_unit_name: this.newBaseUnit,
+    }
+
+
   }
 
 

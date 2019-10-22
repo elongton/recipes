@@ -10,4 +10,5 @@ urlpatterns = [
     path('units/', views.UnitList.as_view()),
     path('units/<int:pk>', views.UnitDetail.as_view()),
     path('unit-types/', views.UnitTypeList.as_view()),
+    path('unit-types/create', views.UnitTypeCreate.as_view()),
 ]
