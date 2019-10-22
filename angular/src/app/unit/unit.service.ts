@@ -33,7 +33,12 @@ export class UnitService {
     }
 
     createUnitType(newUnitType) {
-        return this.http.post(`api/unit_types/`, newUnitType);
+        return this.http.post(`api/unit-types/create`, newUnitType).pipe(tap(result => {
+            console.log(result)
+            let currentUnitTypes = this.unitTypes$.getValue();
+            currentUnitTypes.push(result)
+            this.unitTypes$.next(currentUnitTypes)
+        }));
     }
 
     deleteUnit(unitId) {

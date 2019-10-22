@@ -20,7 +20,11 @@
         <div class="ml-4">
             <div class="mb-3">
                 <strong>Base Unit:</strong>
-                <span *ngFor="let unit of type.units | filter:'base_unit': true"> {{unit.name}}</span>
+                <ng-container *ngFor="let unit of type.units">
+                    <span *ngIf="unit.base_unit === true"> {{unit.name}}</span>
+                </ng-container>
+
+
             </div>
             <ng-container *ngIf="type.units.length > 1; else noUnits">
                 <table style="width: 100%;" class="table-bordered table-striped table-hover">
@@ -100,6 +104,6 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success btn-sm" type="submit">Submit</button>
+        <button class="btn btn-success btn-sm" (click)="createUnitType();" type="submit">Submit</button>
     </div>
 </ng-template>

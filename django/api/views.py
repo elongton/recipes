@@ -140,9 +140,13 @@ class UnitTypeCreate(APIView):
         unit_serializer = UnitSerializer(data=unit_data)
         if unit_serializer.is_valid():
             unit_serializer.save()
+
+            ut_final = unit_type_serializer.data
+            u_final = unit_serializer.data
             responseData = {
-                'unitType': unit_type_serializer.data,
-                'baseUnit': unit_serializer.data
+                'name': ut_final['name'],
+                'id': ut_final['id'],
+                'units': [u_final]
             }
             return Response(responseData, status=status.HTTP_201_CREATED)
         return Response(unit_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

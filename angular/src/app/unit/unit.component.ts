@@ -9,12 +9,13 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 export class UnitComponent implements OnInit {
   modalRef: BsModalRef;
   unitTypes: any
-  unitTypeToAdd: { name: String, type: Number };
 
+  //add unit
+  unitTypeToAdd: { name: String, type: Number };
   newUnitName: String = null;
   newUnitMultiplier: Number = null;
 
-
+  //add unit type
   newUnitType: String = null;
   newBaseUnit: String = null;
 
@@ -49,8 +50,14 @@ export class UnitComponent implements OnInit {
   createUnitType() {
     let newUnitType = {
       name: this.newUnitType,
-      base_unit_name: this.newBaseUnit,
+      base_unit: this.newBaseUnit,
     }
+
+    this.unitService.createUnitType(newUnitType).subscribe(result => {
+      this.modalRef.hide();
+      this.newUnitType = null;
+      this.newBaseUnit = null;
+    })
 
 
   }
