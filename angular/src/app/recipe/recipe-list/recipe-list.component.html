@@ -16,7 +16,7 @@
   </div>
 
   <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onSelect($event)" [(ngModel)]="selected"
-    [typeahead]="searchResults" class="form-control mb-2" placeholder="Search a recipe or filter by ingredient"
+    [typeahead]="searchResults" class="form-control mb-2 mt-2" placeholder="Search a recipe or filter by ingredient"
     typeaheadOptionField="name" typeaheadGroupField="type" />
 
   <ng-container *ngFor="let item of filterPillArray; let i = index">

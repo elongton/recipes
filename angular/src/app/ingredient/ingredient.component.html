@@ -8,30 +8,56 @@
         </div>
 
         <div class="d-flex align-items-center">
-            <a [routerLink]="['/recipe/new']"><button class="btn btn-success ml-2">New Ingredient</button></a>
+            <button class="btn btn-success ml-2" (click)="openModal(addIngredient)">New Ingredient</button>
         </div>
     </div>
 
-    <input [(ngModel)]="query" class="form-control mb-2" placeholder="Search your ingredient" />
+    <input [(ngModel)]="query" class="form-control mb-2 mt-2"
+        placeholder="Search ingredient, unit type, or store section" />
 </div>
 
 <table style="width: 100%;" class="table-bordered table-striped table-hover">
     <thead>
         <tr>
-            <th>Ingredient</th>
-            <th>Unit Type</th>
-            <th>Section of Store</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th style="width: 40%;">Ingredient</th>
+            <th style="width: 30%;">Unit Type</th>
+            <th>Store Section</th>
+            <th class="text-center">Delete</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let ingredient of ingredients | filter:query">
+        <tr *ngFor="let ingredient of ingredients$ | async | filter:query">
             <td>{{ingredient.name}}</td>
-            <td>{{ingredient.unit_type}}</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ingredient.unit_type_name}}</td>
+            <td>{{ingredient.store_section}}</td>
+            <td class="text-danger text-center delete">
+                <fa-icon icon=trash></fa-icon>
+            </td>
         </tr>
     </tbody>
 </table>
+
+
+
+
+<ng-template #addIngredient>
+    <div class="modal-header">
+        <h5 class="pull-left">Add New Ingredient</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="d-flex align-items-center">
+            <label for="name" style="min-width: 100px;">Unit Type</label><input [(ngModel)]="newUnitType"
+                class="form-control" type="text" id="name">
+        </div>
+        <div class="d-flex align-items-center mt-2">
+            <label for="name" style="min-width: 100px;">Base Unit</label><input [(ngModel)]="newBaseUnit"
+                class="form-control" type="text" id="name">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success btn-sm" (click)="createUnitType();" type="submit">Submit</button>
+    </div>
+</ng-template>
