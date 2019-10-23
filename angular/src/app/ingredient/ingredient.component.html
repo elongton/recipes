@@ -11,4 +11,27 @@
             <a [routerLink]="['/recipe/new']"><button class="btn btn-success ml-2">New Ingredient</button></a>
         </div>
     </div>
+
+    <input [(ngModel)]="query" class="form-control mb-2" placeholder="Search your ingredient" />
 </div>
+
+<table style="width: 100%;" class="table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Ingredient</th>
+            <th>Unit Type</th>
+            <th>Section of Store</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ingredient of ingredients | filter:query">
+            <td>{{ingredient.name}}</td>
+            <td>{{ingredient.unit_type}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

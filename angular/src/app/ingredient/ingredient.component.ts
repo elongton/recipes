@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IngredientComponent implements OnInit {
 
+  ingredients: any[] = [
+    { name: 'chicken', unit_type: 'Poultry' },
+    { name: 'salt', unit_type: 'Dry' },
+    { name: 'pepper', unit_type: 'Dry' },
+    { name: 'tabasco', unit_type: 'Wet' },
+  ]
   constructor() { }
 
   ngOnInit() {

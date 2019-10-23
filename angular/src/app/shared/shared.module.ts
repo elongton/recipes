@@ -3,7 +3,8 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { FilterPipe } from './pipes/filter.pipe'
+import { FilterPipe } from './pipes/filter.pipe';
+import { SearchFilterPipe } from './pipes/search-filter.pipe'
 import {
     fas,
     faArrowLeft,
@@ -21,7 +22,8 @@ import { PopoverComponent } from './components/popover/popover.component';
 
 @NgModule({
     declarations: [
-        FilterPipe,
+        // FilterPipe,
+        SearchFilterPipe,
         FilterPillComponent,
         PopoverComponent
     ],
@@ -31,7 +33,8 @@ import { PopoverComponent } from './components/popover/popover.component';
         RouterModule,
     ],
     exports: [
-        FilterPipe,
+        // FilterPipe,
+        SearchFilterPipe,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
