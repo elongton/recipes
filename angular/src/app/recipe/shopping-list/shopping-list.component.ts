@@ -3,6 +3,7 @@ import { RecipeService } from '../recipe.service';
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -14,10 +15,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   selectedRecipes: Recipe[] = [];
   recipeSub: Subscription;
 
-  constructor(private recipeService: RecipeService, private router: Router) { }
+  constructor(private recipeService: RecipeService, private router: Router, private appService: AppService) { }
 
   ngOnInit() {
-    this.recipeSub = this.recipeService.recipes$.subscribe(recipes => {
+    this.recipeSub = this.appService.recipes$.subscribe(recipes => {
       this.selectedRecipes = recipes.filter(recipe => { return recipe.shoppingListItem === true })
       if (this.selectedRecipes.length < 1) {
         this.router.navigate(['/']);

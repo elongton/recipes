@@ -3,6 +3,7 @@ import { RecipeService } from "../recipe.service";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { Recipe } from 'src/app/core/models/recipe.model';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: "app-recipe-detail",
@@ -16,18 +17,19 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   unitSubscription: Subscription;
   constructor(
     private recipeService: RecipeService,
+    private appService: AppService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
-    this.recipeSubscription = this.recipeService.recipes$.subscribe(result => {
+    this.recipeSubscription = this.appService.recipes$.subscribe(result => {
       if (result) {
         this.recipe = result.find(x => x.id === Number(recipeId));
         // console.log(this.recipe)
       }
     });
-    this.unitSubscription = this.recipeService.units$.subscribe(result => {
+    this.unitSubscription = this.appService.units$.subscribe(result => {
       this.units = result;
     })
   }

@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { forkJoin } from 'rxjs';
 import { HelperService } from 'src/app/shared/helper.service';
 import { Recipe } from 'src/app/core/models/recipe.model';
+import { AppService } from 'src/app/app.service';
 
 
 interface SearchResult {
@@ -29,13 +30,14 @@ export class RecipeListComponent implements OnInit {
 
   constructor(
     public recipeService: RecipeService,
+    public appService: AppService,
     private router: Router,
     private helpers: HelperService) { }
 
   ngOnInit() {
     this.searchResults = [];
     let that = this;
-    this.recipeService.recipes$.subscribe(result => {
+    this.appService.recipes$.subscribe(result => {
       this.recipes = result;
       this.filteredRecipes = result;
       this.searchResults = this.searchResults.filter(e => { return e.type === "Ingredient" })
@@ -43,7 +45,7 @@ export class RecipeListComponent implements OnInit {
         that.searchResults.push({ name: e.title, id: e.id, type: "Recipe" });
       })
     });
-    this.recipeService.ingredients$.subscribe(result => {
+    this.appService.ingredients$.subscribe(result => {
       this.searchResults = this.searchResults.filter(e => { return e.type === "Recipe" })
       result.forEach(e => {
         that.searchResults.push({ name: e.name, id: e.id, type: "Ingredient" });

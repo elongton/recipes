@@ -3,6 +3,7 @@ import { RecipeService } from "../recipe.service";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 import { environment } from "src/environments/environment";
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: "app-recipe-edit",
@@ -21,6 +22,7 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
+    private appService: AppService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
   ) { }
@@ -29,7 +31,7 @@ export class RecipeEditComponent implements OnInit {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.buildForm();
     if (recipeId) {
-      this.recipeService.recipes$.subscribe(result => {
+      this.appService.recipes$.subscribe(result => {
         this.recipeToEdit = result.find(r => r.id == Number(recipeId))
         if (this.recipeToEdit) {
           console.log(this.recipeToEdit)
@@ -56,10 +58,10 @@ export class RecipeEditComponent implements OnInit {
         }
       })
     }
-    this.recipeService.ingredients$.subscribe(result => {
+    this.appService.ingredients$.subscribe(result => {
       this.ingredientList = result;
     });
-    this.recipeService.units$.subscribe(result => {
+    this.appService.units$.subscribe(result => {
       this.unitList = result;
     });
   }
