@@ -26,9 +26,11 @@ class UnitTypeCreateSerializer(serializers.ModelSerializer):
 
 
 class IngredientSerializer(serializers.ModelSerializer):
+    unit_type_name = serializers.CharField(source='unit_type.name')
+    store_section = serializers.CharField(source='store_section.name')
     class Meta:
         model = Ingredient
-        fields = ['id', 'name', 'unit_type', ]
+        fields = ['id', 'name', 'unit_type', 'unit_type_name', 'store_section']
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):

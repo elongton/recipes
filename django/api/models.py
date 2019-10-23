@@ -20,11 +20,14 @@ class Recipe(models.Model):
         return self.title
 
 class Ingredient(models.Model):
-    # INGREDIENT_UNIT_TYPES =  UNIT_TYPES + (('S', 'Singular'),)
     name = models.CharField(max_length=100)
     unit_type = models.ForeignKey('UnitType', on_delete=models.SET_NULL, null=True, related_name='ingredients')
-    
+    store_section = models.ForeignKey('StoreSection', on_delete=models.SET_NULL, null=True, related_name='ingredients')
+    def __str__(self):
+        return self.name
 
+class StoreSection(models.Model):
+    name = models.CharField(max_length=100)
     def __str__(self):
         return self.name
 

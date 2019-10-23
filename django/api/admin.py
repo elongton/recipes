@@ -6,7 +6,8 @@ from .models import (Recipe,
                     RecipeTagLink, 
                     RecipeStep, 
                     Unit, 
-                    UnitType)
+                    UnitType,
+                    StoreSection)
 
 
 class RecipeAdmin(admin.ModelAdmin):
@@ -39,6 +40,9 @@ class UnitsAdmin(admin.ModelAdmin):
 class UnitTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'symbol')
 
+class StoreSectionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'id')
+
 
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
@@ -48,3 +52,4 @@ admin.site.register(RecipeTagLink, RecipeTagLinkAdmin)
 admin.site.register(RecipeStep, RecipeStepAdmin)
 admin.site.register(Unit, UnitsAdmin)
 admin.site.register(UnitType, UnitTypeAdmin)
+admin.site.register(StoreSection, StoreSectionAdmin)
