@@ -11,10 +11,13 @@ export class AppService {
     recipes$ = new BehaviorSubject<Recipe[]>([]);
     ingredients$ = new BehaviorSubject<any[]>([]);
     units$ = new BehaviorSubject<any[]>([])
+    unitTypes$ = new BehaviorSubject<any[]>([])
     constructor(private http: HttpClient) { }
 
     getStoreSections() {
-        return this.http.get(`/api/store-sections/`).subscribe(result => {
+        return this.http.get<any[]>(`/api/store-sections/`).subscribe(result => {
+          this.storeSections$.next(result);
+          console.log("got store sections")
         })
     }
 
@@ -33,10 +36,16 @@ export class AppService {
 
     getUnits() {
         return this.http.get<any[]>(`api/units/`).subscribe(result => {
-            // console.log(result)
             this.units$.next(result)
             console.log("got units")
         })
+    }
+
+    getUnitTypes(){
+      return this.http.get<any[]>(`api/unit-types/`).subscribe(result => {
+        this.unitTypes$.next(result);
+        console.log("got unit types")
+      })
     }
 
 

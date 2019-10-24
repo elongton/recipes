@@ -1,13 +1,6 @@
 from django.db import models
 
-# Create your models here.
-UNIT_TYPES = (
-    ('W', 'Wet'),
-    ('D', 'Dry'),
-    ('P', 'Poultry'),
-    ('G', 'Garlic'),
-    ('S', 'Singular'),
-)
+
 
 class Recipe(models.Model):
     title = models.CharField(max_length=100, default='')
@@ -26,11 +19,6 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.name
 
-class StoreSection(models.Model):
-    name = models.CharField(max_length=100)
-    def __str__(self):
-        return self.name
-
 class Unit(models.Model):
     name = models.CharField(max_length=100, blank=True)
     unit_type = models.ForeignKey('UnitType', on_delete=models.SET_NULL, null=True, related_name='units')
@@ -40,20 +28,17 @@ class Unit(models.Model):
     def __str__(self):
         return self.name
 
-
 class UnitType(models.Model):
     name = models.CharField(max_length=100)
     symbol = models.CharField(max_length=1)
     def __str__(self):
         return self.name
 
-
 class RecipeStep(models.Model):
     recipe = models.ForeignKey(
         'Recipe', related_name='steps', on_delete=models.CASCADE)
     number = models.IntegerField()
     instruction = models.TextField()
-
 
 class RecipeIngredientLink(models.Model):
     recipe = models.ForeignKey('Recipe',
@@ -73,3 +58,8 @@ class RecipeTagLink(models.Model):
                                related_name='rt_recipe', on_delete=models.CASCADE)
     tag = models.ForeignKey('Tag',
                             related_name='rt_tag', on_delete=models.CASCADE)
+
+class StoreSection(models.Model):
+    name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name

@@ -3,12 +3,15 @@ from api.models import (Recipe,
                         RecipeIngredientLink, 
                         RecipeStep, 
                         Unit, 
-                        UnitType)
+                        UnitType,
+                        StoreSection,)
 from api.serializers import (RecipeSerializer,
                             IngredientSerializer,
                             UnitSerializer,
                             UnitTypeSerializer,
-                            UnitTypeCreateSerializer)
+                            UnitTypeCreateSerializer,
+                            StoreSectionSerializer,
+                            IngredientCreateSerializer)
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -151,3 +154,26 @@ class UnitTypeCreate(APIView):
             return Response(responseData, status=status.HTTP_201_CREATED)
         return Response(unit_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
  
+class IngredientCreate(APIView):
+    permission_classes = [permissions.AllowAny]
+    def post(self, request, format=None):
+        ingredient_serializer = IngredientCreateSerializer(data = request.data)
+
+        store_section = StoreSection.objects.get(id=request.data['store_section'])
+        unit_type = UnitType.objects.get(id=request.data['unit_type'])
+        if ingredient_serializer.is_valid():
+            ingredient_obj = ingredient_serializer.save()
+            responseData = {
+                'name': ingredient_obj.name,
+                'store_section': str(store_section),
+                'unit_type': request.data['unit_type'],
+                'unit_type_name': str(unit_type),
+            }
+            return Response(responseData, status=status.HTTP_201_CREATED)
+        return Response(ingredient_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class StoreSectionList(generics.ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    queryset = StoreSection.objects.all()
+    serializer_class = StoreSectionSerializer

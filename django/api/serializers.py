@@ -4,7 +4,14 @@ from api.models import (Recipe,
                         RecipeIngredientLink, 
                         RecipeStep, 
                         Unit, 
-                        UnitType)
+                        UnitType,
+                        StoreSection)
+
+class StoreSectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StoreSection
+        fields = ['name', 'id']
+
 
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,6 +39,10 @@ class IngredientSerializer(serializers.ModelSerializer):
         model = Ingredient
         fields = ['id', 'name', 'unit_type', 'unit_type_name', 'store_section']
 
+class IngredientCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient
+        fields = ['name', 'unit_type', 'store_section']
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='ingredient.name')
