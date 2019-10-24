@@ -29,7 +29,7 @@
 <ng-container *ngIf="filteredRecipes.length > 0; else noRecipes">
   <ul class="list-group" *ngFor="let recipe of filteredRecipes">
     <li class="list-group-item d-flex align-items-center justify-content-between mb-1 recipe-list-item"
-      (dblclick)="recipeService.nagivateToRecipe(recipe.id)">
+      (click)="recipeService.nagivateToRecipe(recipe.id)">
       <div class="d-flex align-items-center">
         <input type="checkbox" class="mr-3" [checked]="recipe.shoppingListItem"
           (click)="onAddRemoveToShoppingList(recipe); $event.stopPropagation()">

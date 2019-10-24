@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { UnitService } from './unit.service'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { AppService } from '../app.service';
 @Component({
   selector: 'app-unit',
   templateUrl: './unit.component.html',
@@ -19,11 +20,14 @@ export class UnitComponent implements OnInit {
   newUnitType: String = null;
   newBaseUnit: String = null;
 
-  constructor(private unitService: UnitService, private modalService: BsModalService) { }
+  constructor(
+    private unitService: UnitService,
+    private modalService: BsModalService,
+    private appService: AppService,) { }
 
   ngOnInit() {
     this.unitService.getUnitTypes();
-    this.unitService.unitTypes$.subscribe(result => {
+    this.appService.unitTypes$.subscribe(result => {
       this.unitTypes = result;
     })
   }

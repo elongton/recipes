@@ -9,6 +9,8 @@ import { AppService } from '../app.service';
 })
 export class IngredientComponent implements OnInit {
   modalRef: BsModalRef;
+  query:String;
+  sidenav:Boolean;
   ingredients$ = this.appService.ingredients$;
   unitTypes$ = this.appService.unitTypes$;
   storeSections$ = this.appService.storeSections$;
