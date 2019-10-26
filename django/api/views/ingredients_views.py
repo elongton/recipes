@@ -1,6 +1,5 @@
-from api.models import (Ingredient, )
-from api.serializers import (IngredientSerializer,
-                            IngredientCreateSerializer)
+from api.models import (Ingredient, StoreSection, UnitType)
+from api.serializers import (IngredientSerializer, IngredientCreateSerializer)
                             
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
@@ -11,13 +10,10 @@ from .helpers.recipe_helpers import *
 import json
 
 
-
-
 class IngredientList(generics.ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
-
 
 class IngredientDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.AllowAny]
@@ -42,3 +38,14 @@ class IngredientCreate(APIView):
             }
             return Response(responseData, status=status.HTTP_201_CREATED)
         return Response(ingredient_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+# class IngredientList(APIView):
+#     permission_classes = [permissions.AllowAny]
+#     def get(self, request, format=None):
+#         # serializer = 
+#         ingredients = Ingredient.objects.all()
+#         # print(ingredients)
+#         return Response(ingredients)

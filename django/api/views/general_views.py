@@ -9,8 +9,6 @@ from .helpers.recipe_helpers import *
 import json
 
 
-
-
 class StoreSectionList(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = StoreSection.objects.all()

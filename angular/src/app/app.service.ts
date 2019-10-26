@@ -24,14 +24,12 @@ export class AppService {
     getRecipes() {
         return this.http.get<Recipe[]>(`api/recipes/`).subscribe(result => {
             this.recipes$.next(result);
-            console.log(result)
             console.log("got recipes");
         });
     }
     getIngredients() {
         return this.http.get<any[]>(`api/ingredients/`).subscribe(result => {
             this.ingredients$.next(result);
-            console.log(result)
             console.log("got ingredients");
         });
     }

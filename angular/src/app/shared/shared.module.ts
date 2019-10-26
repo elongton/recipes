@@ -22,7 +22,7 @@ import { PopoverComponent } from './components/popover/popover.component';
 
 @NgModule({
     declarations: [
-        // FilterPipe,
+        FilterPipe,
         SearchFilterPipe,
         FilterPillComponent,
         PopoverComponent
@@ -33,7 +33,7 @@ import { PopoverComponent } from './components/popover/popover.component';
         RouterModule,
     ],
     exports: [
-        // FilterPipe,
+        FilterPipe,
         SearchFilterPipe,
         CommonModule,
         FormsModule,

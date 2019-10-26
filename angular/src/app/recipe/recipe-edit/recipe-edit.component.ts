@@ -59,9 +59,11 @@ export class RecipeEditComponent implements OnInit {
       })
     }
     this.appService.ingredients$.subscribe(result => {
+      console.log(result)
       this.ingredientList = result;
     });
     this.appService.units$.subscribe(result => {
+      console.log(result)
       this.unitList = result;
     });
   }
@@ -155,6 +157,7 @@ export class RecipeEditComponent implements OnInit {
     try {
       let ingredientId = this.recipeForm.controls.ingredients.value[i].ingredientId;
       let ingredient = this.ingredientList.filter(u => u.id == ingredientId)[0];
+      console.log(ingredient.unit_type)
       return ingredient.unit_type
     } catch{ }
 

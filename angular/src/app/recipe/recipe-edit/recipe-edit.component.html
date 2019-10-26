@@ -43,7 +43,7 @@
           <input type="number" formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />
 
           <select *ngIf="checkIfIngredient(i)" class="form-control ml-2 ingredient-input" formControlName="unitId">
-            <option *ngFor="let unit of unitList | filter:'id': getSelectedIngredientUnitType(i)" [ngValue]="unit.id">
+            <option *ngFor="let unit of unitList | filterTemplateList:'unit_type': getSelectedIngredientUnitType(i)" [ngValue]="unit.id">
               {{ unit.name }}</option>
           </select>
 
