@@ -115,7 +115,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   submit() {
-    // console.log(this.recipeForm.value);
+    console.log(this.recipeForm.value);
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
     if (this.selectedFile) {

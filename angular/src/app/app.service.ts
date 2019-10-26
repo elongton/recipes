@@ -16,20 +16,22 @@ export class AppService {
 
     getStoreSections() {
         return this.http.get<any[]>(`/api/store-sections/`).subscribe(result => {
-          this.storeSections$.next(result);
-          console.log("got store sections")
+            this.storeSections$.next(result);
+            console.log("got store sections")
         })
     }
 
     getRecipes() {
         return this.http.get<Recipe[]>(`api/recipes/`).subscribe(result => {
             this.recipes$.next(result);
+            console.log(result)
             console.log("got recipes");
         });
     }
     getIngredients() {
         return this.http.get<any[]>(`api/ingredients/`).subscribe(result => {
             this.ingredients$.next(result);
+            console.log(result)
             console.log("got ingredients");
         });
     }
@@ -41,11 +43,11 @@ export class AppService {
         })
     }
 
-    getUnitTypes(){
-      return this.http.get<any[]>(`api/unit-types/`).subscribe(result => {
-        this.unitTypes$.next(result);
-        console.log("got unit types")
-      })
+    getUnitTypes() {
+        return this.http.get<any[]>(`api/unit-types/`).subscribe(result => {
+            this.unitTypes$.next(result);
+            console.log("got unit types")
+        })
     }
 
 
