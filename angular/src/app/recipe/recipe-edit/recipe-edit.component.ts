@@ -157,7 +157,6 @@ export class RecipeEditComponent implements OnInit {
     try {
       let ingredientId = this.recipeForm.controls.ingredients.value[i].ingredientId;
       let ingredient = this.ingredientList.filter(u => u.id == ingredientId)[0];
-      console.log(ingredient.unit_type)
       return ingredient.unit_type
     } catch{ }
 

@@ -16,6 +16,11 @@ def getIngredient(name, type):
 with open('data.json') as json_file:
     data = json.load(json_file)
 
+# CREATE UNIT TYPES
+
+
+
+
 # CREATE UNITS
     for unit in data['units']:
         # check if the unit exists

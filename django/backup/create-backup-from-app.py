@@ -17,9 +17,12 @@ recipes = Recipe.objects.all()
 
 
 data = {}
+data['unit_types'] = []
+data['store_sections'] = []
 data['units'] = []
 data['ingredients'] = []
 data['recipes']= []
+
 
 for unit in units:
     data['units'].append({"name": unit.name, "unitType": unit.unitType})
