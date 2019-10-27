@@ -8,6 +8,7 @@ import { AppService } from '../app.service';
   styleUrls: ['./unit.component.scss']
 })
 export class UnitComponent implements OnInit {
+  sidenav;
   modalRef: BsModalRef;
   unitTypes: any
 

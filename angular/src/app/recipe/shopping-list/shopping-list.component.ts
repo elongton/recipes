@@ -14,21 +14,26 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   selectedRecipes: Recipe[] = [];
   recipeSub: Subscription;
+  ingredientList:any[];
 
   constructor(private recipeService: RecipeService, private router: Router, private appService: AppService) { }
 
   ngOnInit() {
+    this.ingredientList = [];
     this.recipeSub = this.appService.recipes$.subscribe(recipes => {
       this.selectedRecipes = recipes.filter(recipe => { return recipe.shoppingListItem === true })
       if (this.selectedRecipes.length < 1) {
         this.router.navigate(['/']);
       }
+      console.log(this.selectedRecipes)
+      let selectedRecipes = JSON.parse(JSON.stringify(this.selectedRecipes))
+      this.ingredientList = this.recipeService.scanRecipeList(selectedRecipes);
     })
   }
 
 
-
   ngOnDestroy() {
     this.recipeSub.unsubscribe();
+
   }
 }

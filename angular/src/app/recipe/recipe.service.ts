@@ -61,10 +61,25 @@ export class RecipeService {
   public nagivateToRecipe(id) {
     this.router.navigate(["/recipe/view", id]);
   }
-}
 
-// getRecipe(id) {
-//   return this.http.get(`api/recipes/${id}`).subscribe(result => {
-//     // this.selectedRecipe$.next(result);
-//   });
-// }
+  scanRecipeList(selectedRecipes){
+    let shoppingList = [];
+    selectedRecipes.forEach(recipe =>{
+      recipe.ingredients.forEach(ingredient => {
+        let found= false;
+        shoppingList.forEach(shoppingListItem => {
+          if (shoppingListItem.id === ingredient.id){
+            shoppingListItem.quantity = ingredient.quantity + shoppingListItem.quantity;
+            found = true
+          };
+        })
+        if (found === false){
+          shoppingList.push(ingredient)
+        }
+      })
+    })
+    return shoppingList;
+  }
+
+
+}

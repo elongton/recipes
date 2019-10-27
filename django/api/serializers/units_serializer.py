@@ -7,7 +7,7 @@ from api.models import (Unit,
 class UnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unit
-        fields = ['id', 'name', 'unit_type', 'base_unit', 'multiplier']
+        fields = ['id', 'name', 'unit_type', 'is_base_unit', 'multiplier']
 
 
 class UnitTypeSerializer(serializers.ModelSerializer):

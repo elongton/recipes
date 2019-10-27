@@ -21,7 +21,7 @@
             <div class="mb-3">
                 <strong>Base Unit:</strong>
                 <ng-container *ngFor="let unit of type.units">
-                    <span *ngIf="unit.base_unit === true"> {{unit.name}}</span>
+                    <span *ngIf="unit.is_base_unit === true"> {{unit.name}}</span>
                 </ng-container>
 
 
@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let unit of type.units">
-                            <tr *ngIf="unit.base_unit == false">
+                            <tr *ngIf="unit.is_base_unit == false">
                                 <td>{{unit.name}}</td>
                                 <td>{{unit.multiplier}}</td>
                                 <td class="text-danger text-center delete" (click)="deleteUnit(unit);">

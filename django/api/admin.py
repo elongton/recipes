@@ -35,10 +35,10 @@ class RecipeStepAdmin(admin.ModelAdmin):
 
 
 class UnitsAdmin(admin.ModelAdmin):
-    list_display = ('name', 'unit_type', 'base_unit', 'multiplier', 'id')
+    list_display = ('name', 'unit_type', 'is_base_unit', 'multiplier', 'id')
 
 class UnitTypeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'symbol')
+    list_display = ('name', 'base_unit')
 
 class StoreSectionAdmin(admin.ModelAdmin):
     list_display = ('name', 'id')

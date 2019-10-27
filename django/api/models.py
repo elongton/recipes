@@ -22,7 +22,7 @@ class Ingredient(models.Model):
 class Unit(models.Model):
     name = models.CharField(max_length=100, blank=True)
     unit_type = models.ForeignKey('UnitType', on_delete=models.SET_NULL, null=True, related_name='units')
-    base_unit = models.BooleanField(default=False)
+    is_base_unit = models.BooleanField(default=False)
     multiplier = models.FloatField(blank=True, null=True)
     
     def __str__(self):
@@ -30,7 +30,7 @@ class Unit(models.Model):
 
 class UnitType(models.Model):
     name = models.CharField(max_length=100)
-    symbol = models.CharField(max_length=1)
+    base_unit = models.ForeignKey('Unit', on_delete=models.SET_NULL, null=True, related_name='base_unit')
     def __str__(self):
         return self.name
 

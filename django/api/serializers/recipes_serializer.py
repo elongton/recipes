@@ -9,10 +9,23 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='ingredient.id')
     unit = serializers.CharField(source='unit.name')
     unit_id = serializers.IntegerField(source='unit.id')
+    unit_type = serializers.CharField(source="ingredient.unit_type.name")
+    base_unit = serializers.CharField(source="ingredient.unit_type.base_unit")
+    unit_multiplier = serializers.CharField(source="unit.multiplier")
+
 
     class Meta:
         model = RecipeIngredientLink
-        fields = ['id', 'name', 'quantity', 'unit', 'unit_id', 'notes']
+        fields = [
+        'id',
+        'name',
+        'quantity',
+        'unit',
+        'unit_id',
+        'notes',
+        'unit_type',
+        'base_unit',
+        'unit_multiplier']
 
 
 class RecipeStepSerializer(serializers.ModelSerializer):
