@@ -48,3 +48,10 @@ input[type='checkbox']:checked {
 textarea:focus, input:focus{
   outline: none;
 }
+
+
+@media print {
+  button, fa-icon{
+      display: none!important;
+  }
+}   

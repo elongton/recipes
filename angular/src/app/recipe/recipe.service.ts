@@ -70,13 +70,24 @@ export class RecipeService {
         shoppingList.forEach(shoppingListItem => {
           if (shoppingListItem.id === ingredient.id) {
             shoppingListItem.quantity = ingredient.quantity * ingredient.unit_multiplier + shoppingListItem.quantity;
+            //set the largest base unit and its multiplier
+            if (ingredient.unit_multiplier > shoppingListItem.unit_multiplier) {
+              shoppingListItem.unit = ingredient.unit;
+              shoppingListItem.unit_multiplier = ingredient.unit_multiplier
+            }
             found = true
           };
         })
         if (found === false) {
+          ingredient.quantity = ingredient.quantity * ingredient.unit_multiplier
           shoppingList.push(ingredient)
         }
       })
+    })
+    // normalize the units
+    shoppingList.forEach(ingredient => {
+      // console.log(ingredient)
+      ingredient.quantity = ingredient.quantity / ingredient.unit_multiplier;
     })
     return shoppingList;
   }

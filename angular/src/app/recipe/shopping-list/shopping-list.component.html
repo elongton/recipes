@@ -1,7 +1,8 @@
 <app-popover>
     <div header>
         <h1 style="margin-bottom: 0;">Shopping List</h1>
-        <div class="d-flex align-items-center justify-content-center"><button class="btn btn-success ml-2" disabled>
+        <div class="d-flex align-items-center justify-content-center">
+            <button class="btn btn-success ml-2" (click)="print();">
                 <fa-icon icon="print"></fa-icon> Print
             </button>
         </div>
@@ -17,7 +18,7 @@
         <div class="row">
             <div class="col">
                 <ul>
-                    <li *ngFor="let ingredient of ingredientList">{{ingredient.quantity}} {{ingredient.base_unit}}
+                    <li *ngFor="let ingredient of ingredientList">{{ingredient.quantity}} {{ingredient.unit}}
                         {{ingredient.name}}</li>
                 </ul>
             </div>
