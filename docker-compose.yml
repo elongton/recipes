@@ -1,0 +1,21 @@
+version: '3.2'
+
+services:
+  db:
+    image: postgres:latest
+  api:
+    build: django/.
+    command: bash -c "python manage.py makemigrations &&
+                      python manage.py migrate &&
+                      python setup_webapp.py &&
+                      gunicorn recipeApi.wsgi -b 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  angular:
+    build: angular/.
+    ports:
+      - "4200:80"
+    depends_on:
+      - api

@@ -18,3 +18,5 @@ six==1.12.0
 sqlparse==0.3.0
 wincertstore==0.2
 wrapt==1.11.2
+gunicorn==19.9.0
+psycopg2>=2.7,<2.8 --no-binary psycopg2
