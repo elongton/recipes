@@ -35,7 +35,7 @@ SECRET_KEY = 'y2km(3q^)x2nsly1dc5#$7%a6e-q@&6ybl18z8lgn-w1_mq@=u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.253:8000', 'localhost:8000', 'recipes.maxlongton.com']
+ALLOWED_HOSTS = ['192.168.1.253', 'localhost', 'recipes.maxlongton.com']
 
 
 # Application definition
