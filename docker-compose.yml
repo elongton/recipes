@@ -11,6 +11,8 @@ services:
                       python manage.py migrate &&
                       python setup_webapp.py &&
                       gunicorn recipeApi.wsgi -b 0.0.0.0:8000"
+    volumes:
+      - ./django/media:/media
     ports:
       - "8000:8000"
     depends_on:
