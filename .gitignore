@@ -1,6 +1,7 @@
 # Created by https://www.gitignore.io
 postgres-data/
 django/media/
+django/mediafiles/
 ### Django ###
 *.log
 *.pot
