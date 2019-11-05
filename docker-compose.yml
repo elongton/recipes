@@ -12,7 +12,7 @@ services:
                       python setup_webapp.py &&
                       gunicorn recipeApi.wsgi -b 0.0.0.0:8000"
     volumes:
-      - ./django/media:/media
+      - media_volume:/src/mediafiles
     ports:
       - "8000:8000"
     depends_on:
@@ -23,3 +23,6 @@ services:
       - "4200:80"
     depends_on:
       - api
+
+volumes:
+  media_volume:
