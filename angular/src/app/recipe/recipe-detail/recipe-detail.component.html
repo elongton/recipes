@@ -14,7 +14,7 @@
 
     <div body>
       <div class="image recipe-section" *ngIf="recipe.image" [ngStyle]="{
-          'background-image': 'url(http://localhost:8000' + recipe.image + ')'
+          'background-image': 'url(' + imageUrl + recipe.image + ')'
         }" style="height: 250px; background-position: center; background-size: cover;"></div>
       <div class="description recipe-section">
         {{ recipe.description }}

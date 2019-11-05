@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   domain: "http://localhost:4200",
-  backend: "http://localhost:8000"
+  backend: "http://localhost:8000",
+  url: "http://localhost:8000",
 };
 
 /*

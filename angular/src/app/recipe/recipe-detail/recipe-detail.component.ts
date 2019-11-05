@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { AppService } from 'src/app/app.service';
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-recipe-detail",
@@ -11,6 +12,7 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ["./recipe-detail.component.scss"]
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
+  imageUrl: string = environment.url;
   recipe: Recipe;
   units;
   recipeSubscription: Subscription;
@@ -18,7 +20,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   constructor(
     private recipeService: RecipeService,
     private appService: AppService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
