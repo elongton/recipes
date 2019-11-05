@@ -26,7 +26,7 @@
 
 
             </div>
-            <ng-container *ngIf="type.units.length > 1; else noUnits">
+            <ng-container *ngIf="type.units.length > 2; else noUnits">
                 <table style="width: 100%;" class="table-bordered table-striped table-hover">
                     <thead>
                         <tr>
@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let unit of type.units">
-                            <tr *ngIf="unit.is_base_unit == false">
+                            <tr *ngIf="unit.is_base_unit === false && unit.multiplier > 0">
                                 <td>{{unit.name}}</td>
                                 <td>{{unit.multiplier}}</td>
                                 <td class="text-danger text-center delete" (click)="deleteUnit(unit);">
@@ -104,6 +104,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success btn-sm" (click)="createUnitType();" type="submit">Submit</button>
+        <button class="btn btn-success btn-sm" (click)="createUnitType();" [disabled]="!newUnitType || !newBaseUnit"
+            type="submit">Submit</button>
     </div>
 </ng-template>

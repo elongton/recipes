@@ -24,7 +24,7 @@ export class UnitComponent implements OnInit {
   constructor(
     private unitService: UnitService,
     private modalService: BsModalService,
-    private appService: AppService,) { }
+    private appService: AppService, ) { }
 
   ngOnInit() {
     this.unitService.getUnitTypes();

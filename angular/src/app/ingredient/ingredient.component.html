@@ -69,6 +69,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success btn-sm" (click)="onSubmitIngredient();" type="submit">Submit</button>
+        <button class="btn btn-success btn-sm" (click)="onSubmitIngredient();"
+            [disabled]="!newIngredientStoreSection || !newIngredientUnitType || !newIngredientName"
+            type="submit">Submit</button>
     </div>
 </ng-template>

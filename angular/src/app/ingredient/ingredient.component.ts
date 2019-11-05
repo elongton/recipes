@@ -9,17 +9,17 @@ import { AppService } from '../app.service';
 })
 export class IngredientComponent implements OnInit {
   modalRef: BsModalRef;
-  query:String;
-  sidenav:Boolean;
+  query: String;
+  sidenav: Boolean;
   ingredients$ = this.appService.ingredients$;
   unitTypes$ = this.appService.unitTypes$;
   storeSections$ = this.appService.storeSections$;
   constructor(
     public ingredientService: IngredientService,
     private modalService: BsModalService,
-    private appService: AppService,) { }
+    private appService: AppService, ) { }
 
-  newIngredientName:String = '';
+  newIngredientName: String = '';
   newIngredientUnitType: Number = null;
   newIngredientStoreSection: Number = null;
 
@@ -31,7 +31,7 @@ export class IngredientComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  onSubmitIngredient(){
+  onSubmitIngredient() {
     let newIngredient = {
       name: this.newIngredientName,
       unit_type: this.newIngredientUnitType,
@@ -39,7 +39,7 @@ export class IngredientComponent implements OnInit {
     }
     this.ingredientService.createIngredient(newIngredient).subscribe(result => {
       this.modalRef.hide();
-      this.newIngredientName =  '';
+      this.newIngredientName = '';
       this.newIngredientUnitType = null;
       this.newIngredientStoreSection = null;
     })
