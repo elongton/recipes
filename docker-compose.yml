@@ -12,7 +12,7 @@ services:
                       python setup_webapp.py &&
                       gunicorn recipeApi.wsgi -b 0.0.0.0:8000"
     volumes:
-      - media_volume:/src/mediafiles
+      - ./media_volume:/src/mediafiles
     ports:
       - "8000:8000"
     depends_on:
