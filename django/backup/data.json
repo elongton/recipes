@@ -1,449 +1,51 @@
 {
+    "unit_types": [],
+    "store_sections": [
+        {
+            "name": "Spices",
+            "id": 1
+        }
+    ],
     "units": [
         {
             "name": "teaspoon",
-            "unitType": "D"
-        },
-        {
-            "name": "fluid ounce",
-            "unitType": "W"
-        },
-        {
-            "name": "tablespoon",
-            "unitType": "D"
-        },
-        {
-            "name": "cup",
-            "unitType": "W"
-        },
-        {
-            "name": "pound (lb)",
-            "unitType": "P"
-        },
-        {
-            "name": "cup",
-            "unitType": "D"
-        },
-        {
-            "name": "",
-            "unitType": "S"
-        },
-        {
-            "name": "tablespoon",
-            "unitType": "W"
-        },
-        {
-            "name": "clove",
-            "unitType": "G"
-        },
-        {
-            "name": "quart",
-            "unitType": "W"
-        },
-        {
-            "name": "cup",
-            "unitType": "P"
+            "unitType": 1,
+            "isBaseUnit": true,
+            "multiplier": 1.0,
+            "id": 1
         }
     ],
     "ingredients": [
         {
             "name": "salt",
-            "unitType": "D"
-        },
-        {
-            "name": "black pepper",
-            "unitType": "D"
-        },
-        {
-            "name": "cardamom",
-            "unitType": "D"
-        },
-        {
-            "name": "chicken",
-            "unitType": "P"
-        },
-        {
-            "name": "duck fat",
-            "unitType": "W"
-        },
-        {
-            "name": "chicken stock",
-            "unitType": "W"
-        },
-        {
-            "name": "garlic",
-            "unitType": "G"
-        },
-        {
-            "name": "shallot",
-            "unitType": "S"
-        },
-        {
-            "name": "ghee",
-            "unitType": "W"
-        },
-        {
-            "name": "lemon",
-            "unitType": "S"
-        },
-        {
-            "name": "oregano",
-            "unitType": "D"
-        },
-        {
-            "name": "lemon zest",
-            "unitType": "D"
-        },
-        {
-            "name": "cremini mushrooms",
-            "unitType": "D"
-        },
-        {
-            "name": "bell pepper",
-            "unitType": "S"
-        },
-        {
-            "name": "lard",
-            "unitType": "W"
-        },
-        {
-            "name": "coconut oil",
-            "unitType": "W"
-        },
-        {
-            "name": "onion",
-            "unitType": "S"
-        },
-        {
-            "name": "sea salt",
-            "unitType": "D"
-        },
-        {
-            "name": "cumin",
-            "unitType": "D"
-        },
-        {
-            "name": "coriander",
-            "unitType": "D"
-        },
-        {
-            "name": "paprika",
-            "unitType": "D"
-        },
-        {
-            "name": "chipotle powder",
-            "unitType": "D"
-        },
-        {
-            "name": "diced tomatoes",
-            "unitType": "D"
-        },
-        {
-            "name": "chicken broth",
-            "unitType": "W"
-        },
-        {
-            "name": "avocado",
-            "unitType": "S"
-        },
-        {
-            "name": "cilantro",
-            "unitType": "D"
+            "unitType": 1,
+            "storeSection": 1,
+            "id": 1
         }
     ],
     "recipes": [
         {
-            "title": "Chicken en Brodo",
-            "description": "One of the dishes my mom made in regular rotation when I was growing up was chicken a la king, a chicken dish with a creamy white mushroom sauce and biscuits.  This dish is a dairy-free spin on the old Staley family recipe.  What makes this version great, in my opinion, is the richness of the mushroom sauce paired with crispy-skinned and perfectly seasoned chicken.  This dish always feels like the perfect comfort food when the weather starts to cool off in the fall. \n",
-            "image": "/chicken_en_brodo.png",
+            "title": "Test",
+            "description": "test_recipe",
+            "image": "/Mongolian-Beef-4.jpg",
             "steps": [
                 {
                     "number": 1,
-                    "instruction": "Preheat the oven to 400F.  Rinse the chicken under cold water and pat dry with a paper towel. "
-                },
-                {
-                    "number": 2,
-                    "instruction": "Starting breast side up, cut the chicken down the center between the breasts, on either side of the backbone.  Discard the back or save it for stock.  Season the chicken halves with salt.  Heat the duck fat in a 12-inch ovenproof skillet over medium-high heat.  Add the chicken halves and sear on both sides until browned.  Place the pan in the oven (with the chicken skin side up) and roast for 25 minutes.  Remove from the oven and turn the temperature down to 325F.  Pour 1/2 cup of the stock over the chicken, season with pepper, and place back in the oven for 10 minutes, or until the internal temperature of the breast reaches 165F. "
-                },
-                {
-                    "number": 3,
-                    "instruction": "Saute the garlic and shallot in the ghee over medium heat until fragrant, and season with salt and pepper.  Squeeze the lemon juice over the garlic and shallot, add the oregano and lemon zest, and stir.  Add mushrooms and continue to saute until tender.  Add the remaining 3/4 cup of stock and bring to a bubble.  Reduce the heat to low and simmer until the sauce has reduced by almost half."
-                },
-                {
-                    "number": 4,
-                    "instruction": "Divide the sauce and mushrooms between two shallow bowls.  Top each bowl with a chicken half and serve."
+                    "instruction": "test instruction",
+                    "id": 3
                 }
             ],
             "ingredients": [
                 {
-                    "name": "chicken",
-                    "unitType": "P",
+                    "name": "salt",
+                    "unitType": 1,
                     "quantity": 3.0,
-                    "unitName": "pound (lb)",
-                    "notes": "small"
-                },
-                {
-                    "name": "sea salt",
-                    "unitType": "D",
-                    "quantity": 3.0,
-                    "unitName": "tablespoon",
-                    "notes": ""
-                },
-                {
-                    "name": "duck fat",
-                    "unitType": "W",
-                    "quantity": 1.5,
-                    "unitName": "tablespoon",
-                    "notes": ""
-                },
-                {
-                    "name": "chicken stock",
-                    "unitType": "W",
-                    "quantity": 1.25,
-                    "unitName": "cup",
-                    "notes": "divided"
-                },
-                {
-                    "name": "black pepper",
-                    "unitType": "D",
-                    "quantity": 1.0,
-                    "unitName": "tablespoon",
-                    "notes": ""
-                },
-                {
-                    "name": "garlic",
-                    "unitType": "G",
-                    "quantity": 4.0,
-                    "unitName": "clove",
-                    "notes": "smashed with the side of a knife"
-                },
-                {
-                    "name": "shallot",
-                    "unitType": "S",
-                    "quantity": 1.0,
-                    "unitName": "",
-                    "notes": "sliced"
-                },
-                {
-                    "name": "ghee",
-                    "unitType": "W",
-                    "quantity": 1.0,
-                    "unitName": "tablespoon",
-                    "notes": "store-bought or homemade"
-                },
-                {
-                    "name": "lemon",
-                    "unitType": "S",
-                    "quantity": 0.5,
-                    "unitName": "",
-                    "notes": ""
-                },
-                {
-                    "name": "oregano",
-                    "unitType": "D",
-                    "quantity": 1.0,
                     "unitName": "teaspoon",
-                    "notes": "dried"
-                },
-                {
-                    "name": "lemon zest",
-                    "unitType": "D",
-                    "quantity": 1.0,
-                    "unitName": "teaspoon",
-                    "notes": "grated"
-                },
-                {
-                    "name": "cremini mushrooms",
-                    "unitType": "D",
-                    "quantity": 4.0,
-                    "unitName": "cup",
-                    "notes": ""
-                }
-            ]
-        },
-        {
-            "title": "Tortilla Soup",
-            "description": "prep time: 20 minutes | cook time: 40 minutes | serves: 4",
-            "image": "/tortilla_soup_FhOR27l.png",
-            "steps": [
-                {
-                    "number": 1,
-                    "instruction": "Core and seed the roasted bell peppers and cut them into small dice.  Set aside."
-                },
-                {
-                    "number": 2,
-                    "instruction": "Heat a large soup pot over medium-high heat and add the lard."
-                },
-                {
-                    "number": 3,
-                    "instruction": "Saute the onion for 12 to 15 minutes, stirring occasionally, until softened and browned.  Add the garlic and cook for 1 more minute."
-                },
-                {
-                    "number": 4,
-                    "instruction": "Add the salt, cumin, coriander, smoked paprika, and chipotle powder and cook for another 30 seconds, stirring constantly."
-                },
-                {
-                    "number": 5,
-                    "instruction": "Add the tomatoes, broth, and roasted peppers and bring to a boil.  Turn the heat down to medium-low and simmer, uncovered, for 25 to 30 minutes."
-                },
-                {
-                    "number": 6,
-                    "instruction": "Add the shredded chicken and cook another minute, or until heated through."
-                },
-                {
-                    "number": 7,
-                    "instruction": "To serve, garnish each bowl with one-quarter of the diced avocado, a lime wedge, cilantro leaves, and small handful of plantain fries. "
+                    "notes": "test",
+                    "id": 3
                 }
             ],
-            "ingredients": [
-                {
-                    "name": "bell pepper",
-                    "unitType": "S",
-                    "quantity": 2.0,
-                    "unitName": "",
-                    "notes": "roasted (red, orange, or yellow, or a combination)"
-                },
-                {
-                    "name": "lard",
-                    "unitType": "W",
-                    "quantity": 1.0,
-                    "unitName": "tablespoon",
-                    "notes": ""
-                },
-                {
-                    "name": "onion",
-                    "unitType": "S",
-                    "quantity": 1.0,
-                    "unitName": "",
-                    "notes": "medium, cut into medium dice"
-                },
-                {
-                    "name": "garlic",
-                    "unitType": "G",
-                    "quantity": 4.0,
-                    "unitName": "clove",
-                    "notes": "sliced"
-                },
-                {
-                    "name": "sea salt",
-                    "unitType": "D",
-                    "quantity": 1.0,
-                    "unitName": "teaspoon",
-                    "notes": "finely ground"
-                },
-                {
-                    "name": "cumin",
-                    "unitType": "D",
-                    "quantity": 1.0,
-                    "unitName": "teaspoon",
-                    "notes": "ground"
-                },
-                {
-                    "name": "coriander",
-                    "unitType": "D",
-                    "quantity": 1.0,
-                    "unitName": "teaspoon",
-                    "notes": "ground"
-                },
-                {
-                    "name": "paprika",
-                    "unitType": "D",
-                    "quantity": 2.0,
-                    "unitName": "teaspoon",
-                    "notes": "smoked"
-                },
-                {
-                    "name": "chipotle powder",
-                    "unitType": "D",
-                    "quantity": 0.5,
-                    "unitName": "teaspoon",
-                    "notes": "ground"
-                },
-                {
-                    "name": "diced tomatoes",
-                    "unitType": "D",
-                    "quantity": 2.0,
-                    "unitName": "cup",
-                    "notes": "fresh"
-                },
-                {
-                    "name": "chicken broth",
-                    "unitType": "W",
-                    "quantity": 1.0,
-                    "unitName": "quart",
-                    "notes": ""
-                },
-                {
-                    "name": "chicken",
-                    "unitType": "P",
-                    "quantity": 2.0,
-                    "unitName": "cup",
-                    "notes": "cooked and shredded"
-                }
-            ]
-        },
-        {
-            "title": "Pan Roast Chicken with Bacon and Apples + Roast Veggies",
-            "description": "",
-            "image": "",
-            "steps": [],
-            "ingredients": []
-        },
-        {
-            "title": "Mustard Chicken Thighs + Roast Veggies",
-            "description": "",
-            "image": "",
-            "steps": [],
-            "ingredients": []
-        },
-        {
-            "title": "Ratatouille",
-            "description": "",
-            "image": "",
-            "steps": [],
-            "ingredients": []
-        },
-        {
-            "title": "Cumin Squash and Lentil Soup",
-            "description": "",
-            "image": "",
-            "steps": [],
-            "ingredients": []
-        },
-        {
-            "title": "Beef Stew",
-            "description": "",
-            "image": "",
-            "steps": [],
-            "ingredients": []
-        },
-        {
-            "title": "Cauliflower and Meatballs",
-            "description": "",
-            "image": "",
-            "steps": [],
-            "ingredients": []
-        },
-        {
-            "title": "Roasted Shrimp and Gnocchi Bake + Asparagus",
-            "description": "",
-            "image": "",
-            "steps": [],
-            "ingredients": []
-        },
-        {
-            "title": "Roast Salmon with Cucumber Salsa + Jicama Slaw",
-            "description": "",
-            "image": "",
-            "steps": [],
-            "ingredients": []
-        },
-        {
-            "title": "Ginger Scallion Pork Meatballs + Seasame Zoodles",
-            "description": "",
-            "image": "",
-            "steps": [],
-            "ingredients": []
+            "id": 4
         }
     ]
 }

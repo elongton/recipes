@@ -18,7 +18,8 @@
         <div class="row">
             <div class="col">
                 <ul>
-                    <li *ngFor="let ingredient of ingredientList">{{ingredient.quantity}} {{ingredient.unit}}
+                    <li *ngFor="let ingredient of ingredientList">{{ingredient.quantity}}
+                        {{ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
                         {{ingredient.name}}</li>
                 </ul>
             </div>

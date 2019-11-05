@@ -41,9 +41,11 @@ class UnitTypeCreate(APIView):
             unit_type_obj = unit_type_serializer.save()
         #create base unit
         unit_data = {'name': request.data['base_unit'], 'unit_type': unit_type_obj.id, 'is_base_unit': True, 'multiplier': 1}
+        quantity_unit = Unit(name = 'quantity', unit_type = unit_type_obj, is_base_unit = False, multiplier = 0)
         unit_serializer = UnitSerializer(data=unit_data)
         if unit_serializer.is_valid():
             unit_obj = unit_serializer.save()
+            quantity_unit.save()
             ut_final = unit_type_serializer.data
             u_final = unit_serializer.data
             responseData = {
@@ -51,6 +53,7 @@ class UnitTypeCreate(APIView):
                 'id': ut_final['id'],
                 'units': [u_final]
             }
+
             #update base_unit property of new unit type
             unit_type_obj.base_unit=unit_obj
             unit_type_obj.save()

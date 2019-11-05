@@ -68,26 +68,38 @@ export class RecipeService {
       recipe.ingredients.forEach(ingredient => {
         let found = false;
         shoppingList.forEach(shoppingListItem => {
-          if (shoppingListItem.id === ingredient.id) {
+          if (shoppingListItem.id === ingredient.id && ingredient.unit_multiplier > 0 && shoppingListItem.unit_multiplier > 0) {
             shoppingListItem.quantity = ingredient.quantity * ingredient.unit_multiplier + shoppingListItem.quantity;
             //set the largest base unit and its multiplier
             if (ingredient.unit_multiplier > shoppingListItem.unit_multiplier) {
               shoppingListItem.unit = ingredient.unit;
               shoppingListItem.unit_multiplier = ingredient.unit_multiplier
+            } else {
+              shoppingListItem.quantity = ingredient.quantity + shoppingListItem.quantity;
             }
             found = true
+          } else if (shoppingListItem.id === ingredient.id && ingredient.unit_multiplier == 0 && shoppingListItem.unit_multiplier == 0) {
+            shoppingListItem.quantity = ingredient.quantity + shoppingListItem.quantity;
+            found = true
           };
+
         })
         if (found === false) {
-          ingredient.quantity = ingredient.quantity * ingredient.unit_multiplier
-          shoppingList.push(ingredient)
+          if (ingredient.unit_multiplier > 0) {
+            ingredient.quantity = ingredient.quantity * ingredient.unit_multiplier
+            shoppingList.push(ingredient)
+          } else if (ingredient.unit_multiplier == 0) {
+            shoppingList.push(ingredient)
+          }
         }
       })
     })
     // normalize the units
     shoppingList.forEach(ingredient => {
       // console.log(ingredient)
-      ingredient.quantity = ingredient.quantity / ingredient.unit_multiplier;
+      if (ingredient.unit_multiplier > 0) {
+        ingredient.quantity = ingredient.quantity / ingredient.unit_multiplier;
+      }
     })
     return shoppingList;
   }
