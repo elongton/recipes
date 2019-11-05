@@ -53,7 +53,7 @@ export class RecipeEditComponent implements OnInit {
             } catch (e) { }
 
           }
-          this.uploadedImage = environment.backend + this.recipeToEdit.image;
+          this.uploadedImage = environment.url + this.recipeToEdit.image;
           this.recipeForm.patchValue(this.recipeToEdit)
         }
       })
