@@ -19,18 +19,21 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FilterPillComponent } from './components/filter-pill/filter-pill.component';
 import { PopoverComponent } from './components/popover/popover.component';
+import { NewIngredientModalComponent } from './components/new-ingredient-modal/new-ingredient-modal.component';
 
 @NgModule({
     declarations: [
         FilterPipe,
         SearchFilterPipe,
         FilterPillComponent,
-        PopoverComponent
+        PopoverComponent,
+        NewIngredientModalComponent
     ],
     imports: [
         CommonModule,
         FontAwesomeModule,
         RouterModule,
+        FormsModule,
     ],
     exports: [
         FilterPipe,
@@ -41,7 +44,8 @@ import { PopoverComponent } from './components/popover/popover.component';
         FontAwesomeModule,
         FilterPillComponent,
         PopoverComponent
-    ]
+    ],
+    entryComponents: [NewIngredientModalComponent],
 })
 export class SharedModule {
     constructor(library: FaIconLibrary) {

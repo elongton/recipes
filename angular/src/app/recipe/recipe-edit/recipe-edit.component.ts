@@ -164,7 +164,28 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onTypeAheadIngredient(event, i) {
-    this.recipeForm.controls.ingredients.value[i].ingredientId = event.item.id;
+    this.ingredients.at(i).patchValue({
+      ingredientId: event.item.id
+    });
     console.log(event, i)
   }
+
+  onBlurIngredient(event, i){
+    let found = this.ingredientList.find(ingredient => {return ingredient.name === event.target.value})
+    if (found){
+      this.ingredients.at(i).patchValue({
+        ingredientId: found.id
+      });
+    }else{
+      this.ingredients.at(i).patchValue({
+        ingredientId: null
+      });
+      console.log('not found')
+    }
+  }
+
+  onIngredientEnterKey(){
+    console.log('you did it')
+  }
+
 }

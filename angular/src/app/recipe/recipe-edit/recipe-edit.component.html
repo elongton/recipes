@@ -34,25 +34,20 @@
               <fa-icon icon="times"></fa-icon>
             </button>
           </div>
-          <!-- <select class="form-control ingredient-input" formControlName="ingredientId">
-            <option *ngFor="let ingredient of ingredientList" [ngValue]="ingredient.id">
-              {{ ingredient.name }}</option>
-          </select> -->
-          <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onTypeAheadIngredient($event, i)"
+
+          <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onTypeAheadIngredient($event, i)" (blur)="onBlurIngredient($event, i)"
             [typeahead]="ingredientList" class="form-control ingredient-input" placeholder="ingredient"
             typeaheadOptionField="name" formControlName="ingredientName" />
 
+          <input *ngIf="checkIfIngredient(i)" (keydown.enter)="onIngredientEnterKey()" type="number" formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />
 
-          <input type="number" formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />
-
-          <!-- <select *ngIf="checkIfIngredient(i)" class="form-control ml-2 ingredient-input" formControlName="unitId">
+          <select *ngIf="checkIfIngredient(i)" class="form-control ml-2 ingredient-input" formControlName="unitId">
             <option *ngFor="let unit of unitList | filterTemplateList:'unit_type': getSelectedIngredientUnitType(i)"
               [ngValue]="unit.id">
               {{ unit.name }}</option>
-          </select> -->
+          </select>
 
-
-          <input type="text" formControlName="notes" placeholder="Notes" class="form-control ml-2 ingredient-input" />
+          <input *ngIf="checkIfIngredient(i)" type="text" formControlName="notes" placeholder="Notes" class="form-control ml-2 ingredient-input" />
 
 
 
