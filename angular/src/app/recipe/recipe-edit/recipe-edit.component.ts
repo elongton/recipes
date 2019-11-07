@@ -80,6 +80,7 @@ export class RecipeEditComponent implements OnInit {
   createIngredient(): FormGroup {
     return this.formBuilder.group({
       ingredientId: "",
+      ingredientName: "",
       quantity: "",
       unitId: "",
       notes: "",
@@ -160,5 +161,10 @@ export class RecipeEditComponent implements OnInit {
       return ingredient.unit_type
     } catch{ }
 
+  }
+
+  onTypeAheadIngredient(event, i) {
+    this.recipeForm.controls.ingredients.value[i].ingredientId = event.item.id;
+    console.log(event, i)
   }
 }
