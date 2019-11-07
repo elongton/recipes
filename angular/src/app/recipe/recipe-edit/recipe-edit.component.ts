@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChildren, QueryList, ElementRef, AfterViewInit, ChangeDetectorRef } from "@angular/core";
 import { RecipeService } from "../recipe.service";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
@@ -12,7 +12,8 @@ import { NewIngredientModalComponent } from 'src/app/shared/components/new-ingre
   templateUrl: "./recipe-edit.component.html",
   styleUrls: ["./recipe-edit.component.scss"]
 })
-export class RecipeEditComponent implements OnInit {
+export class RecipeEditComponent implements OnInit, AfterViewInit {
+  @ViewChildren('ingredient') childChildren: QueryList<ElementRef>;
   recipeForm: FormGroup;
   recipeToEdit;
   selectedFile: File;
@@ -29,8 +30,15 @@ export class RecipeEditComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private modalService: BsModalService,
+    private cdr: ChangeDetectorRef,
   ) { }
 
+  ngAfterViewInit() {
+    this.childChildren.changes.subscribe(children => {
+      children.last.nativeElement.focus();
+      this.cdr.detectChanges();
+    })
+  }
   ngOnInit() {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.buildForm();
@@ -71,7 +79,6 @@ export class RecipeEditComponent implements OnInit {
       this.unitList = result;
     });
   }
-
   buildForm() {
     this.recipeForm = this.formBuilder.group({
       title: "",
@@ -80,7 +87,6 @@ export class RecipeEditComponent implements OnInit {
       steps: this.formBuilder.array([])
     });
   }
-
   createIngredient(): FormGroup {
     return this.formBuilder.group({
       ingredientId: "",
@@ -97,13 +103,10 @@ export class RecipeEditComponent implements OnInit {
       instruction: ""
     });
   }
-
   addIngredient(): void {
     this.ingredients = this.recipeForm.get("ingredients") as FormArray;
     this.ingredients.push(this.createIngredient());
     console.log(this.ingredients.at(this.ingredients.length - 1).controls.ingredientName)
-
-
   }
   addStep(): void {
     this.steps = this.recipeForm.get("steps") as FormArray;
