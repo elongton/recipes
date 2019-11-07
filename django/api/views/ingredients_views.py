@@ -31,6 +31,7 @@ class IngredientCreate(APIView):
         if ingredient_serializer.is_valid():
             ingredient_obj = ingredient_serializer.save()
             responseData = {
+                'id': ingredient_obj.id,
                 'name': ingredient_obj.name,
                 'store_section': str(store_section),
                 'unit_type': request.data['unit_type'],
