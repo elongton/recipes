@@ -113,6 +113,12 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     this.steps.push(this.createStep(this.steps.length + 1));
   }
 
+  generateUnitList(i) {
+    let ingredientUnitType = this.getSelectedIngredientUnitType(i)
+    let list = this.unitList.filter(item => item['unit_type'] === ingredientUnitType).reverse();
+    return list;
+  }
+
   removeIngredient(i): void {
     console.log(i)
     this.ingredients = this.recipeForm.get("ingredients") as FormArray;
