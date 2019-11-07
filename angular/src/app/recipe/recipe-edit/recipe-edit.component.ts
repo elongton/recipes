@@ -4,6 +4,8 @@ import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { AppService } from 'src/app/app.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { NewIngredientModalComponent } from 'src/app/shared/components/new-ingredient-modal/new-ingredient-modal.component';
 
 @Component({
   selector: "app-recipe-edit",
@@ -19,12 +21,14 @@ export class RecipeEditComponent implements OnInit {
   uploadedImage;
   ingredients;
   steps;
+  bsModalRef: BsModalRef;
 
   constructor(
     private recipeService: RecipeService,
     private appService: AppService,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modalService: BsModalService,
   ) { }
 
   ngOnInit() {
@@ -97,6 +101,9 @@ export class RecipeEditComponent implements OnInit {
   addIngredient(): void {
     this.ingredients = this.recipeForm.get("ingredients") as FormArray;
     this.ingredients.push(this.createIngredient());
+    console.log(this.ingredients.at(this.ingredients.length - 1).controls.ingredientName)
+
+
   }
   addStep(): void {
     this.steps = this.recipeForm.get("steps") as FormArray;
@@ -170,22 +177,31 @@ export class RecipeEditComponent implements OnInit {
     console.log(event, i)
   }
 
-  onBlurIngredient(event, i){
-    let found = this.ingredientList.find(ingredient => {return ingredient.name === event.target.value})
-    if (found){
+
+  onBlurIngredient(event, i) {
+    let found = this.ingredientList.find(ingredient => { return ingredient.name === event.target.value })
+    if (found) {
       this.ingredients.at(i).patchValue({
         ingredientId: found.id
       });
-    }else{
+    } else {
       this.ingredients.at(i).patchValue({
         ingredientId: null
       });
+      if (event.target.value != '') {
+        this.openNewIngredientModal(event)
+      }
       console.log('not found')
     }
   }
 
-  onIngredientEnterKey(){
-    console.log('you did it')
+
+  openNewIngredientModal(event) {
+    const initialState = {
+      newIngredientName: event.target.value,
+    };
+    this.bsModalRef = this.modalService.show(NewIngredientModalComponent, Object.assign({ initialState }));
   }
+
 
 }

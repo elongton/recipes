@@ -15,7 +15,7 @@
         placeholder="Recipe Description"></textarea>
 
       <h4>Image</h4>
-      <button class="btn btn-light" (click)="fileInput.click()">
+      <button type="button" class="btn btn-light" (click)="fileInput.click();">
         Select Image
       </button>
       <div *ngIf="uploadedImage" class="image recipe-section"
@@ -30,16 +30,17 @@
         ">
         <div [formGroupName]="i" class="d-flex">
           <div>
-            <button class="btn btn-light mr-2" (click)="removeIngredient(i)">
+            <button type="button" class="btn btn-light mr-2" (click)="removeIngredient(i)">
               <fa-icon icon="times"></fa-icon>
             </button>
           </div>
 
-          <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onTypeAheadIngredient($event, i)" (blur)="onBlurIngredient($event, i)"
-            [typeahead]="ingredientList" class="form-control ingredient-input" placeholder="ingredient"
-            typeaheadOptionField="name" formControlName="ingredientName" />
+          <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onTypeAheadIngredient($event, i)"
+            (blur)="onBlurIngredient($event, i)" [typeahead]="ingredientList" class="form-control ingredient-input"
+            placeholder="ingredient" typeaheadOptionField="name" formControlName="ingredientName" />
 
-          <input *ngIf="checkIfIngredient(i)" (keydown.enter)="onIngredientEnterKey()" type="number" formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />
+          <input *ngIf="checkIfIngredient(i)" (keydown.enter)="addIngredient();" type="number"
+            formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />
 
           <select *ngIf="checkIfIngredient(i)" class="form-control ml-2 ingredient-input" formControlName="unitId">
             <option *ngFor="let unit of unitList | filterTemplateList:'unit_type': getSelectedIngredientUnitType(i)"
@@ -47,13 +48,14 @@
               {{ unit.name }}</option>
           </select>
 
-          <input *ngIf="checkIfIngredient(i)" type="text" formControlName="notes" placeholder="Notes" class="form-control ml-2 ingredient-input" />
+          <input *ngIf="checkIfIngredient(i)" type="text" formControlName="notes" placeholder="Notes"
+            (keydown.enter)="addIngredient();" class="form-control ml-2 ingredient-input" />
 
 
 
         </div>
       </ng-container>
-      <button class="btn btn-light" (click)="addIngredient()">
+      <button type="button" class="btn btn-light" (click)="addIngredient()">
         Add
       </button>
       <div class="d-flex section-heading">
@@ -62,7 +64,7 @@
       <ng-container formArrayName="steps" *ngFor="let steps of recipeForm.get('steps')['controls']; let i = index">
         <div [formGroupName]="i" class="d-flex">
           <div>
-            <button class="btn btn-light mr-2" (click)="removeStep(i)">
+            <button type="button" class="btn btn-light mr-2" (click)="removeStep(i)">
               <fa-icon icon="times"></fa-icon>
             </button>
           </div>
@@ -70,11 +72,11 @@
             class="form-control"></textarea>
         </div>
       </ng-container>
-      <button class="btn btn-light" (click)="addStep()">
+      <button type="button" class="btn btn-light" (click)="addStep()">
         Add
       </button>
       <div>
-        <button class="btn btn-success" (click)="submit()">Submit</button>
+        <button type="button" class="btn btn-success" (click)="submit()">Submit</button>
       </div>
 
     </form>
