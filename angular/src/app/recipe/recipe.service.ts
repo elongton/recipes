@@ -33,7 +33,7 @@ export class RecipeService {
   addRecipeToSubjectAndNavigate(result, update?: boolean) {
     let currentRecipeList = this.appService.recipes$.getValue();
     console.log(result)
-    if (result.image) result.image = result.image.replace(environment.url, "");
+    if (result.image) result.image = result.image.replace(environment.imageDomain, "");
     console.log(result)
     if (update) {
       let updatedRecipeId = currentRecipeList.findIndex(r => { return r.id === result.id })
