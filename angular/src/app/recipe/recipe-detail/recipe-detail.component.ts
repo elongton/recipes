@@ -28,24 +28,12 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.recipeSubscription = this.appService.recipes$.subscribe(result => {
       if (result) {
         this.recipe = result.find(x => x.id === Number(recipeId));
-        // console.log(this.recipe)
       }
     });
     this.unitSubscription = this.appService.units$.subscribe(result => {
       this.units = result;
     })
   }
-
-  // getIngredientUnit(unitId: Number) {
-  //   try {
-  //     if (this.units) {
-  //       return this.units.find(item => { return item.id == unitId }).name
-  //     } else {
-  //       return null
-  //     }
-  //   } catch (e) { }
-
-  // }
 
   ngOnDestroy() {
     this.recipeSubscription.unsubscribe();

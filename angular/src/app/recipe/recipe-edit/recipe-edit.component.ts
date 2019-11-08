@@ -35,20 +35,22 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.childChildren.changes.subscribe(children => {
-      if (children.last.nativeElement.value == null || children.last.nativeElement.value == '') {
-        children.last.nativeElement.focus();
-      }
+      try{
+        if (children.last.nativeElement.value == null || children.last.nativeElement.value == '') {
+          children.last.nativeElement.focus();
+        }
+
+      }catch(e){}
       this.cdr.detectChanges();
     })
   }
   ngOnInit() {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.buildForm();
-    if (recipeId) {
+    if (recipeId) { //if editing a recipe
       this.appService.recipes$.subscribe(result => {
         this.recipeToEdit = result.find(r => r.id == Number(recipeId))
         if (this.recipeToEdit) {
-          console.log(this.recipeToEdit)
           // console.log(this.recipeToEdit)
           let that = this;
           this.recipeToEdit.ingredients.forEach(element => {
@@ -68,17 +70,18 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
             } catch (e) { }
 
           }
+          // console.log(this.recipeToEdit.image)
           this.uploadedImage = environment.url + this.recipeToEdit.image;
           this.recipeForm.patchValue(this.recipeToEdit)
         }
       })
     }
     this.appService.ingredients$.subscribe(result => {
-      console.log(result)
+      // console.log(result)
       this.ingredientList = result;
     });
     this.appService.units$.subscribe(result => {
-      console.log(result)
+      // console.log(result)
       this.unitList = result;
     });
   }
@@ -108,7 +111,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   addIngredient(): void {
     this.ingredients = this.recipeForm.get("ingredients") as FormArray;
     this.ingredients.push(this.createIngredient());
-    console.log(this.ingredients.at(this.ingredients.length - 1).controls.ingredientName)
+    // console.log(this.ingredients.at(this.ingredients.length - 1).controls.ingredientName)
   }
   addStep(): void {
     this.steps = this.recipeForm.get("steps") as FormArray;
@@ -141,16 +144,18 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
 
   submit() {
-    console.log(this.recipeForm.value);
+    // console.log(this.recipeForm.value);
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
     if (this.selectedFile) {
+      //if user uploads a new image, backend uploads and replaces
       try {
         formDataToSend.append("image", this.selectedFile, this.selectedFile.name);
       } catch (e) {
         console.log(e)
       }
     } else {
+      //if user doesn't change image, nothing is sent, and backend retains existing image
       formDataToSend.append("image", '');
     }
     if (this.recipeToEdit) {
