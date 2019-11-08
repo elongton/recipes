@@ -31,12 +31,10 @@ export class NewIngredientModalComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    //this.cdr.detectChanges();
-    //this can be improved...need to find onLoad event
     setTimeout(() => {
       this.ingredientChild.nativeElement.focus();
       console.log('fired')
-    }, 50)
+    }, 0)
   }
 
   onSubmitIngredient() {
