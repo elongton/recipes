@@ -40,6 +40,7 @@ class RecipeList(generics.ListCreateAPIView):
             image=image
         )
         # get list of ingredients from request, and add them to link table
+        print(ingredients)
         try:
             for ingredient in ingredients:
                 create_recipe_link(ingredient, recipeObj)
