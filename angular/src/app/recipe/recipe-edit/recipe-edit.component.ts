@@ -35,7 +35,9 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.childChildren.changes.subscribe(children => {
-      children.last.nativeElement.focus();
+      if (children.last.nativeElement.value == null || children.last.nativeElement.value == '') {
+        children.last.nativeElement.focus();
+      }
       this.cdr.detectChanges();
     })
   }
@@ -60,7 +62,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
             try {
               this.ingredients.at(i).patchValue({
                 ingredientId: Number(this.recipeToEdit.ingredients[i].id),
-                unitId: this.recipeToEdit.ingredients[i].unit_id
+                unitId: this.recipeToEdit.ingredients[i].unit_id,
+                ingredientName: this.recipeToEdit.ingredients[i].name,
               });
             } catch (e) { }
 

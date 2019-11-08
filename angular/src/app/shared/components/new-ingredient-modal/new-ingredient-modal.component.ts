@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { IngredientService } from 'src/app/ingredient/ingredient.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -9,8 +9,9 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   templateUrl: './new-ingredient-modal.component.html',
   styleUrls: ['./new-ingredient-modal.component.scss']
 })
-export class NewIngredientModalComponent implements OnInit {
+export class NewIngredientModalComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('ingredient', { static: true }) ingredientChild: ElementRef
   newIngredientName: String = '';
   newIngredientUnitType: Number = null;
   newIngredientStoreSection: Number = null;
@@ -23,9 +24,19 @@ export class NewIngredientModalComponent implements OnInit {
     private appService: AppService,
     public ingredientService: IngredientService,
     public bsModalRef: BsModalRef,
+    private cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    //this.cdr.detectChanges();
+    //this can be improved...need to find onLoad event
+    setTimeout(() => {
+      this.ingredientChild.nativeElement.focus();
+      console.log('fired')
+    }, 50)
   }
 
   onSubmitIngredient() {
