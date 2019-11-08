@@ -44,7 +44,7 @@
 
           <select *ngIf="checkIfIngredient(i)" class="form-control ml-2 ingredient-input"
             (keydown.enter)="addIngredient();" formControlName="unitId">
-            <option *ngFor="let unit of generateUnitList(i);" [ngValue]="unit.id" [selected]="true">
+            <option *ngFor="let unit of generateUnitList(i);" [ngValue]="unit.id">
               {{ unit.name }}</option>
           </select>
 

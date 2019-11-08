@@ -115,9 +115,11 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   generateUnitList(i) {
     let ingredientUnitType = this.getSelectedIngredientUnitType(i)
     let list = this.unitList.filter(item => item['unit_type'] === ingredientUnitType).reverse();
-    this.ingredients.at(i).patchValue({
-      unitId: list[0].id
-    });
+    if (!this.recipeForm.controls.ingredients.value[i].unitId) {
+      this.ingredients.at(i).patchValue({
+        unitId: list[0].id
+      });
+    }
     return list;
   }
 
