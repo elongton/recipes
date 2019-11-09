@@ -22,7 +22,8 @@
       <div class="ingredients recipe-section" *ngIf="recipe.ingredients">
         <h3>Ingredients</h3>
         <ng-container *ngFor="let ingredient of recipe.ingredients">
-          <span>{{ ingredient.quantity }} {{ ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
+          <span>{{ helper.numberToFraction(ingredient.quantity) }}
+            {{ ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
             {{ ingredient.name }}</span>
           <span *ngIf="ingredient.notes">, {{ingredient.notes}}</span>
           <br>

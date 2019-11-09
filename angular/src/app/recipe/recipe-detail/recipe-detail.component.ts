@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { AppService } from 'src/app/app.service';
 import { environment } from "src/environments/environment";
+import { HelperService } from 'src/app/shared/helper.service';
 
 @Component({
   selector: "app-recipe-detail",
@@ -18,9 +19,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   recipeSubscription: Subscription;
   unitSubscription: Subscription;
   constructor(
-    private recipeService: RecipeService,
     private appService: AppService,
     private route: ActivatedRoute,
+    public helper: HelperService,
   ) { }
 
   ngOnInit() {
