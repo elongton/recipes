@@ -4,6 +4,7 @@ import { Recipe } from 'src/app/core/models/recipe.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
+import { HelperService } from 'src/app/shared/helper.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -16,7 +17,11 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   recipeSub: Subscription;
   ingredientList: any[];
 
-  constructor(private recipeService: RecipeService, private router: Router, private appService: AppService) { }
+  constructor(
+    private recipeService: RecipeService,
+    private router: Router,
+    private appService: AppService,
+    public helper: HelperService) { }
 
   ngOnInit() {
     this.ingredientList = [];
