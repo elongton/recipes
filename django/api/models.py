@@ -1,7 +1,5 @@
 from django.db import models
 
-
-
 class Recipe(models.Model):
     title = models.CharField(max_length=100, default='')
     description = models.TextField(blank=True, null=True)
@@ -12,9 +10,30 @@ class Recipe(models.Model):
     def __str__(self):
         return self.title
 
+class RecipeStep(models.Model):
+    recipe = models.ForeignKey(
+        'Recipe', related_name='steps', on_delete=models.CASCADE)
+    number = models.IntegerField()
+    instruction = models.TextField()
+
+class RecipeIngredientLink(models.Model):
+    recipe = models.ForeignKey('Recipe',
+                               related_name='ingredients', on_delete=models.CASCADE)
+    ingredient = models.ForeignKey('Ingredient',
+                                   related_name='ri_ingredient', on_delete=models.CASCADE)
+    quantity = models.FloatField()
+    notes = models.CharField(max_length=200, blank=True)
+    unit = models.ForeignKey(
+        'Unit', related_name="units", on_delete=models.CASCADE)
+
+class RecipeTagLink(models.Model):
+    recipe = models.ForeignKey('Recipe',
+                               related_name='rt_recipe', on_delete=models.CASCADE)
+    tag = models.ForeignKey('Tag',
+                            related_name='rt_tag', on_delete=models.CASCADE)
+
 class Ingredient(models.Model):
     name = models.CharField(max_length=100)
-    unit_type = models.ForeignKey('UnitType', on_delete=models.SET_NULL, null=True, related_name='ingredients')
     store_section = models.ForeignKey('StoreSection', on_delete=models.SET_NULL, null=True, related_name='ingredients')
     def __str__(self):
         return self.name
@@ -34,30 +53,14 @@ class UnitType(models.Model):
     def __str__(self):
         return self.name
 
-class RecipeStep(models.Model):
-    recipe = models.ForeignKey(
-        'Recipe', related_name='steps', on_delete=models.CASCADE)
-    number = models.IntegerField()
-    instruction = models.TextField()
-
-class RecipeIngredientLink(models.Model):
-    recipe = models.ForeignKey('Recipe',
-                               related_name='ingredients', on_delete=models.CASCADE)
-    ingredient = models.ForeignKey('Ingredient',
-                                   related_name='ri_ingredient', on_delete=models.CASCADE)
-    quantity = models.FloatField()
-    notes = models.CharField(max_length=200, blank=True)
-    unit = models.ForeignKey(
-        'Unit', related_name="units", on_delete=models.CASCADE)
+class UnitTypeIngredientLink(models.Model):
+    unit_type = models.ForeignKey('UnitType', on_delete=models.SET_NULL, null=True, related_name='unit_link')
+    ingredient = models.ForeignKey('Ingredient', on_delete=models.SET_NULL, null=True, related_name='ingredient_link')
+    def __str__(self):
+        return self.unit_type.name + '_' + self.ingredient.name
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
-
-class RecipeTagLink(models.Model):
-    recipe = models.ForeignKey('Recipe',
-                               related_name='rt_recipe', on_delete=models.CASCADE)
-    tag = models.ForeignKey('Tag',
-                            related_name='rt_tag', on_delete=models.CASCADE)
 
 class StoreSection(models.Model):
     name = models.CharField(max_length=100)
