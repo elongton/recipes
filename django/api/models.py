@@ -54,8 +54,8 @@ class UnitType(models.Model):
         return self.name
 
 class UnitTypeIngredientLink(models.Model):
-    unit_type = models.ForeignKey('UnitType', on_delete=models.SET_NULL, null=True, related_name='unit_link')
-    ingredient = models.ForeignKey('Ingredient', on_delete=models.SET_NULL, null=True, related_name='ingredient_link')
+    unit_type = models.ForeignKey('UnitType', on_delete=models.CASCADE, related_name='unit_link')
+    ingredient = models.ForeignKey('Ingredient', on_delete=models.CASCADE, related_name='ingredient_link')
     def __str__(self):
         return self.unit_type.name + '_' + self.ingredient.name
 

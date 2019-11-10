@@ -5,8 +5,8 @@ from api.models import (Recipe,
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source='ingredient.name')
     id = serializers.IntegerField(source='ingredient.id')
+    name = serializers.CharField(source='ingredient.name')
     unit = serializers.CharField(source='unit.name')
     unit_id = serializers.IntegerField(source='unit.id')
     unit_type = serializers.CharField(source="ingredient.unit_type.name")

@@ -10,16 +10,16 @@ class UnitTypeIngredientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UnitTypeIngredientLink
-        fields = ['id', 'unit_type']
+        fields = ['unit_type']
 
 
 class IngredientSerializer(serializers.ModelSerializer):
-    unit_types = UnitTypeIngredientSerializer(many=True, read_only=True)
     store_section = serializers.CharField(source='store_section.name')
-    
+    unit_types = UnitTypeIngredientSerializer(many=True, read_only=True)
+
     class Meta:
         model = Ingredient
-        fields = ['id', 'name', 'unit_types', 'store_section']
+        fields = ['id', 'name', 'store_section', 'unit_types']
 
 
 class IngredientCreateSerializer(serializers.ModelSerializer):
