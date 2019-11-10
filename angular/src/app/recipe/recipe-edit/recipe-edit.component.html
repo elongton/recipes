@@ -36,8 +36,9 @@
           </div>
 
           <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onTypeAheadIngredient($event, i)"
-            (blur)="onBlurIngredient($event, i)" [typeahead]="ingredientList" class="form-control ingredient-input"
-            placeholder="ingredient" typeaheadOptionField="name" formControlName="ingredientName" #ingredient />
+            (blur)="onBlurIngredient($event.target.value, i)" [typeahead]="ingredientList"
+            class="form-control ingredient-input" placeholder="ingredient" typeaheadOptionField="name"
+            formControlName="ingredientName" #ingredient />
 
           <input *ngIf="checkIfIngredient(i)" (keydown.enter)="addIngredient();" type="number"
             formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />

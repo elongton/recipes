@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewI
 import { AppService } from 'src/app/app.service';
 import { IngredientService } from 'src/app/ingredient/ingredient.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { RecipeService } from 'src/app/recipe/recipe.service';
 
 
 @Component({
@@ -20,11 +21,12 @@ export class NewIngredientModalComponent implements OnInit, AfterViewInit {
   unitTypes$ = this.appService.unitTypes$;
   storeSections$ = this.appService.storeSections$;
 
+  editRecipeIngredientIndex;
   constructor(
     private appService: AppService,
     public ingredientService: IngredientService,
     public bsModalRef: BsModalRef,
-    private cdr: ChangeDetectorRef,
+    private recipeService: RecipeService,
   ) { }
 
   ngOnInit() {
@@ -33,7 +35,6 @@ export class NewIngredientModalComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.ingredientChild.nativeElement.focus();
-      console.log('fired')
     }, 0)
   }
 
@@ -48,6 +49,7 @@ export class NewIngredientModalComponent implements OnInit, AfterViewInit {
       this.newIngredientUnitType = null;
       this.newIngredientStoreSection = null;
       this.bsModalRef.hide()
+      this.recipeService.elementToFocus$.next({ index: this.editRecipeIngredientIndex, value: newIngredient.name })
     })
     // console.log(newIngredient)
 

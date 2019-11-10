@@ -35,16 +35,20 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.childChildren.changes.subscribe(children => {
-      try{
+      try {
         if (children.last.nativeElement.value == null || children.last.nativeElement.value == '') {
           children.last.nativeElement.focus();
         }
 
-      }catch(e){}
+      } catch (e) { }
       this.cdr.detectChanges();
     })
   }
   ngOnInit() {
+    this.recipeService.elementToFocus$.subscribe((val: any) => {
+      this.onBlurIngredient(val.value, val.index)
+      this.childChildren.last.nativeElement.focus();
+    })
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.buildForm();
     if (recipeId) { //if editing a recipe
@@ -71,7 +75,9 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
 
           }
           // console.log(this.recipeToEdit.image)
-          this.uploadedImage = environment.url + this.recipeToEdit.image;
+          if (this.recipeToEdit.image) {
+            this.uploadedImage = environment.url + this.recipeToEdit.image;
+          }
           this.recipeForm.patchValue(this.recipeToEdit)
         }
       })
@@ -199,8 +205,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
 
 
-  onBlurIngredient(event, i) {
-    let found = this.ingredientList.find(ingredient => { return ingredient.name === event.target.value })
+  onBlurIngredient(value, i) {
+    let found = this.ingredientList.find(ingredient => { return ingredient.name === value })
     if (found) {
       this.ingredients.at(i).patchValue({
         ingredientId: found.id
@@ -209,17 +215,18 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       this.ingredients.at(i).patchValue({
         ingredientId: null
       });
-      if (event.target.value != '') {
-        this.openNewIngredientModal(event)
+      if (value != '') {
+        this.openNewIngredientModal(event, i)
       }
       console.log('not found')
     }
   }
 
 
-  openNewIngredientModal(event) {
+  openNewIngredientModal(event, i) {
     const initialState = {
       newIngredientName: event.target.value,
+      editRecipeIngredientIndex: i,
     };
     this.bsModalRef = this.modalService.show(NewIngredientModalComponent, Object.assign({ initialState }));
   }

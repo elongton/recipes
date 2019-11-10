@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, of } from "rxjs";
+import { BehaviorSubject, of, Subject } from "rxjs";
 import { tap, map, catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
@@ -11,9 +11,11 @@ import { AppService } from '../app.service';
   providedIn: "root"
 })
 export class RecipeService {
-
-  constructor(private http: HttpClient, private router: Router, private appService: AppService) { }
-
+  elementToFocus$ = new Subject();
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private appService: AppService) { }
 
   submitRecipe(recipe) {
     return this.http.post<Recipe>(`api/recipes/`, recipe).pipe(
