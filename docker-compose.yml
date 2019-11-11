@@ -27,3 +27,4 @@ services:
 
 volumes:
   media_volume:
+  backups:
