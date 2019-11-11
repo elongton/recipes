@@ -1,4 +1,4 @@
-from api.models import (Ingredient, StoreSection, UnitType)
+from api.models import (Ingredient, StoreSection, UnitType, UnitTypeIngredientLink)
 from api.serializers import (IngredientSerializer, IngredientCreateSerializer)
                             
 from rest_framework import generics, permissions, status
@@ -10,10 +10,16 @@ from .helpers.recipe_helpers import *
 import json
 
 
+
 class IngredientList(generics.ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+    
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
 
 class IngredientDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.AllowAny]
@@ -25,17 +31,27 @@ class IngredientCreate(APIView):
     permission_classes = [permissions.AllowAny]
     def post(self, request, format=None):
         ingredient_serializer = IngredientCreateSerializer(data = request.data)
-
         store_section = StoreSection.objects.get(id=request.data['store_section'])
-        unit_type = UnitType.objects.get(id=request.data['unit_type'])
         if ingredient_serializer.is_valid():
             ingredient_obj = ingredient_serializer.save()
+            unit_types = []
+            for type in request.data['unit_types']:
+                unit_type = UnitType.objects.get(id=type)
+                unitTypeIngredientLink = UnitTypeIngredientLink(ingredient=ingredient_obj, unit_type = unit_type,)
+                unitTypeIngredientLink.save()
+                # print(unit_type.units)
+                temp = []
+                for unit in unit_type.units.all():
+                    temp.append({
+                        'name': unit.name,
+                        })
+                unit_types.append({"name": unit_type.name, "units":temp})
+
             responseData = {
                 'id': ingredient_obj.id,
                 'name': ingredient_obj.name,
                 'store_section': str(store_section),
-                'unit_type': request.data['unit_type'],
-                'unit_type_name': str(unit_type),
+                'unit_types': unit_types,
             }
             return Response(responseData, status=status.HTTP_201_CREATED)
         return Response(ingredient_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

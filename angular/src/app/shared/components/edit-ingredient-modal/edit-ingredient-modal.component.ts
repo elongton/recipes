@@ -6,11 +6,11 @@ import { RecipeService } from 'src/app/recipe/recipe.service';
 
 
 @Component({
-  selector: 'app-new-ingredient-modal',
-  templateUrl: './new-ingredient-modal.component.html',
-  styleUrls: ['./new-ingredient-modal.component.scss']
+  selector: 'app-edit-ingredient-modal',
+  templateUrl: './edit-ingredient-modal.component.html',
+  styleUrls: ['./edit-ingredient-modal.component.scss']
 })
-export class NewIngredientModalComponent implements OnInit, AfterViewInit {
+export class EditIngredientModalComponent implements OnInit, AfterViewInit {
 
   @ViewChild('ingredient', { static: true }) ingredientChild: ElementRef
   newIngredientName: String = '';

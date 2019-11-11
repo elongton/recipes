@@ -49,15 +49,15 @@ class Unit(models.Model):
 
 class UnitType(models.Model):
     name = models.CharField(max_length=100)
-    base_unit = models.ForeignKey('Unit', on_delete=models.SET_NULL, null=True, related_name='base_unit')
+    base_unit = models.ForeignKey('Unit', on_delete=models.SET_NULL, null=True, related_name='base_unit', blank=True,)
     def __str__(self):
         return self.name
 
 class UnitTypeIngredientLink(models.Model):
-    unit_type = models.ForeignKey('UnitType', on_delete=models.CASCADE, related_name='unit_link')
-    ingredient = models.ForeignKey('Ingredient', on_delete=models.CASCADE, related_name='ingredient_link')
-    def __str__(self):
-        return self.unit_type.name + '_' + self.ingredient.name
+    unit_type = models.ForeignKey('UnitType', on_delete=models.CASCADE, related_name='uti_unit_type')
+    ingredient = models.ForeignKey('Ingredient', on_delete=models.CASCADE, related_name='unit_types')
+    # def __str__(self):
+    #     return self.unit_type.name + '_' + self.ingredient.name
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)

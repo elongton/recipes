@@ -4,25 +4,35 @@ from api.models import (Ingredient, UnitTypeIngredientLink)
 
 
 
-class UnitTypeIngredientSerializer(serializers.ModelSerializer):
-    # unit_type = UnitTypeSerializer(read_only=True)
-    unit_type = serializers.CharField(source='unit_type.name')
-
-    class Meta:
-        model = UnitTypeIngredientLink
-        fields = ['unit_type']
-
 
 class IngredientSerializer(serializers.ModelSerializer):
     store_section = serializers.CharField(source='store_section.name')
-    unit_types = UnitTypeIngredientSerializer(many=True, read_only=True)
-
+    unit_types = serializers.SerializerMethodField()
     class Meta:
         model = Ingredient
-        fields = ['id', 'name', 'store_section', 'unit_types']
+        fields = ['id','name', 'store_section', 'unit_types']
+
+    def get_unit_types(self, obj):
+        data = []
+        for type in obj.unit_types.all():
+            temp = {'name': type.unit_type.name, 'units': []}
+            for unit in type.unit_type.units.all():
+                temp['units'].append({
+                    'name': unit.name,
+                    'multiplier': unit.multiplier
+                    })
+            data.append(temp)
+        return data
+
 
 
 class IngredientCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = ['name', 'unit_type', 'store_section']
+        fields = ['name', 'store_section']
+
+
+## example....
+# def create(self, validated_data):
+#     # DRF will create object {"user": {"email": "inputed_value"}} in validated_date
+#     email = validated_data.get("user", {}).get('email')

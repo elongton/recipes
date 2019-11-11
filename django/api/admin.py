@@ -39,7 +39,7 @@ class UnitsAdmin(admin.ModelAdmin):
     list_display = ('name', 'unit_type', 'is_base_unit', 'multiplier', 'id')
 
 class UnitTypeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'base_unit')
+    list_display = ('name', 'base_unit', 'id')
 
 class StoreSectionAdmin(admin.ModelAdmin):
     list_display = ('name', 'id')
