@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <h5 class="pull-left">Add New Ingredient</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+    <form [formGroup]="ingredientForm" *ngIf="ingredientForm">
+        <div class="d-flex align-items-center">
+            <label for="name" style="min-width: 100px;">Name</label>
+            <input formControlName="name" #name class="form-control" type="text" id="name">
+        </div>
+
+
+        <div class="d-flex align-items-center mt-2">
+            <label for="name" style="min-width: 100px;">Store Section</label>
+            <select class="form-control" formControlName="store_section">
+                <option *ngFor="let storeSection of storeSections$ | async" [ngValue]="storeSection.id">
+                    {{ storeSection.name }}</option>
+            </select>
+        </div>
+
+        <div class="d-flex align-items-center mt-2">
+            <div class="d-flex flex-grow-1">
+                <label for="name" style="min-width: 100px;">Unit Type(s)</label>
+                <select class="form-control flex-grow-1" formControlName="unit_types" multiple>
+                    <option *ngFor="let unitType of unitTypes$ | async;" [ngValue]="unitType.id">
+                        {{ unitType.name }}</option>
+                </select>
+            </div>
+        </div>
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success btn-sm" (click)="onSubmitIngredient();" [disabled]="false"
+        type="submit">Submit</button>
+</div>

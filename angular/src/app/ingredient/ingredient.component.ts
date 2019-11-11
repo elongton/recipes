@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { IngredientService } from './ingredient.service'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AppService } from '../app.service';
-import { NewIngredientModalComponent } from '../shared/components/new-ingredient-modal/new-ingredient-modal.component';
+import { EditIngredientModalComponent } from '../shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
 @Component({
   selector: 'app-ingredient',
   templateUrl: './ingredient.component.html',
@@ -18,7 +18,7 @@ export class IngredientComponent implements OnInit {
   constructor(
     public ingredientService: IngredientService,
     private modalService: BsModalService,
-    private appService: AppService,) { }
+    private appService: AppService, ) { }
 
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class IngredientComponent implements OnInit {
 
   bsModalRef: BsModalRef;
   openNewIngredientModal() {
-      this.bsModalRef = this.modalService.show(NewIngredientModalComponent);
+    this.bsModalRef = this.modalService.show(EditIngredientModalComponent);
   }
 
 }

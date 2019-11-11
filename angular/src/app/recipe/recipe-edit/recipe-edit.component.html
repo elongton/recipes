@@ -35,7 +35,7 @@
             </button>
           </div>
 
-          <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onTypeAheadIngredient($event, i)"
+          <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onTypeAheadIngredient($event.item.id, i)"
             (blur)="onBlurIngredient($event.target.value, i)" [typeahead]="ingredientList"
             class="form-control ingredient-input" placeholder="ingredient" typeaheadOptionField="name"
             formControlName="ingredientName" #ingredient />
@@ -45,7 +45,7 @@
 
           <select *ngIf="checkIfIngredient(i)" class="form-control ml-2 ingredient-input"
             (keydown.enter)="addIngredient();" formControlName="unitId">
-            <option *ngFor="let unit of generateUnitList(i);" [ngValue]="unit.id">
+            <option *ngFor="let unit of recipeForm.controls.ingredients.value[i].unitList;" [ngValue]="unit.id">
               {{ unit.name }}</option>
           </select>
 

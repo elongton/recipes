@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { AppService } from 'src/app/app.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { NewIngredientModalComponent } from 'src/app/shared/components/new-ingredient-modal/new-ingredient-modal.component';
+import { EditIngredientModalComponent } from 'src/app/shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
 
 @Component({
   selector: "app-recipe-edit",
@@ -55,7 +55,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       this.appService.recipes$.subscribe(result => {
         this.recipeToEdit = result.find(r => r.id == Number(recipeId))
         if (this.recipeToEdit) {
-          // console.log(this.recipeToEdit)
           let that = this;
           this.recipeToEdit.ingredients.forEach(element => {
             that.addIngredient();
@@ -106,6 +105,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       quantity: "",
       unitId: "",
       notes: "",
+      unitList: [],
     });
   }
   createStep(index): FormGroup {
@@ -122,17 +122,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   addStep(): void {
     this.steps = this.recipeForm.get("steps") as FormArray;
     this.steps.push(this.createStep(this.steps.length + 1));
-  }
-
-  generateUnitList(i) {
-    let ingredientUnitType = this.getSelectedIngredientUnitType(i)
-    let list = this.unitList.filter(item => item['unit_type'] === ingredientUnitType);
-    if (!this.recipeForm.controls.ingredients.value[i].unitId) {
-      this.ingredients.at(i).patchValue({
-        unitId: list[0].id
-      });
-    }
-    return list;
   }
 
   removeIngredient(i): void {
@@ -188,29 +177,32 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   checkIfIngredient(i) {
     return this.recipeForm.controls.ingredients.value[i].ingredientId ? true : false
   }
-  getSelectedIngredientUnitType(i) {
-    try {
-      let ingredientId = this.recipeForm.controls.ingredients.value[i].ingredientId;
-      let ingredient = this.ingredientList.filter(u => u.id == ingredientId)[0];
-      return ingredient.unit_type
-    } catch{ }
 
+  generateUnitList(i, id) {
+    let ingredient = this.ingredientList.find(ing => { return ing.id === id })
+    let unitList = []
+    if (ingredient) {
+      ingredient.unit_types.forEach(unitType => {
+        unitType.units.forEach(unit => {
+          unitList.push({ name: unit.name, id: '' })
+        });
+      });
+    }
+    return unitList;
   }
 
-  onTypeAheadIngredient(event, i) {
+  onTypeAheadIngredient(ingredientId, i) {
     this.ingredients.at(i).patchValue({
-      ingredientId: event.item.id
+      ingredientId: ingredientId,
+      unitList: this.generateUnitList(i, ingredientId)
     });
     console.log(event, i)
   }
 
-
   onBlurIngredient(value, i) {
     let found = this.ingredientList.find(ingredient => { return ingredient.name === value })
     if (found) {
-      this.ingredients.at(i).patchValue({
-        ingredientId: found.id
-      });
+      this.onTypeAheadIngredient(found.id, i)
     } else {
       this.ingredients.at(i).patchValue({
         ingredientId: null
@@ -222,13 +214,12 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   openNewIngredientModal(event, i) {
     const initialState = {
       newIngredientName: event.target.value,
       editRecipeIngredientIndex: i,
     };
-    this.bsModalRef = this.modalService.show(NewIngredientModalComponent, Object.assign({ initialState }));
+    this.bsModalRef = this.modalService.show(EditIngredientModalComponent, Object.assign({ initialState }));
   }
 
 

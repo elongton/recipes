@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewIngredientModalComponent } from './new-ingredient-modal.component';
+import { EditIngredientModalComponent } from './edit-ingredient-modal.component';
 
 describe('NewIngredientModalComponent', () => {
-  let component: NewIngredientModalComponent;
-  let fixture: ComponentFixture<NewIngredientModalComponent>;
+  let component: EditIngredientModalComponent;
+  let fixture: ComponentFixture<EditIngredientModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewIngredientModalComponent ]
+      declarations: [EditIngredientModalComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewIngredientModalComponent);
+    fixture = TestBed.createComponent(EditIngredientModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
