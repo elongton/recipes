@@ -20,7 +20,7 @@
     <thead>
         <tr>
             <th style="width: 40%;">Ingredient</th>
-            <th style="width: 30%;">Unit Types</th>
+            <th style="width: 30%;">Unit Type(s)</th>
             <th>Store Section</th>
             <th class="text-center">Delete</th>
         </tr>
@@ -28,7 +28,9 @@
     <tbody>
         <tr *ngFor="let ingredient of ingredients$ | async | filter:query">
             <td>{{ingredient.name}}</td>
-            <td>{{ingredient.unit_type_name}}</td>
+            <td><span
+                    *ngFor="let unitType of ingredient.unit_types; let isLast=last">{{unitType.name}}{{isLast ? '' : ', '}}</span>
+            </td>
             <td>{{ingredient.store_section}}</td>
             <td class="text-danger text-center delete" (click)="ingredientService.deleteIngredient(ingredient)">
                 <fa-icon icon=trash></fa-icon>

@@ -34,6 +34,7 @@ import { EditIngredientModalComponent } from './components/edit-ingredient-modal
         FontAwesomeModule,
         RouterModule,
         FormsModule,
+        ReactiveFormsModule
     ],
     exports: [
         FilterPipe,

@@ -55,7 +55,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       this.appService.recipes$.subscribe(result => {
         this.recipeToEdit = result.find(r => r.id == Number(recipeId))
         if (this.recipeToEdit) {
-          // console.log(this.recipeToEdit)
           let that = this;
           this.recipeToEdit.ingredients.forEach(element => {
             that.addIngredient();
@@ -180,9 +179,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
 
   generateUnitList(i, id) {
-    // let ingredientUnitType = this.getSelectedIngredientUnitType(i)
-    // let list = this.unitList.filter(item => item['unit_type'] === ingredientUnitType);
-    // let id = this.recipeForm.controls.ingredients.value[i].ingredientId;
     let ingredient = this.ingredientList.find(ing => { return ing.id === id })
     let unitList = []
     if (ingredient) {
@@ -195,10 +191,10 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     return unitList;
   }
 
-  onTypeAheadIngredient(event, i) {
+  onTypeAheadIngredient(ingredientId, i) {
     this.ingredients.at(i).patchValue({
-      ingredientId: event.item.id,
-      unitList: this.generateUnitList(i, event.item.id)
+      ingredientId: ingredientId,
+      unitList: this.generateUnitList(i, ingredientId)
     });
     console.log(event, i)
   }
@@ -206,9 +202,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   onBlurIngredient(value, i) {
     let found = this.ingredientList.find(ingredient => { return ingredient.name === value })
     if (found) {
-      this.ingredients.at(i).patchValue({
-        ingredientId: found.id
-      });
+      this.onTypeAheadIngredient(found.id, i)
     } else {
       this.ingredients.at(i).patchValue({
         ingredientId: null

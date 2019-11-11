@@ -35,7 +35,7 @@
             </button>
           </div>
 
-          <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onTypeAheadIngredient($event, i)"
+          <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onTypeAheadIngredient($event.item.id, i)"
             (blur)="onBlurIngredient($event.target.value, i)" [typeahead]="ingredientList"
             class="form-control ingredient-input" placeholder="ingredient" typeaheadOptionField="name"
             formControlName="ingredientName" #ingredient />
