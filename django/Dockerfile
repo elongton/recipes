@@ -5,6 +5,5 @@ RUN mkdir /src/mediafiles;
 ADD ./requirements.txt /src/requirements.txt
 RUN pip install -r ./src/requirements.txt
 ADD . /src
-COPY /backup /src/backup
 WORKDIR /src
 RUN python manage.py collectstatic
