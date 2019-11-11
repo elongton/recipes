@@ -13,7 +13,6 @@ services:
                       gunicorn recipeApi.wsgi -b 0.0.0.0:8000"
     volumes:
       - ./media_volume:/src/mediafiles
-      - ./backups:/src/backup
     ports:
       - "8000:8000"
     depends_on:
@@ -27,4 +26,3 @@ services:
 
 volumes:
   media_volume:
-  backups:
