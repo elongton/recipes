@@ -1,23 +1,15 @@
 <ng-container *ngIf="recipe">
   <app-recipe-card>
     <div header class="d-flex align-items-center">
-      <h1 style="margin-bottom: 0;">{{ recipe.title }}</h1>
-      <a [routerLink]="['/recipe/edit/', recipe.id]">
+      <h1 class="recipe-title">{{ recipe.title }}</h1>
+      <a [routerLink]="['/recipe/edit/', recipe.id]" style="color: inherit;">
         <div class="ml-2">
-          <button class="btn btn-success">
-            <fa-icon icon=edit style="font-size: 15px;"></fa-icon>
-          </button>
+          <fa-icon icon=pencil-alt style="font-size: 25px;"></fa-icon>
         </div>
       </a>
     </div>
 
-    <div body>
-      <div class="image recipe-section" *ngIf="recipe.image" [ngStyle]="{
-                'background-image': 'url(' + imageUrl + recipe.image + ')'
-              }" style="height: 250px; background-position: center; background-size: cover;"></div>
-      <div class="description recipe-section">
-        {{ recipe.description }}
-      </div>
+    <ng-container ingredients>
       <div class="ingredients recipe-section" *ngIf="recipe.ingredients">
         <h3>Ingredients</h3>
         <ng-container *ngFor="let ingredient of recipe.ingredients">
@@ -28,6 +20,18 @@
           <br>
         </ng-container>
       </div>
+    </ng-container>
+
+    <ng-container image>
+      <div class="image recipe-section" *ngIf="recipe.image" [ngStyle]="{
+          'background-image': 'url(' + imageUrl + recipe.image + ')'
+        }" style="height: 400px; background-position: center; background-size: cover;"></div>
+      {{ recipe.description }}
+    </ng-container>
+
+
+    <ng-container steps>
+
       <div class="instructions recipe-section">
         <h3>Instructions</h3>
         <ng-container *ngFor="let step of recipe.steps">
@@ -41,6 +45,8 @@
           </div>
         </ng-container>
       </div>
-    </div>
+    </ng-container>
+
+
   </app-recipe-card>
 </ng-container>

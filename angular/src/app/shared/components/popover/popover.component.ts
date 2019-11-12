@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 })
 export class PopoverComponent implements OnInit {
 
-  constructor(private _location: Location, private router: Router,) { }
+  constructor(private _location: Location, private router: Router, ) { }
 
   ngOnInit() {
   }
 
   goBack() {
-    // this._location.back();
-    this.router.navigate(['/'])
+    this._location.back();
+    // this.router.navigate(['/'])
   }
 }
