@@ -30,7 +30,6 @@ export class AppService {
     getIngredients() {
         return this.http.get<any[]>(`api/ingredients/`).subscribe(result => {
             this.ingredients$.next(result);
-            console.log(result)
             console.log("got ingredients");
         });
     }

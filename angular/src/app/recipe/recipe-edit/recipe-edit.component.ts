@@ -6,6 +6,7 @@ import { environment } from "src/environments/environment";
 import { AppService } from 'src/app/app.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { EditIngredientModalComponent } from 'src/app/shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: "app-recipe-edit",
@@ -46,55 +47,48 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     // this.populateForm();
   }
   ngOnInit() {
+    this.buildForm();
+    this.appService.ingredients$.subscribe(result => {
+      this.ingredientList = result;
+      if (!this.ingredients) {
+        this.populateForm();
+      }
+    });
     this.recipeService.elementToFocus$.subscribe((val: any) => {
       this.onBlurIngredient(val.value, val.index)
       this.childChildren.last.nativeElement.focus();
     })
-    this.buildForm();
-    this.appService.ingredients$.subscribe(result => {
-      // console.log(result)
-      this.ingredientList = result;
-      this.populateForm();
-    });
-    this.appService.units$.subscribe(result => {
-      // console.log(result)
-      this.unitList = result;
-    });
+
   }
 
   populateForm() {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     if (recipeId) { //if editing a recipe
-      this.appService.recipes$.subscribe(result => {
-        this.recipeToEdit = result.find(r => r.id == Number(recipeId))
-        if (this.recipeToEdit) {
-          // let that = this;
-          console.log(this.recipeToEdit.ingredients.length)
-          this.recipeToEdit.ingredients.forEach(element => {
-            this.addIngredient();
+      let currentRecipeList = this.appService.recipes$.getValue();
+      this.recipeToEdit = currentRecipeList.find(r => r.id == Number(recipeId))
+      if (this.recipeToEdit) {
+        this.recipeToEdit.ingredients.forEach(element => {
+          this.addIngredient();
+        });
+        this.recipeToEdit.steps.forEach(element => {
+          this.addStep();
+        });
+        // setTimeout(() => {
+        this.ingredients = this.recipeForm.get("ingredients") as FormArray;
+        for (let i = 0; i < this.ingredients.length; i++) {
+          this.ingredients.at(i).patchValue({
+            unitList: this.generateUnitList(this.recipeToEdit.ingredients[i].id),
+            ingredientId: Number(this.recipeToEdit.ingredients[i].id),
+            unitId: this.recipeToEdit.ingredients[i].unit_id,
+            ingredientName: this.recipeToEdit.ingredients[i].name,
           });
-          this.recipeToEdit.steps.forEach(element => {
-            this.addStep();
-          });
-          this.ingredients = this.recipeForm.get("ingredients") as FormArray;
-          for (let i = 0; i < this.ingredients.length; i++) {
-            try {
-              this.ingredients.at(i).patchValue({
-                unitList: this.generateUnitList(this.recipeToEdit.ingredients[i].id),
-                ingredientId: Number(this.recipeToEdit.ingredients[i].id),
-                unitId: this.recipeToEdit.ingredients[i].unit_id,
-                ingredientName: this.recipeToEdit.ingredients[i].name,
-              });
-            } catch (e) { }
-
-          }
-          // console.log(this.recipeToEdit.image)
           if (this.recipeToEdit.image) {
             this.uploadedImage = environment.url + this.recipeToEdit.image;
           }
           this.recipeForm.patchValue(this.recipeToEdit)
         }
-      })
+        // }, 50)
+      }
     }
   }
 
