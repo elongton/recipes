@@ -1,21 +1,20 @@
 <ng-container *ngIf="recipe">
-  <app-popover>
-    <div header>
+  <app-recipe-card>
+    <div header class="d-flex align-items-center">
       <h1 style="margin-bottom: 0;">{{ recipe.title }}</h1>
       <a [routerLink]="['/recipe/edit/', recipe.id]">
-        <div>
+        <div class="ml-2">
           <button class="btn btn-success">
-            <fa-icon icon=edit style="font-size: 15px;"></fa-icon> Edit
+            <fa-icon icon=edit style="font-size: 15px;"></fa-icon>
           </button>
-
         </div>
       </a>
     </div>
 
     <div body>
       <div class="image recipe-section" *ngIf="recipe.image" [ngStyle]="{
-          'background-image': 'url(' + imageUrl + recipe.image + ')'
-        }" style="height: 250px; background-position: center; background-size: cover;"></div>
+                'background-image': 'url(' + imageUrl + recipe.image + ')'
+              }" style="height: 250px; background-position: center; background-size: cover;"></div>
       <div class="description recipe-section">
         {{ recipe.description }}
       </div>
@@ -43,5 +42,5 @@
         </ng-container>
       </div>
     </div>
-  </app-popover>
+  </app-recipe-card>
 </ng-container>

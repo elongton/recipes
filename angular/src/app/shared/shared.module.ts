@@ -20,6 +20,7 @@ import {
 import { FilterPillComponent } from './components/filter-pill/filter-pill.component';
 import { PopoverComponent } from './components/popover/popover.component';
 import { EditIngredientModalComponent } from './components/edit-ingredient-modal/edit-ingredient-modal.component';
+import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { EditIngredientModalComponent } from './components/edit-ingredient-modal
         SearchFilterPipe,
         FilterPillComponent,
         PopoverComponent,
-        EditIngredientModalComponent
+        EditIngredientModalComponent,
+        RecipeCardComponent
     ],
     imports: [
         CommonModule,
@@ -44,7 +46,8 @@ import { EditIngredientModalComponent } from './components/edit-ingredient-modal
         ReactiveFormsModule,
         FontAwesomeModule,
         FilterPillComponent,
-        PopoverComponent
+        PopoverComponent,
+        RecipeCardComponent
     ],
     entryComponents: [EditIngredientModalComponent],
 })

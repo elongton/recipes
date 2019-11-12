@@ -1,0 +1,16 @@
+<div class="over" style="display: flex; justify-content: center;">
+    <main>
+        <div style="display: flex; align-items: center;">
+            <div (click)="goBack();" style="color: #007bff;">
+                <fa-icon icon=arrow-left style="font-size: 25px;"></fa-icon>
+            </div>
+            <div style="text-align:left;" class="ml-2">
+                <ng-content select="[header]"></ng-content>
+            </div>
+        </div>
+        <div style="padding: 20px;">
+            <ng-content select="[body]"></ng-content>
+        </div>
+    </main>
+
+</div>
