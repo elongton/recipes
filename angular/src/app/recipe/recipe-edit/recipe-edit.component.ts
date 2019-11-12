@@ -40,11 +40,9 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
         if (children.last.nativeElement.value == null || children.last.nativeElement.value == '') {
           children.last.nativeElement.focus();
         }
-
       } catch (e) { }
       this.cdr.detectChanges();
     })
-    // this.populateForm();
   }
   ngOnInit() {
     this.buildForm();
@@ -73,21 +71,22 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
         this.recipeToEdit.steps.forEach(element => {
           this.addStep();
         });
-        // setTimeout(() => {
-        this.ingredients = this.recipeForm.get("ingredients") as FormArray;
-        for (let i = 0; i < this.ingredients.length; i++) {
-          this.ingredients.at(i).patchValue({
-            unitList: this.generateUnitList(this.recipeToEdit.ingredients[i].id),
-            ingredientId: Number(this.recipeToEdit.ingredients[i].id),
-            unitId: this.recipeToEdit.ingredients[i].unit_id,
-            ingredientName: this.recipeToEdit.ingredients[i].name,
-          });
-          if (this.recipeToEdit.image) {
-            this.uploadedImage = environment.url + this.recipeToEdit.image;
+        try {
+          this.ingredients = this.recipeForm.get("ingredients") as FormArray;
+          for (let i = 0; i < this.ingredients.length; i++) {
+            this.ingredients.at(i).patchValue({
+              unitList: this.generateUnitList(this.recipeToEdit.ingredients[i].id),
+              ingredientId: Number(this.recipeToEdit.ingredients[i].id),
+              unitId: this.recipeToEdit.ingredients[i].unit_id,
+              ingredientName: this.recipeToEdit.ingredients[i].name,
+            });
           }
-          this.recipeForm.patchValue(this.recipeToEdit)
+        } catch (e) { }
+
+        if (this.recipeToEdit.image) {
+          this.uploadedImage = environment.url + this.recipeToEdit.image;
         }
-        // }, 50)
+        this.recipeForm.patchValue(this.recipeToEdit)
       }
     }
   }
