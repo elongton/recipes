@@ -43,29 +43,44 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       } catch (e) { }
       this.cdr.detectChanges();
     })
+    // this.populateForm();
   }
   ngOnInit() {
     this.recipeService.elementToFocus$.subscribe((val: any) => {
       this.onBlurIngredient(val.value, val.index)
       this.childChildren.last.nativeElement.focus();
     })
-    let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.buildForm();
+    this.appService.ingredients$.subscribe(result => {
+      // console.log(result)
+      this.ingredientList = result;
+      this.populateForm();
+    });
+    this.appService.units$.subscribe(result => {
+      // console.log(result)
+      this.unitList = result;
+    });
+  }
+
+  populateForm() {
+    let recipeId = this.route.snapshot.paramMap.get("recipeId");
     if (recipeId) { //if editing a recipe
       this.appService.recipes$.subscribe(result => {
         this.recipeToEdit = result.find(r => r.id == Number(recipeId))
         if (this.recipeToEdit) {
-          let that = this;
+          // let that = this;
+          console.log(this.recipeToEdit.ingredients.length)
           this.recipeToEdit.ingredients.forEach(element => {
-            that.addIngredient();
+            this.addIngredient();
           });
           this.recipeToEdit.steps.forEach(element => {
-            that.addStep();
+            this.addStep();
           });
           this.ingredients = this.recipeForm.get("ingredients") as FormArray;
           for (let i = 0; i < this.ingredients.length; i++) {
             try {
               this.ingredients.at(i).patchValue({
+                unitList: this.generateUnitList(this.recipeToEdit.ingredients[i].id),
                 ingredientId: Number(this.recipeToEdit.ingredients[i].id),
                 unitId: this.recipeToEdit.ingredients[i].unit_id,
                 ingredientName: this.recipeToEdit.ingredients[i].name,
@@ -81,15 +96,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
         }
       })
     }
-    this.appService.ingredients$.subscribe(result => {
-      // console.log(result)
-      this.ingredientList = result;
-    });
-    this.appService.units$.subscribe(result => {
-      // console.log(result)
-      this.unitList = result;
-    });
   }
+
   buildForm() {
     this.recipeForm = this.formBuilder.group({
       title: "",
@@ -153,6 +161,9 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       //if user doesn't change image, nothing is sent, and backend retains existing image
       formDataToSend.append("image", '');
     }
+
+    console.log(formDataToSend)
+    console.log(this.recipeForm.value)
     if (this.recipeToEdit) {
       this.recipeService.updateRecipe(formDataToSend, this.recipeToEdit.id).subscribe();
     } else {
@@ -178,13 +189,13 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     return this.recipeForm.controls.ingredients.value[i].ingredientId ? true : false
   }
 
-  generateUnitList(i, id) {
-    let ingredient = this.ingredientList.find(ing => { return ing.id === id })
+  generateUnitList(ingredientId) {
+    let ingredient = this.ingredientList.find(ing => { return ing.id === ingredientId })
     let unitList = []
     if (ingredient) {
       ingredient.unit_types.forEach(unitType => {
         unitType.units.forEach(unit => {
-          unitList.push({ name: unit.name, id: '' })
+          unitList.push({ name: unit.name, id: unit.id })
         });
       });
     }
@@ -192,11 +203,12 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
 
   onTypeAheadIngredient(ingredientId, i) {
+    let unitList = this.generateUnitList(ingredientId);
     this.ingredients.at(i).patchValue({
       ingredientId: ingredientId,
-      unitList: this.generateUnitList(i, ingredientId)
+      unitList: unitList,
+      unitId: unitList[0].id,
     });
-    console.log(event, i)
   }
 
   onBlurIngredient(value, i) {

@@ -19,7 +19,8 @@ class IngredientSerializer(serializers.ModelSerializer):
             for unit in type.unit_type.units.all():
                 temp['units'].append({
                     'name': unit.name,
-                    'multiplier': unit.multiplier
+                    'multiplier': unit.multiplier,
+                    'id': unit.id,
                     })
             data.append(temp)
         return data

@@ -44,6 +44,7 @@ class IngredientCreate(APIView):
                 for unit in unit_type.units.all():
                     temp.append({
                         'name': unit.name,
+                        'id': unit.id,
                         })
                 unit_types.append({"name": unit_type.name, "units":temp})
 
