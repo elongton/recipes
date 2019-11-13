@@ -96,7 +96,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       title: "",
       description: "",
       ingredients: this.formBuilder.array([]),
-      steps: this.formBuilder.array([])
+      steps: this.formBuilder.array([]),
+      notes: ''
     });
   }
   createIngredient(): FormGroup {
