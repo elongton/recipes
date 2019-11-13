@@ -2,23 +2,31 @@
   <app-recipe-card>
     <div header class="d-flex align-items-center">
       <h1 class="recipe-title">{{ recipe.title }}</h1>
-      <a [routerLink]="['/recipe/edit/', recipe.id]" style="color: inherit;">
+      <a [routerLink]="['/recipe/edit/', recipe.id]"
+        style="color: inherit; position: absolute; top: 20px; right: 20px;">
         <div class="ml-2">
           <fa-icon icon=pencil-alt style="font-size: 25px;"></fa-icon>
         </div>
       </a>
     </div>
 
+
+
+
     <ng-container ingredients>
-      <div class="ingredients recipe-section" *ngIf="recipe.ingredients">
+      <div class="ingredients" *ngIf="recipe.ingredients">
         <h3>Ingredients</h3>
-        <ng-container *ngFor="let ingredient of recipe.ingredients">
-          <span>{{ helper.numberToFraction(ingredient.quantity) }}
-            {{ ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
-            {{ ingredient.name }}</span>
-          <span *ngIf="ingredient.notes">, {{ingredient.notes}}</span>
-          <br>
-        </ng-container>
+        <div>
+          <ul>
+            <ng-container *ngFor="let ingredient of recipe.ingredients">
+              <li><span>{{ helper.numberToFraction(ingredient.quantity) }}
+                  {{ ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
+                  {{ ingredient.name }}</span>
+                <span *ngIf="ingredient.notes">, {{ingredient.notes}}</span></li>
+            </ng-container>
+          </ul>
+
+        </div>
       </div>
     </ng-container>
 
@@ -26,12 +34,12 @@
       <div class="image recipe-section" *ngIf="recipe.image" [ngStyle]="{
           'background-image': 'url(' + imageUrl + recipe.image + ')'
         }" style="height: 400px; background-position: center; background-size: cover;"></div>
-      {{ recipe.description }}
+      <h3 *ngIf="!recipe.image">Description</h3>
+      <span>{{ recipe.description }}</span>
     </ng-container>
 
 
-    <ng-container steps>
-
+    <ng-container instructions>
       <div class="instructions recipe-section">
         <h3>Instructions</h3>
         <ng-container *ngFor="let step of recipe.steps">
@@ -44,6 +52,21 @@
             </div>
           </div>
         </ng-container>
+      </div>
+    </ng-container>
+
+
+    <ng-container notes>
+      <div style="width: 100%;">
+        <div class="d-flex align-items-center">
+          <h3>Notes</h3>
+          <fa-icon (click)="editingNotes = !editingNotes" icon=pencil-alt style="font-size: 16px;" class="ml-1 mt-1">
+          </fa-icon>
+        </div>
+        <span *ngIf="!editingNotes; else notesEdit;">{{recipe.notes}}</span>
+        <ng-template #notesEdit>
+          <textarea rows="5" [value]="recipe.notes" style="width: 100%;"></textarea>
+        </ng-template>
       </div>
     </ng-container>
 

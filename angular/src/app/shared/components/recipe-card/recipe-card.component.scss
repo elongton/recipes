@@ -13,11 +13,12 @@
 }
 
 section{
-    padding: 0 20px 20px 20px;
+    padding: 10px 70px;
 }
 
 main{
     width: 100%;
+    padding-bottom: 50px;
 }
 
 .page-break{
@@ -26,6 +27,14 @@ main{
 }
 
 
-.ingredients, .image, .steps{
+.ingredients, .image, .instructions, .notes{
     width: 50%;
+}
+
+.instructions, .notes{
+    margin-top: 20px;
+}
+
+.instructions{
+    padding-right: 15px;
 }

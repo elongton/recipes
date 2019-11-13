@@ -32,6 +32,10 @@ export class RecipeService {
     );
   }
 
+  updateRecipeNotes(notes, recipeId: Number) {
+    return this.http.put(`api/recipes/${recipeId}`, notes)
+  }
+
   addRecipeToSubjectAndNavigate(result, update?: boolean) {
     let currentRecipeList = this.appService.recipes$.getValue();
     console.log(result)

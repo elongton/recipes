@@ -18,6 +18,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   units;
   recipeSubscription: Subscription;
   unitSubscription: Subscription;
+  editingNotes: boolean = false;
   constructor(
     private appService: AppService,
     private route: ActivatedRoute,
@@ -39,5 +40,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.recipeSubscription.unsubscribe();
     this.unitSubscription.unsubscribe();
+  }
+
+
+  updateNotes() {
+    console.log('works')
   }
 }
