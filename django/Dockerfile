@@ -1,9 +1,7 @@
 FROM python:3.7
 ENV PYTHONUNBUFFERED 1
 
-RUN ["apk", "update"]
-RUN ["apk", "add", "nano"]
-
+RUN ["apt-get", "install", "nano"]
 
 RUN mkdir /src;
 RUN mkdir /src/mediafiles;
