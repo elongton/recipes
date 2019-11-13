@@ -37,6 +37,7 @@ class RecipeList(generics.ListCreateAPIView):
             author=None,
             title=data['title'],
             description=data['description'],
+            notes = data['notes'],
             image=image
         )
         # get list of ingredients from request, and add them to link table
@@ -74,6 +75,7 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
             author=None,
             title=data['title'],
             description=data['description'],
+            notes=data['notes'],
         )
         # handle image upload
 

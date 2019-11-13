@@ -4,6 +4,7 @@ class Recipe(models.Model):
     title = models.CharField(max_length=100, default='')
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
     author = models.ForeignKey(
         'auth.User', related_name='recipes', on_delete=models.SET_NULL, null=True, blank=True)
 
