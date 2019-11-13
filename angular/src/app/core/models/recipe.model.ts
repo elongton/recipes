@@ -6,6 +6,7 @@ export class Recipe {
     id: Number = null;
     steps: Step[] = [];
     ingredients: any[] = [];
+    notes: String = '';
     shoppingListItem: boolean = false;
 
     // constructor(obj?: any) {
