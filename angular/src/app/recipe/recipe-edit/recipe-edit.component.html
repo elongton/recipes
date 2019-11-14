@@ -44,7 +44,7 @@
             formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />
 
           <select *ngIf="checkIfIngredient(i)" class="form-control ml-2 ingredient-input"
-            (keydown.enter)="addIngredient();" formControlName="unitId">
+            (keydown.enter)="addIngredient();" formControlName="unit_id">
             <option *ngFor="let unit of recipeForm.controls.ingredients.value[i].unitList;" [ngValue]="unit.id">
               {{ unit.name }}</option>
           </select>

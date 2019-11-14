@@ -76,8 +76,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
           for (let i = 0; i < this.ingredients.length; i++) {
             this.ingredients.at(i).patchValue({
               unitList: this.generateUnitList(this.recipeToEdit.ingredients[i].id),
-              ingredientId: Number(this.recipeToEdit.ingredients[i].id),
-              unitId: this.recipeToEdit.ingredients[i].unit_id,
+              id: Number(this.recipeToEdit.ingredients[i].id),
+              unit_id: this.recipeToEdit.ingredients[i].unit_id,
               ingredientName: this.recipeToEdit.ingredients[i].name,
             });
           }
@@ -102,10 +102,10 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
   createIngredient(): FormGroup {
     return this.formBuilder.group({
-      ingredientId: "",
+      id: "",
       ingredientName: "",
       quantity: "",
-      unitId: "",
+      unit_id: "",
       notes: "",
       unitList: [],
     });
@@ -180,11 +180,11 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
 
   checkIfIngredient(i) {
-    return this.recipeForm.controls.ingredients.value[i].ingredientId ? true : false
+    return this.recipeForm.controls.ingredients.value[i].id ? true : false
   }
 
-  generateUnitList(ingredientId) {
-    let ingredient = this.ingredientList.find(ing => { return ing.id === ingredientId })
+  generateUnitList(id) {
+    let ingredient = this.ingredientList.find(ing => { return ing.id === id })
     let unitList = []
     if (ingredient) {
       ingredient.unit_types.forEach(unitType => {
@@ -196,12 +196,12 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     return unitList;
   }
 
-  onTypeAheadIngredient(ingredientId, i) {
-    let unitList = this.generateUnitList(ingredientId);
+  onTypeAheadIngredient(id, i) {
+    let unitList = this.generateUnitList(id);
     this.ingredients.at(i).patchValue({
-      ingredientId: ingredientId,
+      id: id,
       unitList: unitList,
-      unitId: unitList[0].id,
+      unit_id: unitList[0].id,
     });
   }
 
@@ -211,7 +211,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       this.onTypeAheadIngredient(found.id, i)
     } else {
       this.ingredients.at(i).patchValue({
-        ingredientId: null
+        id: null
       });
       if (value != '') {
         this.openNewIngredientModal(event, i)
