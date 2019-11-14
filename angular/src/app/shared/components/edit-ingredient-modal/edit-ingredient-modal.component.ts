@@ -17,7 +17,8 @@ export class EditIngredientModalComponent implements OnInit, AfterViewInit {
   ingredients$ = this.appService.ingredients$;
   unitTypes$ = this.appService.unitTypes$;
   storeSections$ = this.appService.storeSections$;
-  editRecipeIngredientIndex: number;
+  ingredientIndex: number;
+  section: any;
   newIngredientName: string;
 
   constructor(
@@ -54,7 +55,7 @@ export class EditIngredientModalComponent implements OnInit, AfterViewInit {
   onSubmitIngredient() {
     this.ingredientService.createIngredient(this.ingredientForm.value).subscribe(result => {
       this.bsModalRef.hide()
-      this.recipeService.elementToFocus$.next({ index: this.editRecipeIngredientIndex, value: this.ingredientForm.value.name })
+      this.recipeService.elementToFocus$.next({ ingredientIndex: this.ingredientIndex, section: this.section, ingredientName: this.ingredientForm.value.name })
     })
   }
 }

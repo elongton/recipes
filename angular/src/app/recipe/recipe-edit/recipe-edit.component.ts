@@ -54,7 +54,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       // }
     });
     this.recipeService.elementToFocus$.subscribe((val: any) => {
-      this.onBlurIngredient(val.value, val.index)
+      this.onBlurIngredient(val.ingredientName, val.section, val.ingredientIndex)
       this.childChildren.last.nativeElement.focus();
     })
   }
@@ -198,34 +198,36 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     return unitList;
   }
 
-  onTypeAheadIngredient(id, i) {
-    let unitList = this.generateUnitList(id);
-    this.ingredients.at(i).patchValue({
-      id: id,
+  onTypeAheadIngredient(ingredientId: number, section, ingredientIndex: number) {
+    let unitList = this.generateUnitList(ingredientId);
+    section.get("ingredients").at(ingredientIndex).patchValue({
+      id: ingredientId,
       unitList: unitList,
       unit_id: unitList[0].id,
     });
+    console.log(section.get("ingredients"))
   }
 
-  onBlurIngredient(value, i) {
-    let found = this.ingredientList.find(ingredient => { return ingredient.name === value })
+  onBlurIngredient(ingredientName: string, section, ingredientIndex: number) {
+    let found = this.ingredientList.find(ingredient => { return ingredient.name === ingredientName })
     if (found) {
-      this.onTypeAheadIngredient(found.id, i)
+      this.onTypeAheadIngredient(found.id, section, ingredientIndex)
     } else {
-      this.ingredients.at(i).patchValue({
+      section.get("ingredients").at(ingredientIndex).patchValue({
         id: null
       });
-      if (value != '') {
-        this.openNewIngredientModal(event, i)
+      if (ingredientName != '') {
+        this.openNewIngredientModal(event, section, ingredientIndex)
       }
       console.log('not found')
     }
   }
 
-  openNewIngredientModal(event, i) {
+  openNewIngredientModal(event, section, ingredientIndex) {
     const initialState = {
       newIngredientName: event.target.value,
-      editRecipeIngredientIndex: i,
+      ingredientIndex: ingredientIndex,
+      section: section,
     };
     this.bsModalRef = this.modalService.show(EditIngredientModalComponent, Object.assign({ initialState }));
   }

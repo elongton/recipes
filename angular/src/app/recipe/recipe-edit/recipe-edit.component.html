@@ -35,11 +35,11 @@
             <ng-container *ngFor="let ingredient of section.get('ingredients').controls; let ingredientIndex = index"
               [formGroupName]="ingredientIndex">
               <div class="d-flex">
-                <div>
+                <!-- <div>
                   <button type="button" class="btn btn-light mr-2" (click)="removeIngredient(section, ingredientIndex)">
                     <fa-icon icon="times"></fa-icon>
                   </button>
-                </div>
+                </div> -->
 
                 <input [typeaheadOptionsLimit]="7"
                   (typeaheadOnSelect)="onTypeAheadIngredient($event.item.id, section, ingredientIndex)"
@@ -47,7 +47,7 @@
                   class="form-control ingredient-input" placeholder="ingredient" typeaheadOptionField="name"
                   formControlName="ingredientName" #ingredient />
 
-                <input *ngIf="checkIfIngredient(section, ingredientIndex)" (keydown.enter)="addIngredient(section);"
+                <!-- <input *ngIf="checkIfIngredient(section, ingredientIndex)" (keydown.enter)="addIngredient(section);"
                   type="number" formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />
 
                 <select *ngIf="checkIfIngredient(section, ingredientIndex)" class="form-control ml-2 ingredient-input"
@@ -58,7 +58,7 @@
 
                 <input *ngIf="checkIfIngredient(section, ingredientIndex)" type="text" formControlName="notes"
                   placeholder="Notes" (keydown.enter)="addIngredient(section);"
-                  class="form-control ml-2 ingredient-input" />
+                  class="form-control ml-2 ingredient-input" /> -->
               </div>
 
             </ng-container>
