@@ -181,8 +181,12 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     reader.readAsDataURL(this.selectedFile);
   }
 
-  checkIfIngredient(i) {
-    return this.recipeForm.controls.ingredients.value[i].id ? true : false
+  checkIfIngredient(section, ingredientIndex) {
+    return section.get("ingredients").at(ingredientIndex).value.id ? true : false
+  }
+
+  test(section, ingredientIndex) {
+    console.log(section.get('ingredients').at(ingredientIndex).controls['unitList'].value)
   }
 
   generateUnitList(id) {

@@ -47,18 +47,20 @@
                   class="form-control ingredient-input" placeholder="ingredient" typeaheadOptionField="name"
                   formControlName="ingredientName" #ingredient />
 
-                <!-- <input *ngIf="checkIfIngredient(section, ingredientIndex)" (keydown.enter)="addIngredient(section);"
+                <input *ngIf="checkIfIngredient(section, ingredientIndex)" (keydown.enter)="addIngredient(section);"
                   type="number" formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />
 
                 <select *ngIf="checkIfIngredient(section, ingredientIndex)" class="form-control ml-2 ingredient-input"
-                  (keydown.enter)="addIngredient(section);" formControlName="unit_id">
-                  <option *ngFor="let unit of ingredient.get('unitList');" [ngValue]="unit.id">
+                  (keydown.enter)="test(section, ingredientIndex)" formControlName="unit_id">
+                  <option
+                    *ngFor="let unit of section.get('ingredients').at(ingredientIndex).controls['unitList'].value;"
+                    [ngValue]="unit.id">
                     {{ unit.name }}</option>
                 </select>
 
                 <input *ngIf="checkIfIngredient(section, ingredientIndex)" type="text" formControlName="notes"
                   placeholder="Notes" (keydown.enter)="addIngredient(section);"
-                  class="form-control ml-2 ingredient-input" /> -->
+                  class="form-control ml-2 ingredient-input" />
               </div>
 
             </ng-container>
