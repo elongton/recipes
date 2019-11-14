@@ -6,7 +6,6 @@ import { environment } from "src/environments/environment";
 import { AppService } from 'src/app/app.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { EditIngredientModalComponent } from 'src/app/shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: "app-recipe-edit",
@@ -21,7 +20,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   ingredientList = [];
   unitList = [];
   uploadedImage;
-  ingredients;
   ingredientSections;
   steps;
   bsModalRef: BsModalRef;
@@ -36,22 +34,26 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
-    this.childChildren.changes.subscribe(children => {
-      try {
-        if (children.last.nativeElement.value == null || children.last.nativeElement.value == '') {
-          children.last.nativeElement.focus();
-        }
-      } catch (e) { }
-      this.cdr.detectChanges();
-    })
+    // this.childChildren.changes.subscribe(children => {
+    //   try {
+    //     if (children.last.nativeElement.value == null || children.last.nativeElement.value == '') {
+    //       children.last.nativeElement.focus();
+    //     }
+    //   } catch (e) { }
+    //   this.cdr.detectChanges();
+    // })
   }
   ngOnInit() {
+    let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.buildForm();
+    if (!recipeId) {
+      this.addIngredientSection('General');
+    }
     this.appService.ingredients$.subscribe(result => {
       this.ingredientList = result;
-      // if (!this.ingredients) {
-      //   this.populateForm();
-      // }
+      if (recipeId) {
+        this.populateForm(recipeId);
+      }
     });
     this.recipeService.elementToFocus$.subscribe((val: any) => {
       this.onBlurIngredient(val.ingredientName, val.section, val.ingredientIndex)
@@ -59,35 +61,39 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     })
   }
 
-  populateForm() {
-    let recipeId = this.route.snapshot.paramMap.get("recipeId");
-    if (recipeId) { //if editing a recipe
-      let currentRecipeList = this.appService.recipes$.getValue();
-      this.recipeToEdit = currentRecipeList.find(r => r.id == Number(recipeId))
-      if (this.recipeToEdit) {
-        // this.recipeToEdit.ingredients.forEach(element => {
-        //   this.addIngredient();
-        // });
-        this.recipeToEdit.steps.forEach(element => {
-          this.addStep();
+  populateForm(recipeId) {
+    let currentRecipeList = this.appService.recipes$.getValue();
+    this.recipeToEdit = currentRecipeList.find(r => r.id == Number(recipeId))
+    if (this.recipeToEdit) {
+      this.recipeToEdit.ingredient_sections.forEach(section => {
+        let tempSection = this.addIngredientSection();
+        section.ingredients.forEach(() => {
+          this.addIngredient(tempSection);
         });
-        try {
-          this.ingredients = this.recipeForm.get("ingredients") as FormArray;
-          for (let i = 0; i < this.ingredients.length; i++) {
-            this.ingredients.at(i).patchValue({
-              unitList: this.generateUnitList(this.recipeToEdit.ingredients[i].id),
-              id: Number(this.recipeToEdit.ingredients[i].id),
-              unit_id: this.recipeToEdit.ingredients[i].unit_id,
-              ingredientName: this.recipeToEdit.ingredients[i].name,
-            });
+      });
+      this.recipeToEdit.steps.forEach(element => {
+        this.addStep();
+      });
+      try {
+        let sections = this.recipeForm.get("ingredient_sections") as FormArray
+        for (let i = 0; i < sections.length; i++) {
+          let ingredients = sections.at(i).get("ingredients") as FormArray
+          for (let j = 0; j < ingredients.length; j++) {
+            let updateObject = this.recipeToEdit.ingredient_sections[i].ingredients[j];
+            ingredients.at(j).patchValue({
+              unitList: this.generateUnitList(updateObject.id),
+              id: Number(updateObject.id),
+              unit_id: updateObject.unit_id,
+              ingredientName: updateObject.name,
+            })
           }
-        } catch (e) { }
-
-        if (this.recipeToEdit.image) {
-          this.uploadedImage = environment.url + this.recipeToEdit.image;
         }
-        this.recipeForm.patchValue(this.recipeToEdit)
+      } catch (e) { }
+
+      if (this.recipeToEdit.image) {
+        this.uploadedImage = environment.url + this.recipeToEdit.image;
       }
+      this.recipeForm.patchValue(this.recipeToEdit)
     }
   }
 
@@ -100,9 +106,9 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       notes: ''
     });
   }
-  createIngredientSection(): FormGroup {
+  createIngredientSection(name?: string): FormGroup {
     return this.formBuilder.group({
-      name: "",
+      name: name ? name : "",
       ingredients: this.formBuilder.array([]),
     })
   }
@@ -122,8 +128,10 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       instruction: ""
     });
   }
-  addIngredientSection(): void {
-    (this.recipeForm.get("ingredient_sections") as FormArray).push(this.createIngredientSection());
+  addIngredientSection(name?: string) {
+    let ingredientSections = (this.recipeForm.get("ingredient_sections") as FormArray)
+    ingredientSections.push(this.createIngredientSection(name));
+    return ingredientSections.at(ingredientSections.length - 1)
   }
   addIngredient(section): void {
     section.get("ingredients").push(this.createIngredient());
@@ -132,9 +140,11 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     this.steps = this.recipeForm.get("steps") as FormArray;
     this.steps.push(this.createStep(this.steps.length + 1));
   }
-  removeIngredient(i): void {
-    this.ingredients = this.recipeForm.get("ingredients") as FormArray;
-    this.ingredients.removeAt(i);
+  removeSection(sectionIndex): void {
+    (this.recipeForm.get("ingredient_sections") as FormArray).removeAt(sectionIndex);
+  }
+  removeIngredient(section, ingredientIndex): void {
+    section.get("ingredients").removeAt(ingredientIndex)
   }
   removeStep(i): void {
     this.steps = this.recipeForm.get("steps") as FormArray;
@@ -185,10 +195,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     return section.get("ingredients").at(ingredientIndex).value.id ? true : false
   }
 
-  test(section, ingredientIndex) {
-    console.log(section.get('ingredients').at(ingredientIndex).controls['unitList'].value)
-  }
-
   generateUnitList(id) {
     let ingredient = this.ingredientList.find(ing => { return ing.id === id })
     let unitList = []
@@ -209,7 +215,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       unitList: unitList,
       unit_id: unitList[0].id,
     });
-    console.log(section.get("ingredients"))
+    // console.log(section.get("ingredients"))
   }
 
   onBlurIngredient(ingredientName: string, section, ingredientIndex: number) {

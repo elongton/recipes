@@ -31,7 +31,6 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.recipeSubscription = this.appService.recipes$.subscribe(result => {
       if (result) {
         this.recipe = result.find(x => x.id === Number(recipeId));
-        console.log(this.recipe)
       }
     });
     this.unitSubscription = this.appService.units$.subscribe(result => {

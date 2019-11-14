@@ -30,16 +30,24 @@
       <div formArrayName="ingredient_sections">
         <ng-container *ngFor="let section of recipeForm.get('ingredient_sections').controls; let sectionIndex = index;"
           [formGroupName]="sectionIndex">
-          <input type="text" formControlName="name" placeholder="Section Name" class="form-control">
+          <div class="d-flex  mt-2">
+            <div>
+              <button type="button" class="btn btn-light mr-2" (click)="removeSection(sectionIndex)">
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="text" formControlName="name" placeholder="Section Name" class="form-control">
+          </div>
           <div formArrayName="ingredients">
             <ng-container *ngFor="let ingredient of section.get('ingredients').controls; let ingredientIndex = index"
               [formGroupName]="ingredientIndex">
-              <div class="d-flex">
-                <!-- <div>
+              <div class="d-flex mt-2" style="margin-left: 25px;">
+
+                <div>
                   <button type="button" class="btn btn-light mr-2" (click)="removeIngredient(section, ingredientIndex)">
                     <fa-icon icon="times"></fa-icon>
                   </button>
-                </div> -->
+                </div>
 
                 <input [typeaheadOptionsLimit]="7"
                   (typeaheadOnSelect)="onTypeAheadIngredient($event.item.id, section, ingredientIndex)"
@@ -67,7 +75,7 @@
           </div>
 
 
-          <button type="button" class="btn btn-light" (click)="addIngredient(section)">
+          <button type="button" class="btn btn-light mt-2" (click)="addIngredient(section)" style="margin-left: 25px;">
             Add
           </button>
         </ng-container>
