@@ -65,7 +65,8 @@
         </div>
         <span *ngIf="!editingNotes; else notesEdit;">{{recipe.notes}}</span>
         <ng-template #notesEdit>
-          <textarea rows="5" [value]="recipe.notes" style="width: 100%;"></textarea>
+          <textarea rows="5" [(ngModel)]="recipe.notes" style="width: 100%;"></textarea>
+          <button class="btn-primary btn" (click)="updateNotes(); editingNotes = false">Save</button>
         </ng-template>
       </div>
     </ng-container>

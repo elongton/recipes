@@ -2,9 +2,9 @@ from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep, Uni
 
 
 def create_recipe_link(ingredient, recipeObj):
-    unitObj = Unit.objects.get(id=ingredient['unitId'])
+    unitObj = Unit.objects.get(id=ingredient['unit_id'])
     ingredientObj = Ingredient.objects.get(
-        id=ingredient['ingredientId'])
+        id=ingredient['id'])
     recipeIngredientLink = RecipeIngredientLink(
         recipe=recipeObj,
         ingredient=ingredientObj,

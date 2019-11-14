@@ -23,6 +23,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     private appService: AppService,
     private route: ActivatedRoute,
     public helper: HelperService,
+    private recipeService: RecipeService
   ) { }
 
   ngOnInit() {
@@ -44,6 +45,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
 
   updateNotes() {
-    console.log('works')
+    let formDataToSend = new FormData();
+    formDataToSend.append("fields", JSON.stringify(this.recipe));
+    formDataToSend.append("image", '');
+    this.recipeService.updateRecipe(formDataToSend, this.recipe.id).subscribe()
   }
 }

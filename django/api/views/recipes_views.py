@@ -63,6 +63,7 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = RecipeSerializer
     def perform_update(self, serializer):
         data = json.loads(self.request.data['fields'])
+        print(data)
         ingredients = data['ingredients']
         steps = data['steps']
 
@@ -78,18 +79,15 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
             notes=data['notes'],
         )
         # handle image upload
-
         if not image:
             recipeObj = serializer.save(image = existingImage)
         else:
             recipeObj = serializer.save(image = image)
-        
         # delete and then create new set of ingredients
         delete_recipe_ingredient_links(recipeObj)
         for ingredient in ingredients:
             print('new, create')
             create_recipe_link(ingredient, recipeObj)
-        
         # delete and then create new set of steps
         delete_recipe_step_links(recipeObj)
         for step in steps:
