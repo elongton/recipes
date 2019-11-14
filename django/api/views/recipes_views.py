@@ -31,7 +31,7 @@ class RecipeList(generics.ListCreateAPIView):
         except:
             image = None
         data = json.loads(self.request.data['fields'])
-        ingredients = data['ingredients']
+        ingredient_sections = data['ingredient_sections']
         steps = data['steps']
         recipeObj = serializer.save(
             author=None,
@@ -40,14 +40,14 @@ class RecipeList(generics.ListCreateAPIView):
             notes = data['notes'],
             image=image
         )
-        # get list of ingredients from request, and add them to link table
-        print(ingredients)
+        # ingredient sections
         try:
-            for ingredient in ingredients:
-                create_recipe_link(ingredient, recipeObj)
+            for ingredient_section in ingredient_sections:
+                recipeSectionObj = create_recipe_ingredient_section(ingredient_section, recipeObj)
+                for ingredient in ingredient_section['ingredients']:
+                    create_ingredient_link(ingredient, recipeSectionObj)
         except ValueError:
             print('no ingredients')
-
         # get list of steps from request, and add them to link table
         try:
             for step in steps:
@@ -63,8 +63,7 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = RecipeSerializer
     def perform_update(self, serializer):
         data = json.loads(self.request.data['fields'])
-        print(data)
-        ingredients = data['ingredients']
+        ingredient_sections = data['ingredient_sections']
         steps = data['steps']
 
         pk = self.request.parser_context['kwargs']['pk']
@@ -84,10 +83,11 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
         else:
             recipeObj = serializer.save(image = image)
         # delete and then create new set of ingredients
-        delete_recipe_ingredient_links(recipeObj)
-        for ingredient in ingredients:
-            print('new, create')
-            create_recipe_link(ingredient, recipeObj)
+        delete_recipe_ingredient_sections(recipeObj)
+        for ingredient_section in ingredient_sections:
+            recipeSectionObj = create_recipe_ingredient_section(ingredient_section, recipeObj)
+            for ingredient in ingredient_section['ingredients']:
+                create_ingredient_link(ingredient, recipeSectionObj)
         # delete and then create new set of steps
         delete_recipe_step_links(recipeObj)
         for step in steps:

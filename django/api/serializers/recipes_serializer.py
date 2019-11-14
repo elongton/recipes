@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from api.models import (Recipe, 
                         RecipeIngredientLink, 
-                        RecipeStep,)
+                        RecipeStep,
+                        RecipeIngredientSection,)
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
@@ -30,13 +31,20 @@ class RecipeStepSerializer(serializers.ModelSerializer):
         fields = ['number', 'instruction']
 
 
+class RecipeIngredientSectionSerializer(serializers.ModelSerializer):
+    ingredients = RecipeIngredientSerializer(many=True, read_only=True)
+    class Meta:
+        model = RecipeIngredientSection
+        fields = ['name', 'ingredients']
+
 class RecipeSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(
         source='author.username', allow_null=True)
-    ingredients = RecipeIngredientSerializer(many=True, read_only=True)
+    # ingredients = RecipeIngredientSerializer(many=True, read_only=True)
     steps = RecipeStepSerializer(many=True, read_only=True)
+    ingredient_sections = RecipeIngredientSectionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Recipe
         fields = ['id', 'title', 'description',
-                  'image', 'steps', 'author', 'ingredients', 'notes']
+                  'image', 'steps', 'author', 'notes', 'ingredient_sections']

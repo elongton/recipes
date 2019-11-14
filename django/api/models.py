@@ -17,9 +17,15 @@ class RecipeStep(models.Model):
     number = models.IntegerField()
     instruction = models.TextField()
 
+class RecipeIngredientSection(models.Model):
+    name = models.CharField(max_length=200)
+    recipe = models.ForeignKey('Recipe', related_name='ingredient_sections', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
 class RecipeIngredientLink(models.Model):
-    recipe = models.ForeignKey('Recipe',
-                               related_name='ingredients', on_delete=models.CASCADE)
+    recipe_section = models.ForeignKey('RecipeIngredientSection', related_name='ingredients', on_delete=models.CASCADE)
     ingredient = models.ForeignKey('Ingredient',
                                    related_name='ri_ingredient', on_delete=models.CASCADE)
     quantity = models.FloatField()

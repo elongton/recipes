@@ -1,12 +1,19 @@
-from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep, Unit
+from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep, Unit, RecipeIngredientSection
 
+def create_recipe_ingredient_section(section, recipeObj):
+    recipe_ingredient_section = RecipeIngredientSection(
+        name=section['name'],
+        recipe=recipeObj,
+    )
+    recipe_ingredient_section.save()
+    return recipe_ingredient_section
 
-def create_recipe_link(ingredient, recipeObj):
+def create_ingredient_link(ingredient, recipeSectionObj):
     unitObj = Unit.objects.get(id=ingredient['unit_id'])
     ingredientObj = Ingredient.objects.get(
         id=ingredient['id'])
     recipeIngredientLink = RecipeIngredientLink(
-        recipe=recipeObj,
+        recipe_section=recipeSectionObj,
         ingredient=ingredientObj,
         unit=unitObj,
         quantity=ingredient['quantity'],
@@ -18,9 +25,9 @@ def create_step_link(recipeObj, step):
     recipeStep = RecipeStep(recipe=recipeObj, number=step['number'], instruction=step['instruction'])
     recipeStep.save()
 
-def delete_recipe_ingredient_links(recipeObj):
-    for ingredientLink in recipeObj.ingredients.all():
-        ingredientLink.delete()
+def delete_recipe_ingredient_sections(recipeObj):
+    for section in recipeObj.ingredient_sections.all():
+        section.delete()
 
 def delete_recipe_step_links(recipeObj):
     for stepLink in recipeObj.steps.all():

@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import (Recipe,
                     Ingredient, 
                     RecipeIngredientLink, 
+                    RecipeIngredientSection,
                     Tag, 
                     RecipeTagLink, 
                     RecipeStep, 
@@ -20,8 +21,10 @@ class IngredientAdmin(admin.ModelAdmin):
 
 
 class RecipeIngredientLinkAdmin(admin.ModelAdmin):
-    list_display = ('recipe','ingredient', 'id', )
+    list_display = ('recipe_section','ingredient', 'id', )
 
+class RecipeIngredientSectionAdmin(admin.ModelAdmin):
+    list_display = ('recipe', 'name')
 
 class TagAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -50,6 +53,7 @@ class UnitTypeIngredientLinkAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(RecipeIngredientSection, RecipeIngredientSectionAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(RecipeIngredientLink, RecipeIngredientLinkAdmin)
 admin.site.register(Tag, TagAdmin)
