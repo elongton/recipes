@@ -10,7 +10,6 @@ from .helpers.recipe_helpers import *
 import json
 
 
-
 class IngredientList(generics.ListCreateAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Ingredient.objects.all()
@@ -56,14 +55,3 @@ class IngredientCreate(APIView):
             }
             return Response(responseData, status=status.HTTP_201_CREATED)
         return Response(ingredient_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-# class IngredientList(APIView):
-#     permission_classes = [permissions.AllowAny]
-#     def get(self, request, format=None):
-#         # serializer = 
-#         ingredients = Ingredient.objects.all()
-#         # print(ingredients)
-#         return Response(ingredients)

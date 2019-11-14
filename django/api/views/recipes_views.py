@@ -12,7 +12,6 @@ from .helpers.recipe_helpers import *
 import json
 
 
-
 #Create and List
 class RecipeList(generics.ListCreateAPIView):
     #overrides and settings

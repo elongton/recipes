@@ -14,15 +14,19 @@
 
 
     <ng-container ingredients>
-      <div class="ingredients" *ngIf="recipe.ingredients">
+      <div class="ingredients" *ngIf="recipe.ingredient_sections">
         <h3>Ingredients</h3>
         <div>
           <ul>
-            <ng-container *ngFor="let ingredient of recipe.ingredients">
-              <li><span>{{ helper.numberToFraction(ingredient.quantity) }}
-                  {{ ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
-                  {{ ingredient.name }}</span>
-                <span *ngIf="ingredient.notes">, {{ingredient.notes}}</span></li>
+            <ng-container *ngFor="let section of recipe.ingredient_sections">
+              <span *ngIf="section.name !== 'General'">{{section.name}}</span>
+              <ng-container *ngFor="let ingredient of section.ingredients">
+                <li><span>{{ helper.numberToFraction(ingredient.quantity) }}
+                    {{ ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
+                    {{ ingredient.name }}</span>
+                  <span *ngIf="ingredient.notes">, {{ingredient.notes}}</span></li>
+              </ng-container>
+
             </ng-container>
           </ul>
 
