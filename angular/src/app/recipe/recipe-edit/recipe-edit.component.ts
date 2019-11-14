@@ -22,6 +22,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   unitList = [];
   uploadedImage;
   ingredients;
+  ingredientSections;
   steps;
   bsModalRef: BsModalRef;
 
@@ -48,15 +49,14 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     this.buildForm();
     this.appService.ingredients$.subscribe(result => {
       this.ingredientList = result;
-      if (!this.ingredients) {
-        this.populateForm();
-      }
+      // if (!this.ingredients) {
+      //   this.populateForm();
+      // }
     });
     this.recipeService.elementToFocus$.subscribe((val: any) => {
       this.onBlurIngredient(val.value, val.index)
       this.childChildren.last.nativeElement.focus();
     })
-
   }
 
   populateForm() {
@@ -65,9 +65,9 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       let currentRecipeList = this.appService.recipes$.getValue();
       this.recipeToEdit = currentRecipeList.find(r => r.id == Number(recipeId))
       if (this.recipeToEdit) {
-        this.recipeToEdit.ingredients.forEach(element => {
-          this.addIngredient();
-        });
+        // this.recipeToEdit.ingredients.forEach(element => {
+        //   this.addIngredient();
+        // });
         this.recipeToEdit.steps.forEach(element => {
           this.addStep();
         });
@@ -95,10 +95,16 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     this.recipeForm = this.formBuilder.group({
       title: "",
       description: "",
-      ingredients: this.formBuilder.array([]),
+      ingredient_sections: this.formBuilder.array([]),
       steps: this.formBuilder.array([]),
       notes: ''
     });
+  }
+  createIngredientSection(): FormGroup {
+    return this.formBuilder.group({
+      name: "",
+      ingredients: this.formBuilder.array([]),
+    })
   }
   createIngredient(): FormGroup {
     return this.formBuilder.group({
@@ -116,18 +122,17 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       instruction: ""
     });
   }
-  addIngredient(): void {
-    this.ingredients = this.recipeForm.get("ingredients") as FormArray;
-    this.ingredients.push(this.createIngredient());
-    // console.log(this.ingredients.at(this.ingredients.length - 1).controls.ingredientName)
+  addIngredientSection(): void {
+    (this.recipeForm.get("ingredient_sections") as FormArray).push(this.createIngredientSection());
+  }
+  addIngredient(section): void {
+    section.get("ingredients").push(this.createIngredient());
   }
   addStep(): void {
     this.steps = this.recipeForm.get("steps") as FormArray;
     this.steps.push(this.createStep(this.steps.length + 1));
   }
-
   removeIngredient(i): void {
-    console.log(i)
     this.ingredients = this.recipeForm.get("ingredients") as FormArray;
     this.ingredients.removeAt(i);
   }
@@ -155,9 +160,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       //if user doesn't change image, nothing is sent, and backend retains existing image
       formDataToSend.append("image", '');
     }
-
-    console.log(formDataToSend)
-    console.log(this.recipeForm.value)
     if (this.recipeToEdit) {
       this.recipeService.updateRecipe(formDataToSend, this.recipeToEdit.id).subscribe();
     } else {
