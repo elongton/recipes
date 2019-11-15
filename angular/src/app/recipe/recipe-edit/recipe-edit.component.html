@@ -28,7 +28,8 @@
         </button>
       </div>
       <div formArrayName="ingredient_sections">
-        <ng-container *ngFor="let section of recipeForm.get('ingredient_sections').controls; let sectionIndex = index;"
+        <ng-container
+          *ngFor="let section of recipeForm.get('ingredient_sections')['controls']; let sectionIndex = index;"
           [formGroupName]="sectionIndex">
           <div class="d-flex  mt-2">
             <div>
@@ -39,7 +40,7 @@
             <input type="text" formControlName="name" placeholder="Section Name" class="form-control">
           </div>
           <div formArrayName="ingredients">
-            <ng-container *ngFor="let ingredient of section.get('ingredients').controls; let ingredientIndex = index"
+            <ng-container *ngFor="let ingredient of section.get('ingredients')['controls']; let ingredientIndex = index"
               [formGroupName]="ingredientIndex">
               <div class="d-flex mt-2" style="margin-left: 25px;">
 
