@@ -5,7 +5,7 @@ export class Recipe {
     description: String = '';
     id: Number = null;
     steps: Step[] = [];
-    ingredients: any[] = [];
+    ingredient_sections: [];
     notes: String = '';
     shoppingListItem: boolean = false;
 
