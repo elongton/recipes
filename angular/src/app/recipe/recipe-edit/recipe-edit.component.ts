@@ -13,7 +13,7 @@ import { EditIngredientModalComponent } from 'src/app/shared/components/edit-ing
   styleUrls: ["./recipe-edit.component.scss"]
 })
 export class RecipeEditComponent implements OnInit, AfterViewInit {
-  @ViewChildren('ingredient') childChildren: QueryList<ElementRef>;
+  // @ViewChildren('ingredient') childChildren: QueryList<ElementRef>;
   recipeForm: FormGroup;
   recipeToEdit;
   selectedFile: File;
@@ -57,7 +57,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     });
     this.recipeService.elementToFocus$.subscribe((val: any) => {
       this.onBlurIngredient(val.ingredientName, val.section, val.ingredientIndex)
-      this.childChildren.last.nativeElement.focus();
+      // this.childChildren.last.nativeElement.focus();
     })
   }
 

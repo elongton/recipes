@@ -53,16 +53,14 @@
                   (typeaheadOnSelect)="onTypeAheadIngredient($event.item.id, section, ingredientIndex)"
                   (blur)="onBlurIngredient($event.target.value, section, ingredientIndex)" [typeahead]="ingredientList"
                   class="form-control ingredient-input" placeholder="ingredient" typeaheadOptionField="name"
-                  formControlName="ingredientName" #ingredient />
+                  formControlName="ingredientName" />
 
                 <input *ngIf="checkIfIngredient(section, ingredientIndex)" (keydown.enter)="addIngredient(section);"
                   type="number" formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />
 
                 <select *ngIf="checkIfIngredient(section, ingredientIndex)" class="form-control ml-2 ingredient-input"
                   (keydown.enter)="addIngredient(section);" formControlName="unit_id">
-                  <option
-                    *ngFor="let unit of section.get('ingredients').at(ingredientIndex)['controls']['unitList'].value;"
-                    [ngValue]="unit.id">
+                  <option *ngFor="let unit of ingredient.get('unitList').value;" [ngValue]="unit.id">
                     {{ unit.name }}</option>
                 </select>
 
