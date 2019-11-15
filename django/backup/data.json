@@ -1,51 +1,118 @@
 {
-    "unit_types": [],
-    "store_sections": [
+    "unit_types": [
         {
-            "name": "Spices",
+            "name": "Dry",
+            "base_unit": 1,
             "id": 1
         }
     ],
     "units": [
         {
-            "name": "teaspoon",
-            "unitType": 1,
-            "isBaseUnit": true,
+            "name": "Teaspoon",
+            "unit_type": 1,
+            "is_base_unit": true,
             "multiplier": 1.0,
+            "id": 1
+        },
+        {
+            "name": "Teaspoon",
+            "unit_type": 1,
+            "is_base_unit": true,
+            "multiplier": 1.0,
+            "id": 5
+        }
+    ],
+    "store_sections": [
+        {
+            "name": "Cold",
             "id": 1
         }
     ],
     "ingredients": [
         {
+            "name": "turkey",
+            "unit_types": [
+                {
+                    "name": "Dry",
+                    "id": 1
+                }
+            ],
+            "store_section": 1,
+            "id": 2
+        },
+        {
+            "name": "chicken",
+            "unit_types": [
+                {
+                    "name": "Dry",
+                    "id": 1
+                }
+            ],
+            "store_section": 1,
+            "id": 3
+        },
+        {
+            "name": "cheese",
+            "unit_types": [
+                {
+                    "name": "Dry",
+                    "id": 1
+                }
+            ],
+            "store_section": 1,
+            "id": 4
+        },
+        {
             "name": "salt",
-            "unitType": 1,
-            "storeSection": 1,
-            "id": 1
+            "unit_types": [
+                {
+                    "name": "Dry",
+                    "id": 1
+                }
+            ],
+            "store_section": 1,
+            "id": 5
+        },
+        {
+            "name": "pepper",
+            "unit_types": [
+                {
+                    "name": "Dry",
+                    "id": 1
+                }
+            ],
+            "store_section": 1,
+            "id": 6
+        },
+        {
+            "name": "sanitrol",
+            "unit_types": [
+                {
+                    "name": "Dry",
+                    "id": 1
+                }
+            ],
+            "store_section": 1,
+            "id": 7
         }
     ],
     "recipes": [
         {
-            "title": "Test",
-            "description": "test_recipe",
-            "image": "/Mongolian-Beef-4.jpg",
+            "title": "Chicken Soup",
+            "description": "Test Description",
             "steps": [
                 {
                     "number": 1,
-                    "instruction": "test instruction",
-                    "id": 3
-                }
-            ],
-            "ingredients": [
+                    "instruction": "Make the soup",
+                    "id": 33
+                },
                 {
-                    "name": "salt",
-                    "unitType": 1,
-                    "quantity": 3.0,
-                    "unitName": "teaspoon",
-                    "notes": "test",
-                    "id": 3
+                    "number": 2,
+                    "instruction": "Serve it",
+                    "id": 34
                 }
             ],
-            "id": 4
+            "id": 14
         }
     ]
 }
