@@ -19,7 +19,7 @@
         <div>
           <ul>
             <ng-container *ngFor="let section of recipe.ingredient_sections">
-              <span *ngIf="section.name !== 'General'">{{section.name}}</span>
+              <span *ngIf="section.name !== 'General'" class="section-name">{{section.name}}</span>
               <ng-container *ngFor="let ingredient of section.ingredients">
                 <li><span>{{ helper.numberToFraction(ingredient.quantity) }}
                     {{ ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
