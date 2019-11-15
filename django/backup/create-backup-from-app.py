@@ -6,13 +6,14 @@ import os
 import recipeApi.settings as settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'recipeApi.settings')
 django.setup()
-from api.models import Ingredient, Unit, Recipe, StoreSection, UnitType
+from api.models import Ingredient, Unit, Recipe, StoreSection, UnitType, UnitTypeIngredientLink
 
 unit_types = UnitType.objects.all()
 units = Unit.objects.all()
 store_sections = StoreSection.objects.all()
 ingredients = Ingredient.objects.all()
 recipes = Recipe.objects.all()
+unit_type_ingredient_links = UnitTypeIngredientLink.objects.all()
 
 
 data = {}
@@ -20,6 +21,7 @@ data['unit_types'] = []
 data['units'] = []
 data['store_sections'] = []
 data['ingredients'] = []
+data['unit_type_ingredient_links'] = []
 data['recipes']= []
 
 for unit_type in unit_types:
@@ -31,12 +33,12 @@ for unit in units:
 for store_section in store_sections:
     data['store_sections'].append({"name": store_section.name, "id": store_section.id})
 
-
 for ingredient in ingredients:
-    types = []
-    for link in ingredient.unit_types.all():
-        types.append({"name": link.unit_type.name, "id": link.unit_type.id})
-    data['ingredients'].append({"name": ingredient.name, "unit_types": types, "store_section": ingredient.store_section.id, "id": ingredient.id})
+    data['ingredients'].append({"name": ingredient.name, "store_section": ingredient.store_section.id, "id": ingredient.id})
+
+for unit_type_ingredient_link in unit_type_ingredient_links:
+    data['unit_type_ingredient_links'].append({"ingredient": unit_type_ingredient_link.ingredient.id, "unit_type": unit_type_ingredient_link.unit_type.id, "id": unit_type_ingredient_link.id})
+
 
 
 for recipe in recipes:
