@@ -29,10 +29,10 @@
     </main>
 
 
-    <fa-icon (click)="goBack();" icon=arrow-left style="font-size: 25px; position: absolute; top: 20px; left: 20px;">
+    <fa-icon (click)="goBack();" icon=arrow-left class="back-button">
     </fa-icon>
 
-    <div style="color: inherit; position: absolute; top: 20px; right: 20px;">
+    <div class="edit-button">
         <ng-content select="[edit]"></ng-content>
     </div>
 </div>

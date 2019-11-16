@@ -1,7 +1,11 @@
 <ng-container *ngIf="recipe">
   <app-recipe-card>
-    <div header class="align-items-center">
-      <h1>{{ recipe.title }}</h1>
+    <div header>
+      <h1>{{ recipe.title }} <a class="edit-alt-button" [routerLink]="['/recipe/edit/', recipe.id]">
+          <button class="btn btn-outline-dark">
+            Edit <fa-icon icon=pencil-alt></fa-icon>
+          </button>
+        </a></h1>
     </div>
 
     <div edit>
@@ -11,7 +15,6 @@
         </div>
       </a>
     </div>
-
 
 
 

@@ -7,7 +7,7 @@
     border: 3px solid rgb(0, 0, 0);
 }
 
-h3, p, span, div, li{
+h3, p, span, div, li, a{
     font-family: 'Walter Turncoat', cursive;
 }
 
@@ -30,4 +30,10 @@ li span{
     text-decoration: underline;
     margin-left: -10px!important;
     padding-left: 0!important
+}
+
+@media(min-width: 992px){
+    .edit-alt-button{
+        display:none;
+    }
 }
