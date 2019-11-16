@@ -1,9 +1,11 @@
 <ng-container *ngIf="recipe">
   <app-recipe-card>
-    <div header class="d-flex align-items-center">
-      <h1 class="recipe-title">{{ recipe.title }}</h1>
-      <a [routerLink]="['/recipe/edit/', recipe.id]"
-        style="color: inherit; position: absolute; top: 20px; right: 20px;">
+    <div header class="align-items-center">
+      <h1>{{ recipe.title }}</h1>
+    </div>
+
+    <div edit>
+      <a [routerLink]="['/recipe/edit/', recipe.id]">
         <div class="ml-2">
           <fa-icon icon=pencil-alt style="font-size: 25px;"></fa-icon>
         </div>
