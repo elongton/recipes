@@ -23,6 +23,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   ingredientSections;
   steps;
   bsModalRef: BsModalRef;
+  // populated: boolean = false;
 
   constructor(
     private recipeService: RecipeService,
@@ -51,14 +52,14 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     }
     this.appService.ingredients$.subscribe(result => {
       this.ingredientList = result;
-      if (recipeId) {
-        this.populateForm(recipeId);
-      }
     });
     this.recipeService.elementToFocus$.subscribe((val: any) => {
       this.onBlurIngredient(val.ingredientName, val.section, val.ingredientIndex)
       // this.childChildren.last.nativeElement.focus();
     })
+    if (recipeId) {
+      this.populateForm(recipeId);
+    }
   }
 
   populateForm(recipeId) {
