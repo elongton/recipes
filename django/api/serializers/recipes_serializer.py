@@ -21,7 +21,7 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
         'quantity',
         'unit',
         'unit_id',
-        'notes',
+        'ingredient_notes',
         'unit_multiplier']
 
 

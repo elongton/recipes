@@ -23,7 +23,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   ingredientSections;
   steps;
   bsModalRef: BsModalRef;
-  // populated: boolean = false;
+  populated: boolean = false;
 
   constructor(
     private recipeService: RecipeService,
@@ -35,6 +35,10 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
+    this.recipeService.elementToFocus$.subscribe((val: any) => {
+      this.onBlurIngredient(val.ingredientName, val.section, val.ingredientIndex)
+      // this.childChildren.last.nativeElement.focus();
+    })
     // this.childChildren.changes.subscribe(children => {
     //   try {
     //     if (children.last.nativeElement.value == null || children.last.nativeElement.value == '') {
@@ -50,16 +54,15 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     if (!recipeId) {
       this.addIngredientSection('General');
     }
-    this.appService.ingredients$.subscribe(result => {
-      this.ingredientList = result;
-    });
-    this.recipeService.elementToFocus$.subscribe((val: any) => {
-      this.onBlurIngredient(val.ingredientName, val.section, val.ingredientIndex)
-      // this.childChildren.last.nativeElement.focus();
+    this.appService.recipes$.subscribe(() => {  //for loading directly from URL (recipes must be loaded first)
+      this.appService.ingredients$.subscribe((ingredientList) => {
+        this.ingredientList = ingredientList;
+        if (recipeId && this.populated == false && this.ingredientList.length > 0) {
+          this.populateForm(recipeId);
+        }
+      })
+
     })
-    if (recipeId) {
-      this.populateForm(recipeId);
-    }
   }
 
   populateForm(recipeId) {
@@ -75,27 +78,27 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       this.recipeToEdit.steps.forEach(element => {
         this.addStep();
       });
-      try {
-        let sections = this.recipeForm.get("ingredient_sections") as FormArray
-        for (let i = 0; i < sections.length; i++) {
-          let ingredients = sections.at(i).get("ingredients") as FormArray
-          for (let j = 0; j < ingredients.length; j++) {
-            let updateObject = this.recipeToEdit.ingredient_sections[i].ingredients[j];
-            console.log(updateObject)
-            ingredients.at(j).patchValue({
-              unitList: this.generateUnitList(updateObject.ingredient_id),
-              id: Number(updateObject.ingredient_id),
-              unit_id: updateObject.unit_id,
-              ingredientName: updateObject.name,
-            })
-          }
+      // try {
+      let sections = this.recipeForm.get("ingredient_sections") as FormArray
+      for (let i = 0; i < sections.length; i++) {
+        let ingredients = sections.at(i).get("ingredients") as FormArray
+        for (let j = 0; j < ingredients.length; j++) {
+          let updateObject = this.recipeToEdit.ingredient_sections[i].ingredients[j];
+          ingredients.at(j).patchValue({
+            unitList: this.generateUnitList(updateObject.ingredient_id),
+            id: Number(updateObject.ingredient_id),
+            unit_id: updateObject.unit_id,
+            ingredientName: updateObject.name,
+          })
         }
-      } catch (e) { }
+      }
+      // } catch (e) { }
 
       if (this.recipeToEdit.image) {
         this.uploadedImage = environment.url + this.recipeToEdit.image;
       }
       this.recipeForm.patchValue(this.recipeToEdit)
+      this.populated = true;
     }
   }
 
@@ -120,7 +123,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       ingredientName: "",
       quantity: "",
       unit_id: "",
-      notes: "",
+      ingredient_notes: "",
+      recipe_notes: "",
       is_recipe_as_ingredient: false,
       recipe_id: "",
       recipeName: "",
@@ -246,6 +250,10 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       section: section,
     };
     this.bsModalRef = this.modalService.show(EditIngredientModalComponent, Object.assign({ initialState }));
+  }
+
+  switchIngredientToRecipe(ingredient) {
+    ingredient.get('is_recipe_as_ingredient').patchValue(!ingredient.get('is_recipe_as_ingredient').value)
   }
 
 

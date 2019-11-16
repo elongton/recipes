@@ -17,7 +17,7 @@ def create_ingredient_link(ingredient, recipeSectionObj):
         ingredient=ingredientObj,
         unit=unitObj,
         quantity=ingredient['quantity'],
-        notes = ingredient['notes']
+        ingredient_notes = ingredient['ingredient_notes']
         )
     recipeIngredientLink.save()
 

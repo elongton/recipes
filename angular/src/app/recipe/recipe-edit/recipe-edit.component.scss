@@ -7,8 +7,12 @@ form > *{
 //     width: 200px;
 // }
 
-.ingredient-input{
+.ingredient-input, .recipe-ingredient-input{
     width: 200px;
+}
+
+.recipe-ingredient-input{
+    border-color: blue;
 }
 
 .quantity{
@@ -21,3 +25,9 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+
+// .switch-ingredient-type svg{
+//     transform: rotate(90deg)!important;
+// }
+

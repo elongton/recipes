@@ -30,7 +30,8 @@ class RecipeIngredientLink(models.Model):
                                    related_name='ri_ingredient', on_delete=models.CASCADE, null=True, blank=True)
     # recipe_as_ingredient = models.ForeignKey('Recipe', related_name='recipe_as_ingredient', on_delete=models.CASCADE, null=True, blank=True)
     quantity = models.FloatField()
-    notes = models.CharField(max_length=200, blank=True)
+    ingredient_notes = models.CharField(max_length=200, blank=True)
+    recipe_notes = models.CharField(max_length=200, blank=True)
     unit = models.ForeignKey(
         'Unit', related_name="units", on_delete=models.CASCADE)
 

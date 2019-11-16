@@ -49,31 +49,43 @@
                     <fa-icon icon="times"></fa-icon>
                   </button>
                 </div>
-
-                <input [typeaheadOptionsLimit]="7"
-                  (typeaheadOnSelect)="onTypeAheadIngredient($event.item.id, section, ingredientIndex)"
-                  (blur)="onBlurIngredient($event.target.value, section, ingredientIndex)" [typeahead]="ingredientList"
-                  class="form-control ingredient-input" placeholder="ingredient" typeaheadOptionField="name"
-                  formControlName="ingredientName" />
-
                 <div>
-                  <button type="button" class="btn btn-light ml-2">
-                    <fa-icon icon="exchange-alt"></fa-icon>
+                  <button type="button" class="btn btn-light mr-2" (click)="switchIngredientToRecipe(ingredient)">
+                    <fa-icon icon="exchange-alt" class="switch-ingredient-type"></fa-icon>
                   </button>
                 </div>
 
-                <input *ngIf="checkIfIngredient(section, ingredientIndex)" (keydown.enter)="addIngredient(section);"
-                  type="number" formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />
+                <ng-container *ngIf="ingredient.get('is_recipe_as_ingredient').value; else ingredientInputFields">
+                  <input type="text" class="form-control recipe-ingredient-input" placeholder="recipe">
+                  <input *ngIf="checkIfIngredient(section, ingredientIndex)" (keydown.enter)="addIngredient(section);"
+                    type="number" formControlName="quantity" placeholder="Quantity" style="border-color: blue;"
+                    class="form-control ml-2 quantity" />
+                  <span class="ml-2 form-control recipe-ingredient-input" style="padding-left: .5rem;">portion<span
+                      *ngIf="ingredient.get('quantity').value > 1">s</span></span>
+                  <input type="text" formControlName="recipe_notes" placeholder="Notes"
+                    (keydown.enter)="addIngredient(section);" class="form-control ml-2 recipe-ingredient-input" />
+                </ng-container>
 
-                <select *ngIf="checkIfIngredient(section, ingredientIndex)" class="form-control ml-2 ingredient-input"
-                  (keydown.enter)="addIngredient(section);" formControlName="unit_id">
-                  <option *ngFor="let unit of ingredient.get('unitList').value;" [ngValue]="unit.id">
-                    {{ unit.name }}</option>
-                </select>
+                <ng-template #ingredientInputFields>
+                  <input [typeaheadOptionsLimit]="7"
+                    (typeaheadOnSelect)="onTypeAheadIngredient($event.item.id, section, ingredientIndex)"
+                    (blur)="onBlurIngredient($event.target.value, section, ingredientIndex)"
+                    [typeahead]="ingredientList" class="form-control ingredient-input" placeholder="ingredient"
+                    typeaheadOptionField="name" formControlName="ingredientName" />
+                  <input *ngIf="checkIfIngredient(section, ingredientIndex)" (keydown.enter)="addIngredient(section);"
+                    type="number" formControlName="quantity" placeholder="Quantity"
+                    class="form-control ml-2 quantity" />
+                  <select *ngIf="checkIfIngredient(section, ingredientIndex)" class="form-control ml-2 ingredient-input"
+                    (keydown.enter)="addIngredient(section);" formControlName="unit_id">
+                    <option *ngFor="let unit of ingredient.get('unitList').value;" [ngValue]="unit.id">
+                      {{ unit.name }}</option>
+                  </select>
+                  <input *ngIf="checkIfIngredient(section, ingredientIndex)" type="text"
+                    formControlName="ingredient_notes" placeholder="Notes" (keydown.enter)="addIngredient(section);"
+                    class="form-control ml-2 ingredient-input" />
 
-                <input *ngIf="checkIfIngredient(section, ingredientIndex)" type="text" formControlName="notes"
-                  placeholder="Notes" (keydown.enter)="addIngredient(section);"
-                  class="form-control ml-2 ingredient-input" />
+                </ng-template>
+
               </div>
 
             </ng-container>
