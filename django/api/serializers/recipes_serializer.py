@@ -6,7 +6,7 @@ from api.models import (Recipe,
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(source='ingredient.id')
+    ingredient_id = serializers.IntegerField(source='ingredient.id')
     name = serializers.CharField(source='ingredient.name')
     unit = serializers.CharField(source='unit.name')
     unit_id = serializers.IntegerField(source='unit.id')
@@ -16,7 +16,7 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecipeIngredientLink
         fields = [
-        'id',
+        'ingredient_id',
         'name',
         'quantity',
         'unit',

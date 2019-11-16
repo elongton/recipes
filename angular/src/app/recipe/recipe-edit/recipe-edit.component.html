@@ -56,6 +56,12 @@
                   class="form-control ingredient-input" placeholder="ingredient" typeaheadOptionField="name"
                   formControlName="ingredientName" />
 
+                <div>
+                  <button type="button" class="btn btn-light ml-2">
+                    <fa-icon icon="exchange-alt"></fa-icon>
+                  </button>
+                </div>
+
                 <input *ngIf="checkIfIngredient(section, ingredientIndex)" (keydown.enter)="addIngredient(section);"
                   type="number" formControlName="quantity" placeholder="Quantity" class="form-control ml-2 quantity" />
 

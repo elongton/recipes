@@ -81,9 +81,10 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
           let ingredients = sections.at(i).get("ingredients") as FormArray
           for (let j = 0; j < ingredients.length; j++) {
             let updateObject = this.recipeToEdit.ingredient_sections[i].ingredients[j];
+            console.log(updateObject)
             ingredients.at(j).patchValue({
-              unitList: this.generateUnitList(updateObject.id),
-              id: Number(updateObject.id),
+              unitList: this.generateUnitList(updateObject.ingredient_id),
+              id: Number(updateObject.ingredient_id),
               unit_id: updateObject.unit_id,
               ingredientName: updateObject.name,
             })
@@ -115,11 +116,14 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
   createIngredient(): FormGroup {
     return this.formBuilder.group({
-      id: "",
+      ingredient_id: "", //changed from id to ingredient_id
       ingredientName: "",
       quantity: "",
       unit_id: "",
       notes: "",
+      is_recipe_as_ingredient: false,
+      recipe_id: "",
+      recipeName: "",
       unitList: [],
     });
   }
@@ -193,7 +197,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
 
   checkIfIngredient(section, ingredientIndex) {
-    return section.get("ingredients").at(ingredientIndex).value.id ? true : false
+    return section.get("ingredients").at(ingredientIndex).value.ingredient_id ? true : false
   }
 
   generateUnitList(id) {
@@ -212,7 +216,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   onTypeAheadIngredient(ingredientId: number, section, ingredientIndex: number) {
     let unitList = this.generateUnitList(ingredientId);
     section.get("ingredients").at(ingredientIndex).patchValue({
-      id: ingredientId,
+      ingredient_id: ingredientId,
       unitList: unitList,
       unit_id: unitList[0].id,
     });
@@ -222,6 +226,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   onBlurIngredient(ingredientName: string, section, ingredientIndex: number) {
     let found = this.ingredientList.find(ingredient => { return ingredient.name === ingredientName })
     if (found) {
+      console.log(found.id)
       this.onTypeAheadIngredient(found.id, section, ingredientIndex)
     } else {
       section.get("ingredients").at(ingredientIndex).patchValue({

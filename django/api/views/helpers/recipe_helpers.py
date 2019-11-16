@@ -11,7 +11,7 @@ def create_recipe_ingredient_section(section, recipeObj):
 def create_ingredient_link(ingredient, recipeSectionObj):
     unitObj = Unit.objects.get(id=ingredient['unit_id'])
     ingredientObj = Ingredient.objects.get(
-        id=ingredient['id'])
+        id=ingredient['ingredient_id'])
     recipeIngredientLink = RecipeIngredientLink(
         recipe_section=recipeSectionObj,
         ingredient=ingredientObj,
