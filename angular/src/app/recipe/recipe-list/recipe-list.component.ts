@@ -23,7 +23,7 @@ export class RecipeListComponent implements OnInit {
   filteredRecipes: Recipe[] = [];
   ingredients = [];
   selected: string;
-  searchResults: SearchResult[] = [];
+  typeAheadQueryList: SearchResult[] = [];
   filterPillArray = [];
 
   sidenav: Boolean = false;
@@ -35,20 +35,21 @@ export class RecipeListComponent implements OnInit {
     private helpers: HelperService) { }
 
   ngOnInit() {
-    this.searchResults = [];
+    this.typeAheadQueryList = [];
     let that = this;
     this.appService.recipes$.subscribe(result => {
       this.recipes = result;
+      console.log(this.recipes)
       this.filteredRecipes = result;
-      this.searchResults = this.searchResults.filter(e => { return e.type === "Ingredient" })
+      this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Ingredient" })
       result.forEach(e => {
-        that.searchResults.push({ name: e.title, id: e.id, type: "Recipe" });
+        that.typeAheadQueryList.push({ name: e.title, id: e.id, type: "Recipe" });
       })
     });
     this.appService.ingredients$.subscribe(result => {
-      this.searchResults = this.searchResults.filter(e => { return e.type === "Recipe" })
+      this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Recipe" })
       result.forEach(e => {
-        that.searchResults.push({ name: e.name, id: e.id, type: "Ingredient" });
+        that.typeAheadQueryList.push({ name: e.name, id: e.id, type: "Ingredient" });
       })
     });
 

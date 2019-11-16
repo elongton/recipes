@@ -2,9 +2,7 @@
   <app-recipe-card>
     <div header>
       <h1>{{ recipe.title }} <a class="edit-alt-button" [routerLink]="['/recipe/edit/', recipe.id]">
-          <button class="btn btn-outline-dark">
-            Edit <fa-icon icon=pencil-alt></fa-icon>
-          </button>
+          <fa-icon icon=pencil-alt></fa-icon>
         </a></h1>
     </div>
 

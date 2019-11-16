@@ -13,14 +13,19 @@ export class HelperService {
             arrayToBeFiltered = arrayToBeFiltered.filter(recipeItem => {
                 return this.checkIfIngredient(recipeItem, ingredientFilter.id)
             })
-            // console.log(element)
         });
         return arrayToBeFiltered
 
     }
 
     checkIfIngredient(recipeItem, ingredientId) {
-        return recipeItem.ingredients.filter(r => { return r.id == ingredientId }).length > 0
+        let recipeHasIngredient = false;
+        recipeItem.ingredient_sections.forEach(section => {
+            if (section.ingredients.filter(r => { return r.id == ingredientId }).length > 0) {
+                recipeHasIngredient = true
+            }
+        });
+        return recipeHasIngredient;
     }
 
     roundToNearest(amount) {
