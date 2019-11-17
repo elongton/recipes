@@ -18,6 +18,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   recipeToEdit;
   selectedFile: File;
   ingredientList = [];
+  recipeList = [];
   unitList = [];
   uploadedImage;
   ingredientSections;
@@ -54,7 +55,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     if (!recipeId) {
       this.addIngredientSection('General');
     }
-    this.appService.recipes$.subscribe(() => {  //for loading directly from URL (recipes must be loaded first)
+    this.appService.recipes$.subscribe(recipeList => {  //for loading directly from URL (recipes must be loaded first)
+      this.recipeList = recipeList
       this.appService.ingredients$.subscribe((ingredientList) => {
         this.ingredientList = ingredientList;
         if (recipeId && this.populated == false && this.ingredientList.length > 0) {
@@ -86,9 +88,13 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
           let updateObject = this.recipeToEdit.ingredient_sections[i].ingredients[j];
           ingredients.at(j).patchValue({
             unitList: this.generateUnitList(updateObject.ingredient_id),
-            id: Number(updateObject.ingredient_id),
+            ingredient_id: Number(updateObject.ingredient_id),
             unit_id: updateObject.unit_id,
-            ingredientName: updateObject.name,
+            ingredient_name: updateObject.ingredient_name,
+            ingredient_notes: updateObject.ingredient_notes,
+            recipe_notes: updateObject.recipe_notes,
+            recipe_name: updateObject.recipe_name,
+            recipe_id: updateObject.recipe_id
           })
         }
       }
@@ -120,14 +126,14 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   createIngredient(): FormGroup {
     return this.formBuilder.group({
       ingredient_id: "", //changed from id to ingredient_id
-      ingredientName: "",
+      ingredient_name: "",
       quantity: "",
       unit_id: "",
       ingredient_notes: "",
       recipe_notes: "",
       is_recipe_as_ingredient: false,
       recipe_id: "",
-      recipeName: "",
+      recipe_name: "",
       unitList: [],
     });
   }
@@ -168,6 +174,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     // console.log(this.recipeForm.value);
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
+    console.log(this.recipeForm.value)
     if (this.selectedFile) {
       //if user uploads a new image, backend uploads and replaces
       try {
@@ -224,13 +231,16 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       unitList: unitList,
       unit_id: unitList[0].id,
     });
-    // console.log(section.get("ingredients"))
   }
-
+  onTypeAheadRecipe(recipeId: number, section, ingredientIndex: number) {
+    section.get("ingredients").at(ingredientIndex).patchValue({
+      recipe_id: recipeId,
+    });
+    // console.log(section.get("ingredients").at(ingredientIndex))
+  }
   onBlurIngredient(ingredientName: string, section, ingredientIndex: number) {
     let found = this.ingredientList.find(ingredient => { return ingredient.name === ingredientName })
     if (found) {
-      console.log(found.id)
       this.onTypeAheadIngredient(found.id, section, ingredientIndex)
     } else {
       section.get("ingredients").at(ingredientIndex).patchValue({

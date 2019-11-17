@@ -28,7 +28,8 @@ class RecipeIngredientLink(models.Model):
     recipe_section = models.ForeignKey('RecipeIngredientSection', related_name='ingredients', on_delete=models.CASCADE)
     ingredient = models.ForeignKey('Ingredient',
                                    related_name='ri_ingredient', on_delete=models.CASCADE, null=True, blank=True)
-    # recipe_as_ingredient = models.ForeignKey('Recipe', related_name='recipe_as_ingredient', on_delete=models.CASCADE, null=True, blank=True)
+    recipe_as_ingredient = models.ForeignKey('Recipe', related_name='recipe_as_ingredient', on_delete=models.CASCADE, null=True, blank=True)
+    is_recipe_as_ingredient = models.BooleanField(default=False)
     quantity = models.FloatField()
     ingredient_notes = models.CharField(max_length=200, blank=True)
     recipe_notes = models.CharField(max_length=200, blank=True)

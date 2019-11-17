@@ -11,11 +11,11 @@ form > *{
     width: 200px;
 }
 
-.recipe-ingredient-input{
-    border-color: blue;
+.recipe-ingredient-input, .recipe-quantity{
+    border-color: orange;
 }
 
-.quantity{
+.quantity, .recipe-quantity{
     width: 90px
 }
 

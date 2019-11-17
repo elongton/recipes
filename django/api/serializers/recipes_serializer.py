@@ -7,7 +7,9 @@ from api.models import (Recipe,
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
     ingredient_id = serializers.IntegerField(source='ingredient.id')
-    name = serializers.CharField(source='ingredient.name')
+    ingredient_name = serializers.CharField(source='ingredient.name')
+    recipe_name = serializers.CharField(source='recipe_as_ingredient.title')
+    recipe_id = serializers.CharField(source='recipe_as_ingredient.id')
     unit = serializers.CharField(source='unit.name')
     unit_id = serializers.IntegerField(source='unit.id')
     unit_multiplier = serializers.CharField(source="unit.multiplier")
@@ -17,12 +19,17 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
         model = RecipeIngredientLink
         fields = [
         'ingredient_id',
-        'name',
+        'ingredient_name',
+        'recipe_name',
+        'recipe_id',
         'quantity',
         'unit',
         'unit_id',
         'ingredient_notes',
-        'unit_multiplier']
+        'recipe_notes',
+        'unit_multiplier',
+        'is_recipe_as_ingredient'
+        ]
 
 
 class RecipeStepSerializer(serializers.ModelSerializer):
