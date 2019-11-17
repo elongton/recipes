@@ -9,17 +9,21 @@ def create_recipe_ingredient_section(section, recipeObj):
     return recipe_ingredient_section
 
 def create_ingredient_link(ingredient, recipeSectionObj):
-    unitObj = Unit.objects.get(id=ingredient['unit_id'])
-    ingredientObj = Ingredient.objects.get(
-        id=ingredient['ingredient_id'])
-    recipeAsIngredientObj = Recipe.objects.get(
-        id=ingredient['recipe_id'])
-    print(recipeAsIngredientObj)
+    if (ingredient['is_recipe_as_ingredient']):
+        recipeAsIngredientObj = Recipe.objects.get(id=ingredient['recipe_id'])
+        unitObj = None
+        ingredientObj = None
+    else:
+        unitObj = Unit.objects.get(id=ingredient['unit_id'])
+        ingredientObj = Ingredient.objects.get(id=ingredient['ingredient_id'])
+        recipeAsIngredientObj = None
+
+    # print(recipeAsIngredientObj)
     recipeIngredientLink = RecipeIngredientLink(
+        is_recipe_as_ingredient = ingredient['is_recipe_as_ingredient'],
         recipe_section=recipeSectionObj,
         ingredient=ingredientObj,
         recipe_as_ingredient = recipeAsIngredientObj,
-        is_recipe_as_ingredient = ingredient['is_recipe_as_ingredient'],
         unit=unitObj,
         quantity=ingredient['quantity'],
         ingredient_notes = ingredient['ingredient_notes'],

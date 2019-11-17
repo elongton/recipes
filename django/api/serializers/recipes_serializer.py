@@ -6,13 +6,13 @@ from api.models import (Recipe,
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
-    ingredient_id = serializers.IntegerField(source='ingredient.id')
-    ingredient_name = serializers.CharField(source='ingredient.name')
-    recipe_name = serializers.CharField(source='recipe_as_ingredient.title')
-    recipe_id = serializers.CharField(source='recipe_as_ingredient.id')
-    unit = serializers.CharField(source='unit.name')
-    unit_id = serializers.IntegerField(source='unit.id')
-    unit_multiplier = serializers.CharField(source="unit.multiplier")
+    ingredient_id = serializers.IntegerField(source='ingredient.id', allow_null=True)
+    ingredient_name = serializers.CharField(source='ingredient.name', allow_null=True)
+    recipe_name = serializers.CharField(source='recipe_as_ingredient.title', allow_null=True)
+    recipe_id = serializers.CharField(source='recipe_as_ingredient.id', allow_null=True)
+    unit = serializers.CharField(source='unit.name', allow_null=True)
+    unit_id = serializers.IntegerField(source='unit.id', allow_null=True)
+    unit_multiplier = serializers.CharField(source="unit.multiplier", allow_null=True)
 
 
     class Meta:

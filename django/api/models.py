@@ -34,7 +34,7 @@ class RecipeIngredientLink(models.Model):
     ingredient_notes = models.CharField(max_length=200, blank=True)
     recipe_notes = models.CharField(max_length=200, blank=True)
     unit = models.ForeignKey(
-        'Unit', related_name="units", on_delete=models.CASCADE)
+        'Unit', related_name="units", on_delete=models.CASCADE, null=True, blank=True)
 
 class RecipeTagLink(models.Model):
     recipe = models.ForeignKey('Recipe',
