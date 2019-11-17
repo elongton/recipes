@@ -25,7 +25,6 @@ export class HelperService {
             if (section.ingredients.filter(r => { return r.ingredient_id == ingredientId }).length > 0) {
                 recipeHasIngredient = true
             }
-
         });
         return recipeHasIngredient;
     }
