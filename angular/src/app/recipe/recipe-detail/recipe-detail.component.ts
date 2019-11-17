@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { RecipeService } from "../recipe.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from "@angular/router";
 import { Subscription } from "rxjs";
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { AppService } from 'src/app/app.service';
@@ -15,6 +15,7 @@ import { HelperService } from 'src/app/shared/helper.service';
 export class RecipeDetailComponent implements OnInit, OnDestroy {
   imageUrl: string = environment.url;
   recipe: Recipe;
+  recipes: Recipe[];
   units;
   recipeSubscription: Subscription;
   unitSubscription: Subscription;
@@ -23,20 +24,31 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     private appService: AppService,
     private route: ActivatedRoute,
     public helper: HelperService,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
     let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.recipeSubscription = this.appService.recipes$.subscribe(result => {
       if (result) {
+        this.recipes = result;
         this.recipe = result.find(x => x.id === Number(recipeId));
-        console.log(this.recipe)
+        // console.log(this.recipe)
       }
     });
     this.unitSubscription = this.appService.units$.subscribe(result => {
       this.units = result;
     })
+
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        recipeId = this.route.snapshot.paramMap.get("recipeId");
+        this.recipe = this.recipes.find(x => x.id === Number(recipeId));
+        // console.log(this.recipe)
+      }
+    });
+
   }
 
   ngOnDestroy() {

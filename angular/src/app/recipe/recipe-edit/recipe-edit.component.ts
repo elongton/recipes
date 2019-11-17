@@ -94,7 +94,9 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
             ingredient_notes: updateObject.ingredient_notes,
             recipe_notes: updateObject.recipe_notes,
             recipe_name: updateObject.recipe_name,
-            recipe_id: updateObject.recipe_id
+            recipe_id: updateObject.recipe_id,
+            ingredient_quantity: updateObject.ingredient_quantity,
+            recipe_quantity: updateObject.recipe_quantity
           })
         }
       }
@@ -127,7 +129,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     return this.formBuilder.group({
       ingredient_id: "", //changed from id to ingredient_id
       ingredient_name: "",
-      quantity: "",
+      ingredient_quantity: "",
+      recipe_quantity: 1,
       unit_id: "",
       ingredient_notes: "",
       recipe_notes: "",

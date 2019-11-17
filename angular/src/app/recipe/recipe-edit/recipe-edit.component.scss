@@ -2,13 +2,15 @@ form > *{
     margin-bottom: 10px;
 }
 
-
 // .section-heading{
 //     width: 200px;
 // }
 
-.ingredient-input, .recipe-ingredient-input{
+.ingredient-input{
     width: 200px;
+}
+.recipe-ingredient-input{
+    width: 50%;
 }
 
 .recipe-ingredient-input, .recipe-quantity{
@@ -19,6 +21,9 @@ form > *{
     width: 90px
 }
 
+.notes-parent{
+    padding-right: 8px;
+}
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {

@@ -22,9 +22,9 @@ ul {
     list-style-type: none;
   }
 
-li span{
-    margin-left: 6px;
-}
+// li span{
+//     margin-left: 6px;
+// }
 
 .section-name{
     text-decoration: underline;
@@ -40,4 +40,9 @@ li span{
     .edit-alt-button{
         display:none;
     }
+}
+
+
+.remove-margin{
+    margin-left: 0;
 }

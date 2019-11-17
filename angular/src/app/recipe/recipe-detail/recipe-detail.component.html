@@ -25,12 +25,16 @@
               <span *ngIf="section.name !== 'General'" class="section-name">{{section.name}}</span>
               <ng-container *ngFor="let ingredient of section.ingredients">
                 <ng-container *ngIf="ingredient.is_recipe_as_ingredient; else ingredientListItem">
-                  <li><a
-                      href="https://cnn.com"><span>{{ingredient.recipe_name}}</span></a><span>({{ helper.numberToFraction(ingredient.quantity) }}<span>serving<span
-                          style="margin-left: 0;" *ngIf="ingredient.quantity > 1">s</span></span>)</span></li>
+                  <li><a [routerLink]="['/recipe/view/', ingredient.recipe_id]" class="remove-margin"><span
+                        class="remove-margin">{{ingredient.recipe_name}}</span></a>
+
+                    <!-- <span>
+                      ({{ helper.numberToFraction(ingredient.recipe_quantity) }}<span>
+                        serving<span style="margin-left: 0;" *ngIf="ingredient.recipe_quantity > 1">s</span></span>)</span> -->
+                  </li>
                 </ng-container>
                 <ng-template #ingredientListItem>
-                  <li><span>{{ helper.numberToFraction(ingredient.quantity) }}
+                  <li><span class="remove-margin">{{ helper.numberToFraction(ingredient.ingredient_quantity) }}
                       {{ ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
                       {{ ingredient.ingredient_name }}</span><span style="margin-left: 0;"
                       *ngIf="ingredient.ingredient_notes">,
