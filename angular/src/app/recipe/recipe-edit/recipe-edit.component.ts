@@ -129,7 +129,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     return this.formBuilder.group({
       ingredient_id: "", //changed from id to ingredient_id
       ingredient_name: "",
-      ingredient_quantity: "",
+      ingredient_quantity: 1,
       recipe_quantity: 1,
       unit_id: "",
       ingredient_notes: "",
@@ -190,6 +190,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       formDataToSend.append("image", '');
     }
     if (this.recipeToEdit) {
+      console.log(this.recipeForm.value)
       this.recipeService.updateRecipe(formDataToSend, this.recipeToEdit.id).subscribe();
     } else {
       this.recipeService.submitRecipe(formDataToSend).subscribe();
