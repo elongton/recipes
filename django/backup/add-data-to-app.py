@@ -1,6 +1,7 @@
 import sys
 sys.path.append("..") #make operations go up a level
 import django
+from django.db import connection
 import json
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'recipeApi.settings')
@@ -14,6 +15,12 @@ from api.models import (Ingredient,
                         StoreSection,
                         UnitTypeIngredientLink)
 
+def reset_nextvals(seq_id_name, table_name):
+    with connection.cursor() as cursor:
+        cursor.execute("DROP SEQUENCE IF EXISTS "+seq_id_name+";")
+        cursor.execute("CREATE SEQUENCE "+seq_id_name+";")
+        cursor.execute("SELECT setval('"+seq_id_name+"', max(id)) FROM "+table_name+";")
+        cursor.execute("ALTER TABLE "+table_name+" ALTER COLUMN id SET DEFAULT nextval('"+seq_id_name+"')");
 
 with open('data.json') as json_file:
     data = json.load(json_file)
@@ -30,6 +37,12 @@ with open('data.json') as json_file:
             print('created already')
             pass
     print('unit types created')
+    try:
+        reset_nextvals("unit_types_seq", "api_unittype")
+        print('unit types db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass
 
     for unit in data['units']:
         try:
@@ -44,6 +57,12 @@ with open('data.json') as json_file:
             print('created already')
             pass
     print('units created')
+    try:
+        reset_nextvals("units_seq", "api_unit")
+        print('unit db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass
 
     #now update base unit on unit_types
     for unit_type in data['unit_types']:
@@ -64,10 +83,14 @@ with open('data.json') as json_file:
             print('created already')
             pass
     print('store sections created')
-
+    try:
+        reset_nextvals("stores_seq", "api_storesection")
+        print('store db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass
 
 ###### CREATE INGREDIENTS
-
     for ingredient in data['ingredients']:
         try:
             Ingredient.objects.create(
@@ -79,6 +102,14 @@ with open('data.json') as json_file:
             print('created already')
             pass
     print('ingredients created')
+    try:
+        reset_nextvals("ingredient_seq", "api_ingredient")
+        print('ingredient db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass
+
+
 
 ###### CREATE UNIT_TYPE INGREDIENT LINKS
     for unit_type_ingredient_link in data['unit_type_ingredient_links']:
@@ -92,3 +123,9 @@ with open('data.json') as json_file:
             print('created already')
             pass
     print('unit type ingredient links created')
+    try:
+        reset_nextvals("unit_ingredient_seq", "api_unittypeingredientlink")
+        print('unit_type ingredient link db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass

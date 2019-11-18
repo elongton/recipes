@@ -7,7 +7,7 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
   api:
     build: django/.
-    command: bash -c "python manage.py makemigrations api &&
+    command: bash -c "python manage.py makemigrations &&
                       python manage.py migrate &&
                       python setup_webapp.py &&
                       gunicorn recipeApi.wsgi -b 0.0.0.0:8000"

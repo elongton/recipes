@@ -14,15 +14,22 @@
         <ul>
             <li *ngFor="let recipe of selectedRecipes">{{recipe.title}}</li>
         </ul>
-        <h4>Shopping List</h4>
+        <h4><u>Shopping List</u></h4>
         <div class="row">
             <div class="col">
-                <ul>
-                    <li *ngFor="let ingredient of ingredientList">
-                        {{helper.numberToFraction(ingredient.quantity)}}
-                        {{ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
-                        {{ingredient.name}}</li>
-                </ul>
+                <ng-container *ngFor="let section of storeSections">
+                    <ng-container
+                        *ngIf="(ingredientList | filterObjectArray : 'ingredient_store_section' : section.name).length > 0;">
+                        <h5>{{section.name}}</h5>
+                        <ul>
+                            <li
+                                *ngFor="let ingredient of ingredientList | filterObjectArray : 'ingredient_store_section' : section.name">
+                                {{helper.numberToFraction(ingredient.ingredient_quantity)}}
+                                {{ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
+                                {{ingredient.ingredient_name}}</li>
+                        </ul>
+                    </ng-container>
+                </ng-container>
             </div>
         </div>
 

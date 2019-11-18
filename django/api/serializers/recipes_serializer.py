@@ -8,6 +8,7 @@ from api.models import (Recipe,
 class RecipeIngredientSerializer(serializers.ModelSerializer):
     ingredient_id = serializers.IntegerField(source='ingredient.id', allow_null=True)
     ingredient_name = serializers.CharField(source='ingredient.name', allow_null=True)
+    ingredient_store_section = serializers.CharField(source='ingredient.store_section', allow_null=True)
     recipe_name = serializers.CharField(source='recipe_as_ingredient.title', allow_null=True)
     recipe_id = serializers.CharField(source='recipe_as_ingredient.id', allow_null=True)
     unit = serializers.CharField(source='unit.name', allow_null=True)
@@ -29,7 +30,8 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
         'ingredient_notes',
         'recipe_notes',
         'unit_multiplier',
-        'is_recipe_as_ingredient'
+        'is_recipe_as_ingredient',
+        'ingredient_store_section'
         ]
 
 

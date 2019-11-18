@@ -16,6 +16,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   selectedRecipes: Recipe[] = [];
   recipeSub: Subscription;
   ingredientList: any[];
+  storeSections;
 
   constructor(
     private recipeService: RecipeService,
@@ -25,6 +26,9 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.ingredientList = [];
+    this.appService.storeSections$.subscribe(storeSections => {
+      this.storeSections = storeSections;
+    })
     this.recipeSub = this.appService.recipes$.subscribe(recipes => {
       this.selectedRecipes = recipes.filter(recipe => { return recipe.shoppingListItem === true })
       if (this.selectedRecipes.length < 1) {
