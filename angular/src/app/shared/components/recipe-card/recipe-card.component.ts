@@ -16,8 +16,12 @@ export class RecipeCardComponent implements OnInit {
   }
 
   goBack() {
-    // this.router.navigate(['/'])
     this._location.back();
+    // this.router.navigate(['/'])
+  }
+  goHome() {
+    // this._location.back();
+    this.router.navigate(['/'])
   }
 
 }

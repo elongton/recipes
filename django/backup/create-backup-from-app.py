@@ -6,14 +6,26 @@ import os
 import recipeApi.settings as settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'recipeApi.settings')
 django.setup()
-from api.models import Ingredient, Unit, Recipe, StoreSection, UnitType, UnitTypeIngredientLink
+from api.models import (Ingredient, 
+                        Unit, 
+                        StoreSection, 
+                        UnitType, 
+                        UnitTypeIngredientLink, 
+                        RecipeStep,
+                        RecipeIngredientLink,
+                        RecipeIngredientSection,
+                        Recipe, 
+                        )
 
 unit_types = UnitType.objects.all()
 units = Unit.objects.all()
 store_sections = StoreSection.objects.all()
 ingredients = Ingredient.objects.all()
-recipes = Recipe.objects.all()
 unit_type_ingredient_links = UnitTypeIngredientLink.objects.all()
+recipe_ingredient_sections = RecipeIngredientSection.objects.all()
+recipe_ingredient_links = RecipeIngredientLink.objects.all()
+recipes = Recipe.objects.all()
+recipe_steps = RecipeStep.objects.all()
 
 
 data = {}
@@ -22,7 +34,11 @@ data['units'] = []
 data['store_sections'] = []
 data['ingredients'] = []
 data['unit_type_ingredient_links'] = []
+data['recipe_steps'] = []
+data['recipe_ingredient_links'] = []
+data['recipe_ingredient_sections'] = []
 data['recipes']= []
+
 
 for unit_type in unit_types:
     data['unit_types'].append({"name": unit_type.name, "base_unit": unit_type.base_unit.id, "id": unit_type.id})
@@ -39,22 +55,44 @@ for ingredient in ingredients:
 for unit_type_ingredient_link in unit_type_ingredient_links:
     data['unit_type_ingredient_links'].append({"ingredient": unit_type_ingredient_link.ingredient.id, "unit_type": unit_type_ingredient_link.unit_type.id, "id": unit_type_ingredient_link.id})
 
+for recipe_ingredient_section in recipe_ingredient_sections:
+    data['recipe_ingredient_sections'].append({"name": recipe_ingredient_section.name, "id": recipe_ingredient_section.id, "recipe_id": recipe_ingredient_section.recipe.id})
 
+for recipe_ingredient_link in recipe_ingredient_links:
+    if recipe_ingredient_link.ingredient:
+        ingredient_id = recipe_ingredient_link.ingredient.id
+    else:
+        ingredient_id = None
+    if recipe_ingredient_link.recipe_as_ingredient:
+        recipe_id = recipe_ingredient_link.recipe_as_ingredient.id
+    else:
+        recipe_id = None
+    if recipe_ingredient_link.unit:
+        unit_id = recipe_ingredient_link.unit.id
+    else:
+        unit_id = None
+    data['recipe_ingredient_links'].append({"id": recipe_ingredient_link.id,
+                                            "recipe_section": recipe_ingredient_link.recipe_section.id, 
+                                            "ingredient": ingredient_id,
+                                            "recipe_as_ingredient": recipe_id,
+                                            "is_recipe_as_ingredient": recipe_ingredient_link.is_recipe_as_ingredient,
+                                            "ingredient_quantity": recipe_ingredient_link.ingredient_quantity,
+                                            "recipe_quantity": recipe_ingredient_link.recipe_quantity,
+                                            "ingredient_notes": recipe_ingredient_link.ingredient_notes,
+                                            "recipe_notes": recipe_ingredient_link.recipe_notes,
+                                            "unit": unit_id})
+
+for step in recipe_steps:
+    data['recipe_steps'].append({"id": step.id,
+                                 "recipe": step.recipe.id,
+                                 "number": step.number,
+                                 "instruction": step.instruction})
 
 for recipe in recipes:
-    step_array = []
-    for step in recipe.steps.all():
-        step_array.append(
-            {"number": step.number, "instruction": step.instruction, "id": step.id}
-        )
-    data['recipes'].append(
-        {
-            "title":recipe.title,
-            "description":recipe.description,
-            "steps": step_array,
-            "id": recipe.id
-        }
-    )
+    data['recipes'].append({"id": recipe.id,
+                            "title": recipe.title,
+                            "description": recipe.description,
+                            "notes": recipe.notes})
 
 with open('data.json', 'w') as outfile:
     json.dump(data, outfile)

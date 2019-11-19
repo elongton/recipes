@@ -18,4 +18,8 @@ export class PopoverComponent implements OnInit {
     this._location.back();
     // this.router.navigate(['/'])
   }
+  goHome() {
+    // this._location.back();
+    this.router.navigate(['/'])
+  }
 }

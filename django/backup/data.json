@@ -313,6 +313,31 @@
             "name": "paprika",
             "store_section": 4,
             "id": 27
+        },
+        {
+            "name": "test ingredient",
+            "store_section": 4,
+            "id": 33
+        },
+        {
+            "name": "red bell pepper",
+            "store_section": 4,
+            "id": 34
+        },
+        {
+            "name": "fresno pepper",
+            "store_section": 1,
+            "id": 35
+        },
+        {
+            "name": "tomato paste",
+            "store_section": 4,
+            "id": 36
+        },
+        {
+            "name": "lemon juice",
+            "store_section": 1,
+            "id": 37
         }
     ],
     "unit_type_ingredient_links": [
@@ -555,7 +580,367 @@
             "ingredient": 27,
             "unit_type": 3,
             "id": 48
+        },
+        {
+            "ingredient": 33,
+            "unit_type": 3,
+            "id": 104
+        },
+        {
+            "ingredient": 34,
+            "unit_type": 1,
+            "id": 105
+        },
+        {
+            "ingredient": 34,
+            "unit_type": 3,
+            "id": 106
+        },
+        {
+            "ingredient": 34,
+            "unit_type": 4,
+            "id": 107
+        },
+        {
+            "ingredient": 35,
+            "unit_type": 1,
+            "id": 108
+        },
+        {
+            "ingredient": 35,
+            "unit_type": 3,
+            "id": 109
+        },
+        {
+            "ingredient": 35,
+            "unit_type": 4,
+            "id": 110
+        },
+        {
+            "ingredient": 36,
+            "unit_type": 2,
+            "id": 111
+        },
+        {
+            "ingredient": 36,
+            "unit_type": 3,
+            "id": 112
+        },
+        {
+            "ingredient": 37,
+            "unit_type": 2,
+            "id": 113
         }
     ],
-    "recipes": []
+    "recipe_steps": [
+        {
+            "id": 202,
+            "recipe": 4,
+            "number": 1,
+            "instruction": "Preheat the oven to broil or 550F (287C) and line a baking sheet with foil. Place the bell peppers and fresno peppers on the baking sheet.  Wrap the garlic cloves in a small piece of foil and place on the baking sheet with the peppers.  This will ensure that the garlic doesn't burn too quickly."
+        },
+        {
+            "id": 203,
+            "recipe": 4,
+            "number": 2,
+            "instruction": "Broil the peppers and garlic until the entire pepper is softened and you can see black char, about 10 to 12 minutes.  Once done, remove the peppers from the oven and cover with another piece of foil and allow to cool enough to handle.  This also helps make the outer charred skin easier to remove. "
+        },
+        {
+            "id": 204,
+            "recipe": 4,
+            "number": 3,
+            "instruction": "Once cool enough to touch, remove the skin, seeds and stems from the peppers and place the flesh in a food processor along with the roasted garlic cloves."
+        },
+        {
+            "id": 205,
+            "recipe": 4,
+            "number": 4,
+            "instruction": "Add the tomato paste, cumin, paprika, oil and lemon juice and zest to the food processor and pulse until there is a smooth yet course consistency. Taste for seasoning and add salt as needed."
+        },
+        {
+            "id": 206,
+            "recipe": 4,
+            "number": 5,
+            "instruction": "Pour the harissa into an airtight container and keep in the fridge for up to 4 days."
+        },
+        {
+            "id": 235,
+            "recipe": 1,
+            "number": 1,
+            "instruction": "Preheat the oven to 400F (204C) and arrange the squash on a baking sheet. Drizzle with 1 tablespoon (15 ml) of olive oil and roast until fork tender, for about 1 hour."
+        },
+        {
+            "id": 236,
+            "recipe": 1,
+            "number": 2,
+            "instruction": "While the squash cooks, make the roasted chickpeas on another baking sheet. Spread the chickpeas on a foil-lined baking sheet and dry thoroughly with a paper towel. Toss with cumin, paprika, salt and the remaining 1 tablespoon (15ml) of oil and bake for 15 to 18 minutes. Once done, they should be crispy with a deep brown color. Remove from the oven and set aside until the soup is ready."
+        },
+        {
+            "id": 237,
+            "recipe": 1,
+            "number": 3,
+            "instruction": "In a medium-size pot, coat the bottom with 2 tablespoons (30 ml) of olive oil and bring up to medium heat. Add the onion and fresno pepper and saute until softened, about 3 to 4 minutes."
+        },
+        {
+            "id": 238,
+            "recipe": 1,
+            "number": 4,
+            "instruction": "Add the turmeric, cumin, paprika, and salt and stir thoroughly. Add the cooked squash, vegetable stock and lentils and gently stir everything together, making sure everything is submerged in the liquid. Add a bit more stock if needed."
+        },
+        {
+            "id": 239,
+            "recipe": 1,
+            "number": 5,
+            "instruction": "Cover with a lid and bring the soup up to a gentle boil and cook until the lentils are tender, about 30 minutes."
+        },
+        {
+            "id": 240,
+            "recipe": 1,
+            "number": 6,
+            "instruction": "Once done, turn off the heat, (make sure soup is cool) and use an immersion blender to blend the soup to the desired consistency."
+        },
+        {
+            "id": 241,
+            "recipe": 1,
+            "number": 7,
+            "instruction": "Ladle the soup into bowls and garnish with a drizzle of olive oil, harissa, crispy chickpeas and fresh thyme."
+        }
+    ],
+    "recipe_ingredient_links": [
+        {
+            "id": 128,
+            "recipe_section": 59,
+            "ingredient": 34,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 2.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "large",
+            "recipe_notes": "",
+            "unit": 22
+        },
+        {
+            "id": 129,
+            "recipe_section": 59,
+            "ingredient": 35,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 3.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 22
+        },
+        {
+            "id": 130,
+            "recipe_section": 59,
+            "ingredient": 7,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 4.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "peeled",
+            "recipe_notes": "",
+            "unit": 23
+        },
+        {
+            "id": 131,
+            "recipe_section": 59,
+            "ingredient": 36,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 12
+        },
+        {
+            "id": 132,
+            "recipe_section": 59,
+            "ingredient": 26,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 1
+        },
+        {
+            "id": 133,
+            "recipe_section": 59,
+            "ingredient": 27,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 1
+        },
+        {
+            "id": 134,
+            "recipe_section": 59,
+            "ingredient": 20,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "plus more as needed",
+            "recipe_notes": "",
+            "unit": 12
+        },
+        {
+            "id": 135,
+            "recipe_section": 59,
+            "ingredient": 37,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 11
+        },
+        {
+            "id": 136,
+            "recipe_section": 59,
+            "ingredient": 10,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 1
+        },
+        {
+            "id": 137,
+            "recipe_section": 59,
+            "ingredient": 2,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "as needed",
+            "recipe_notes": "",
+            "unit": 3
+        },
+        {
+            "id": 188,
+            "recipe_section": 76,
+            "ingredient": 23,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 2.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "peeled and cut into 1-inch (2.5cm) cubes",
+            "recipe_notes": "",
+            "unit": 19
+        },
+        {
+            "id": 189,
+            "recipe_section": 76,
+            "ingredient": 20,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 2.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "divided",
+            "recipe_notes": "",
+            "unit": 12
+        },
+        {
+            "id": 190,
+            "recipe_section": 76,
+            "ingredient": 24,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": null,
+            "ingredient_notes": "cooked",
+            "recipe_notes": "",
+            "unit": 5
+        },
+        {
+            "id": 191,
+            "recipe_section": 76,
+            "ingredient": 26,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 0.5,
+            "recipe_quantity": null,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 1
+        },
+        {
+            "id": 192,
+            "recipe_section": 76,
+            "ingredient": 27,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 0.5,
+            "recipe_quantity": null,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 1
+        },
+        {
+            "id": 193,
+            "recipe_section": 76,
+            "ingredient": 2,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 0.5,
+            "recipe_quantity": null,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 1
+        },
+        {
+            "id": 194,
+            "recipe_section": 77,
+            "ingredient": null,
+            "recipe_as_ingredient": 4,
+            "is_recipe_as_ingredient": true,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": 1.0,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": null
+        }
+    ],
+    "recipe_ingredient_sections": [
+        {
+            "name": "General",
+            "id": 59,
+            "recipe_id": 4
+        },
+        {
+            "name": "General",
+            "id": 76,
+            "recipe_id": 1
+        },
+        {
+            "name": "Soup",
+            "id": 77,
+            "recipe_id": 1
+        }
+    ],
+    "recipes": [
+        {
+            "id": 1,
+            "title": "Cumin-Scented Squash and Lentil Soup with Crispy Chickpeas",
+            "description": "A delicious soup does not need to take hours over the stove. Red lentils cook quickly, and if you roast the squash ahead of time, everything can be bowled up in under an hour. My favorite tool, the immersion blender, is used here, and it makes creamy soups a breeze. I highly recommend investing in one for your cooking essentials.",
+            "notes": "@end, blend with 1/2 TBSP Apple cider vinegar."
+        },
+        {
+            "id": 4,
+            "title": "Easy Homemade Harissa Sauce",
+            "description": "This one's for all the spice-lovers out there.  Harissa is a fiery chili paste originating in North Africa and gaining in popularity all over the world.  There are numerous blends and recipes for harissa, but I like to keep mine simple and smoky.  Plop a spoonful on anything you'd like to spice up, such as One-Pot Paprika Chicken with Olives and Orzo or on top of hummus for an extra zesty kick.",
+            "notes": ""
+        }
+    ]
 }

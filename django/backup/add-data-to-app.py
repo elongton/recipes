@@ -129,3 +129,22 @@ with open('data.json') as json_file:
     except ValueError:
         print(ValueError)
         pass
+
+###### CREATE RECIPES
+    for recipe in data['recipes']:
+        try:
+            Recipe.objects.create(
+                id=recipe['id'],
+                title=recipe['title'],
+                description=recipe['description'],
+                notes=recipe['notes'],
+            )
+        except:
+            print('created already')
+            pass
+    try:
+        reset_nextvals("recipe_seq", "api_recipe")
+        print('recipe db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass
