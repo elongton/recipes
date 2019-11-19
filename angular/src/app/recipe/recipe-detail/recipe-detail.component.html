@@ -1,9 +1,7 @@
 <ng-container *ngIf="recipe">
   <app-recipe-card>
     <div header>
-      <h1>{{ recipe.title }} <a class="edit-alt-button" [routerLink]="['/recipe/edit/', recipe.id]">
-          <fa-icon icon=pencil-alt></fa-icon>
-        </a></h1>
+      <h1>{{ recipe.title }}</h1>
     </div>
 
     <div edit>
@@ -26,7 +24,9 @@
               <ng-container *ngFor="let ingredient of section.ingredients">
                 <ng-container *ngIf="ingredient.is_recipe_as_ingredient; else ingredientListItem">
                   <li><a [routerLink]="['/recipe/view/', ingredient.recipe_id]" class="remove-margin"><span
-                        class="remove-margin">{{ingredient.recipe_name}}</span></a>
+                        class="remove-margin">{{ingredient.recipe_name}}</span></a><span style="margin-left: 0;"
+                      *ngIf="ingredient.recipe_notes">,
+                      {{ingredient.recipe_notes}}</span>
 
                     <!-- <span>
                       ({{ helper.numberToFraction(ingredient.recipe_quantity) }}<span>

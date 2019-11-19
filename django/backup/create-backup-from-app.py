@@ -56,7 +56,9 @@ for unit_type_ingredient_link in unit_type_ingredient_links:
     data['unit_type_ingredient_links'].append({"ingredient": unit_type_ingredient_link.ingredient.id, "unit_type": unit_type_ingredient_link.unit_type.id, "id": unit_type_ingredient_link.id})
 
 for recipe_ingredient_section in recipe_ingredient_sections:
-    data['recipe_ingredient_sections'].append({"name": recipe_ingredient_section.name, "id": recipe_ingredient_section.id, "recipe_id": recipe_ingredient_section.recipe.id})
+    data['recipe_ingredient_sections'].append({"name": recipe_ingredient_section.name,
+                                               "id": recipe_ingredient_section.id, 
+                                               "recipe": recipe_ingredient_section.recipe.id})
 
 for recipe_ingredient_link in recipe_ingredient_links:
     if recipe_ingredient_link.ingredient:

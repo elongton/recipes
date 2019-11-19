@@ -315,11 +315,6 @@
             "id": 27
         },
         {
-            "name": "test ingredient",
-            "store_section": 4,
-            "id": 33
-        },
-        {
             "name": "red bell pepper",
             "store_section": 4,
             "id": 34
@@ -338,6 +333,31 @@
             "name": "lemon juice",
             "store_section": 1,
             "id": 37
+        },
+        {
+            "name": "red onion",
+            "store_section": 1,
+            "id": 38
+        },
+        {
+            "name": "ground turmeric",
+            "store_section": 4,
+            "id": 39
+        },
+        {
+            "name": "vegetable stock",
+            "store_section": 4,
+            "id": 40
+        },
+        {
+            "name": "red lentils",
+            "store_section": 4,
+            "id": 41
+        },
+        {
+            "name": "fresh thyme leaves",
+            "store_section": 1,
+            "id": 42
         }
     ],
     "unit_type_ingredient_links": [
@@ -582,11 +602,6 @@
             "id": 48
         },
         {
-            "ingredient": 33,
-            "unit_type": 3,
-            "id": 104
-        },
-        {
             "ingredient": 34,
             "unit_type": 1,
             "id": 105
@@ -630,6 +645,56 @@
             "ingredient": 37,
             "unit_type": 2,
             "id": 113
+        },
+        {
+            "ingredient": 38,
+            "unit_type": 1,
+            "id": 114
+        },
+        {
+            "ingredient": 38,
+            "unit_type": 3,
+            "id": 115
+        },
+        {
+            "ingredient": 38,
+            "unit_type": 4,
+            "id": 116
+        },
+        {
+            "ingredient": 39,
+            "unit_type": 1,
+            "id": 117
+        },
+        {
+            "ingredient": 39,
+            "unit_type": 3,
+            "id": 118
+        },
+        {
+            "ingredient": 40,
+            "unit_type": 2,
+            "id": 119
+        },
+        {
+            "ingredient": 41,
+            "unit_type": 1,
+            "id": 120
+        },
+        {
+            "ingredient": 41,
+            "unit_type": 3,
+            "id": 121
+        },
+        {
+            "ingredient": 42,
+            "unit_type": 1,
+            "id": 122
+        },
+        {
+            "ingredient": 42,
+            "unit_type": 4,
+            "id": 123
         }
     ],
     "recipe_steps": [
@@ -664,43 +729,43 @@
             "instruction": "Pour the harissa into an airtight container and keep in the fridge for up to 4 days."
         },
         {
-            "id": 235,
+            "id": 242,
             "recipe": 1,
             "number": 1,
             "instruction": "Preheat the oven to 400F (204C) and arrange the squash on a baking sheet. Drizzle with 1 tablespoon (15 ml) of olive oil and roast until fork tender, for about 1 hour."
         },
         {
-            "id": 236,
+            "id": 243,
             "recipe": 1,
             "number": 2,
             "instruction": "While the squash cooks, make the roasted chickpeas on another baking sheet. Spread the chickpeas on a foil-lined baking sheet and dry thoroughly with a paper towel. Toss with cumin, paprika, salt and the remaining 1 tablespoon (15ml) of oil and bake for 15 to 18 minutes. Once done, they should be crispy with a deep brown color. Remove from the oven and set aside until the soup is ready."
         },
         {
-            "id": 237,
+            "id": 244,
             "recipe": 1,
             "number": 3,
             "instruction": "In a medium-size pot, coat the bottom with 2 tablespoons (30 ml) of olive oil and bring up to medium heat. Add the onion and fresno pepper and saute until softened, about 3 to 4 minutes."
         },
         {
-            "id": 238,
+            "id": 245,
             "recipe": 1,
             "number": 4,
             "instruction": "Add the turmeric, cumin, paprika, and salt and stir thoroughly. Add the cooked squash, vegetable stock and lentils and gently stir everything together, making sure everything is submerged in the liquid. Add a bit more stock if needed."
         },
         {
-            "id": 239,
+            "id": 246,
             "recipe": 1,
             "number": 5,
             "instruction": "Cover with a lid and bring the soup up to a gentle boil and cook until the lentils are tender, about 30 minutes."
         },
         {
-            "id": 240,
+            "id": 247,
             "recipe": 1,
             "number": 6,
             "instruction": "Once done, turn off the heat, (make sure soup is cool) and use an immersion blender to blend the soup to the desired consistency."
         },
         {
-            "id": 241,
+            "id": 248,
             "recipe": 1,
             "number": 7,
             "instruction": "Ladle the soup into bowls and garnish with a drizzle of olive oil, harissa, crispy chickpeas and fresh thyme."
@@ -828,8 +893,8 @@
             "unit": 3
         },
         {
-            "id": 188,
-            "recipe_section": 76,
+            "id": 195,
+            "recipe_section": 78,
             "ingredient": 23,
             "recipe_as_ingredient": null,
             "is_recipe_as_ingredient": false,
@@ -840,8 +905,8 @@
             "unit": 19
         },
         {
-            "id": 189,
-            "recipe_section": 76,
+            "id": 196,
+            "recipe_section": 78,
             "ingredient": 20,
             "recipe_as_ingredient": null,
             "is_recipe_as_ingredient": false,
@@ -852,8 +917,8 @@
             "unit": 12
         },
         {
-            "id": 190,
-            "recipe_section": 76,
+            "id": 197,
+            "recipe_section": 78,
             "ingredient": 24,
             "recipe_as_ingredient": null,
             "is_recipe_as_ingredient": false,
@@ -864,8 +929,8 @@
             "unit": 5
         },
         {
-            "id": 191,
-            "recipe_section": 76,
+            "id": 198,
+            "recipe_section": 78,
             "ingredient": 26,
             "recipe_as_ingredient": null,
             "is_recipe_as_ingredient": false,
@@ -876,8 +941,8 @@
             "unit": 1
         },
         {
-            "id": 192,
-            "recipe_section": 76,
+            "id": 199,
+            "recipe_section": 78,
             "ingredient": 27,
             "recipe_as_ingredient": null,
             "is_recipe_as_ingredient": false,
@@ -888,8 +953,8 @@
             "unit": 1
         },
         {
-            "id": 193,
-            "recipe_section": 76,
+            "id": 200,
+            "recipe_section": 78,
             "ingredient": 2,
             "recipe_as_ingredient": null,
             "is_recipe_as_ingredient": false,
@@ -900,33 +965,153 @@
             "unit": 1
         },
         {
-            "id": 194,
-            "recipe_section": 77,
+            "id": 201,
+            "recipe_section": 79,
+            "ingredient": 20,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 2.0,
+            "recipe_quantity": 1.0,
+            "ingredient_notes": "plus more for garnish",
+            "recipe_notes": "",
+            "unit": 12
+        },
+        {
+            "id": 202,
+            "recipe_section": 79,
+            "ingredient": 38,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": 1.0,
+            "ingredient_notes": "diced",
+            "recipe_notes": "",
+            "unit": 22
+        },
+        {
+            "id": 203,
+            "recipe_section": 79,
+            "ingredient": 35,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": 1.0,
+            "ingredient_notes": "seeded and diced",
+            "recipe_notes": "",
+            "unit": 22
+        },
+        {
+            "id": 204,
+            "recipe_section": 79,
+            "ingredient": 39,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": 1.0,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 1
+        },
+        {
+            "id": 205,
+            "recipe_section": 79,
+            "ingredient": 26,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": 1.0,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 1
+        },
+        {
+            "id": 206,
+            "recipe_section": 79,
+            "ingredient": 27,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 0.5,
+            "recipe_quantity": 1.0,
+            "ingredient_notes": "",
+            "recipe_notes": "",
+            "unit": 1
+        },
+        {
+            "id": 207,
+            "recipe_section": 79,
+            "ingredient": 2,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 0.5,
+            "recipe_quantity": 1.0,
+            "ingredient_notes": "or more to taste",
+            "recipe_notes": "",
+            "unit": 1
+        },
+        {
+            "id": 208,
+            "recipe_section": 79,
+            "ingredient": 40,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 5.0,
+            "recipe_quantity": 1.0,
+            "ingredient_notes": "plus more if needed for consistency",
+            "recipe_notes": "",
+            "unit": 13
+        },
+        {
+            "id": 209,
+            "recipe_section": 79,
+            "ingredient": 41,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 1.0,
+            "recipe_quantity": 1.0,
+            "ingredient_notes": "dry",
+            "recipe_notes": "",
+            "unit": 5
+        },
+        {
+            "id": 210,
+            "recipe_section": 79,
             "ingredient": null,
             "recipe_as_ingredient": 4,
             "is_recipe_as_ingredient": true,
             "ingredient_quantity": 1.0,
             "recipe_quantity": 1.0,
             "ingredient_notes": "",
-            "recipe_notes": "",
+            "recipe_notes": "for garnish, optional",
             "unit": null
+        },
+        {
+            "id": 211,
+            "recipe_section": 79,
+            "ingredient": 42,
+            "recipe_as_ingredient": null,
+            "is_recipe_as_ingredient": false,
+            "ingredient_quantity": 15.0,
+            "recipe_quantity": 1.0,
+            "ingredient_notes": "for garnish",
+            "recipe_notes": "",
+            "unit": 22
         }
     ],
     "recipe_ingredient_sections": [
         {
             "name": "General",
             "id": 59,
-            "recipe_id": 4
+            "recipe": 4
         },
         {
             "name": "General",
-            "id": 76,
-            "recipe_id": 1
+            "id": 78,
+            "recipe": 1
         },
         {
             "name": "Soup",
-            "id": 77,
-            "recipe_id": 1
+            "id": 79,
+            "recipe": 1
         }
     ],
     "recipes": [

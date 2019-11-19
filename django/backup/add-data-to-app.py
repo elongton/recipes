@@ -13,11 +13,12 @@ from api.models import (Ingredient,
                         RecipeStep,
                         UnitType,
                         StoreSection,
-                        UnitTypeIngredientLink)
+                        UnitTypeIngredientLink,
+                        RecipeIngredientSection)
 
 def reset_nextvals(seq_id_name, table_name):
     with connection.cursor() as cursor:
-        cursor.execute("DROP SEQUENCE IF EXISTS "+seq_id_name+";")
+        cursor.execute("DROP SEQUENCE IF EXISTS "+seq_id_name+" CASCADE;")
         cursor.execute("CREATE SEQUENCE "+seq_id_name+";")
         cursor.execute("SELECT setval('"+seq_id_name+"', max(id)) FROM "+table_name+";")
         cursor.execute("ALTER TABLE "+table_name+" ALTER COLUMN id SET DEFAULT nextval('"+seq_id_name+"')");
@@ -145,6 +146,89 @@ with open('data.json') as json_file:
     try:
         reset_nextvals("recipe_seq", "api_recipe")
         print('recipe db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass
+
+###### CREATE RECIPE STEPS
+    for recipe_step in data['recipe_steps']:
+        try:
+            RecipeStep.objects.create(
+                id=recipe_step['id'],
+                number=recipe_step['number'],
+                instruction=recipe_step['instruction'],
+                recipe=Recipe.objects.get(id=recipe_step['recipe'])
+            )
+        except:
+            print('created already')
+            pass
+    try:
+        reset_nextvals("recipe_step_seq", "api_recipestep")
+        print('recipe step db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass
+
+###### CREATE RECIPE INGREDIENT SECTIONS
+    for recipe_ingredient_section in data['recipe_ingredient_sections']:
+        try:
+            RecipeIngredientSection.objects.create(
+                id=recipe_ingredient_section['id'],
+                recipe=Recipe.objects.get(id=recipe_ingredient_section['recipe']),
+                name=recipe_ingredient_section['name'],
+            )
+        except:
+            print('created already')
+            pass
+    try:
+        reset_nextvals("recipe_ingredient_section_seq", "api_recipeingredientsection")
+        print('recipe ingredient section db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass
+
+
+###### CREATE RECIPE INGREDIENT LINKS
+    for recipe_ingredient_link in data['recipe_ingredient_links']:
+        if recipe_ingredient_link['recipe_section']:
+            recipe_section = RecipeIngredientSection.objects.get(id=recipe_ingredient_link['recipe_section'])
+        else: 
+            recipe_section = None
+
+        if recipe_ingredient_link['ingredient']:
+            ingredient = Ingredient.objects.get(id=recipe_ingredient_link['ingredient'])
+        else:
+            ingredient = None
+
+        if recipe_ingredient_link['unit']:
+            unit = Unit.objects.get(id=recipe_ingredient_link['unit'])
+        else:
+            unit = None
+
+        if recipe_ingredient_link['recipe_as_ingredient']:
+            recipe = Recipe.objects.get(id=recipe_ingredient_link['recipe_as_ingredient'])
+        else:
+            recipe = None
+
+        try:
+            RecipeIngredientLink.objects.create(
+                id=recipe_ingredient_link['id'],
+                recipe_section = recipe_section,
+                ingredient = ingredient,
+                unit = unit,
+                recipe_as_ingredient = recipe,
+                is_recipe_as_ingredient = recipe_ingredient_link['is_recipe_as_ingredient'],
+                ingredient_quantity = recipe_ingredient_link['ingredient_quantity'],
+                recipe_quantity = recipe_ingredient_link['recipe_quantity'],
+                ingredient_notes = recipe_ingredient_link['ingredient_notes'],
+                recipe_notes = recipe_ingredient_link['recipe_notes'],
+            )
+        except:
+            print('created already')
+            pass
+    try:
+        reset_nextvals("recipe_ingredient_link_seq", "api_recipeingredientlink")
+        print('recipe ingredient link db nextval updated')
     except ValueError:
         print(ValueError)
         pass

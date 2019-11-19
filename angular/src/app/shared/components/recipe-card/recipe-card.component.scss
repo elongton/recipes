@@ -54,22 +54,11 @@ main{
 }
 
 .ingredients, .instructions{
-    padding-right: 15px;
+    padding-right: 35px;
 }
 
 
 @media(max-width: 992px){
-    .edit-button{
-        display:none;
-    }
-    .edit-button-alt{
-        display: inline;
-    }
-
-
-    .back-button{
-        display:none;
-    }
     section{
         padding: 30px 40px;
     }
