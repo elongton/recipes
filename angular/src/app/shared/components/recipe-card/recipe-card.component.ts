@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { RecipeService } from 'src/app/recipe/recipe.service';
 
 @Component({
   selector: 'app-recipe-card',
@@ -9,7 +10,7 @@ import { Location } from '@angular/common';
 })
 export class RecipeCardComponent implements OnInit {
 
-  constructor(private router: Router, private _location: Location, ) { }
+  constructor(private router: Router, private _location: Location, private recipeService: RecipeService, ) { }
 
 
   ngOnInit() {

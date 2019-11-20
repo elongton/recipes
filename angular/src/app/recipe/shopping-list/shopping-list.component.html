@@ -1,15 +1,15 @@
 <app-popover>
+
+
+    <div print>
+        <fa-icon (click)="print();" style="font-size: 25px;" icon="print"></fa-icon>
+    </div>
+
     <div header>
-        <h1 style="margin-bottom: 0;">Shopping List</h1>
-        <div class="d-flex align-items-center justify-content-center">
-            <button class="btn btn-success ml-2" (click)="print();">
-                <fa-icon icon="print"></fa-icon> Print
-            </button>
-        </div>
+        <h1 style="margin-bottom: 0; font-family: 'Pacifico', cursive;">Shopping List</h1>
     </div>
 
     <div body>
-
         <h4>Recipes Selected:</h4>
         <ul>
             <li *ngFor="let recipe of selectedRecipes">{{recipe.title}}</li>

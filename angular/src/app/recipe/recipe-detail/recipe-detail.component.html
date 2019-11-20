@@ -12,6 +12,10 @@
       </a>
     </div>
 
+    <div addToShoppingList>
+      <fa-icon icon=shopping-basket style="font-size: 25px;" [ngClass]="{'shoppingListItem': recipe.shoppingListItem}"
+        (click)="addRecipeToShoppingList();"></fa-icon>
+    </div>
 
 
     <ng-container ingredients>

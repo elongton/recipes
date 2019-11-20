@@ -34,7 +34,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       if (result) {
         this.recipes = result;
         this.recipe = result.find(x => x.id === Number(recipeId));
-        // console.log(this.recipe)
+        console.log(this.recipe)
       }
     });
     this.unitSubscription = this.appService.units$.subscribe(result => {
@@ -62,5 +62,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     formDataToSend.append("fields", JSON.stringify(this.recipe));
     formDataToSend.append("image", '');
     this.recipeService.updateRecipe(formDataToSend, this.recipe.id).subscribe()
+  }
+
+  addRecipeToShoppingList() {
+    this.recipe.shoppingListItem = !this.recipe.shoppingListItem;
   }
 }

@@ -19,6 +19,8 @@ import {
     faPencilAlt,
     faExchangeAlt,
     faHome,
+    faShoppingBag,
+    faShoppingBasket,
 } from '@fortawesome/free-solid-svg-icons';
 import { FilterPillComponent } from './components/filter-pill/filter-pill.component';
 import { PopoverComponent } from './components/popover/popover.component';
@@ -70,6 +72,8 @@ export class SharedModule {
             faPencilAlt,
             faExchangeAlt,
             faHome,
+            faShoppingBag,
+            faShoppingBasket,
         );
     }
 
