@@ -48,4 +48,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.recipeSub.unsubscribe();
   }
+
+  clickShoppingListItem(ingredient) {
+    ingredient.editing = !ingredient.editing;
+    ingredient.edited_value = this.helper.numberToFraction(ingredient.ingredient_quantity) + (ingredient.unit_multiplier > 0 ? ' ' + ingredient.unit : '') + ' ' + ingredient.ingredient_name;
+  }
 }
+

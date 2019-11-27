@@ -6,7 +6,7 @@
     </div>
 
     <div header>
-        <h1 style="margin-bottom: 0; font-family: 'Pacifico', cursive;">Shopping List</h1>
+        <h1 style="margin-bottom: 0; font-family: 'Pacifico', cursive; font-size: 32px;">Shopping List</h1>
     </div>
 
     <div body>
@@ -24,9 +24,23 @@
                         <ul>
                             <li
                                 *ngFor="let ingredient of ingredientList | filterObjectArray : 'ingredient_store_section' : section.name">
-                                {{helper.numberToFraction(ingredient.ingredient_quantity)}}
-                                {{ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
-                                {{ingredient.ingredient_name}}</li>
+                                <div *ngIf="ingredient.editing; else displayShoppingListItem" style="display: flex;">
+                                    <input type="text" style="width: 300px;" [(ngModel)]="ingredient.edited_value">
+                                    <div class="save-ingredient-button ml-1">
+                                        <fa-icon icon=check></fa-icon>
+                                    </div>
+
+
+                                </div>
+                                <ng-template #displayShoppingListItem>
+                                    <span (click)="clickShoppingListItem(ingredient)">
+                                        {{helper.numberToFraction(ingredient.ingredient_quantity)}}
+                                        {{ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
+                                        {{ingredient.ingredient_name}}
+                                    </span>
+                                </ng-template>
+
+                            </li>
                         </ul>
                     </ng-container>
                 </ng-container>
