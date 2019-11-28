@@ -8,7 +8,7 @@ import { AppComponent } from "./app.component";
 import { RecipeComponent } from "./recipe/recipe.component";
 import { RecipeDetailComponent } from "./recipe/recipe-detail/recipe-detail.component";
 import { RecipeListComponent } from "./recipe/recipe-list/recipe-list.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { SharedModule } from './shared/shared.module';
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
 import { ShoppingListComponent } from './recipe/shopping-list/shopping-list.component';
@@ -18,9 +18,13 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { SidenavComponent } from './core/sidenav/sidenav.component';
-import { IngredientComponent } from './ingredient/ingredient.component';
-import { UnitComponent } from './unit/unit.component';
-
+import { IngredientComponent } from './admin/ingredient/ingredient.component';
+import { UnitComponent } from './admin/unit/unit.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ApiInterceptor } from './api.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,7 @@ import { UnitComponent } from './unit/unit.component';
     SidenavComponent,
     IngredientComponent,
     UnitComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,8 +49,16 @@ import { UnitComponent } from './unit/unit.component';
     TypeaheadModule.forRoot(),
     AccordionModule.forRoot(),
     ModalModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

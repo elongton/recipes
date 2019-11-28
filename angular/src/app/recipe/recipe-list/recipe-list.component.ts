@@ -5,6 +5,7 @@ import { forkJoin } from 'rxjs';
 import { HelperService } from 'src/app/shared/helper.service';
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { AppService } from 'src/app/app.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 interface SearchResult {
@@ -32,7 +33,8 @@ export class RecipeListComponent implements OnInit {
     public recipeService: RecipeService,
     public appService: AppService,
     private router: Router,
-    private helpers: HelperService) { }
+    private helpers: HelperService,
+    public authService: AuthService, ) { }
 
   ngOnInit() {
     this.typeAheadQueryList = [];

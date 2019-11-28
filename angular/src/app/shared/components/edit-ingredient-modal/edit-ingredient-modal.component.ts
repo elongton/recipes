@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { AppService } from 'src/app/app.service';
-import { IngredientService } from 'src/app/ingredient/ingredient.service';
+import { IngredientService } from 'src/app/admin/ingredient/ingredient.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { RecipeService } from 'src/app/recipe/recipe.service';
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";

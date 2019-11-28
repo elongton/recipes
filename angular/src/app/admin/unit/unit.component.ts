@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { UnitService } from './unit.service'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { AppService } from '../app.service';
+import { AppService } from '../../app.service';
 @Component({
   selector: 'app-unit',
   templateUrl: './unit.component.html',

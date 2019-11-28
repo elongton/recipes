@@ -1,8 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { IngredientService } from './ingredient.service'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { AppService } from '../app.service';
-import { EditIngredientModalComponent } from '../shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
+import { AppService } from '../../app.service';
+import { EditIngredientModalComponent } from '../../shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
 @Component({
   selector: 'app-ingredient',
   templateUrl: './ingredient.component.html',

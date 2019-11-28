@@ -4,12 +4,15 @@ import { RecipeComponent } from "./recipe/recipe.component";
 import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
 import { ShoppingListComponent } from './recipe/shopping-list/shopping-list.component';
-import { IngredientComponent } from './ingredient/ingredient.component';
-import { UnitComponent } from './unit/unit.component';
+import { IngredientComponent } from './admin/ingredient/ingredient.component';
+import { UnitComponent } from './admin/unit/unit.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
+  { path: "login", component: LoginComponent },
   {
-    path: "", component: RecipeComponent, children: [
+    path: "", component: RecipeComponent, canActivate: [AuthGuard], children: [
       { path: "recipe/view/:recipeId", component: RecipeDetailComponent },
       { path: "recipe/edit/:recipeId", component: RecipeEditComponent },
       { path: "recipe/new", component: RecipeEditComponent },

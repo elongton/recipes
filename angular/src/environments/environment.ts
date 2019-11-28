@@ -6,6 +6,11 @@ export const environment = {
   production: false,
   url: "http://localhost:4200",
   imageDomain: "http://localhost:4200",
+  firebase: {
+    apiKey: "AIzaSyAOiCmIPtSggC657alZUWeimwjOlCmSGS0",
+    authDomain: "recipes-277df.firebaseapp.com",
+    projectId: "recipes-277df",
+  }
 };
 
 /*
