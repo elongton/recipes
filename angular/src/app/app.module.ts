@@ -11,7 +11,7 @@ import { RecipeListComponent } from "./recipe/recipe-list/recipe-list.component"
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { SharedModule } from './shared/shared.module';
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
-import { ShoppingListComponent } from './recipe/shopping-list/shopping-list.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
@@ -25,6 +25,12 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ApiInterceptor } from './api.interceptor';
+import { HomeComponent } from './home/home.component';
+import { RecipeBookComponent } from './recipe-book/recipe-book.component';
+import { MealPlannerComponent } from './meal-planner/meal-planner.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SearchComponent } from './home/search/search.component';
+import { DashboardComponent } from './home/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +44,12 @@ import { ApiInterceptor } from './api.interceptor';
     IngredientComponent,
     UnitComponent,
     LoginComponent,
+    HomeComponent,
+    RecipeBookComponent,
+    MealPlannerComponent,
+    NavbarComponent,
+    SearchComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

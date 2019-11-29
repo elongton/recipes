@@ -12,10 +12,10 @@ export class RecipeComponent implements OnInit {
 
   ngOnInit() {
     this.appService.getRecipes();
-    this.appService.getIngredients();
-    this.appService.getUnits();
-    this.appService.getUnitTypes();
-    this.appService.getStoreSections();
+    // this.appService.getIngredients();
+    // this.appService.getUnits();
+    // this.appService.getUnitTypes();
+    // this.appService.getStoreSections();
   }
 
 }

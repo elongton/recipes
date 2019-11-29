@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { RecipeComponent } from "./recipe/recipe.component";
 import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
-import { ShoppingListComponent } from './recipe/shopping-list/shopping-list.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { IngredientComponent } from './admin/ingredient/ingredient.component';
 import { UnitComponent } from './admin/unit/unit.component';
 import { LoginComponent } from './auth/login/login.component';
