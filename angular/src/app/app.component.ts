@@ -11,10 +11,5 @@ export class AppComponent implements OnInit {
   constructor(private appService: AppService) { }
 
   ngOnInit() {
-    this.appService.getRecipes();
-    this.appService.getIngredients();
-    this.appService.getUnits();
-    this.appService.getUnitTypes();
-    this.appService.getStoreSections();
   }
 }

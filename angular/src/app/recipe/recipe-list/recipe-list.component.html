@@ -8,6 +8,7 @@
     </div>
 
     <div class="d-flex align-items-center">
+      <button class="btn btn-primary" (click)="appService.getRecipes();">Test API Call</button>
       <a [routerLink]="['/recipe/new']"><button class="btn btn-success ml-2">New Recipe</button></a>
       <a [routerLink]="['/shopping-list']"><button class="btn btn-primary ml-2" [disabled]="selectedCount() < 1">
           Shopping List ({{selectedCount()}})

@@ -14,10 +14,9 @@ export class ApiInterceptor implements HttpInterceptor {
             mergeMap((token: any) => {
                 // console.log(token);
                 if (token) {
-                    request = request.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
+                    request = request.clone({ setHeaders: { Authorization: `JWT ${token}` } });
                     console.log(request)
                 }
-
                 return next.handle(request);
 
             }));

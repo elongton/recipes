@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api'
+    'drf_firebase_auth',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -126,10 +127,15 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'drf_firebase_auth.authentication.FirebaseAuthentication',
     ],
 }
 
+DRF_FIREBASE_AUTH = {
+    'FIREBASE_SERVICE_ACCOUNT_KEY': os.path.join(BASE_DIR + '/firebase/firebase.json'),
+    'FIREBASE_ATTEMPT_CREATE_WITH_DISPLAY_NAME': False,
+}
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
