@@ -6,7 +6,7 @@ import {
   transition,
   // ...
 } from '@angular/animations';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
@@ -30,6 +30,12 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.router.events
+      .subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          this.clickedOutsideMenu();
+        }
+      });
   }
 
   clickedOutsideMenu() {
@@ -42,7 +48,6 @@ export class SidenavComponent implements OnInit {
     } else {
       this.router.navigate([path])
     }
-
   }
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AppService } from './app.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-root",
@@ -8,7 +9,7 @@ import { AppService } from './app.service';
 })
 export class AppComponent implements OnInit {
   title = "recipeApp";
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit() {
   }

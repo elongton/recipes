@@ -17,7 +17,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
-import { SidenavComponent } from './core/sidenav/sidenav.component';
+import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { IngredientComponent } from './admin/ingredient/ingredient.component';
 import { UnitComponent } from './admin/unit/unit.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -28,7 +28,7 @@ import { ApiInterceptor } from './api.interceptor';
 import { HomeComponent } from './home/home.component';
 import { RecipeBookComponent } from './recipe-book/recipe-book.component';
 import { MealPlannerComponent } from './meal-planner/meal-planner.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './navigation/navbar/navbar.component';
 import { SearchComponent } from './home/search/search.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 
