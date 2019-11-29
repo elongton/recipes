@@ -9,10 +9,6 @@ export class Recipe {
     notes: String = '';
     shoppingListItem: boolean = false;
 
-    // constructor(obj?: any) {
-    //     Object.assign(this, obj);
-    // }
-
 }
 
 export class Step {

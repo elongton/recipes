@@ -31,9 +31,9 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     })
     this.recipeSub = this.appService.recipes$.subscribe(recipes => {
       this.selectedRecipes = recipes.filter(recipe => { return recipe.shoppingListItem === true })
-      if (this.selectedRecipes.length < 1) {
-        this.router.navigate(['/']);
-      }
+      // if (this.selectedRecipes.length < 1) {
+      //   this.router.navigate(['/']);
+      // }
       // console.log(this.selectedRecipes)
       let selectedRecipes = JSON.parse(JSON.stringify(this.selectedRecipes))
       this.ingredientList = this.recipeService.scanRecipeList(selectedRecipes);

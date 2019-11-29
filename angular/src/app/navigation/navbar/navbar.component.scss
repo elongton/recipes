@@ -10,3 +10,17 @@
         // margin-right: 8px;
     }
   }
+
+  .shopping-cart{
+      cursor: pointer;
+      position: relative;
+      fa-icon{
+          font-size: 35px;
+      }
+      .shopping-cart-quantity{color: orange;
+        position:absolute;
+        right: 11px;
+        top: 9px;
+        font-family: Pacifico;
+      }
+  }
