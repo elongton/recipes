@@ -11,6 +11,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { RecipeBookComponent } from './recipe-book/recipe-book.component';
 import { MealPlannerComponent } from './meal-planner/meal-planner.component';
+import { TagComponent } from './admin/tag/tag.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   //admin stuff
   { path: "ingredients", component: IngredientComponent },
   { path: "units", component: UnitComponent },
+  { path: "tags", component: TagComponent },
   { path: "recipe/edit/:recipeId", component: RecipeEditComponent },
   { path: "recipe/new", component: RecipeEditComponent },
 ];

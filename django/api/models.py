@@ -1,4 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.contrib.postgres.fields import JSONField
+
+class User(AbstractUser):
+    pass
+
+class UserMeta(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    recently_browsed_tags = models.CharField(max_length=200, null=True, blank=True)
+
 
 class Recipe(models.Model):
     title = models.CharField(max_length=100, default='')
@@ -6,7 +16,7 @@ class Recipe(models.Model):
     image = models.ImageField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     author = models.ForeignKey(
-        'auth.User', related_name='recipes', on_delete=models.SET_NULL, null=True, blank=True)
+        'User', related_name='recipes', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -37,12 +47,6 @@ class RecipeIngredientLink(models.Model):
     unit = models.ForeignKey(
         'Unit', related_name="units", on_delete=models.CASCADE, null=True, blank=True)
 
-class RecipeTagLink(models.Model):
-    recipe = models.ForeignKey('Recipe',
-                               related_name='rt_recipe', on_delete=models.CASCADE)
-    tag = models.ForeignKey('Tag',
-                            related_name='rt_tag', on_delete=models.CASCADE)
-
 class Ingredient(models.Model):
     name = models.CharField(max_length=100)
     store_section = models.ForeignKey('StoreSection', on_delete=models.SET_NULL, null=True, related_name='ingredients')
@@ -70,8 +74,28 @@ class UnitTypeIngredientLink(models.Model):
     # def __str__(self):
     #     return self.unit_type.name + '_' + self.ingredient.name
 
+
+TAG_TYPES = (
+    ('world_cuisine','World Cuisine'),
+    ('popular_tags', 'Popular Tag'),
+    ('meal_type','Meal Type'),
+    ('flavors','Flavors'),
+    ('seasonal','Seasonal'),
+    ('prep_time','Prep Time'),
+    ('dietary_requirements','Dietary Requirements'),
+)
+
 class Tag(models.Model):
     name = models.CharField(max_length=100)
+    tag_type = models.CharField(max_length=50, choices=TAG_TYPES, default='popular')
+
+
+class RecipeTagLink(models.Model):
+    recipe = models.ForeignKey('Recipe',
+                               related_name='rt_recipe', on_delete=models.CASCADE)
+    tag = models.ForeignKey('Tag',
+                            related_name='rt_tag', on_delete=models.CASCADE)
+
 
 class StoreSection(models.Model):
     name = models.CharField(max_length=100)

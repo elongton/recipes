@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from .models import (Recipe,
                     Ingredient, 
                     RecipeIngredientLink, 
@@ -9,7 +10,11 @@ from .models import (Recipe,
                     Unit, 
                     UnitType,
                     UnitTypeIngredientLink,
-                    StoreSection)
+                    StoreSection,
+                    User,
+                    UserMeta)
+
+
 
 
 class RecipeAdmin(admin.ModelAdmin):
@@ -51,6 +56,9 @@ class StoreSectionAdmin(admin.ModelAdmin):
 class UnitTypeIngredientLinkAdmin(admin.ModelAdmin):
     list_display = ('unit_type', 'ingredient', 'id')
 
+class UserMetaAdmin(admin.ModelAdmin):
+    list_display = ('user', 'id')
+
 
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(RecipeIngredientSection, RecipeIngredientSectionAdmin)
@@ -63,3 +71,5 @@ admin.site.register(Unit, UnitsAdmin)
 admin.site.register(UnitType, UnitTypeAdmin)
 admin.site.register(StoreSection, StoreSectionAdmin)
 admin.site.register(UnitTypeIngredientLink, UnitTypeIngredientLinkAdmin)
+admin.site.register(User, UserAdmin)
+admin.site.register(UserMeta, UserMetaAdmin)
