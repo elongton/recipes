@@ -15,16 +15,23 @@ import { TagComponent } from './admin/tag/tag.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
-  { path: "", component: HomeComponent, canActivate: [AuthGuard] },
+  {
+    path: "",
+    component: HomeComponent,
+    canActivate: [AuthGuard]
+  },
   { path: "recipe/view/:recipeId", component: RecipeDetailComponent },
   { path: "shopping-list", component: ShoppingListComponent },
   { path: "recipe-book", component: RecipeBookComponent },
   { path: "meal-planner", component: MealPlannerComponent },
 
   //admin stuff
-  { path: "ingredients", component: IngredientComponent },
-  { path: "units", component: UnitComponent },
-  { path: "tags", component: TagComponent },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AuthGuard],
+    // runGuardsAndResolvers: 'always'
+  },
   { path: "recipe/edit/:recipeId", component: RecipeEditComponent },
   { path: "recipe/new", component: RecipeEditComponent },
 ];

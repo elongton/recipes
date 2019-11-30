@@ -32,7 +32,7 @@ class RecipeIngredientSectionAdmin(admin.ModelAdmin):
     list_display = ('recipe', 'name')
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'tag_type')
 
 
 class RecipeTagLinkAdmin(admin.ModelAdmin):

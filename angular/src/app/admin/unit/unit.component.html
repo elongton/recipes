@@ -1,65 +1,74 @@
-<!-- <app-sidenav *ngIf="sidenav" (clickedOutside)="sidenav = !sidenav"></app-sidenav> -->
+<ng-template #loading>
+    <div class="loader">
+        <fa-icon icon=cog></fa-icon>
+    </div>
+</ng-template>
 
-<div class="sticky pb-2" style="z-index: 1; background-color: white; ">
-    <div class="d-flex justify-content-between">
-        <div class="d-flex align-items-center">
-            <!-- <fa-icon style="font-size: 25px;" (click)="sidenav = !sidenav" class="mr-3" icon=bars></fa-icon> -->
-            <h2>Units</h2>
-        </div>
 
-        <div class="d-flex align-items-center">
-            <button class="btn btn-success ml-2" (click)="openModal(addUnitType);">Add New Unit Type</button>
+<ng-container *ngIf="(appService.loading$ | async) == false; else loading">
+    <div class="sticky pb-2" style="z-index: 1; background-color: white; ">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+                <!-- <fa-icon style="font-size: 25px;" (click)="sidenav = !sidenav" class="mr-3" icon=bars></fa-icon> -->
+                <h2>Units</h2>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <button class="btn btn-success ml-2" (click)="openModal(addUnitType);">Add New Unit Type</button>
+            </div>
         </div>
     </div>
-</div>
 
 
 
-<accordion [isAnimated]="true">
-    <accordion-group *ngFor="let type of unitTypes" [heading]="type.name">
-        <div class="ml-4">
-            <div class="mb-3">
-                <strong>Base Unit:</strong>
-                <ng-container *ngFor="let unit of type.units">
-                    <span *ngIf="unit.is_base_unit === true"> {{unit.name}}</span>
-                </ng-container>
+    <accordion [isAnimated]="true">
+        <accordion-group *ngFor="let type of unitTypes" [heading]="type.name">
+            <div class="ml-4">
+                <div class="mb-3">
+                    <strong>Base Unit:</strong>
+                    <ng-container *ngFor="let unit of type.units">
+                        <span *ngIf="unit.is_base_unit === true"> {{unit.name}}</span>
+                    </ng-container>
 
 
-            </div>
-            <ng-container *ngIf="type.units.length > 1; else noUnits">
-                <table style="width: 100%;" class="table-bordered table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th style="width: 40%;">Unit</th>
-                            <th style="width: 40%;">Multiplier</th>
-                            <th class="text-center">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ng-container *ngFor="let unit of type.units">
-                            <tr *ngIf="unit.is_base_unit === false && unit.multiplier > 0">
-                                <td>{{unit.name}}</td>
-                                <td>{{unit.multiplier}}</td>
-                                <td class="text-danger text-center delete" (click)="deleteUnit(unit);">
-                                    <fa-icon icon=trash></fa-icon>
-                                </td>
+                </div>
+                <ng-container *ngIf="type.units.length > 1; else noUnits">
+                    <table style="width: 100%;" class="table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%;">Unit</th>
+                                <th style="width: 40%;">Multiplier</th>
+                                <th class="text-center">Delete</th>
                             </tr>
-                        </ng-container>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let unit of type.units">
+                                <tr *ngIf="unit.is_base_unit === false && unit.multiplier > 0">
+                                    <td>{{unit.name}}</td>
+                                    <td>{{unit.multiplier}}</td>
+                                    <td class="text-danger text-center delete" (click)="deleteUnit(unit);">
+                                        <fa-icon icon=trash></fa-icon>
+                                    </td>
+                                </tr>
+                            </ng-container>
 
 
-                    </tbody>
-                </table>
-            </ng-container>
-            <ng-template #noUnits>
-                <div class="text-danger">No Units</div>
-            </ng-template>
+                        </tbody>
+                    </table>
+                </ng-container>
+                <ng-template #noUnits>
+                    <div class="text-danger">No Units</div>
+                </ng-template>
 
-            <button class=" btn btn-success btn-sm mt-3"
-                (click)="unitTypeToAdd={name: type.name, type: type.id};openModal(addUnit);">New {{type.name}}
-                Unit</button>
-        </div>
-    </accordion-group>
-</accordion>
+                <button class=" btn btn-success btn-sm mt-3"
+                    (click)="unitTypeToAdd={name: type.name, type: type.id};openModal(addUnit);">New {{type.name}}
+                    Unit</button>
+            </div>
+        </accordion-group>
+    </accordion>
+
+</ng-container>
+
 
 
 <ng-template #addUnit>

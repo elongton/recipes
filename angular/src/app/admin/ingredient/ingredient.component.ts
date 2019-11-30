@@ -22,6 +22,7 @@ export class IngredientComponent implements OnInit {
 
 
   ngOnInit() {
+    this.appService.getIngredients();
   }
 
   bsModalRef: BsModalRef;

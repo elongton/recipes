@@ -13,4 +13,5 @@ urlpatterns = [
     path('unit-types/', UnitTypeList.as_view()),
     path('unit-types/create', UnitTypeCreate.as_view()),
     path('store-sections/', StoreSectionList.as_view()),
+    path('tags/', TagList.as_view()),
 ]

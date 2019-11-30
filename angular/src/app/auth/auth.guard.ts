@@ -31,3 +31,16 @@ export class AuthGuard implements CanActivate {
     }
 
 }
+
+
+// getToken(): Observable<string | null> {
+//     return this.afAuth.authState.pipe(
+//       take(1),
+//       switchMap((user) => {
+//         if (user) {
+//           return from(user.getIdToken())
+//         }
+//         return of(null);
+//       })
+//     )
+//   }

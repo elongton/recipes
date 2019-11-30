@@ -12,6 +12,27 @@ h6 {
   line-height: 1.5!important;
 }
 
+.loader{
+  font-size: 70px;
+  color: rgba(0,0,0,0.2);
+  display: flex; align-items: center; justify-content: center; width: 100%;
+  svg{
+    animation-name: spin;
+    animation-duration: 3000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+  }
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
+
 .cursive{
   font-family: 'Pacifico', cursive;
 }

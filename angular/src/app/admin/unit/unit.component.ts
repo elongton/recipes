@@ -27,7 +27,7 @@ export class UnitComponent implements OnInit {
     private appService: AppService, ) { }
 
   ngOnInit() {
-    this.unitService.getUnitTypes();
+    this.appService.getUnitTypes();
     this.appService.unitTypes$.subscribe(result => {
       this.unitTypes = result;
     })

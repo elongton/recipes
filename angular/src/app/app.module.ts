@@ -14,12 +14,9 @@ import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component'
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { SidenavComponent } from './navigation/sidenav/sidenav.component';
-import { IngredientComponent } from './admin/ingredient/ingredient.component';
-import { UnitComponent } from './admin/unit/unit.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
@@ -31,7 +28,7 @@ import { MealPlannerComponent } from './meal-planner/meal-planner.component';
 import { NavbarComponent } from './navigation/navbar/navbar.component';
 import { SearchComponent } from './home/search/search.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
-import { TagComponent } from './admin/tag/tag.component';
+
 
 @NgModule({
   declarations: [
@@ -42,8 +39,6 @@ import { TagComponent } from './admin/tag/tag.component';
     RecipeEditComponent,
     ShoppingListComponent,
     SidenavComponent,
-    IngredientComponent,
-    UnitComponent,
     LoginComponent,
     HomeComponent,
     RecipeBookComponent,
@@ -51,20 +46,18 @@ import { TagComponent } from './admin/tag/tag.component';
     NavbarComponent,
     SearchComponent,
     DashboardComponent,
-    TagComponent,
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
     SharedModule,
-    BrowserAnimationsModule,
     TypeaheadModule.forRoot(),
-    AccordionModule.forRoot(),
     ModalModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
   ],
   providers: [
     {

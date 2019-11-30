@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SearchFilterPipe } from './pipes/search-filter.pipe'
+
 import {
     fas,
     faArrowLeft,
@@ -23,6 +25,7 @@ import {
     faShoppingBasket,
     faCheck,
     faShoppingCart,
+    faCog,
 } from '@fortawesome/free-solid-svg-icons';
 import { FilterPillComponent } from './components/filter-pill/filter-pill.component';
 import { PopoverComponent } from './components/popover/popover.component';
@@ -43,7 +46,10 @@ import { RecipeCardComponent } from './components/recipe-card/recipe-card.compon
         FontAwesomeModule,
         RouterModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        // TypeaheadModule.forRoot(),
+        // AccordionModule.forRoot(),
+        // ModalModule.forRoot(),
     ],
     exports: [
         FilterPipe,
@@ -54,7 +60,8 @@ import { RecipeCardComponent } from './components/recipe-card/recipe-card.compon
         FontAwesomeModule,
         FilterPillComponent,
         PopoverComponent,
-        RecipeCardComponent
+        RecipeCardComponent,
+
     ],
     entryComponents: [EditIngredientModalComponent],
 })
@@ -78,6 +85,7 @@ export class SharedModule {
             faShoppingBasket,
             faShoppingCart,
             faCheck,
+            faCog,
         );
     }
 
