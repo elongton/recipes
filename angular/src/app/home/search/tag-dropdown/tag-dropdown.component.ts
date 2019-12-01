@@ -14,8 +14,8 @@ export class TagDropdownComponent implements OnInit {
   constructor(private ref: RefDataService) { }
 
   ngOnInit() {
-    console.log(this.tagCategories)
-    console.log(this.tags)
+    // console.log(this.tagCategories)
+    // console.log(this.tags)
   }
 
   emitTag(tag) {

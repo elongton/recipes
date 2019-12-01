@@ -7,15 +7,27 @@ import fraction from 'fraction.js'
 export class HelperService {
     constructor() { }
 
-    filterRecipes(arrayToBeFiltered, ingredientFilterArray) {
+    filterRecipes(arrayToBeFiltered, ingredientFilterArray, tagFilterArray) {
         ingredientFilterArray.forEach(ingredientFilter => {
-            console.log(ingredientFilter)
+            // console.log(ingredientFilter)
             arrayToBeFiltered = arrayToBeFiltered.filter(recipeItem => {
                 return this.checkIfIngredient(recipeItem, ingredientFilter.id)
             })
         });
+        tagFilterArray.forEach(tagFilter => {
+            arrayToBeFiltered = arrayToBeFiltered.filter(recipeItem => {
+                return this.checkIfTag(recipeItem, tagFilter.id)
+            })
+        })
         return arrayToBeFiltered
+    }
 
+    checkIfTag(recipeItem, tagId) {
+        let recipeHasTag = false;
+        if (recipeItem.tags.filter(r => { return r.id == tagId }).length > 0) {
+            recipeHasTag = true
+        }
+        return recipeHasTag;
     }
 
     checkIfIngredient(recipeItem, ingredientId) {

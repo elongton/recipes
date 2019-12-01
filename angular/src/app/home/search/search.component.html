@@ -11,8 +11,8 @@
         <div style="flex-shrink:0; position: relative;">
             <div>
                 <button class="btn btn-outline-primary form-control" (click)="openDropdown();">Browse by Tag</button>
-                <div *ngFor="let tag of filterTagArray">
-                    <app-tag>{{tag.name}}</app-tag>
+                <div *ngFor="let tag of filterTagArray; let i = index">
+                    <app-tag (click)="removeTag(i);">{{tag.name}}</app-tag>
                 </div>
             </div>
             <div style="position: relative;">

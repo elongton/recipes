@@ -48,7 +48,7 @@ export class SearchComponent implements OnInit {
     let that = this;
     this.appService.recipes$.subscribe(result => {
       this.recipes = result;
-      console.log(this.recipes)
+      // console.log(this.recipes)
       this.filteredRecipes = result;
       this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Ingredient" })
       result.forEach(e => {
@@ -65,12 +65,12 @@ export class SearchComponent implements OnInit {
   }
   removeFilter(event) {
     this.filterPillArray.splice(event.index, 1)
-    this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray)
+    this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray, this.filterTagArray)
   }
   onSelect(event) {
     if (event.item.type === 'Ingredient') {
       this.filterPillArray.push({ name: event.item.name, id: event.item.id })
-      this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray)
+      this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray, this.filterTagArray)
 
     } else if (event.item.type === 'Recipe') {
       this.router.navigate(['recipe/view/', event.item.id])
@@ -95,6 +95,12 @@ export class SearchComponent implements OnInit {
   addTagToFilter(tag) {
     this.tagDropdown = false;
     this.filterTagArray.push(tag)
+    this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray, this.filterTagArray)
+  }
+
+  removeTag(i) {
+    this.filterTagArray.splice(i, 1)
+    this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray, this.filterTagArray)
   }
 
 
