@@ -4,6 +4,7 @@ from api.models import (Recipe,
 from api.serializers import (RecipeSerializer,)
 
 from rest_framework import generics, permissions, status
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -16,6 +17,7 @@ import json
 class RecipeList(generics.ListCreateAPIView):
     #overrides and settings
     permission_classes = [permissions.AllowAny]
+    # authentication_classes = [SessionAuthentication]
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
 
@@ -32,6 +34,7 @@ class RecipeList(generics.ListCreateAPIView):
         data = json.loads(self.request.data['fields'])
         ingredient_sections = data['ingredient_sections']
         steps = data['steps']
+        tags = data['tags']
         recipeObj = serializer.save(
             author=None,
             title=data['title'],
@@ -46,13 +49,19 @@ class RecipeList(generics.ListCreateAPIView):
                 for ingredient in ingredient_section['ingredients']:
                     create_ingredient_link(ingredient, recipeSectionObj)
         except ValueError:
-            print('no ingredients')
+            print('no ingredients, or issue creating')
         # get list of steps from request, and add them to link table
         try:
             for step in steps:
                 create_step_link(recipeObj, step)
         except ValueError:
-            print('no steps')
+            print('no steps, or issue creating')
+
+        try:
+            for tag in tags:
+                create_tag_link(tag, recipeObj)
+        except ValueError:
+            print('no tags, or issue creating')
 
 
 # Retrieve, Update, and Destroy
@@ -64,6 +73,7 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
         data = json.loads(self.request.data['fields'])
         ingredient_sections = data['ingredient_sections']
         steps = data['steps']
+        tags = data['tags']
 
         pk = self.request.parser_context['kwargs']['pk']
         existingImage = Recipe.objects.get(id=pk).image
@@ -91,3 +101,11 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
         delete_recipe_step_links(recipeObj)
         for step in steps:
             create_step_link(recipeObj, step)
+
+        # delete and then create new set of tags
+        delete_recipe_tag_links(recipeObj)
+        try:
+            for tag in tags:
+                create_tag_link(tag, recipeObj)
+        except ValueError:
+            print('no tags, or issue creating')

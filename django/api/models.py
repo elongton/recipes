@@ -88,11 +88,12 @@ TAG_TYPES = (
 class Tag(models.Model):
     name = models.CharField(max_length=100)
     tag_type = models.CharField(max_length=50, choices=TAG_TYPES, default='popular')
-
+    def __str__(self):
+        return self.name
 
 class RecipeTagLink(models.Model):
     recipe = models.ForeignKey('Recipe',
-                               related_name='rt_recipe', on_delete=models.CASCADE)
+                               related_name='tags', on_delete=models.CASCADE)
     tag = models.ForeignKey('Tag',
                             related_name='rt_tag', on_delete=models.CASCADE)
 

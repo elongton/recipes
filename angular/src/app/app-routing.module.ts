@@ -33,7 +33,11 @@ const routes: Routes = [
     // runGuardsAndResolvers: 'always'
   },
   { path: "recipe/edit/:recipeId", component: RecipeEditComponent },
-  { path: "recipe/new", component: RecipeEditComponent },
+  {
+    path: "recipe/new",
+    component: RecipeEditComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

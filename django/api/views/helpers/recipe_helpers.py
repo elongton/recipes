@@ -1,4 +1,11 @@
-from api.models import Recipe, Ingredient, RecipeIngredientLink, RecipeStep, Unit, RecipeIngredientSection
+from api.models import (Recipe,
+                        Ingredient,
+                        RecipeIngredientLink,
+                        RecipeStep,
+                        Unit,
+                        RecipeIngredientSection,
+                        Tag,
+                        RecipeTagLink,)
 
 def create_recipe_ingredient_section(section, recipeObj):
     recipe_ingredient_section = RecipeIngredientSection(
@@ -7,6 +14,12 @@ def create_recipe_ingredient_section(section, recipeObj):
     )
     recipe_ingredient_section.save()
     return recipe_ingredient_section
+
+def create_tag_link(tag, recipeObj):
+    tagObj = Tag.objects.get(id=tag['id'])
+    link = RecipeTagLink(recipe=recipeObj, tag=tagObj)
+    link.save()
+
 
 def create_ingredient_link(ingredient, recipeSectionObj):
     if (ingredient['is_recipe_as_ingredient']):
@@ -44,6 +57,10 @@ def delete_recipe_step_links(recipeObj):
     for stepLink in recipeObj.steps.all():
         stepLink.delete()
 
+def delete_recipe_tag_links(recipeObj):
+    for tagLink in recipeObj.tags.all():
+        tagLink.delete()
+        
 def checkIfExists(self, key, queryset, existing_id):
     verdict = False
     for x in queryset:

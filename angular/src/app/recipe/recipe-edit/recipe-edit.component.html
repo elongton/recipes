@@ -7,6 +7,15 @@
       <textarea type="text" formControlName="description" class="form-control"
         placeholder="Recipe Description"></textarea>
 
+      <h4>Tags</h4>
+      <input type="text" [typeaheadOptionsLimit]="7" [typeahead]="tagList" class="form-control" placeholder="Add Tag"
+        [(ngModel)]="selectedTag" typeaheadOptionField="name" [ngModelOptions]="{standalone: true}"
+        (typeaheadOnSelect)="onSelectTag($event)" />
+
+      <ng-container *ngFor="let item of selectedTagArray; let i = index">
+        <filter-pill [filter]="{name: item.name, id: item.id, index: i}" (close)="onRemoveTag($event)"></filter-pill>
+      </ng-container>
+
       <h4>Image</h4>
       <button type="button" class="btn btn-light" (click)="fileInput.click();">
         Select Image

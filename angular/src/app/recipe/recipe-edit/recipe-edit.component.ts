@@ -18,6 +18,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   recipeToEdit;
   selectedFile: File;
   ingredientList = [];
+  tagList = [];
   recipeList = [];
   unitList = [];
   uploadedImage;
@@ -25,6 +26,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   steps;
   bsModalRef: BsModalRef;
   populated: boolean = false;
+  selectedTag;
+  selectedTagArray = [];
 
   constructor(
     private recipeService: RecipeService,
@@ -32,7 +35,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private modalService: BsModalService,
-    private cdr: ChangeDetectorRef,
   ) { }
 
   ngAfterViewInit() {
@@ -55,10 +57,16 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     if (!recipeId) {
       this.addIngredientSection('General');
     }
+    this.appService.getTags();
+    this.appService.tags$.subscribe((tagList) => {
+      this.tagList = tagList;
+    });
     this.appService.recipes$.subscribe(recipeList => {  //for loading directly from URL (recipes must be loaded first)
       this.recipeList = recipeList
       this.appService.ingredients$.subscribe((ingredientList) => {
         this.ingredientList = ingredientList;
+
+        console.log(this.tagList)
         if (recipeId && this.populated == false && this.ingredientList.length > 0) {
           this.populateForm(recipeId);
         }
@@ -70,6 +78,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   populateForm(recipeId) {
     let currentRecipeList = this.appService.recipes$.getValue();
     this.recipeToEdit = currentRecipeList.find(r => r.id == Number(recipeId))
+    this.selectedTagArray = this.recipeToEdit.tags;
     if (this.recipeToEdit) {
       this.recipeToEdit.ingredient_sections.forEach(section => {
         let tempSection = this.addIngredientSection();
@@ -114,11 +123,13 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     this.recipeForm = this.formBuilder.group({
       title: "",
       description: "",
+      tags: "",
       ingredient_sections: this.formBuilder.array([]),
       steps: this.formBuilder.array([]),
       notes: ''
     });
   }
+
   createIngredientSection(name?: string): FormGroup {
     return this.formBuilder.group({
       name: name ? name : "",
@@ -174,7 +185,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
 
   submit() {
-    // console.log(this.recipeForm.value);
+    //patch selectedTag array
+    this.recipeForm.get('tags').patchValue(this.selectedTagArray)
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
     console.log(this.recipeForm.value)
@@ -270,5 +282,12 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     ingredient.get('is_recipe_as_ingredient').patchValue(!ingredient.get('is_recipe_as_ingredient').value)
   }
 
+  onSelectTag(event) {
+    this.selectedTagArray.push(event.item)
+    this.selectedTag = '';
+  }
+  onRemoveTag(event) {
+    this.selectedTagArray.splice(event.index, 1)
+  }
 
 }

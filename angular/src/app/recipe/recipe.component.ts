@@ -12,6 +12,7 @@ export class RecipeComponent implements OnInit {
 
   ngOnInit() {
     this.appService.getRecipes();
+    // this.appService.getTags();
     // this.appService.getIngredients();
     // this.appService.getUnits();
     // this.appService.getUnitTypes();
