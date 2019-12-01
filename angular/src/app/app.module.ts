@@ -28,6 +28,7 @@ import { MealPlannerComponent } from './meal-planner/meal-planner.component';
 import { NavbarComponent } from './navigation/navbar/navbar.component';
 import { SearchComponent } from './home/search/search.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
+import { TagDropdownComponent } from './home/search/tag-dropdown/tag-dropdown.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { DashboardComponent } from './home/dashboard/dashboard.component';
     NavbarComponent,
     SearchComponent,
     DashboardComponent,
+    TagDropdownComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

@@ -74,7 +74,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
 
     })
   }
-
   populateForm(recipeId) {
     let currentRecipeList = this.appService.recipes$.getValue();
     this.recipeToEdit = currentRecipeList.find(r => r.id == Number(recipeId))

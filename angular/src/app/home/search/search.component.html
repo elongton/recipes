@@ -7,13 +7,35 @@
 
 <ng-container *ngIf="(appService.loading$ | async) == false; else loading">
 
-    <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onSelect($event)" [(ngModel)]="selected"
-        [typeahead]="typeAheadQueryList" class="form-control mb-2 mt-2"
-        placeholder="Search a recipe or filter by ingredient" typeaheadOptionField="name" typeaheadGroupField="type" />
+    <div class="d-flex mb-2 mt-2 align-items-start">
+        <div style="flex-shrink:0; position: relative;">
+            <button class="btn btn-outline-primary" (click)="openDropdown();">Browse by Tag</button>
+            <div style="position: relative;">
+                <app-tag-dropdown *ngIf="tagDropdown" [tagCategories]="tagCategories"></app-tag-dropdown>
+            </div>
+        </div>
 
-    <ng-container *ngFor="let item of filterPillArray; let i = index">
-        <filter-pill [filter]="{name: item.name, id: item.id, index: i}" (close)="removeFilter($event)"></filter-pill>
-    </ng-container>
+
+
+        <div style="width: 100%; padding-right: 8px;">
+            <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onSelect($event)" [(ngModel)]="selected"
+                [typeahead]="typeAheadQueryList" class="form-control ml-2"
+                placeholder="Search a recipe or filter by ingredient" typeaheadOptionField="name"
+                typeaheadGroupField="type" />
+
+            <div class="mt-2 ml-2">
+                <ng-container *ngFor="let item of filterPillArray; let i = index">
+                    <filter-pill [filter]="{name: item.name, id: item.id, index: i}" (close)="removeFilter($event)">
+                    </filter-pill>
+                </ng-container>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
 
 
     <ng-container *ngIf="filteredRecipes.length > 0; else noRecipes">
@@ -53,3 +75,8 @@
 
 
 </ng-container>
+
+
+<div class="dropdown-backdrop" (click)="tagDropdown = false;"
+    [ngStyle]="{'display':tagDropdown == true ? 'inline': 'none' }">
+</div>

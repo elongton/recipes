@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { RecipeService } from 'src/app/recipe/recipe.service';
+import { RefDataService } from 'src/app/core/services/ref-data.service';
 
 
 
@@ -25,6 +26,8 @@ export class SearchComponent implements OnInit {
   selected: string;
   typeAheadQueryList: SearchResult[] = [];
   filterPillArray = [];
+  tagDropdown: boolean = false;
+  tagCategories;
 
   sidenav: Boolean = false;
 
@@ -33,9 +36,13 @@ export class SearchComponent implements OnInit {
     public appService: AppService,
     private router: Router,
     private helpers: HelperService,
-    public authService: AuthService, ) { }
+    public authService: AuthService,
+    private ref: RefDataService, ) { }
 
   ngOnInit() {
+    this.ref.lookup$.subscribe(() => {
+      this.tagCategories = this.ref.get('tag_category').refArray;
+    })
     this.typeAheadQueryList = [];
     let that = this;
     this.appService.recipes$.subscribe(result => {
@@ -78,6 +85,10 @@ export class SearchComponent implements OnInit {
 
   selectedCount() {
     return this.recipes.filter(e => { return e.shoppingListItem == true }).length
+  }
+
+  openDropdown() {
+    this.tagDropdown = true
   }
 
 

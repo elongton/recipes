@@ -20,7 +20,11 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuard]
   },
-  { path: "recipe/view/:recipeId", component: RecipeDetailComponent },
+  {
+    path: "recipe/view/:recipeId",
+    component: RecipeDetailComponent,
+    canActivate: [AuthGuard]
+  },
   { path: "shopping-list", component: ShoppingListComponent },
   { path: "recipe-book", component: RecipeBookComponent },
   { path: "meal-planner", component: MealPlannerComponent },

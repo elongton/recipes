@@ -1,0 +1,14 @@
+.dropdown-container{
+    z-index: 11;
+    position: absolute;
+    top: 5px;
+    padding: 5px;
+    padding-right: 15px;
+    border: 1px solid black;
+    // width: 700px;
+}
+
+.category-column{
+    margin-left: 10px;
+    white-space: nowrap;
+}
