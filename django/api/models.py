@@ -101,3 +101,15 @@ class StoreSection(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self):
         return self.name
+
+
+REFERENCE_TYPES = (
+    ('tag_category','Tag Category'),
+)
+
+class Reference(models.Model):
+    key = models.CharField(max_length=100)
+    value = models.CharField(max_length=200)
+    reference_type = models.CharField(max_length=200,choices=REFERENCE_TYPES, default='tag_category')
+    def __str__(self):
+        return self.reference_type + '_' + self.key

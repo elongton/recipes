@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AppService } from 'src/app/app.service';
+import { RefDataService } from 'src/app/core/services/ref-data.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-tag',
@@ -8,10 +11,46 @@ import { AppService } from 'src/app/app.service';
 })
 export class TagComponent implements OnInit {
 
-  constructor(private appService: AppService) { }
+  tagCategories: any
+  newTag: string = '';
+  newTagType: string = '';
+  modalRef: BsModalRef;
+  constructor(
+    private appService: AppService,
+    private modalService: BsModalService,
+    private ref: RefDataService,
+    private http: HttpClient, ) { }
 
   ngOnInit() {
     this.appService.getTags();
+    this.ref.lookup$.subscribe(() => {
+      this.tagCategories = this.ref.get('tag_category');
+    })
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  createTag() {
+    let tag = {
+      name: this.newTag,
+      tag_type: this.newTagType,
+    }
+    this.http.post(`/api/tags/`, tag).subscribe(result => {
+      let currentTags = this.appService.tags$.getValue()
+      currentTags.push(result);
+      this.appService.tags$.next(currentTags)
+      this.modalRef.hide();
+    })
+  }
+
+  deleteTag(id) {
+    this.http.delete(`/api/tags/${id}`).subscribe(result => {
+      this.appService.tags$.next(
+        this.appService.tags$.getValue().filter(ing => ing.id !== id)
+      );
+    })
   }
 
 }

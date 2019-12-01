@@ -56,7 +56,6 @@ export class AppService {
         return this.http.get<any[]>(`api/unit-types/`).subscribe(result => {
             this.loading$.next(false);
             this.unitTypes$.next(result);
-            // console.log(result)
             console.log("got unit types")
         })
     }
@@ -66,7 +65,6 @@ export class AppService {
             this.tags$.next(result);
             this.loading$.next(false);
             console.log("got tags")
-            console.log(result)
         })
     }
 

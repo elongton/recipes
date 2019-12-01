@@ -9,8 +9,9 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = "recipeApp";
-  constructor(private appService: AppService, private router: Router) { }
+  constructor(private appService: AppService, private router: Router, ) { }
 
   ngOnInit() {
+
   }
 }
