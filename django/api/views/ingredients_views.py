@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
-from .helpers.recipe_helpers import *
+from ..helpers.recipe_helpers import *
 import json
 
 

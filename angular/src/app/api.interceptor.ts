@@ -15,7 +15,7 @@ export class ApiInterceptor implements HttpInterceptor {
                 // console.log(token);
                 if (token) {
                     request = request.clone({ setHeaders: { Authorization: `JWT ${token}` } });
-                    console.log(request)
+                    // console.log(request)
                 }
                 return next.handle(request);
 

@@ -66,7 +66,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       this.appService.ingredients$.subscribe((ingredientList) => {
         this.ingredientList = ingredientList;
 
-        console.log(this.tagList)
+        // console.log(this.tagList)
         if (recipeId && this.populated == false && this.ingredientList.length > 0) {
           this.populateForm(recipeId);
         }
@@ -188,20 +188,20 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     this.recipeForm.get('tags').patchValue(this.selectedTagArray)
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
-    console.log(this.recipeForm.value)
+    // console.log(this.recipeForm.value)
     if (this.selectedFile) {
       //if user uploads a new image, backend uploads and replaces
       try {
         formDataToSend.append("image", this.selectedFile, this.selectedFile.name);
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     } else {
       //if user doesn't change image, nothing is sent, and backend retains existing image
       formDataToSend.append("image", '');
     }
     if (this.recipeToEdit) {
-      console.log(this.recipeForm.value)
+      // console.log(this.recipeForm.value)
       this.recipeService.updateRecipe(formDataToSend, this.recipeToEdit.id).subscribe();
     } else {
       this.recipeService.submitRecipe(formDataToSend).subscribe();
@@ -264,7 +264,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
       if (ingredientName != '') {
         this.openNewIngredientModal(event, section, ingredientIndex)
       }
-      console.log('not found')
+      console.error('not found')
     }
   }
 

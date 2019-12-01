@@ -1,6 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import JSONField
+from .helpers.storage import OverwriteStorage
+
+def file_pk_name(instance, filename):
+    ext = filename.split('.')[-1]
+    if instance.pk:
+        return '{}.{}'.format(instance.pk, ext)
+    else:
+        pass
 
 class User(AbstractUser):
     pass
@@ -13,7 +21,7 @@ class UserMeta(models.Model):
 class Recipe(models.Model):
     title = models.CharField(max_length=100, default='')
     description = models.TextField(blank=True, null=True)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True, upload_to=file_pk_name, storage=OverwriteStorage())
     notes = models.TextField(blank=True, null=True)
     author = models.ForeignKey(
         'User', related_name='recipes', on_delete=models.SET_NULL, null=True, blank=True)

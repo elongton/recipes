@@ -7,7 +7,7 @@ from rest_framework.authentication import SessionAuthentication
 from drf_firebase_auth.authentication import FirebaseAuthentication
 
 
-from .helpers.recipe_helpers import *
+from ..helpers.recipe_helpers import *
 import json
 
 

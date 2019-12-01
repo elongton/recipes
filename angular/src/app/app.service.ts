@@ -21,7 +21,7 @@ export class AppService {
         return this.http.get<any[]>(`/api/store-sections/`).subscribe(result => {
             this.storeSections$.next(result);
             this.loading$.next(false);
-            console.log("got store sections")
+            // console.log("got store sections")
         })
     }
 
@@ -30,7 +30,7 @@ export class AppService {
         return this.http.get<Recipe[]>(`api/recipes/`).subscribe(result => {
             this.recipes$.next(result);
             this.loading$.next(false);
-            console.log("got recipes");
+            // console.log("got recipes");
         });
     }
     getIngredients() {
@@ -38,7 +38,7 @@ export class AppService {
         return this.http.get<any[]>(`api/ingredients/`).subscribe(result => {
             this.ingredients$.next(result);
             this.loading$.next(false);
-            console.log("got ingredients");
+            // console.log("got ingredients");
         });
     }
 
@@ -47,7 +47,7 @@ export class AppService {
         return this.http.get<any[]>(`api/units/`).subscribe(result => {
             this.units$.next(result)
             this.loading$.next(false);
-            console.log("got units")
+            // console.log("got units")
         })
     }
 
@@ -56,7 +56,7 @@ export class AppService {
         return this.http.get<any[]>(`api/unit-types/`).subscribe(result => {
             this.loading$.next(false);
             this.unitTypes$.next(result);
-            console.log("got unit types")
+            // console.log("got unit types")
         })
     }
     getTags() {
@@ -64,7 +64,7 @@ export class AppService {
         return this.http.get<any[]>(`api/tags/`).subscribe(result => {
             this.tags$.next(result);
             this.loading$.next(false);
-            console.log("got tags")
+            // console.log("got tags")
         })
     }
 
