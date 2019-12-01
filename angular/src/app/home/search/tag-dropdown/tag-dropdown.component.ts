@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RefDataService } from 'src/app/core/services/ref-data.service';
 
 @Component({
@@ -9,10 +9,17 @@ import { RefDataService } from 'src/app/core/services/ref-data.service';
 export class TagDropdownComponent implements OnInit {
 
   @Input('tagCategories') tagCategories: any;
+  @Input('tags') tags: any;
+  @Output('tag') tag = new EventEmitter();
   constructor(private ref: RefDataService) { }
 
   ngOnInit() {
     console.log(this.tagCategories)
+    console.log(this.tags)
+  }
+
+  emitTag(tag) {
+    this.tag.emit(tag)
   }
 
 }

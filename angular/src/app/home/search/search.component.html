@@ -9,9 +9,16 @@
 
     <div class="d-flex mb-2 mt-2 align-items-start">
         <div style="flex-shrink:0; position: relative;">
-            <button class="btn btn-outline-primary" (click)="openDropdown();">Browse by Tag</button>
+            <div>
+                <button class="btn btn-outline-primary form-control" (click)="openDropdown();">Browse by Tag</button>
+                <div *ngFor="let tag of filterTagArray">
+                    <app-tag>{{tag.name}}</app-tag>
+                </div>
+            </div>
             <div style="position: relative;">
-                <app-tag-dropdown *ngIf="tagDropdown" [tagCategories]="tagCategories"></app-tag-dropdown>
+                <app-tag-dropdown (tag)="addTagToFilter($event)" *ngIf="tagDropdown" [tagCategories]="tagCategories"
+                    [tags]="appService.tags$ | async">
+                </app-tag-dropdown>
             </div>
         </div>
 

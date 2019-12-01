@@ -26,10 +26,10 @@ export class SearchComponent implements OnInit {
   selected: string;
   typeAheadQueryList: SearchResult[] = [];
   filterPillArray = [];
+  filterTagArray = []
   tagDropdown: boolean = false;
-  tagCategories;
-
   sidenav: Boolean = false;
+  tagCategories;
 
   constructor(
     public recipeService: RecipeService,
@@ -43,6 +43,7 @@ export class SearchComponent implements OnInit {
     this.ref.lookup$.subscribe(() => {
       this.tagCategories = this.ref.get('tag_category').refArray;
     })
+    this.appService.getTags();
     this.typeAheadQueryList = [];
     let that = this;
     this.appService.recipes$.subscribe(result => {
@@ -89,6 +90,11 @@ export class SearchComponent implements OnInit {
 
   openDropdown() {
     this.tagDropdown = true
+  }
+
+  addTagToFilter(tag) {
+    this.tagDropdown = false;
+    this.filterTagArray.push(tag)
   }
 
 

@@ -1,0 +1,61 @@
+.tag-container{
+    display:flex;
+    width: 95%;
+    margin-top: 8px;
+}
+
+.tag-body{
+    flex-grow: 1;
+    height: 30px;
+    border: 1px solid black;
+    border-right: none;
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+    font-family: Pacifico;
+}
+
+
+
+$triangle_height: 15px;
+$triangle_border: calc(#{$triangle_height} - 2px);
+$left_overlay: calc(#{$triangle_height} - (2*#{$triangle_height} - 1px));
+$top_overlay: calc(#{$triangle_border} - (2*#{$triangle_border}));
+
+.tag-triangle-container{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.tag-triangle{
+    width: 0; 
+    height: 0; 
+    border-top: $triangle_height solid transparent;
+    border-bottom: $triangle_height solid transparent;
+    border-left: $triangle_height solid black;
+    position: relative;
+
+}
+
+.tag-triangle:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: $triangle_border solid transparent;
+    border-bottom: $triangle_border solid transparent;
+    border-left: $triangle_border solid white;
+    position: absolute;
+    top: $top_overlay;
+    left: $left_overlay;
+  }
+
+.tag-dot{
+    // position: absolute;
+    border-radius: 100%;
+    border: 1px solid black;
+    height: 5px;
+    width: 5px;
+    // background-color: black;
+    z-index: 2;
+    margin-left: calc(#{$left_overlay} + 2px);
+}

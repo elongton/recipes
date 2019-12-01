@@ -2,7 +2,13 @@
     <div style="display: flex;">
         <div *ngFor="let tagCat of tagCategories" class="category-column">
             <u>{{tagCat.value}}</u>
+            <ul class="tag-list">
+                <ng-container *ngFor="let tag of tags">
+                    <li *ngIf="tag.tag_type == tagCat.key" class="tag" (click)="emitTag(tag)">
+                        {{tag.name}}
+                    </li>
+                </ng-container>
+            </ul>
         </div>
     </div>
-
 </div>

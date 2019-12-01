@@ -29,6 +29,7 @@ import { NavbarComponent } from './navigation/navbar/navbar.component';
 import { SearchComponent } from './home/search/search.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { TagDropdownComponent } from './home/search/tag-dropdown/tag-dropdown.component';
+import { TagComponent } from './home/search/tag/tag.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { TagDropdownComponent } from './home/search/tag-dropdown/tag-dropdown.co
     SearchComponent,
     DashboardComponent,
     TagDropdownComponent,
+    TagComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

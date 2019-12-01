@@ -12,3 +12,14 @@
     margin-left: 10px;
     white-space: nowrap;
 }
+
+.tag-list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tag{
+    cursor: pointer;
+    color: blue;
+}
