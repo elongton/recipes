@@ -26,3 +26,28 @@ $image_size: 150px;
     background-position: center;
     background-size: cover;
 }
+
+.recipe-image-overlay{
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    transition: background-color 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: rgba(255, 255, 255, 0.7)
+}
+
+.recipe-image-icon{
+    visibility: hidden;
+}
+
+.recipe-image-overlay:hover{
+    background-color: rgba(0, 51, 102, 0.7);
+}
+
+
+.recipe-image-overlay:hover .recipe-image-icon{
+    visibility: visible;
+}

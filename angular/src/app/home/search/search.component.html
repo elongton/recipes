@@ -50,7 +50,11 @@
             <div *ngFor="let recipe of filteredRecipes" class="recipe-wrapper">
                 <div class="recipe-image" [ngStyle]="{
                     'background-image': 'url(' + imageUrl + recipe.image + ')'
-                  }"></div>
+                  }" (click)="recipeService.nagivateToRecipe(recipe.id)">
+                    <div class="recipe-image-overlay">
+                        <fa-icon class="recipe-image-icon" icon=share></fa-icon>
+                    </div>
+                </div>
                 {{recipe.title}}
             </div>
 
