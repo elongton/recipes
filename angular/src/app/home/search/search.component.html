@@ -46,7 +46,16 @@
 
 
     <ng-container *ngIf="filteredRecipes.length > 0; else noRecipes">
-        <ul class="list-group" *ngFor="let recipe of filteredRecipes">
+        <section style="display: flex; flex-wrap: wrap;">
+            <div *ngFor="let recipe of filteredRecipes" class="recipe-wrapper">
+                <div class="recipe-image" [ngStyle]="{
+                    'background-image': 'url(' + imageUrl + recipe.image + ')'
+                  }"></div>
+                {{recipe.title}}
+            </div>
+
+        </section>
+        <!-- <ul class="list-group" *ngFor="let recipe of filteredRecipes">
             <li class="list-group-item d-flex align-items-center justify-content-between mb-1 recipe-list-item"
                 (click)="recipeService.nagivateToRecipe(recipe.id)">
                 <div class="d-flex align-items-center">
@@ -71,7 +80,7 @@
                     </button>
                 </div>
             </li>
-        </ul>
+        </ul> -->
     </ng-container>
 
     <ng-template #noRecipes>

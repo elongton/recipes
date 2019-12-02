@@ -61,6 +61,29 @@ export class HelperService {
         return res
         // return amount
     };
+
+    public blobToFile = (theBlob: any, fileName: string): File => {
+        var b: any = theBlob;
+        //A Blob() is almost a File() - it's just missing the two properties below which we will add
+        b.lastModifiedDate = new Date();
+        b.name = fileName;
+
+        //Cast to a File() type
+        return <File>theBlob;
+    }
+
+
+    dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: mime });
+    }
 }
 
 

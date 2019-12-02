@@ -15,7 +15,8 @@ export class RecipeService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private appService: AppService) { }
+    private appService: AppService,
+  ) { }
 
   submitRecipe(recipe) {
     return this.http.post<Recipe>(`api/recipes/`, recipe).pipe(
@@ -111,6 +112,7 @@ export class RecipeService {
     })
     return shoppingList;
   }
+
 
 
 }

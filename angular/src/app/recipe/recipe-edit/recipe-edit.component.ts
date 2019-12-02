@@ -6,7 +6,8 @@ import { environment } from "src/environments/environment";
 import { AppService } from 'src/app/app.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { EditIngredientModalComponent } from 'src/app/shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
-
+import { NgxImageCompressService } from 'ngx-image-compress';
+import { HelperService } from 'src/app/shared/helper.service';
 @Component({
   selector: "app-recipe-edit",
   templateUrl: "./recipe-edit.component.html",
@@ -35,6 +36,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private modalService: BsModalService,
+    private imageCompress: NgxImageCompressService,
+    private helpers: HelperService,
   ) { }
 
   ngAfterViewInit() {
@@ -189,7 +192,8 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
     // console.log(this.recipeForm.value)
-    if (this.selectedFile) {
+    // if (this.selectedFile) {
+    if (this.uploadedImage) {
       //if user uploads a new image, backend uploads and replaces
       try {
         formDataToSend.append("image", this.selectedFile, this.selectedFile.name);
@@ -208,19 +212,37 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onFileChanged(event, uploadedImage?) {
-    if (uploadedImage) {
-      this.selectedFile = uploadedImage;
-    } else {
-      this.selectedFile = event.target.files[0];
-    }
-    let reader = new FileReader();
-    let that = this;
-    reader.onload = function (e) {
-      that.uploadedImage = e.target["result"];
-    };
-    reader.readAsDataURL(this.selectedFile);
+
+  compressFile() {
+    // let compressedImage = null;
+    this.imageCompress.uploadFile().then(({ image, orientation }) => {
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, orientation, 50, 50).then(
+        result => {
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          this.uploadedImage = result
+          this.selectedFile = this.helpers.dataURLtoFile(result, 'image.jpg')
+        }
+      );
+    });
+
   }
+
+  // onFileChanged(event, uploadedImage?) {
+  //   if (uploadedImage) {
+  //     this.selectedFile = uploadedImage;
+  //   } else {
+  //     this.selectedFile = event.target.files[0];
+  //   }
+  //   let reader = new FileReader();
+  //   let that = this;
+  //   reader.onload = function (e) {
+  //     that.uploadedImage = e.target["result"];
+
+  //   };
+  //   reader.readAsDataURL(this.selectedFile);
+  // }
 
   checkIfIngredient(section, ingredientIndex) {
     return section.get("ingredients").at(ingredientIndex).value.ingredient_id ? true : false

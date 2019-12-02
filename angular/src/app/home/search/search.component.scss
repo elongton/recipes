@@ -7,3 +7,22 @@
     background-color: rgba(0,0,0,0.3);
     z-index: 10;
 }
+$image_size: 150px;
+$image_wrapper_width: $image_size + 20px;
+.recipe-wrapper{
+    width: $image_wrapper_width;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align:center;
+}
+
+$image_size: 150px;
+.recipe-image{
+    width: $image_size;
+    height: $image_size;
+    border-radius: 100%;
+    background-position: center;
+    background-size: cover;
+}

@@ -30,6 +30,7 @@ import { SearchComponent } from './home/search/search.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { TagDropdownComponent } from './home/search/tag-dropdown/tag-dropdown.component';
 import { TagComponent } from './home/search/tag/tag.component';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { TagComponent } from './home/search/tag/tag.component';
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
       multi: true
-    }
+    },
+    NgxImageCompressService,
   ],
   bootstrap: [AppComponent]
 })

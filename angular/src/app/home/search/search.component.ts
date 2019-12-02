@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { RecipeService } from 'src/app/recipe/recipe.service';
 import { RefDataService } from 'src/app/core/services/ref-data.service';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -30,6 +31,7 @@ export class SearchComponent implements OnInit {
   tagDropdown: boolean = false;
   sidenav: Boolean = false;
   tagCategories;
+  imageUrl: string = environment.url;
 
   constructor(
     public recipeService: RecipeService,

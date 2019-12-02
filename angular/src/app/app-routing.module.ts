@@ -36,7 +36,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     // runGuardsAndResolvers: 'always'
   },
-  { path: "recipe/edit/:recipeId", component: RecipeEditComponent },
+  {
+    path: "recipe/edit/:recipeId",
+    component: RecipeEditComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: "recipe/new",
     component: RecipeEditComponent,
