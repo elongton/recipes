@@ -8,7 +8,7 @@
         placeholder="Recipe Description"></textarea>
 
       <h4>Tags</h4>
-      <input type="text" [typeaheadOptionsLimit]="7" [typeahead]="tagList" class="form-control" placeholder="Add Tag"
+      <input type="text" [typeaheadOptionsLimit]="7" [typeahead]="tags" class="form-control" placeholder="Add Tag"
         [(ngModel)]="selectedTag" typeaheadOptionField="name" [ngModelOptions]="{standalone: true}"
         (typeaheadOnSelect)="onSelectTag($event)" />
 
@@ -55,7 +55,7 @@
                 <ng-container *ngIf="ingredient.get('is_recipe_as_ingredient').value; else ingredientInputFields">
                   <div class="d-flex" style="width: 45%;">
                     <input (typeaheadOnSelect)="onTypeAheadRecipe($event.item.id, section, ingredientIndex)"
-                      class="form-control" placeholder="recipe" [typeaheadOptionsLimit]="7" [typeahead]="recipeList"
+                      class="form-control" placeholder="recipe" [typeaheadOptionsLimit]="7" [typeahead]="recipes"
                       typeaheadOptionField="title" formControlName="recipe_name">
                     <!-- <input (keydown.enter)="addIngredient(section);" type="number" formControlName="quantity"
                     placeholder="Quantity" class="form-control ml-2 recipe-quantity" />
@@ -73,9 +73,9 @@
                   <div class="d-flex" style="width: 45%;">
                     <input [typeaheadOptionsLimit]="7"
                       (typeaheadOnSelect)="onTypeAheadIngredient($event.item.id, section, ingredientIndex)"
-                      (blur)="onBlurIngredient($event.target.value, section, ingredientIndex)"
-                      [typeahead]="ingredientList" class="form-control" placeholder="ingredient"
-                      typeaheadOptionField="name" formControlName="ingredient_name" />
+                      (blur)="onBlurIngredient($event.target.value, section, ingredientIndex)" [typeahead]="ingredients"
+                      class="form-control" placeholder="ingredient" typeaheadOptionField="name"
+                      formControlName="ingredient_name" />
                     <input *ngIf="checkIfIngredient(section, ingredientIndex)" (keydown.enter)="addIngredient(section);"
                       type="number" formControlName="ingredient_quantity" placeholder="Quantity"
                       class="form-control ml-2 quantity" />

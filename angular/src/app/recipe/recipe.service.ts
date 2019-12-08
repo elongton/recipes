@@ -1,11 +1,15 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, of, Subject } from "rxjs";
+import { BehaviorSubject, of, Subject, Observable } from "rxjs";
 import { tap, map, catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { Recipe } from '../core/models/recipe.model';
 import { AppService } from '../app.service';
+import { HelperService } from '../shared/helper.service';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
+import * as RecipeActions from '../recipe/store/recipe.actions';
 
 @Injectable({
   providedIn: "root"
@@ -16,7 +20,18 @@ export class RecipeService {
     private http: HttpClient,
     private router: Router,
     private appService: AppService,
+    private helperService: HelperService,
+    private store: Store<fromApp.AppState>,
   ) { }
+
+
+  getRecipes() {
+    return this.http.get<Recipe[]>(`api/recipes/`).subscribe(result => {
+      // this.recipes$.next(result);
+      // console.log("got recipes");
+      this.store.dispatch(new RecipeActions.SetRecipes(result))
+    });
+  }
 
   submitRecipe(recipe) {
     return this.http.post<Recipe>(`api/recipes/`, recipe).pipe(
@@ -32,11 +47,14 @@ export class RecipeService {
       })
     );
   }
+  retrieveRecipe(recipeId: Number): Observable<Recipe> {
+    return this.http.get<Recipe>(`api/recipes/${recipeId}`);
+  }
 
   addRecipeToSubjectAndNavigate(result, update?: boolean) {
     let currentRecipeList = this.appService.recipes$.getValue();
     console.log(result)
-    if (result.image) result.image = result.image.replace(environment.imageDomain, "");
+    if (result.image) result.image = this.helperService.replaceImageUrl(result)
     console.log(result)
     if (update) {
       let updatedRecipeId = currentRecipeList.findIndex(r => { return r.id === result.id })

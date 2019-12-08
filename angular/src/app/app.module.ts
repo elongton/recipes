@@ -16,6 +16,7 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
+
 import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AngularFireModule } from '@angular/fire';
@@ -31,7 +32,10 @@ import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { TagDropdownComponent } from './home/search/tag-dropdown/tag-dropdown.component';
 import { TagComponent } from './home/search/tag/tag.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
-
+import { StoreModule } from '@ngrx/store';
+import * as fromApp from './store/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { RecipeEffects } from './recipe/store/recipe.effects';
 
 @NgModule({
   declarations: [
@@ -63,6 +67,8 @@ import { NgxImageCompressService } from 'ngx-image-compress';
     SharedModule,
     TypeaheadModule.forRoot(),
     ModalModule.forRoot(),
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([RecipeEffects])
   ],
   providers: [
     {

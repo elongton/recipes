@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { HelperService } from 'src/app/shared/helper.service';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -7,6 +7,10 @@ import { AppService } from 'src/app/app.service';
 import { RecipeService } from 'src/app/recipe/recipe.service';
 import { RefDataService } from 'src/app/core/services/ref-data.service';
 import { environment } from 'src/environments/environment';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../store/app.reducer';
+import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 
 
@@ -20,7 +24,7 @@ interface SearchResult {
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   recipes: Recipe[] = [];
   filteredRecipes: Recipe[] = [];
   ingredients = [];
@@ -33,30 +37,33 @@ export class SearchComponent implements OnInit {
   tagCategories;
   imageUrl: string = environment.url;
 
+  private recipeSub: Subscription;
+
   constructor(
     public recipeService: RecipeService,
     public appService: AppService,
     private router: Router,
     private helpers: HelperService,
     public authService: AuthService,
-    private ref: RefDataService, ) { }
+    private ref: RefDataService,
+    private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     this.ref.lookup$.subscribe(() => {
       this.tagCategories = this.ref.get('tag_category').refArray;
     })
+
     this.appService.getTags();
     this.typeAheadQueryList = [];
     let that = this;
-    this.appService.recipes$.subscribe(result => {
-      this.recipes = result;
-      // console.log(this.recipes)
-      this.filteredRecipes = result;
-      this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Ingredient" })
-      result.forEach(e => {
-        that.typeAheadQueryList.push({ name: e.title, id: e.id, type: "Recipe" });
-      })
-    });
+    this.recipeSub = this.store.select('recipes').pipe(map(recipesState => { return recipesState.recipes }))
+      .subscribe((result) => {
+        this.filteredRecipes = result;
+        this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Ingredient" })
+        result.forEach(e => {
+          that.typeAheadQueryList.push({ name: e.title, id: e.id, type: "Recipe" });
+        })
+      });
     this.appService.ingredients$.subscribe(result => {
       this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Recipe" })
       result.forEach(e => {
@@ -105,5 +112,10 @@ export class SearchComponent implements OnInit {
     this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray, this.filterTagArray)
   }
 
+
+
+  ngOnDestroy() {
+    this.recipeSub.unsubscribe();
+  }
 
 }

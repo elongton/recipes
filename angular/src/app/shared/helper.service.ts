@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import fraction from 'fraction.js'
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: "root"
@@ -84,7 +85,13 @@ export class HelperService {
         }
         return new File([u8arr], filename, { type: mime });
     }
+
+    replaceImageUrl(result) {
+        return result.image.replace(environment.imageDomain, "")
+    }
 }
+
+
 
 
 

@@ -58,6 +58,15 @@
       <div class="image recipe-section" *ngIf="recipe.image" [ngStyle]="{
           'background-image': 'url(' + imageUrl + recipe.image + ')'
         }" style="height: 400px; background-position: center; background-size: cover;"></div>
+      <div>
+        <div style="display: flex;">
+          <div *ngFor="let tag of recipe.tags" style="width: 125px;" class="mr-2">
+            <app-tag>{{tag.name}}</app-tag>
+          </div>
+        </div>
+
+
+      </div>
       <h3 *ngIf="!recipe.image">Description</h3>
       <span>{{ recipe.description }}</span>
     </ng-container>

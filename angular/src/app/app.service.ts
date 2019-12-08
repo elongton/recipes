@@ -25,14 +25,7 @@ export class AppService {
         })
     }
 
-    getRecipes() {
-        this.loading$.next(true);
-        return this.http.get<Recipe[]>(`api/recipes/`).subscribe(result => {
-            this.recipes$.next(result);
-            this.loading$.next(false);
-            // console.log("got recipes");
-        });
-    }
+
     getIngredients() {
         this.loading$.next(true);
         return this.http.get<any[]>(`api/ingredients/`).subscribe(result => {
@@ -65,6 +58,17 @@ export class AppService {
             this.tags$.next(result);
             this.loading$.next(false);
             // console.log("got tags")
+        })
+    }
+
+    getUserMeta() {
+        return this.http.get(`api/user/`).subscribe(result => {
+            console.log(result)
+        })
+    }
+    updateUserMeta() {
+        return this.http.put(`api/user/`, { viewed_recipes: [1, 2, 3] }).subscribe(result => {
+            console.log(result)
         })
     }
 

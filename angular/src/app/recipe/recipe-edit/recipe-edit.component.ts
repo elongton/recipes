@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, ElementRef, AfterViewInit, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ViewChildren, QueryList, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy } from "@angular/core";
 import { RecipeService } from "../recipe.service";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
@@ -8,19 +8,26 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { EditIngredientModalComponent } from 'src/app/shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { HelperService } from 'src/app/shared/helper.service';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../store/app.reducer';
+import { Subscription, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+
+
 @Component({
   selector: "app-recipe-edit",
   templateUrl: "./recipe-edit.component.html",
   styleUrls: ["./recipe-edit.component.scss"]
 })
-export class RecipeEditComponent implements OnInit, AfterViewInit {
+export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
   // @ViewChildren('ingredient') childChildren: QueryList<ElementRef>;
   recipeForm: FormGroup;
   recipeToEdit;
+  recipeId: Number = null;
   selectedFile: File;
-  ingredientList = [];
-  tagList = [];
-  recipeList = [];
+  ingredients = [];
+  tags = [];
+  recipes = [];
   unitList = [];
   uploadedImage;
   ingredientSections;
@@ -30,6 +37,9 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   selectedTag;
   selectedTagArray = [];
 
+
+  private subscription: Subscription;
+
   constructor(
     private recipeService: RecipeService,
     private appService: AppService,
@@ -38,6 +48,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     private modalService: BsModalService,
     private imageCompress: NgxImageCompressService,
     private helpers: HelperService,
+    private store: Store<fromApp.AppState>
   ) { }
 
   ngAfterViewInit() {
@@ -55,31 +66,49 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     // })
   }
   ngOnInit() {
-    let recipeId = this.route.snapshot.paramMap.get("recipeId");
     this.buildForm();
-    if (!recipeId) {
-      this.addIngredientSection('General');
-    }
-    this.appService.getTags();
-    this.appService.tags$.subscribe((tagList) => {
-      this.tagList = tagList;
-    });
-    this.appService.recipes$.subscribe(recipeList => {  //for loading directly from URL (recipes must be loaded first)
-      this.recipeList = recipeList
-      this.appService.ingredients$.subscribe((ingredientList) => {
-        this.ingredientList = ingredientList;
-
-        // console.log(this.tagList)
-        if (recipeId && this.populated == false && this.ingredientList.length > 0) {
-          this.populateForm(recipeId);
-        }
-      })
-
+    this.subscription = this.route.params.pipe(map(params => {
+      return +params['recipeId'];
+    }), switchMap(id => {
+      this.recipeId = id;
+      return this.store.select('recipes')
+    }), switchMap(recipes => {
+      this.recipes = recipes.recipes;
+      return this.appService.ingredients$
+    }), switchMap(ingredients => {
+      this.ingredients = ingredients;
+      return this.appService.tags$
     })
+    ).subscribe(tags => {
+      this.tags = tags;
+      this.populateForm(this.recipeId);
+    });
+
+    // let recipeId = this.route.snapshot.paramMap.get("recipeId");
+    // this.buildForm();
+    // if (!recipeId) {
+    //   this.addIngredientSection('General');
+    // }
+    // this.appService.getTags();
+    // this.appService.tags$.subscribe((tags) => {
+    //   this.tags = tags;
+    // });
+    // this.appService.recipes$.subscribe(recipes => {  //for loading directly from URL (recipes must be loaded first)
+    //   this.recipes = recipes
+    //   this.appService.ingredients$.subscribe((ingredients) => {
+    //     this.ingredients = ingredients;
+
+    //     // console.log(this.tags)
+    //     if (recipeId && this.populated == false && this.ingredients.length > 0) {
+    //       this.populateForm(recipeId);
+    //     }
+    //   })
+
+    // })
   }
   populateForm(recipeId) {
-    let currentRecipeList = this.appService.recipes$.getValue();
-    this.recipeToEdit = currentRecipeList.find(r => r.id == Number(recipeId))
+    // let currentrecipes = this.appService.recipes$.getValue();
+    this.recipeToEdit = this.recipes.find(r => r.id == Number(recipeId))
     this.selectedTagArray = this.recipeToEdit.tags;
     if (this.recipeToEdit) {
       this.recipeToEdit.ingredient_sections.forEach(section => {
@@ -249,7 +278,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
 
   generateUnitList(id) {
-    let ingredient = this.ingredientList.find(ing => { return ing.id === id })
+    let ingredient = this.ingredients.find(ing => { return ing.id === id })
     let unitList = []
     if (ingredient) {
       ingredient.unit_types.forEach(unitType => {
@@ -276,7 +305,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
     // console.log(section.get("ingredients").at(ingredientIndex))
   }
   onBlurIngredient(ingredientName: string, section, ingredientIndex: number) {
-    let found = this.ingredientList.find(ingredient => { return ingredient.name === ingredientName })
+    let found = this.ingredients.find(ingredient => { return ingredient.name === ingredientName })
     if (found) {
       this.onTypeAheadIngredient(found.id, section, ingredientIndex)
     } else {
@@ -309,6 +338,10 @@ export class RecipeEditComponent implements OnInit, AfterViewInit {
   }
   onRemoveTag(event) {
     this.selectedTagArray.splice(event.index, 1)
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

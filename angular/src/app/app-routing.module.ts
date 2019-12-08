@@ -13,6 +13,9 @@ import { RecipeBookComponent } from './recipe-book/recipe-book.component';
 import { MealPlannerComponent } from './meal-planner/meal-planner.component';
 import { TagComponent } from './admin/tag/tag.component';
 
+
+import { RecipeResolverService } from './recipe/recipe-resolver.service';
+
 const routes: Routes = [
   { path: "login", component: LoginComponent },
   {
@@ -39,7 +42,8 @@ const routes: Routes = [
   {
     path: "recipe/edit/:recipeId",
     component: RecipeEditComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    resolve: [RecipeResolverService]
   },
   {
     path: "recipe/new",
