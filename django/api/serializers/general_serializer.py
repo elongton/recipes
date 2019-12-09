@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import (StoreSection, Tag, Reference)
+from api.models import (StoreSection, Tag, Reference, User, UserMeta)
 
 
 class StoreSectionSerializer(serializers.ModelSerializer):
@@ -16,3 +16,10 @@ class ReferenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reference
         fields = ['key', 'value', 'reference_type', 'id']
+
+
+class UserMetaSerializer(serializers.ModelSerializer):
+    meta = serializers.JSONField(source='user_meta.meta')
+    class Meta:
+        model = User
+        fields = ['meta']

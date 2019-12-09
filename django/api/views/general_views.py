@@ -1,14 +1,15 @@
-from api.models import (StoreSection,Tag, Reference)
-from api.serializers import (StoreSectionSerializer, TagSerializer, ReferenceSerializer)
+from api.models import (StoreSection,Tag, Reference, User)
+from api.serializers import (StoreSectionSerializer, TagSerializer, ReferenceSerializer, UserMetaSerializer)
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication
 from drf_firebase_auth.authentication import FirebaseAuthentication
+from django.core import serializers
 
 
 from ..helpers.recipe_helpers import *
-import json
+from django.http import JsonResponse
 
 
 class StoreSectionList(generics.ListAPIView):
@@ -35,3 +36,59 @@ class ReferenceList(generics.ListAPIView):
     # authentication_classes=[SessionAuthentication]
     queryset = Reference.objects.all()
     serializer_class = ReferenceSerializer
+
+
+# class UserMetaUpdateView(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = [permissions.AllowAny]
+#     authentication_classes=[SessionAuthentication]
+#     queryset = User.objects.all()
+#     serializer_class = UserMetaSerializer
+
+class UserMetaUpdateView(APIView):
+    permission_classes = [permissions.AllowAny]
+    # authentication_classes=[SessionAuthentication]
+    def get(self, request, format=None):
+        user = User.objects.get(id=request.user.id)
+        responseData = [user.user_meta.meta][0]
+        return Response(responseData, status=status.HTTP_201_CREATED)
+    def put(self, request, format=None):
+        user = User.objects.get(id=request.user.id)
+        new_meta = request.body
+        print(new_meta)
+        responseData = [new_meta][0]
+        return Response(responseData, status=status.HTTP_202_ACCEPTED)
+    # queryset = User.objects.all()
+    # serializer_class = UserMetaSerializer
+
+
+
+
+# class IngredientCreate(APIView):
+#     permission_classes = [permissions.AllowAny]
+#     def post(self, request, format=None):
+#         ingredient_serializer = IngredientCreateSerializer(data = request.data)
+#         store_section = StoreSection.objects.get(id=request.data['store_section'])
+#         if ingredient_serializer.is_valid():
+#             ingredient_obj = ingredient_serializer.save()
+#             unit_types = []
+#             for type in request.data['unit_types']:
+#                 unit_type = UnitType.objects.get(id=type)
+#                 unitTypeIngredientLink = UnitTypeIngredientLink(ingredient=ingredient_obj, unit_type = unit_type,)
+#                 unitTypeIngredientLink.save()
+#                 # print(unit_type.units)
+#                 temp = []
+#                 for unit in unit_type.units.all():
+#                     temp.append({
+#                         'name': unit.name,
+#                         'id': unit.id,
+#                         })
+#                 unit_types.append({"name": unit_type.name, "units":temp})
+
+#             responseData = {
+#                 'id': ingredient_obj.id,
+#                 'name': ingredient_obj.name,
+#                 'store_section': str(store_section),
+#                 'unit_types': unit_types,
+#             }
+#             return Response(responseData, status=status.HTTP_201_CREATED)
+#         return Response(ingredient_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

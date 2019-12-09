@@ -1,21 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import JSONField
-from .helpers.storage import OverwriteStorage
-
-def file_pk_name(instance, filename):
-    ext = filename.split('.')[-1]
-    if instance.pk:
-        return '{}.{}'.format(instance.pk, ext)
-    else:
-        pass
+from .helpers.storage import *
 
 class User(AbstractUser):
     pass
 
 class UserMeta(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    recently_browsed_tags = models.CharField(max_length=200, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_meta')
+    meta = JSONField(null=True, blank=True)
 
 
 class Recipe(models.Model):

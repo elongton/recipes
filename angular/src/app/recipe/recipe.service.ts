@@ -27,8 +27,6 @@ export class RecipeService {
 
   getRecipes() {
     return this.http.get<Recipe[]>(`api/recipes/`).subscribe(result => {
-      // this.recipes$.next(result);
-      // console.log("got recipes");
       this.store.dispatch(new RecipeActions.SetRecipes(result))
     });
   }

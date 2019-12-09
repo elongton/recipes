@@ -10,3 +10,10 @@ class OverwriteStorage(FileSystemStorage):
 
     def get_available_name(self, name, max_length):
         return name
+
+def file_pk_name(instance, filename):
+    ext = filename.split('.')[-1]
+    if instance.pk:
+        return '{}.{}'.format(instance.pk, ext)
+    else:
+        pass

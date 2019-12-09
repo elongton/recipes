@@ -6,4 +6,4 @@ from .models import User, UserMeta
 @receiver(post_save, sender=User)
 def create_user_meta(sender, instance, created, **kwargs):
     if created:
-        UserMeta.objects.create(user=instance)
+        UserMeta.objects.create(user=instance, meta={"viewed_recipes": []})

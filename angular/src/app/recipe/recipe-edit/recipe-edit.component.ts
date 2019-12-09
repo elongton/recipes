@@ -8,8 +8,12 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { EditIngredientModalComponent } from 'src/app/shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { HelperService } from 'src/app/shared/helper.service';
+
+
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
+import * as RecipeActions from '../store/recipe.actions'
+
 import { Subscription, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -234,10 +238,11 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
       formDataToSend.append("image", '');
     }
     if (this.recipeToEdit) {
+      // this.store.dispatch(new RecipeActions.UpdateRecipe())
       // console.log(this.recipeForm.value)
-      this.recipeService.updateRecipe(formDataToSend, this.recipeToEdit.id).subscribe();
+      // this.recipeService.updateRecipe(formDataToSend, this.recipeToEdit.id).subscribe();
     } else {
-      this.recipeService.submitRecipe(formDataToSend).subscribe();
+      // this.recipeService.submitRecipe(formDataToSend).subscribe();
     }
   }
 
