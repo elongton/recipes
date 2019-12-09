@@ -17,15 +17,14 @@ export const RECIPE_HTTP_ERROR = '[Recipes] Some HTTP Error';
 
 export class BeginCreateRecipe implements Action {
     readonly type = BEGIN_CREATE_RECIPE;
-    constructor(public payload: Recipe) { }
+    constructor(public payload: FormData) { }
 }
 export class BeginRetrieveRecipes implements Action {
     readonly type = BEGIN_RETRIEVE_RECIPES;
-    constructor(public payload: Recipe[]) { }
 }
 export class BeginUpdateRecipe implements Action {
     readonly type = BEGIN_UPDATE_RECIPE;
-    constructor(public payload: { recipe: Recipe, id: Number }) { }
+    constructor(public payload: { recipe: FormData, id: Number }) { }
 }
 export class BeginDeleteRecipe implements Action {
     readonly type = BEGIN_DELETE_RECIPE;

@@ -25,29 +25,48 @@ export class RecipeService {
   ) { }
 
 
-  getRecipes() {
-    return this.http.get<Recipe[]>(`api/recipes/`).subscribe(result => {
-      this.store.dispatch(new RecipeActions.SetRecipes(result))
-    });
-  }
 
-  submitRecipe(recipe) {
-    return this.http.post<Recipe>(`api/recipes/`, recipe).pipe(
-      tap(result => {
-        this.addRecipeToSubjectAndNavigate(result)
-      })
-    );
-  }
-  updateRecipe(recipe, recipeId: Number) {
-    return this.http.put(`api/recipes/${recipeId}`, recipe).pipe(
-      tap(result => {
-        this.addRecipeToSubjectAndNavigate(result, true)
-      })
-    );
-  }
-  retrieveRecipe(recipeId: Number): Observable<Recipe> {
-    return this.http.get<Recipe>(`api/recipes/${recipeId}`);
-  }
+
+
+
+
+  // getRecipes() {
+  //   return this.http.get<Recipe[]>(`api/recipes/`).subscribe(result => {
+  //     this.store.dispatch(new RecipeActions.SetRecipes(result))
+  //   });
+  // }
+
+
+  // submitRecipe(recipe) {
+  //   return this.http.post<Recipe>(`api/recipes/`, recipe).pipe(
+  //     tap(result => {
+  //       this.addRecipeToSubjectAndNavigate(result)
+  //     })
+  //   );
+  // }
+
+
+  // updateRecipe(recipe, recipeId: Number) {
+  //   return this.http.put(`api/recipes/${recipeId}`, recipe).pipe(
+  //     tap(result => {
+  //       this.addRecipeToSubjectAndNavigate(result, true)
+  //     })
+  //   );
+  // }
+
+
+  // deleteRecipe(recipe) {
+  //   return this.http.delete(`api/recipes/${recipe.id}`).subscribe(result => {
+  //     this.appService.recipes$.next(
+  //       this.appService.recipes$.getValue().filter(r => r.id !== recipe.id)
+  //     );
+  //   });
+  // }
+
+
+  // retrieveRecipe(recipeId: Number): Observable<Recipe> {
+  //   return this.http.get<Recipe>(`api/recipes/${recipeId}`);
+  // }
 
   addRecipeToSubjectAndNavigate(result, update?: boolean) {
     let currentRecipeList = this.appService.recipes$.getValue();
@@ -71,13 +90,6 @@ export class RecipeService {
     this.appService.recipes$.next(currentRecipeList);
   }
 
-  deleteRecipe(recipe) {
-    return this.http.delete(`api/recipes/${recipe.id}`).subscribe(result => {
-      this.appService.recipes$.next(
-        this.appService.recipes$.getValue().filter(r => r.id !== recipe.id)
-      );
-    });
-  }
 
   public nagivateToRecipe(id) {
     this.router.navigate(["/recipe/view", id]);

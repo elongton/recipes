@@ -10,6 +10,8 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import { map, switchMap, tap } from 'rxjs/operators';
 
+import * as RecipeActions from '../store/recipe.actions';
+
 @Component({
   selector: "app-recipe-detail",
   templateUrl: "./recipe-detail.component.html",
@@ -81,7 +83,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(this.recipe));
     formDataToSend.append("image", '');
-    this.recipeService.updateRecipe(formDataToSend, this.recipe.id).subscribe()
+    this.store.dispatch(new RecipeActions.BeginUpdateRecipe({ recipe: formDataToSend, id: this.recipe.id }))
   }
 
   addRecipeToShoppingList() {

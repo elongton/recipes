@@ -56,20 +56,21 @@ export class RecipeListComponent implements OnInit {
     });
 
   }
-  removeFilter(event) {
-    this.filterPillArray.splice(event.index, 1)
-    this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray)
-  }
-  onSelect(event) {
-    if (event.item.type === 'Ingredient') {
-      this.filterPillArray.push({ name: event.item.name, id: event.item.id })
-      this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray)
+  // removeFilter(event) {
+  //   this.filterPillArray.splice(event.index, 1)
+  //   this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray)
+  // }
 
-    } else if (event.item.type === 'Recipe') {
-      this.router.navigate(['recipe/view/', event.item.id])
-    }
-    this.selected = ''
-  }
+  // onSelect(event) {
+  //   if (event.item.type === 'Ingredient') {
+  //     this.filterPillArray.push({ name: event.item.name, id: event.item.id })
+  //     this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray)
+
+  //   } else if (event.item.type === 'Recipe') {
+  //     this.router.navigate(['recipe/view/', event.item.id])
+  //   }
+  //   this.selected = ''
+  // }
 
   //probably needs to go into service...
   onAddRemoveToShoppingList(recipe: Recipe) {

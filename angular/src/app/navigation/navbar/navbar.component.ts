@@ -15,7 +15,6 @@ export class NavbarComponent implements OnInit {
   constructor(public authService: AuthService, private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    this.store.dispatch(new RecipeActions.RetrieveRecipes())
   }
 
 }

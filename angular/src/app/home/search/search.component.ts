@@ -56,11 +56,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.appService.getTags();
     this.typeAheadQueryList = [];
     let that = this;
-    this.recipeSub = this.store.select('recipes').pipe(map(recipesState => { return recipesState.recipes }))
+    this.recipeSub = this.store.select('recipes')
       .subscribe((result) => {
-        this.filteredRecipes = result;
+        console.log(result.recipes)
+        this.filteredRecipes = result.recipes;
         this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Ingredient" })
-        result.forEach(e => {
+        this.filteredRecipes.forEach(e => {
           that.typeAheadQueryList.push({ name: e.title, id: e.id, type: "Recipe" });
         })
       });

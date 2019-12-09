@@ -51,6 +51,20 @@ export class RecipeEffects {
         })
     )
 
+    @Effect()
+    deleteRecipe = this.actions$.pipe(
+        ofType(RecipeActions.BEGIN_DELETE_RECIPE),
+        switchMap((action: RecipeActions.BeginDeleteRecipe) => {
+            return this.http.delete<Number>(`api/recipes/${action.payload}`)
+        }),
+        map(id => {
+            return new RecipeActions.SuccessDeleteRecipe(id);
+        }),
+        catchError((error: Error) => {
+            return of(new RecipeActions.RecipeHTTPError(error));
+        })
+    )
+
 
     constructor(private actions$: Actions, private http: HttpClient) { }
 }
