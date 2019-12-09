@@ -30,9 +30,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let tag of appService.tags$ | async | filter:query">
+            <tr *ngFor="let tag of tags | filter:query">
                 <td>{{tag.name}}</td>
-                <td>{{tagCategories.refObject[tag.tag_type]}}</td>
+                <td></td>
+                <!-- <td>{{tagCategories.refObject[tag.tag_type]}}</td> -->
                 <td class="text-danger text-center delete" (click)="deleteTag(tag.id)">
                     <fa-icon icon=trash></fa-icon>
                 </td>

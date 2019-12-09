@@ -42,8 +42,6 @@ export function recipeReducer(state = initialState, action: RecipeActions.Recipe
                 loading: false
             };
         case RecipeActions.SUCCESS_RETRIEVE_RECIPES:
-            console.log('triggered success retrieve')
-            console.log(action.payload)
             return {
                 ...state,
                 recipes: [...action.payload],

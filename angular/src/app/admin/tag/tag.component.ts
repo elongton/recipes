@@ -3,6 +3,11 @@ import { AppService } from 'src/app/app.service';
 import { RefDataService } from 'src/app/core/services/ref-data.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
+import { Tag } from 'src/app/core/models/tag.model';
+import { switchMap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../../store/app.reducer'
 
 @Component({
   selector: 'app-tag',
@@ -15,17 +20,30 @@ export class TagComponent implements OnInit {
   newTag: string = '';
   newTagType: string = '';
   modalRef: BsModalRef;
+  tags: Tag[];
+
+
   constructor(
     private appService: AppService,
     private modalService: BsModalService,
     private ref: RefDataService,
-    private http: HttpClient, ) { }
+    private http: HttpClient,
+    private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    this.appService.getTags();
-    this.ref.lookup$.subscribe(() => {
-      this.tagCategories = this.ref.get('tag_category');
-    })
+    // this.appService.getTags();
+    this.ref.lookup$.pipe(
+      switchMap(() => {
+        this.tagCategories = [];
+        return this.store.select('tags')
+      })).subscribe(tags => {
+        this.tags = tags.tags
+      })
+
+
+    // subscribe(() => {
+    //   this.tagCategories = this.ref.get('tag_category');
+    // })
   }
 
   openModal(template: TemplateRef<any>) {

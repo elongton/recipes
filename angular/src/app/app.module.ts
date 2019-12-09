@@ -36,6 +36,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromApp from './store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { RecipeEffects } from './recipe/store/recipe.effects';
+import { TagEffects } from './admin/tag/store/tag.effects';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,7 @@ import { RecipeEffects } from './recipe/store/recipe.effects';
     TypeaheadModule.forRoot(),
     ModalModule.forRoot(),
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([RecipeEffects])
+    EffectsModule.forRoot([RecipeEffects, TagEffects])
   ],
   providers: [
     {

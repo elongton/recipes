@@ -52,14 +52,14 @@ export class AppService {
             // console.log("got unit types")
         })
     }
-    getTags() {
-        this.loading$.next(true);
-        return this.http.get<any[]>(`api/tags/`).subscribe(result => {
-            this.tags$.next(result);
-            this.loading$.next(false);
-            // console.log("got tags")
-        })
-    }
+    // getTags() {
+    //     this.loading$.next(true);
+    //     return this.http.get<any[]>(`api/tags/`).subscribe(result => {
+    //         this.tags$.next(result);
+    //         this.loading$.next(false);
+    //         // console.log("got tags")
+    //     })
+    // }
 
     getUserMeta() {
         return this.http.get(`api/user/`).subscribe(result => {

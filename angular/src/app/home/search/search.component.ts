@@ -53,7 +53,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.tagCategories = this.ref.get('tag_category').refArray;
     })
 
-    this.appService.getTags();
+    // this.appService.getTags();
     this.typeAheadQueryList = [];
     let that = this;
     this.recipeSub = this.store.select('recipes')
