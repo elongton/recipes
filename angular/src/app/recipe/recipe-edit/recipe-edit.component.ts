@@ -81,10 +81,11 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
       return this.appService.ingredients$
     }), switchMap(ingredients => {
       this.ingredients = ingredients;
-      return this.appService.tags$
+      return this.store.select('tags')
+      // return this.appService.tags$
     })
     ).subscribe(tags => {
-      this.tags = tags;
+      this.tags = tags.tags;
       this.populateForm(this.recipeId);
     });
 

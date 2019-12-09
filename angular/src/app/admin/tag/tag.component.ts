@@ -50,25 +50,26 @@ export class TagComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  createTag() {
-    let tag = {
-      name: this.newTag,
-      tag_type: this.newTagType,
-    }
-    this.http.post(`/api/tags/`, tag).subscribe(result => {
-      let currentTags = this.appService.tags$.getValue()
-      currentTags.push(result);
-      this.appService.tags$.next(currentTags)
-      this.modalRef.hide();
-    })
-  }
+  // createTag() {
+  //   let tag = {
+  //     name: this.newTag,
+  //     tag_type: this.newTagType,
+  //   }
+  //   this.http.post(`/api/tags/`, tag).subscribe(result => {
+  //     let currentTags = this.appService.tags$.getValue()
+  //     currentTags.push(result);
+  //     this.appService.tags$.next(currentTags)
+  //     this.modalRef.hide();
+  //   })
+  // }
 
-  deleteTag(id) {
-    this.http.delete(`/api/tags/${id}`).subscribe(result => {
-      this.appService.tags$.next(
-        this.appService.tags$.getValue().filter(ing => ing.id !== id)
-      );
-    })
-  }
+
+  // deleteTag(id) {
+  //   this.http.delete(`/api/tags/${id}`).subscribe(result => {
+  //     this.appService.tags$.next(
+  //       this.appService.tags$.getValue().filter(ing => ing.id !== id)
+  //     );
+  //   })
+  // }
 
 }

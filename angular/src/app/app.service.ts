@@ -12,7 +12,6 @@ export class AppService {
     ingredients$ = new BehaviorSubject<any[]>([]);
     units$ = new BehaviorSubject<any[]>([])
     unitTypes$ = new BehaviorSubject<any[]>([])
-    tags$ = new BehaviorSubject<any[]>([]);
     loading$ = new BehaviorSubject<Boolean>(false);
     constructor(private http: HttpClient) { }
 
@@ -52,14 +51,7 @@ export class AppService {
             // console.log("got unit types")
         })
     }
-    // getTags() {
-    //     this.loading$.next(true);
-    //     return this.http.get<any[]>(`api/tags/`).subscribe(result => {
-    //         this.tags$.next(result);
-    //         this.loading$.next(false);
-    //         // console.log("got tags")
-    //     })
-    // }
+
 
     getUserMeta() {
         return this.http.get(`api/user/`).subscribe(result => {
