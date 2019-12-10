@@ -15,6 +15,7 @@ import { TagComponent } from './admin/tag/tag.component';
 
 
 import { RecipeResolverService } from './recipe/recipe-resolver.service';
+import { IngredientResolverService } from './admin/ingredient/ingredient-resolver.service';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -22,7 +23,7 @@ const routes: Routes = [
     path: "",
     component: HomeComponent,
     canActivate: [AuthGuard],
-    resolve: [RecipeResolverService]
+    resolve: [RecipeResolverService, IngredientResolverService]
   },
   {
     path: "recipe/view/:recipeId",

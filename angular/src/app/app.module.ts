@@ -20,7 +20,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AngularFireModule } from '@angular/fire';
-import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ApiInterceptor } from './api.interceptor';
 import { HomeComponent } from './home/home.component';
@@ -32,11 +31,16 @@ import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { TagDropdownComponent } from './home/search/tag-dropdown/tag-dropdown.component';
 import { TagComponent } from './home/search/tag/tag.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
-import { StoreModule } from '@ngrx/store';
-import * as fromApp from './store/app.reducer';
-import { EffectsModule } from '@ngrx/effects';
+
+
 import { RecipeEffects } from './recipe/store/recipe.effects';
 import { TagEffects } from './admin/tag/store/tag.effects';
+import * as fromApp from './store/app.reducer';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { IngredientEffects } from './admin/ingredient/store/ingredient.effects';
 
 @NgModule({
   declarations: [
@@ -69,7 +73,8 @@ import { TagEffects } from './admin/tag/store/tag.effects';
     TypeaheadModule.forRoot(),
     ModalModule.forRoot(),
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([RecipeEffects, TagEffects])
+    EffectsModule.forRoot([RecipeEffects, TagEffects, IngredientEffects]),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production, }),
   ],
   providers: [
     {

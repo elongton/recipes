@@ -9,7 +9,7 @@ import { RefDataService } from 'src/app/core/services/ref-data.service';
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 
@@ -37,7 +37,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   tagCategories;
   imageUrl: string = environment.url;
 
-  private recipeSub: Subscription;
+  private subscription: Subscription;
 
   constructor(
     public recipeService: RecipeService,
@@ -56,21 +56,19 @@ export class SearchComponent implements OnInit, OnDestroy {
     // this.appService.getTags();
     this.typeAheadQueryList = [];
     let that = this;
-    this.recipeSub = this.store.select('recipes')
-      .subscribe((result) => {
-        console.log(result.recipes)
-        this.filteredRecipes = result.recipes;
-        this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Ingredient" })
-        this.filteredRecipes.forEach(e => {
-          that.typeAheadQueryList.push({ name: e.title, id: e.id, type: "Recipe" });
-        })
-      });
-    this.appService.ingredients$.subscribe(result => {
+    this.subscription = this.store.select('recipes').pipe(switchMap(recipes => {
+      this.filteredRecipes = recipes.recipes;
+      this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Ingredient" })
+      this.filteredRecipes.forEach(e => {
+        that.typeAheadQueryList.push({ name: e.title, id: e.id, type: "Recipe" });
+      })
+      return this.store.select('ingredients')
+    })).subscribe(ingredients => {
       this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Recipe" })
-      result.forEach(e => {
+      ingredients.ingredients.forEach(e => {
         that.typeAheadQueryList.push({ name: e.name, id: e.id, type: "Ingredient" });
       })
-    });
+    })
 
   }
   removeFilter(event) {
@@ -116,7 +114,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    this.recipeSub.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 }

@@ -32,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let ingredient of ingredients$ | async | filter:query">
+            <tr *ngFor="let ingredient of ingredients | filter:query">
                 <td>{{ingredient.name}}</td>
                 <td><span
                         *ngFor="let unitType of ingredient.unit_types; let isLast=last">{{unitType.name}}{{isLast ? '' : ', '}}</span>
