@@ -1,11 +1,6 @@
-<ng-template #loading>
-    <div class="loader">
-        <fa-icon icon=cog></fa-icon>
-    </div>
-</ng-template>
+<app-loader (loading)="loading = $event"></app-loader>
 
-
-<ng-container *ngIf="(appService.loading$ | async) == false; else loading">
+<ng-container *ngIf="!loading">
 
     <div class="d-flex mb-2 mt-2 align-items-start">
         <div style="flex-shrink:0; position: relative;">

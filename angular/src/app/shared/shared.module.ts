@@ -32,15 +32,17 @@ import { FilterPillComponent } from './components/filter-pill/filter-pill.compon
 import { PopoverComponent } from './components/popover/popover.component';
 import { EditIngredientModalComponent } from './components/edit-ingredient-modal/edit-ingredient-modal.component';
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
     declarations: [
+        LoaderComponent,
         FilterPipe,
         SearchFilterPipe,
         FilterPillComponent,
         PopoverComponent,
         EditIngredientModalComponent,
-        RecipeCardComponent
+        RecipeCardComponent,
     ],
     imports: [
         CommonModule,
@@ -53,6 +55,7 @@ import { RecipeCardComponent } from './components/recipe-card/recipe-card.compon
         // ModalModule.forRoot(),
     ],
     exports: [
+        LoaderComponent,
         FilterPipe,
         SearchFilterPipe,
         CommonModule,
@@ -64,7 +67,7 @@ import { RecipeCardComponent } from './components/recipe-card/recipe-card.compon
         RecipeCardComponent,
 
     ],
-    entryComponents: [EditIngredientModalComponent],
+    entryComponents: [EditIngredientModalComponent, LoaderComponent],
 })
 export class SharedModule {
     constructor(library: FaIconLibrary) {
