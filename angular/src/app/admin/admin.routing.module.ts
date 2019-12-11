@@ -5,7 +5,7 @@ import { UnitComponent } from './unit/unit.component';
 import { TagComponent } from './tag/tag.component';
 import { TagResolverService } from './tag/tag-resolver.service'
 import { IngredientResolverService } from './ingredient/ingredient-resolver.service';
-
+import { UnitResolverService } from './unit/unit-resolver.service';
 
 
 const routes: Routes = [
@@ -14,7 +14,11 @@ const routes: Routes = [
         component: IngredientComponent,
         resolve: [IngredientResolverService]
     },
-    { path: "units", component: UnitComponent },
+    {
+        path: "units",
+        component: UnitComponent,
+        resolve: [UnitResolverService],
+    },
     {
         path: "tags",
         component: TagComponent,

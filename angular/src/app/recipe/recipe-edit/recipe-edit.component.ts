@@ -15,7 +15,7 @@ import * as fromApp from '../../store/app.reducer';
 import * as RecipeActions from '../store/recipe.actions'
 
 import { Subscription, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, concatMap } from 'rxjs/operators';
 
 
 @Component({
@@ -77,16 +77,20 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
       this.recipeId = id;
       return this.store.select('recipes')
     }), switchMap(recipes => {
+      console.log('recipes')
       this.recipes = recipes.recipes;
-      return this.appService.ingredients$
+      return this.store.select('ingredients')
     }), switchMap(ingredients => {
-      this.ingredients = ingredients;
+      console.log('ingredients')
+      this.ingredients = ingredients.ingredients;
       return this.store.select('tags')
-      // return this.appService.tags$
     })
     ).subscribe(tags => {
+      console.log('tags')
       this.tags = tags.tags;
-      this.populateForm(this.recipeId);
+      if (this.recipes.length > 0 && this.tags.length > 0 && this.ingredients.length > 0) {
+        this.populateForm(this.recipeId);
+      }
     });
 
     // let recipeId = this.route.snapshot.paramMap.get("recipeId");
@@ -114,6 +118,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
   populateForm(recipeId) {
     // let currentrecipes = this.appService.recipes$.getValue();
     this.recipeToEdit = this.recipes.find(r => r.id == Number(recipeId))
+    console.log(this.recipes)
     this.selectedTagArray = this.recipeToEdit.tags;
     if (this.recipeToEdit) {
       this.recipeToEdit.ingredient_sections.forEach(section => {

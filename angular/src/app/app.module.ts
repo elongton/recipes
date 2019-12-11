@@ -41,6 +41,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { IngredientEffects } from './admin/ingredient/store/ingredient.effects';
+import { UnitEffects } from './admin/unit/store/unit.effects';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,11 @@ import { IngredientEffects } from './admin/ingredient/store/ingredient.effects';
     TypeaheadModule.forRoot(),
     ModalModule.forRoot(),
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([RecipeEffects, TagEffects, IngredientEffects]),
+    EffectsModule.forRoot([
+      RecipeEffects,
+      TagEffects,
+      IngredientEffects,
+      UnitEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production, }),
   ],
   providers: [

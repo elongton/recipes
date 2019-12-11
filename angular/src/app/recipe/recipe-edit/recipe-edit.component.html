@@ -1,144 +1,150 @@
 <!-- <input type="file" (change)="onFileChanged($event)" style="display:none;" #fileInput /> -->
+<app-loader (loading)="loading = $event"></app-loader>
 
-<app-popover>
-  <div body>
-    <form [formGroup]="recipeForm" *ngIf="recipeForm">
-      <input type="text" formControlName="title" class="form-control" placeholder="Recipe Title" />
-      <textarea type="text" formControlName="description" class="form-control"
-        placeholder="Recipe Description"></textarea>
+<ng-container *ngIf="!loading">
+  <app-popover>
+    <div body>
+      <form [formGroup]="recipeForm" *ngIf="recipeForm">
+        <input type="text" formControlName="title" class="form-control" placeholder="Recipe Title" />
+        <textarea type="text" formControlName="description" class="form-control"
+          placeholder="Recipe Description"></textarea>
 
-      <h4>Tags</h4>
-      <input type="text" [typeaheadOptionsLimit]="7" [typeahead]="tags" class="form-control" placeholder="Add Tag"
-        [(ngModel)]="selectedTag" typeaheadOptionField="name" [ngModelOptions]="{standalone: true}"
-        (typeaheadOnSelect)="onSelectTag($event)" />
+        <h4>Tags</h4>
+        <input type="text" [typeaheadOptionsLimit]="7" [typeahead]="tags" class="form-control" placeholder="Add Tag"
+          [(ngModel)]="selectedTag" typeaheadOptionField="name" [ngModelOptions]="{standalone: true}"
+          (typeaheadOnSelect)="onSelectTag($event)" />
 
-      <ng-container *ngFor="let item of selectedTagArray; let i = index">
-        <filter-pill [filter]="{name: item.name, id: item.id, index: i}" (close)="onRemoveTag($event)"></filter-pill>
-      </ng-container>
+        <ng-container *ngFor="let item of selectedTagArray; let i = index">
+          <filter-pill [filter]="{name: item.name, id: item.id, index: i}" (close)="onRemoveTag($event)"></filter-pill>
+        </ng-container>
 
 
-      <div class="d-flex section-heading align-items-center">
-        <h4>Ingredients</h4>
-        <button type="button" class="btn btn-light ml-2" (click)="addIngredientSection();">
-          Add Section
-        </button>
-      </div>
-      <div formArrayName="ingredient_sections">
-        <ng-container
-          *ngFor="let section of recipeForm.get('ingredient_sections')['controls']; let sectionIndex = index;"
-          [formGroupName]="sectionIndex">
-          <div class="d-flex  mt-2">
-            <div>
-              <button type="button" class="btn btn-light mr-2" (click)="removeSection(sectionIndex)">
-                <fa-icon icon="times"></fa-icon>
-              </button>
+        <div class="d-flex section-heading align-items-center">
+          <h4>Ingredients</h4>
+          <button type="button" class="btn btn-light ml-2" (click)="addIngredientSection();">
+            Add Section
+          </button>
+        </div>
+        <div formArrayName="ingredient_sections">
+          <ng-container
+            *ngFor="let section of recipeForm.get('ingredient_sections')['controls']; let sectionIndex = index;"
+            [formGroupName]="sectionIndex">
+            <div class="d-flex  mt-2">
+              <div>
+                <button type="button" class="btn btn-light mr-2" (click)="removeSection(sectionIndex)">
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+              <input type="text" formControlName="name" placeholder="Section Name" class="form-control">
             </div>
-            <input type="text" formControlName="name" placeholder="Section Name" class="form-control">
-          </div>
-          <div formArrayName="ingredients">
-            <ng-container *ngFor="let ingredient of section.get('ingredients')['controls']; let ingredientIndex = index"
-              [formGroupName]="ingredientIndex">
-              <div class="d-flex mt-2" style="margin-left: 25px;">
+            <div formArrayName="ingredients">
+              <ng-container
+                *ngFor="let ingredient of section.get('ingredients')['controls']; let ingredientIndex = index"
+                [formGroupName]="ingredientIndex">
+                <div class="d-flex mt-2" style="margin-left: 25px;">
 
-                <div>
-                  <button type="button" class="btn btn-light mr-2" (click)="removeIngredient(section, ingredientIndex)">
-                    <fa-icon icon="times"></fa-icon>
-                  </button>
-                </div>
-                <div>
-                  <button type="button" class="btn btn-light mr-2" (click)="switchIngredientToRecipe(ingredient)">
-                    <fa-icon icon="exchange-alt" class="switch-ingredient-type"></fa-icon>
-                  </button>
-                </div>
+                  <div>
+                    <button type="button" class="btn btn-light mr-2"
+                      (click)="removeIngredient(section, ingredientIndex)">
+                      <fa-icon icon="times"></fa-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button type="button" class="btn btn-light mr-2" (click)="switchIngredientToRecipe(ingredient)">
+                      <fa-icon icon="exchange-alt" class="switch-ingredient-type"></fa-icon>
+                    </button>
+                  </div>
 
-                <!-- recipe as ingredient input -->
-                <ng-container *ngIf="ingredient.get('is_recipe_as_ingredient').value; else ingredientInputFields">
-                  <div class="d-flex" style="width: 45%;">
-                    <input (typeaheadOnSelect)="onTypeAheadRecipe($event.item.id, section, ingredientIndex)"
-                      class="form-control" placeholder="recipe" [typeaheadOptionsLimit]="7" [typeahead]="recipes"
-                      typeaheadOptionField="title" formControlName="recipe_name">
-                    <!-- <input (keydown.enter)="addIngredient(section);" type="number" formControlName="quantity"
+                  <!-- recipe as ingredient input -->
+                  <ng-container *ngIf="ingredient.get('is_recipe_as_ingredient').value; else ingredientInputFields">
+                    <div class="d-flex" style="width: 45%;">
+                      <input (typeaheadOnSelect)="onTypeAheadRecipe($event.item.id, section, ingredientIndex)"
+                        class="form-control" placeholder="recipe" [typeaheadOptionsLimit]="7" [typeahead]="recipes"
+                        typeaheadOptionField="title" formControlName="recipe_name">
+                      <!-- <input (keydown.enter)="addIngredient(section);" type="number" formControlName="quantity"
                     placeholder="Quantity" class="form-control ml-2 recipe-quantity" />
                   <span class="ml-2 form-control recipe-ingredient-input" style="padding-left: .5rem;">portion<span
                       *ngIf="ingredient.get('quantity').value > 1">s</span></span> -->
-                  </div>
-                  <div class="flex-grow-1 notes-parent">
-                    <input type="text" formControlName="recipe_notes" placeholder="Recipe Notes"
-                      (keydown.enter)="addIngredient(section);" class="form-control ml-2" />
-                  </div>
-                </ng-container>
+                    </div>
+                    <div class="flex-grow-1 notes-parent">
+                      <input type="text" formControlName="recipe_notes" placeholder="Recipe Notes"
+                        (keydown.enter)="addIngredient(section);" class="form-control ml-2" />
+                    </div>
+                  </ng-container>
 
-                <!-- ingredient as ingredient input -->
-                <ng-template #ingredientInputFields>
-                  <div class="d-flex" style="width: 45%;">
-                    <input [typeaheadOptionsLimit]="7"
-                      (typeaheadOnSelect)="onTypeAheadIngredient($event.item.id, section, ingredientIndex)"
-                      (blur)="onBlurIngredient($event.target.value, section, ingredientIndex)" [typeahead]="ingredients"
-                      class="form-control" placeholder="ingredient" typeaheadOptionField="name"
-                      formControlName="ingredient_name" />
-                    <input *ngIf="checkIfIngredient(section, ingredientIndex)" (keydown.enter)="addIngredient(section);"
-                      type="number" formControlName="ingredient_quantity" placeholder="Quantity"
-                      class="form-control ml-2 quantity" />
-                    <select *ngIf="checkIfIngredient(section, ingredientIndex)" class="form-control ml-2"
-                      (keydown.enter)="addIngredient(section);" formControlName="unit_id">
-                      <option *ngFor="let unit of ingredient.get('unitList').value;" [ngValue]="unit.id">
-                        {{ unit.name }}</option>
-                    </select>
-                  </div>
-                  <div class="flex-grow-1 notes-parent"> <input *ngIf=" checkIfIngredient(section, ingredientIndex)"
-                      type="text" formControlName="ingredient_notes" placeholder="Notes"
-                      (keydown.enter)="addIngredient(section);" class="form-control ml-2" />
-                  </div>
-
-
-                </ng-template>
-
-              </div>
-
-            </ng-container>
-          </div>
+                  <!-- ingredient as ingredient input -->
+                  <ng-template #ingredientInputFields>
+                    <div class="d-flex" style="width: 45%;">
+                      <input [typeaheadOptionsLimit]="7"
+                        (typeaheadOnSelect)="onTypeAheadIngredient($event.item.id, section, ingredientIndex)"
+                        (blur)="onBlurIngredient($event.target.value, section, ingredientIndex)"
+                        [typeahead]="ingredients" class="form-control" placeholder="ingredient"
+                        typeaheadOptionField="name" formControlName="ingredient_name" />
+                      <input *ngIf="checkIfIngredient(section, ingredientIndex)"
+                        (keydown.enter)="addIngredient(section);" type="number" formControlName="ingredient_quantity"
+                        placeholder="Quantity" class="form-control ml-2 quantity" />
+                      <select *ngIf="checkIfIngredient(section, ingredientIndex)" class="form-control ml-2"
+                        (keydown.enter)="addIngredient(section);" formControlName="unit_id">
+                        <option *ngFor="let unit of ingredient.get('unitList').value;" [ngValue]="unit.id">
+                          {{ unit.name }}</option>
+                      </select>
+                    </div>
+                    <div class="flex-grow-1 notes-parent"> <input *ngIf=" checkIfIngredient(section, ingredientIndex)"
+                        type="text" formControlName="ingredient_notes" placeholder="Notes"
+                        (keydown.enter)="addIngredient(section);" class="form-control ml-2" />
+                    </div>
 
 
-          <button type="button" class="btn btn-light mt-2" (click)="addIngredient(section)" style="margin-left: 25px;">
-            Add
-          </button>
-        </ng-container>
-      </div>
+                  </ng-template>
+
+                </div>
+
+              </ng-container>
+            </div>
 
 
-      <div class="d-flex section-heading">
-        <h4>Steps</h4>
-      </div>
-      <ng-container formArrayName="steps" *ngFor="let steps of recipeForm.get('steps')['controls']; let i = index">
-        <div [formGroupName]="i" class="d-flex">
-          <div>
-            <button type="button" class="btn btn-light mr-2" (click)="removeStep(i)">
-              <fa-icon icon="times"></fa-icon>
+            <button type="button" class="btn btn-light mt-2" (click)="addIngredient(section)"
+              style="margin-left: 25px;">
+              Add
             </button>
-          </div>
-          <textarea type="text" formControlName="instruction" placeholder="Instructions"
-            class="form-control"></textarea>
+          </ng-container>
         </div>
-      </ng-container>
-      <button type="button" class="btn btn-light" (click)="addStep()">
-        Add
-      </button>
-
-      <h4>Image</h4>
-      <button type="button" class="btn btn-light" (click)="compressFile();">
-        <!-- <button type="button" class="btn btn-light" (click)="fileInput.click();"> -->
-        Select Image
-      </button>
-      <div *ngIf="uploadedImage" class="image recipe-section"
-        [ngStyle]="{ 'background-image': 'url(' + uploadedImage + ')' }"
-        style="height: 400px; width: 500px; background-position: center; background-size: cover;"></div>
 
 
+        <div class="d-flex section-heading">
+          <h4>Steps</h4>
+        </div>
+        <ng-container formArrayName="steps" *ngFor="let steps of recipeForm.get('steps')['controls']; let i = index">
+          <div [formGroupName]="i" class="d-flex">
+            <div>
+              <button type="button" class="btn btn-light mr-2" (click)="removeStep(i)">
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <textarea type="text" formControlName="instruction" placeholder="Instructions"
+              class="form-control"></textarea>
+          </div>
+        </ng-container>
+        <button type="button" class="btn btn-light" (click)="addStep()">
+          Add
+        </button>
 
-      <div>
-        <button type="button" class="btn btn-success" (click)="submit()">Submit</button>
-      </div>
+        <h4>Image</h4>
+        <button type="button" class="btn btn-light" (click)="compressFile();">
+          <!-- <button type="button" class="btn btn-light" (click)="fileInput.click();"> -->
+          Select Image
+        </button>
+        <div *ngIf="uploadedImage" class="image recipe-section"
+          [ngStyle]="{ 'background-image': 'url(' + uploadedImage + ')' }"
+          style="height: 400px; width: 500px; background-position: center; background-size: cover;"></div>
 
-    </form>
-  </div>
-</app-popover>
+
+
+        <div>
+          <button type="button" class="btn btn-success" (click)="submit()">Submit</button>
+        </div>
+
+      </form>
+    </div>
+  </app-popover>
+</ng-container>

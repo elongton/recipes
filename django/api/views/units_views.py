@@ -30,7 +30,6 @@ class UnitTypeList(generics.ListAPIView):
     serializer_class = UnitTypeSerializer
 
 
-
 class UnitTypeCreate(APIView):
     permission_classes = [permissions.AllowAny]
     def post(self, request, format=None):

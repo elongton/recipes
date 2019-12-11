@@ -24,7 +24,6 @@ export class AppService {
         })
     }
 
-
     getIngredients() {
         this.loading$.next(true);
         return this.http.get<any[]>(`api/ingredients/`).subscribe(result => {
@@ -48,19 +47,18 @@ export class AppService {
         return this.http.get<any[]>(`api/unit-types/`).subscribe(result => {
             this.loading$.next(false);
             this.unitTypes$.next(result);
-            // console.log("got unit types")
         })
     }
 
 
     getUserMeta() {
         return this.http.get(`api/user/`).subscribe(result => {
-            console.log(result)
+            // console.log(result)
         })
     }
     updateUserMeta() {
         return this.http.put(`api/user/`, { viewed_recipes: [1, 2, 3] }).subscribe(result => {
-            console.log(result)
+            // console.log(result)
         })
     }
 

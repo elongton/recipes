@@ -15,7 +15,7 @@ export class RecipeResolverService implements Resolve<any>{
     constructor(private store: Store<fromApp.AppState>, private actions$: Actions) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        // console.log('resolve triggered')
+        console.log('RECIPE resolve triggered')
         return this.store.select('recipes').pipe(
             take(1),
             map(recipes => {

@@ -10,7 +10,7 @@ import { AppService } from '../../app.service';
 export class UnitComponent implements OnInit {
   sidenav;
   modalRef: BsModalRef;
-  unitTypes: any
+  unitTypes: any = []
 
   //add unit
   unitTypeToAdd: { name: String, type: Number };
@@ -27,10 +27,11 @@ export class UnitComponent implements OnInit {
     private appService: AppService, ) { }
 
   ngOnInit() {
-    this.appService.getUnitTypes();
-    this.appService.unitTypes$.subscribe(result => {
-      this.unitTypes = result;
-    })
+    // this.appService.getUnitTypes();
+    // this.appService.unitTypes$.subscribe(result => {
+    //   console.log(result)
+    //   this.unitTypes = result;
+    // })
   }
 
   openModal(template: TemplateRef<any>) {
