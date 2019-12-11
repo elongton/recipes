@@ -42,6 +42,7 @@ import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { IngredientEffects } from './admin/ingredient/store/ingredient.effects';
 import { UnitEffects } from './admin/unit/store/unit.effects';
+import { GeneralEffects } from './store/general/general.effects';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { UnitEffects } from './admin/unit/store/unit.effects';
       RecipeEffects,
       TagEffects,
       IngredientEffects,
-      UnitEffects]),
+      UnitEffects,
+      GeneralEffects,]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production, }),
   ],
   providers: [

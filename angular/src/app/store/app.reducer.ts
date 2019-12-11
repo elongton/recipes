@@ -5,12 +5,14 @@ import * as fromRecipes from '../recipe/store/recipe.reducer';
 import * as fromTags from '../admin/tag/store/tag.reducer';
 import * as fromIngredients from '../admin/ingredient/store/ingredient.reducer';
 import * as fromUnits from '../admin/unit/store/unit.reducer';
+import * as fromGeneral from './general/general.reducer';
 
 export interface AppState {
     recipes: fromRecipes.State
     tags: fromTags.State
     ingredients: fromIngredients.State
     units: fromUnits.State
+    general: fromGeneral.State
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
@@ -18,4 +20,5 @@ export const appReducer: ActionReducerMap<AppState> = {
     tags: fromTags.tagReducer,
     ingredients: fromIngredients.ingredientReducer,
     units: fromUnits.unitReducer,
+    general: fromGeneral.generalReducer,
 }

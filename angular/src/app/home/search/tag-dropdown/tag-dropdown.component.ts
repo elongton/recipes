@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { RefDataService } from 'src/app/core/services/ref-data.service';
+import { RefDataService } from 'src/app/store/general/ref-data.service';
 
 @Component({
   selector: 'app-tag-dropdown',

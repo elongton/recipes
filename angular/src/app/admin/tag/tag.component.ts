@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AppService } from 'src/app/app.service';
-import { RefDataService } from 'src/app/core/services/ref-data.service';
+import { RefDataService } from 'src/app/store/general/ref-data.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
 import { Tag } from 'src/app/core/models/tag.model';

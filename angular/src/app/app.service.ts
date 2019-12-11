@@ -24,33 +24,6 @@ export class AppService {
         })
     }
 
-    getIngredients() {
-        this.loading$.next(true);
-        return this.http.get<any[]>(`api/ingredients/`).subscribe(result => {
-            this.ingredients$.next(result);
-            this.loading$.next(false);
-            // console.log("got ingredients");
-        });
-    }
-
-    getUnits() {
-        this.loading$.next(true);
-        return this.http.get<any[]>(`api/units/`).subscribe(result => {
-            this.units$.next(result)
-            this.loading$.next(false);
-            // console.log("got units")
-        })
-    }
-
-    getUnitTypes() {
-        this.loading$.next(true);
-        return this.http.get<any[]>(`api/unit-types/`).subscribe(result => {
-            this.loading$.next(false);
-            this.unitTypes$.next(result);
-        })
-    }
-
-
     getUserMeta() {
         return this.http.get(`api/user/`).subscribe(result => {
             // console.log(result)
@@ -61,6 +34,37 @@ export class AppService {
             // console.log(result)
         })
     }
+
+    // getIngredients() {
+    //     this.loading$.next(true);
+    //     return this.http.get<any[]>(`api/ingredients/`).subscribe(result => {
+    //         this.ingredients$.next(result);
+    //         this.loading$.next(false);
+    //         // console.log("got ingredients");
+    //     });
+    // }
+
+
+
+    // getUnits() {
+    //     this.loading$.next(true);
+    //     return this.http.get<any[]>(`api/units/`).subscribe(result => {
+    //         this.units$.next(result)
+    //         this.loading$.next(false);
+    //         // console.log("got units")
+    //     })
+    // }
+
+    // getUnitTypes() {
+    //     this.loading$.next(true);
+    //     return this.http.get<any[]>(`api/unit-types/`).subscribe(result => {
+    //         this.loading$.next(false);
+    //         this.unitTypes$.next(result);
+    //     })
+    // }
+
+
+
 
 
 }

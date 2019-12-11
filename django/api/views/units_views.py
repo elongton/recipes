@@ -27,7 +27,7 @@ class UnitDetail(generics.RetrieveUpdateDestroyAPIView):
 class UnitTypeList(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = UnitType.objects.all()
-    serializer_class = UnitTypeSerializer
+    serializer_class = UnitTypeCreateSerializer
 
 
 class UnitTypeCreate(APIView):
