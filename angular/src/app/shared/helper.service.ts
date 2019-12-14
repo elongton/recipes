@@ -10,7 +10,6 @@ export class HelperService {
 
     filterRecipes(arrayToBeFiltered, ingredientFilterArray, tagFilterArray) {
         ingredientFilterArray.forEach(ingredientFilter => {
-            // console.log(ingredientFilter)
             arrayToBeFiltered = arrayToBeFiltered.filter(recipeItem => {
                 return this.checkIfIngredient(recipeItem, ingredientFilter.id)
             })

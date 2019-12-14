@@ -30,7 +30,8 @@ const routes: Routes = [
   {
     path: "recipe/view/:recipeId",
     component: RecipeDetailComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    resolve: [RecipeResolverService, IngredientResolverService, TagResolverService]
   },
   { path: "shopping-list", component: ShoppingListComponent },
   { path: "recipe-book", component: RecipeBookComponent },
@@ -53,6 +54,7 @@ const routes: Routes = [
     path: "recipe/new",
     component: RecipeEditComponent,
     canActivate: [AuthGuard],
+    resolve: [RecipeResolverService, IngredientResolverService, TagResolverService]
   },
 ];
 

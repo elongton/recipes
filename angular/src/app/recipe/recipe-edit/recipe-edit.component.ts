@@ -46,7 +46,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private recipeService: RecipeService,
-    private appService: AppService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private modalService: BsModalService,
@@ -54,6 +53,31 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
     private helpers: HelperService,
     private store: Store<fromApp.AppState>
   ) { }
+
+
+  ngOnInit() {
+    this.buildForm();
+    this.subscription = this.route.params.pipe(map(params => {
+      return +params['recipeId'];
+    }), switchMap(id => {
+      this.recipeId = id;
+      return this.store.select('recipes')
+    }), switchMap(recipes => {
+      this.recipes = recipes.recipes;
+      return this.store.select('ingredients')
+    }), switchMap(ingredients => {
+      this.ingredients = ingredients.ingredients;
+      return this.store.select('tags')
+    })).subscribe(tags => {
+      this.tags = tags.tags;
+      if (!this.populated
+        && this.recipeId
+        && this.recipes.length > 0
+        && this.ingredients.length > 0
+        && this.tags.length > 0) this.populateForm(this.recipeId)
+    });
+
+  }
 
   ngAfterViewInit() {
     this.recipeService.elementToFocus$.subscribe((val: any) => {
@@ -69,56 +93,9 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
     //   this.cdr.detectChanges();
     // })
   }
-  ngOnInit() {
-    this.buildForm();
-    this.subscription = this.route.params.pipe(map(params => {
-      return +params['recipeId'];
-    }), switchMap(id => {
-      this.recipeId = id;
-      return this.store.select('recipes')
-    }), switchMap(recipes => {
-      console.log('recipes')
-      this.recipes = recipes.recipes;
-      return this.store.select('ingredients')
-    }), switchMap(ingredients => {
-      console.log('ingredients')
-      this.ingredients = ingredients.ingredients;
-      return this.store.select('tags')
-    })
-    ).subscribe(tags => {
-      console.log('tags')
-      this.tags = tags.tags;
-      if (this.recipes.length > 0 && this.tags.length > 0 && this.ingredients.length > 0) {
-        this.populateForm(this.recipeId);
-      }
-    });
 
-    // let recipeId = this.route.snapshot.paramMap.get("recipeId");
-    // this.buildForm();
-    // if (!recipeId) {
-    //   this.addIngredientSection('General');
-    // }
-    // this.appService.getTags();
-    // this.appService.tags$.subscribe((tags) => {
-    //   this.tags = tags;
-    // });
-    // this.appService.recipes$.subscribe(recipes => {  //for loading directly from URL (recipes must be loaded first)
-    //   this.recipes = recipes
-    //   this.appService.ingredients$.subscribe((ingredients) => {
-    //     this.ingredients = ingredients;
-
-    //     // console.log(this.tags)
-    //     if (recipeId && this.populated == false && this.ingredients.length > 0) {
-    //       this.populateForm(recipeId);
-    //     }
-    //   })
-
-    // })
-  }
   populateForm(recipeId) {
-    // let currentrecipes = this.appService.recipes$.getValue();
     this.recipeToEdit = this.recipes.find(r => r.id == Number(recipeId))
-    console.log(this.recipes)
     this.selectedTagArray = this.recipeToEdit.tags;
     if (this.recipeToEdit) {
       this.recipeToEdit.ingredient_sections.forEach(section => {
@@ -127,10 +104,9 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
           this.addIngredient(tempSection);
         });
       });
-      this.recipeToEdit.steps.forEach(element => {
+      this.recipeToEdit.steps.forEach(() => {
         this.addStep();
       });
-      // try {
       let sections = this.recipeForm.get("ingredient_sections") as FormArray
       for (let i = 0; i < sections.length; i++) {
         let ingredients = sections.at(i).get("ingredients") as FormArray

@@ -33,7 +33,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   filterTagArray = []
   tagDropdown: boolean = false;
   sidenav: Boolean = false;
-  tagCategories;
   imageUrl: string = environment.url;
 
   private subscription: Subscription;
@@ -47,15 +46,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    // this.ref.lookup$.subscribe(() => {
-    //   this.tagCategories = this.ref.get('tag_category').refArray;
-    // })
-
-    // this.appService.getTags();
     this.typeAheadQueryList = [];
     let that = this;
     this.subscription = this.store.select('recipes').pipe(switchMap(recipes => {
-      this.filteredRecipes = recipes.recipes;
+      this.recipes = recipes.recipes;
+      this.filteredRecipes = this.recipes;
       this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Ingredient" })
       this.filteredRecipes.forEach(e => {
         that.typeAheadQueryList.push({ name: e.title, id: e.id, type: "Recipe" });

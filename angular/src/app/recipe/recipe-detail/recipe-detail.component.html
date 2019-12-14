@@ -1,4 +1,6 @@
-<ng-container *ngIf="recipe">
+<app-loader (loading)="loading = $event"></app-loader>
+
+<ng-container *ngIf="!loading">
   <app-recipe-card>
     <div header>
       <h1>{{ recipe.title }}</h1>

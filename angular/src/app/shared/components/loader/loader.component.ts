@@ -18,6 +18,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
   tagsLoading: Boolean;
   recipesLoading: Boolean;
   ingredientsLoading: Boolean;
+  generalLoading: Boolean;
 
   constructor(private store: Store<fromApp.AppState>, ) { }
 
@@ -29,11 +30,19 @@ export class LoaderComponent implements OnInit, OnDestroy {
       }),
       switchMap(recipes => {
         this.recipesLoading = recipes.loading;
+        return this.store.select('general')
+      }),
+      switchMap(general => {
+        this.generalLoading = general.loading;
         return this.store.select('tags')
       })
     ).subscribe(tags => {
       this.tagsLoading = tags.loading;
-      this.loading = this.tagsLoading || this.ingredientsLoading || this.recipesLoading;
+      this.loading
+        = this.tagsLoading
+        || this.ingredientsLoading
+        || this.recipesLoading
+        || this.generalLoading;
       this.loadingEmit.emit(this.loading)
     })
 
