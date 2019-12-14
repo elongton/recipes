@@ -18,6 +18,7 @@ export class AuthService {
     loginGoogle() {
         this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
             .then(res => {
+                console.log(res)
                 this.router.navigate(['/']);
             }, err => {
                 console.log(err);

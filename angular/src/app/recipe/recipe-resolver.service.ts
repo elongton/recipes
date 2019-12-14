@@ -15,11 +15,11 @@ export class RecipeResolverService implements Resolve<any>{
     constructor(private store: Store<fromApp.AppState>, private actions$: Actions) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        console.log('RECIPE resolve triggered')
+        // console.log('RECIPE resolve triggered')
         return this.store.select('recipes').pipe(
             take(1),
             map(recipes => {
-                console.log('resolve triggered')
+                // console.log('resolve triggered')
                 if (recipes.recipes.length == 0) { this.store.dispatch(new RecipeActions.BeginRetrieveRecipes) }
                 return this.actions$.pipe(ofType(RecipeActions.BEGIN_RETRIEVE_RECIPES), take(1));
             }));

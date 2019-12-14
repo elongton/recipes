@@ -74,7 +74,14 @@ import { GeneralEffects } from './store/general/general.effects';
     SharedModule,
     TypeaheadModule.forRoot(),
     ModalModule.forRoot(),
-    StoreModule.forRoot(fromApp.appReducer),
+    StoreModule.forRoot(fromApp.appReducer, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+      },
+    }),
     EffectsModule.forRoot([
       RecipeEffects,
       TagEffects,
