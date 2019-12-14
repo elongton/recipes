@@ -17,7 +17,7 @@ export class GeneralResolverService implements Resolve<any>{
         return this.store.select('general').pipe(
             take(1),
             map(general => {
-                if (general.refData.length == 0) { this.store.dispatch(new GeneralActions.BeginRetrieveRefdata) }
+                if (general.tagCategories.length == 0) { this.store.dispatch(new GeneralActions.BeginRetrieveRefdata) }
                 return this.actions$.pipe(ofType(GeneralActions.BEGIN_RETRIEVE_REFDATA), take(1));
             }));
     }

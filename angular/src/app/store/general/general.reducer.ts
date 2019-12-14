@@ -1,12 +1,12 @@
 import * as GeneralActions from './general.actions';
 
 export type State = {
-    refData: any,
+    tagCategories: any,
     loading: Boolean,
 }
 
 const initialState = {
-    refData: [],
+    tagCategories: [],
     loading: false,
 
 }
@@ -22,8 +22,8 @@ export function generalReducer(state = initialState, action: GeneralActions.Gene
         case GeneralActions.SUCCESS_RETRIEVE_REFDATA:
             return {
                 ...state,
-                refData: [...action.payload],
-                loading: true,
+                tagCategories: get('tag_category', [...action.payload]),
+                loading: false,
             }
 
         default:
@@ -31,4 +31,18 @@ export function generalReducer(state = initialState, action: GeneralActions.Gene
 
     }
 
+}
+
+function get(fieldName: string, refData: any) {
+    let filteredData = []
+    let refObject = {}
+    try {
+        filteredData = refData.filter(item => item['reference_type'] === fieldName)
+        filteredData.forEach(row => {
+            refObject[row.key] = row.value
+        })
+    } catch (e) {
+        console.error(e)
+    }
+    return { refObject: refObject, refArray: filteredData }
 }

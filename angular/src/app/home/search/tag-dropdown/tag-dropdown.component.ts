@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { RefDataService } from 'src/app/store/general/ref-data.service';
+
+import * as fromApp from '../../../store/app.reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-tag-dropdown',
@@ -8,10 +10,8 @@ import { RefDataService } from 'src/app/store/general/ref-data.service';
 })
 export class TagDropdownComponent implements OnInit {
 
-  @Input('tagCategories') tagCategories: any;
-  @Input('tags') tags: any;
   @Output('tag') tag = new EventEmitter();
-  constructor(private ref: RefDataService) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
   }

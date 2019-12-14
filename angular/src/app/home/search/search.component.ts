@@ -5,7 +5,6 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { RecipeService } from 'src/app/recipe/recipe.service';
-import { RefDataService } from 'src/app/store/general/ref-data.service';
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
@@ -45,13 +44,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     private router: Router,
     private helpers: HelperService,
     public authService: AuthService,
-    private ref: RefDataService,
     private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    this.ref.lookup$.subscribe(() => {
-      this.tagCategories = this.ref.get('tag_category').refArray;
-    })
+    // this.ref.lookup$.subscribe(() => {
+    //   this.tagCategories = this.ref.get('tag_category').refArray;
+    // })
 
     // this.appService.getTags();
     this.typeAheadQueryList = [];

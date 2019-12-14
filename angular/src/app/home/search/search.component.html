@@ -11,9 +11,7 @@
                 </div>
             </div>
             <div style="position: relative;">
-                <app-tag-dropdown (tag)="addTagToFilter($event)" *ngIf="tagDropdown" [tagCategories]="tagCategories"
-                    [tags]="appService.tags$ | async">
-                </app-tag-dropdown>
+                <app-tag-dropdown (tag)="addTagToFilter($event)" *ngIf="tagDropdown"></app-tag-dropdown>
             </div>
         </div>
 

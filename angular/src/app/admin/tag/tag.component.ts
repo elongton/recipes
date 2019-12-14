@@ -1,6 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AppService } from 'src/app/app.service';
-import { RefDataService } from 'src/app/store/general/ref-data.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
 import { Tag } from 'src/app/core/models/tag.model';
@@ -24,27 +23,19 @@ export class TagComponent implements OnInit {
 
 
   constructor(
-    private appService: AppService,
     private modalService: BsModalService,
-    private ref: RefDataService,
-    private http: HttpClient,
     private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    // this.appService.getTags();
-    this.ref.lookup$.pipe(
-      switchMap(() => {
-        this.tagCategories = [];
-        return this.store.select('tags')
-      })).subscribe(tags => {
-        this.tags = tags.tags
+    this.store.select('tags').pipe(
+      switchMap(tags => {
+        this.tags = tags.tags;
+        return this.store.select('general')
+      })).subscribe(general => {
+        this.tagCategories = general.tagCategories.refObject;
       })
-
-
-    // subscribe(() => {
-    //   this.tagCategories = this.ref.get('tag_category');
-    // })
   }
+
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);

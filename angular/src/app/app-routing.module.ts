@@ -25,7 +25,7 @@ const routes: Routes = [
     path: "",
     component: HomeComponent,
     canActivate: [AuthGuard],
-    resolve: [RecipeResolverService, IngredientResolverService, GeneralResolverService]
+    resolve: [RecipeResolverService, IngredientResolverService, GeneralResolverService, TagResolverService]
   },
   {
     path: "recipe/view/:recipeId",

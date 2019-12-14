@@ -6,6 +6,7 @@ import { TagComponent } from './tag/tag.component';
 import { TagResolverService } from './tag/tag-resolver.service'
 import { IngredientResolverService } from './ingredient/ingredient-resolver.service';
 import { UnitResolverService } from './unit/unit-resolver.service';
+import { GeneralResolverService } from '../store/general/general-resolver.service';
 
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
     {
         path: "tags",
         component: TagComponent,
-        resolve: [TagResolverService]
+        resolve: [TagResolverService, GeneralResolverService]
     },
     // catch all - redirect to home
     { path: '**', redirectTo: '/' }
