@@ -25,7 +25,7 @@
             <div class="d-flex flex-grow-1">
                 <label for="name" style="min-width: 100px;">Unit Type(s)</label>
                 <select class="form-control flex-grow-1" formControlName="unit_types" multiple>
-                    <option *ngFor="let unitType of unitTypes$ | async;" [ngValue]="unitType.id">
+                    <option *ngFor="let unitType of (units$ | async).types;" [ngValue]="unitType.id">
                         {{ unitType.name }}</option>
                 </select>
             </div>

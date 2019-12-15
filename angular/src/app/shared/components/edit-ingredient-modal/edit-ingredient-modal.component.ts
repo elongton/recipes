@@ -17,6 +17,7 @@ export class EditIngredientModalComponent implements OnInit, AfterViewInit {
   @ViewChildren('name') childChildren: QueryList<ElementRef>;
   ingredientForm: FormGroup;
   general$ = this.store.select('general');
+  units$ = this.store.select('units')
   ingredientIndex: number;
   section: any;
   newIngredientName: string;

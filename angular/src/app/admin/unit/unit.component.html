@@ -1,11 +1,6 @@
-<ng-template #loading>
-    <div class="loader">
-        <fa-icon icon=cog></fa-icon>
-    </div>
-</ng-template>
+<app-loader (loading)="loading = $event"></app-loader>
 
-
-<ng-container *ngIf="(appService.loading$ | async) == false; else loading">
+<ng-container *ngIf="!loading">
     <div class="sticky pb-2" style="z-index: 1; background-color: white; ">
         <div class="d-flex justify-content-between">
             <div class="d-flex align-items-center">

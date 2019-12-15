@@ -13,7 +13,7 @@ const routes: Routes = [
     {
         path: "ingredients",
         component: IngredientComponent,
-        resolve: [IngredientResolverService]
+        resolve: [IngredientResolverService, UnitResolverService]
     },
     {
         path: "units",
