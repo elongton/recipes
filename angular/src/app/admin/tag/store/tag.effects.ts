@@ -23,6 +23,34 @@ export class TagEffects {
         })
     )
 
+    @Effect()
+    createTag = this.actions$.pipe(
+        ofType(TagActions.BEGIN_CREATE_TAG),
+        switchMap((action: TagActions.BeginCreateTag) => {
+            return this.http.post<Tag>(`/api/tags/`, action.payload)
+        }),
+        map((tag: Tag) => {
+            return new TagActions.SuccessCreateTag(tag);
+        }),
+        catchError((error: Error) => {
+            return of(new TagActions.TagHTTPError(error));
+        })
+    )
+
+    @Effect()
+    deleteTag = this.actions$.pipe(
+        ofType(TagActions.BEGIN_DELETE_TAG),
+        switchMap((action: TagActions.BeginDeleteTag) => {
+            return this.http.delete(`/api/tags/${action.payload}`)
+        }),
+        map(() => {
+            return new TagActions.SuccessDeleteTag(1);
+        }),
+        catchError((error: Error) => {
+            return of(new TagActions.TagHTTPError(error));
+        })
+    )
+
 
 
     constructor(private actions$: Actions, private http: HttpClient) { }

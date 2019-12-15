@@ -1,4 +1,5 @@
 export class Tag {
-    name: String = '';
-    id: Number = null;
+    name: string = '';
+    tag_type: string = '';
+    id?: Number;
 }

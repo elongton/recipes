@@ -37,6 +37,9 @@ export function authReducer(state = initialState, action: UserActions.UserAction
                 }
 
             }
+        case UserActions.USER_HTTP_ERROR:
+            console.log(action.payload)
+            return state;
 
 
         default:

@@ -16,7 +16,7 @@ export class UserEffects {
             return this.http.get(`api/user/`);
         }),
         map(meta => {
-            console.log(meta)
+            // console.log(meta)
             return new UserActions.SuccessRetrieveMeta(meta);
         }),
         catchError((error: Error) => {
@@ -31,9 +31,9 @@ export class UserEffects {
         switchMap(([actionData, user]) => {
             return this.http.put(`api/user/`, user.meta)
         }),
-        // catchError((error: Error) => {
-        //     return of(new UserActions.UserHTTPError(error));
-        // })
+        catchError((error: Error) => {
+            return of(new UserActions.UserHTTPError(error));
+        })
     );
 
 

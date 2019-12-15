@@ -47,6 +47,10 @@ export function ingredientReducer(state = initialState, action: IngredientAction
         case IngredientActions.SUCCESS_DELETE_INGREDIENT:
             return state;
 
+        case IngredientActions.INGREDIENT_HTTP_ERROR:
+            console.log(action.payload)
+            return state;
+
 
         default:
             return state;

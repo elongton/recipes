@@ -5,11 +5,13 @@ import { Tag } from 'src/app/core/models/tag.model';
 export interface State {
     tags: Tag[];
     loading: Boolean;
+    submitting: Boolean;
 }
 
 const initialState: State = {
     tags: [],
     loading: false,
+    submitting: false,
 }
 
 
@@ -19,7 +21,7 @@ export function tagReducer(state = initialState, action: TagActions.TagActions) 
         case TagActions.BEGIN_CREATE_TAG:
             return {
                 ...state,
-                loading: true,
+                submitting: true,
             };
         case TagActions.BEGIN_RETRIEVE_TAGS:
             return {
@@ -29,7 +31,7 @@ export function tagReducer(state = initialState, action: TagActions.TagActions) 
         case TagActions.BEGIN_DELETE_TAG:
             return {
                 ...state,
-                loading: true,
+                submitting: true,
             };
 
 
@@ -37,7 +39,7 @@ export function tagReducer(state = initialState, action: TagActions.TagActions) 
             return {
                 ...state,
                 tags: [...state.tags, action.payload],
-                loading: false,
+                submitting: false,
             };
         case TagActions.SUCCESS_RETRIEVE_TAGS:
             return {
@@ -51,7 +53,7 @@ export function tagReducer(state = initialState, action: TagActions.TagActions) 
                 tags: state.tags.filter(tag => {
                     tag.id != action.payload;
                 }),
-                loading: false,
+                submitting: false,
             };
         default:
             return state;

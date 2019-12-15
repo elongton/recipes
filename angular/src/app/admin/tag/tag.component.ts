@@ -7,6 +7,7 @@ import { switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from '../../store/app.reducer'
+import * as TagActions from './store/tag.actions';
 
 @Component({
   selector: 'app-tag',
@@ -32,7 +33,7 @@ export class TagComponent implements OnInit {
         this.tags = tags.tags;
         return this.store.select('general')
       })).subscribe(general => {
-        this.tagCategories = general.tagCategories.refObject;
+        this.tagCategories = general.tagCategories;
       })
   }
 
@@ -41,26 +42,23 @@ export class TagComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  // createTag() {
-  //   let tag = {
-  //     name: this.newTag,
-  //     tag_type: this.newTagType,
-  //   }
-  //   this.http.post(`/api/tags/`, tag).subscribe(result => {
-  //     let currentTags = this.appService.tags$.getValue()
-  //     currentTags.push(result);
-  //     this.appService.tags$.next(currentTags)
-  //     this.modalRef.hide();
-  //   })
-  // }
+  createTag() {
+    let tag: Tag = {
+      name: this.newTag,
+      tag_type: this.newTagType,
+    }
+    this.store.dispatch(new TagActions.BeginCreateTag(tag))
+    this.modalRef.hide();
+  }
 
 
-  // deleteTag(id) {
-  //   this.http.delete(`/api/tags/${id}`).subscribe(result => {
-  //     this.appService.tags$.next(
-  //       this.appService.tags$.getValue().filter(ing => ing.id !== id)
-  //     );
-  //   })
-  // }
+  deleteTag(id) {
+    this.store.dispatch(new TagActions.BeginDeleteTag(id));
+    // this.http.delete(`/api/tags/${id}`).subscribe(result => {
+    //   this.appService.tags$.next(
+    //     this.appService.tags$.getValue().filter(ing => ing.id !== id)
+    //   );
+    // })
+  }
 
 }

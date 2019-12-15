@@ -17,7 +17,10 @@ export class AuthService {
     loginGoogle() {
         this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
             .then(() => {
-                this.ngZone.run(() => this.router.navigate(['/']));
+                setTimeout(() => {
+                    this.ngZone.run(() => this.router.navigate(['/']));
+
+                }, 50)//TODO: something going on here
             }, err => {
                 console.log(err);
             });
