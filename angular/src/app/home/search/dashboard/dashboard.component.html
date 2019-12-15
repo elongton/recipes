@@ -6,3 +6,8 @@
 </section>
 
 <h3>Featured Recipes</h3>
+<section style="display: flex; flex-wrap: wrap; margin-top: 10px;">
+    <div *ngFor="let recipe of allRecipes" class="recipe-wrapper">
+        <recipe-circle [recipe]="recipe"></recipe-circle>
+    </div>
+</section>
