@@ -1,3 +1,14 @@
 h3{
     font-family: Pacifico;
 }
+
+$image_size: 150px;
+$image_wrapper_width: $image_size + 20px;
+.recipe-wrapper{
+    width: $image_wrapper_width;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align:center;
+}

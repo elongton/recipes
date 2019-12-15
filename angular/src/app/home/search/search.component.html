@@ -38,14 +38,7 @@
         <ng-container *ngIf="filteredRecipes.length > 0; else noRecipes">
             <section style="display: flex; flex-wrap: wrap;">
                 <div *ngFor="let recipe of filteredRecipes" class="recipe-wrapper">
-                    <div class="recipe-image" [ngStyle]="{
-                    'background-image': 'url(' + imageUrl + recipe.image + ')'
-                  }" (click)="recipeService.nagivateToRecipe(recipe.id)">
-                        <div class="recipe-image-overlay">
-                            <fa-icon class="recipe-image-icon" icon=share></fa-icon>
-                        </div>
-                    </div>
-                    {{recipe.title}}
+                    <recipe-circle [recipe]="recipe"></recipe-circle>
                 </div>
 
             </section>

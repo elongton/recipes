@@ -47,6 +47,7 @@ import { IngredientEffects } from './admin/ingredient/store/ingredient.effects';
 import { UnitEffects } from './admin/unit/store/unit.effects';
 import { GeneralEffects } from './store/general/general.effects';
 import { UserEffects } from './user/store/user.effects';
+import { RecipeCircleComponent } from './home/search/recipe-circle/recipe-circle.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { UserEffects } from './user/store/user.effects';
     DashboardComponent,
     TagDropdownComponent,
     TagComponent,
+    RecipeCircleComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase, 'recipes'),

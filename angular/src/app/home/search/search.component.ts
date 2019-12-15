@@ -4,8 +4,7 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
-import { RecipeService } from 'src/app/recipe/recipe.service';
-import { environment } from 'src/environments/environment';
+
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import { map, switchMap } from 'rxjs/operators';
@@ -33,12 +32,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   filterTagArray = []
   tagDropdown: boolean = false;
   sidenav: Boolean = false;
-  imageUrl: string = environment.url;
 
   private subscription: Subscription;
 
   constructor(
-    public recipeService: RecipeService,
     public appService: AppService,
     private router: Router,
     private helpers: HelperService,
