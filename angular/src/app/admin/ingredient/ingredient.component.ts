@@ -1,14 +1,12 @@
 import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { IngredientService } from './ingredient.service'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { AppService } from '../../app.service';
 import { EditIngredientModalComponent } from '../../shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer'
 import { Subscription } from 'rxjs';
 import { Ingredient } from 'src/app/core/models/ingredient.model';
-import { switchMap } from 'rxjs/operators';
-import * as GeneralActions from '../../store/general/general.actions'
+import { tap } from 'rxjs/operators';
 @Component({
   selector: 'app-ingredient',
   templateUrl: './ingredient.component.html',
@@ -30,11 +28,9 @@ export class IngredientComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.store.dispatch(new GeneralActions.BeginRetrieveStoreSections());
-    this.subscription = this.store.select('ingredients').pipe(switchMap(
+    this.subscription = this.store.select('ingredients').pipe(tap(
       (ingredients) => {
         this.ingredients = ingredients.ingredients;
-        return this.store.select('general')
       })
     ).subscribe();
   }

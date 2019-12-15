@@ -54,6 +54,7 @@ export class EditIngredientModalComponent implements OnInit, AfterViewInit {
   }
 
   onSubmitIngredient() {
+    console.log(this.ingredientForm.value)
     // this.ingredientService.createIngredient(this.ingredientForm.value).subscribe(result => {
     //   this.bsModalRef.hide()
     //   this.recipeService.elementToFocus$.next({ ingredientIndex: this.ingredientIndex, section: this.section, ingredientName: this.ingredientForm.value.name })

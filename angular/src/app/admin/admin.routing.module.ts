@@ -6,14 +6,15 @@ import { TagComponent } from './tag/tag.component';
 import { TagResolverService } from './tag/tag-resolver.service'
 import { IngredientResolverService } from './ingredient/ingredient-resolver.service';
 import { UnitResolverService } from './unit/unit-resolver.service';
-import { GeneralResolverService } from '../store/general/general-resolver.service';
+import { RefResolverService } from '../store/general/ref-resolver.service';
+import { StoreSectionResolverService } from '../store/general/store-section-resolver.service';
 
 
 const routes: Routes = [
     {
         path: "ingredients",
         component: IngredientComponent,
-        resolve: [IngredientResolverService, UnitResolverService]
+        resolve: [IngredientResolverService, UnitResolverService, StoreSectionResolverService]
     },
     {
         path: "units",
@@ -23,7 +24,7 @@ const routes: Routes = [
     {
         path: "tags",
         component: TagComponent,
-        resolve: [TagResolverService, GeneralResolverService]
+        resolve: [TagResolverService, RefResolverService]
     },
     // catch all - redirect to home
     { path: '**', redirectTo: '/' }

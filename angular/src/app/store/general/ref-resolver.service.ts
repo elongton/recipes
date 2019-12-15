@@ -9,7 +9,7 @@ import { take, map, switchMap, tap } from "rxjs/operators";
 import * as GeneralActions from './general.actions';
 
 @Injectable({ providedIn: 'root' })
-export class GeneralResolverService implements Resolve<any>{
+export class RefResolverService implements Resolve<any>{
 
     constructor(private store: Store<fromApp.AppState>, private actions$: Actions) { }
 

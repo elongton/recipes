@@ -13,7 +13,7 @@ import { MealPlannerComponent } from './meal-planner/meal-planner.component';
 import { RecipeResolverService } from './recipe/recipe-resolver.service';
 import { IngredientResolverService } from './admin/ingredient/ingredient-resolver.service';
 import { TagResolverService } from './admin/tag/tag-resolver.service';
-import { GeneralResolverService } from './store/general/general-resolver.service';
+import { RefResolverService } from './store/general/ref-resolver.service';
 import { UserResolverService } from './user/user-resolver.service'
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
@@ -27,7 +27,7 @@ const routes: Routes = [
     resolve: [
       RecipeResolverService,
       IngredientResolverService,
-      GeneralResolverService,
+      RefResolverService,
       TagResolverService,
       UserResolverService]
   },
