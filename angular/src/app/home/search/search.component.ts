@@ -80,10 +80,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   //probably needs to go into service...
-  onAddRemoveToShoppingList(recipe: Recipe) {
-    recipe.shoppingListItem = !recipe.shoppingListItem
-    this.recipeService.updateRecipeSubject(recipe)
-  }
+
+  // onAddRemoveToShoppingList(recipe: Recipe) {
+  //   recipe.shoppingListItem = !recipe.shoppingListItem
+  //   this.recipeService.updateRecipeSubject(recipe)
+  // }
 
   selectedCount() {
     return this.recipes.filter(e => { return e.shoppingListItem == true }).length

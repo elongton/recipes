@@ -20,9 +20,6 @@ export class IngredientComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   ingredients: Ingredient[]
-
-
-  unitTypes$ = this.appService.unitTypes$;
   storeSections$ = this.appService.storeSections$;
   constructor(
     public ingredientService: IngredientService,

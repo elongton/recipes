@@ -40,11 +40,13 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     }), switchMap(id => {
       this.recipeId = id;
       return this.store.select('recipes')
-    }), switchMap((recipes) => {
-      this.recipes = recipes.recipes;
-      this.recipe = recipes.recipes.find(recipe => { return recipe.id === this.recipeId })
-      return this.appService.units$;
-    })).subscribe(units => { this.units = units });
+    })).subscribe(
+      (recipes) => {
+        this.recipes = recipes.recipes;
+        this.recipe = recipes.recipes.find(recipe => { return recipe.id === this.recipeId })
+      }
+    )
+
 
     // let recipeId = this.route.snapshot.paramMap.get("recipeId");
     // this.recipeSubscription = this.appService.recipes$.subscribe(result => {

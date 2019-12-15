@@ -68,27 +68,27 @@ export class RecipeService {
   //   return this.http.get<Recipe>(`api/recipes/${recipeId}`);
   // }
 
-  addRecipeToSubjectAndNavigate(result, update?: boolean) {
-    let currentRecipeList = this.appService.recipes$.getValue();
-    console.log(result)
-    if (result.image) result.image = this.helperService.replaceImageUrl(result)
-    console.log(result)
-    if (update) {
-      let updatedRecipeId = currentRecipeList.findIndex(r => { return r.id === result.id })
-      currentRecipeList[updatedRecipeId] = result;
-    } else {
-      currentRecipeList.push(result);
-    }
-    this.appService.recipes$.next(currentRecipeList);
-    this.nagivateToRecipe(result.id);
-  }
+  // addRecipeToSubjectAndNavigate(result, update?: boolean) {
+  //   let currentRecipeList = this.appService.recipes$.getValue();
+  //   console.log(result)
+  //   if (result.image) result.image = this.helperService.replaceImageUrl(result)
+  //   console.log(result)
+  //   if (update) {
+  //     let updatedRecipeId = currentRecipeList.findIndex(r => { return r.id === result.id })
+  //     currentRecipeList[updatedRecipeId] = result;
+  //   } else {
+  //     currentRecipeList.push(result);
+  //   }
+  //   this.appService.recipes$.next(currentRecipeList);
+  //   this.nagivateToRecipe(result.id);
+  // }
 
-  updateRecipeSubject(recipe: Recipe) {
-    let currentRecipeList = this.appService.recipes$.getValue();
-    let updatedRecipeId = currentRecipeList.findIndex(r => { return r.id === recipe.id })
-    currentRecipeList[updatedRecipeId] = recipe;
-    this.appService.recipes$.next(currentRecipeList);
-  }
+  // updateRecipeSubject(recipe: Recipe) {
+  //   let currentRecipeList = this.appService.recipes$.getValue();
+  //   let updatedRecipeId = currentRecipeList.findIndex(r => { return r.id === recipe.id })
+  //   currentRecipeList[updatedRecipeId] = recipe;
+  //   this.appService.recipes$.next(currentRecipeList);
+  // }
 
 
   public nagivateToRecipe(id) {

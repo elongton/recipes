@@ -14,8 +14,8 @@ export class EditIngredientModalComponent implements OnInit, AfterViewInit {
   @ViewChildren('name') childChildren: QueryList<ElementRef>;
   ingredientForm: FormGroup;
 
-  ingredients$ = this.appService.ingredients$;
-  unitTypes$ = this.appService.unitTypes$;
+  // ingredients$ = this.appService.ingredients$;
+  // unitTypes$ = this.appService.unitTypes$;
   storeSections$ = this.appService.storeSections$;
   ingredientIndex: number;
   section: any;

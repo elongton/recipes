@@ -17,9 +17,9 @@ export class IngredientService {
     deleteIngredient(ingredient) {
         return this.http.delete(`/api/ingredients/${ingredient.id}`).subscribe(result => {
             console.log(result)
-            this.appService.ingredients$.next(
-                this.appService.ingredients$.getValue().filter(ing => ing.id !== ingredient.id)
-            );
+            // this.appService.ingredients$.next(
+            //     this.appService.ingredients$.getValue().filter(ing => ing.id !== ingredient.id)
+            // );
         })
     }
 
@@ -31,9 +31,9 @@ export class IngredientService {
 
     createIngredient(ingredient) {
         return this.http.post(`/api/ingredients/create/`, ingredient).pipe(tap(result => {
-            let currentIngredients = this.appService.ingredients$.getValue();
-            currentIngredients.push(result)
-            this.appService.ingredients$.next(currentIngredients)
+            // let currentIngredients = this.appService.ingredients$.getValue();
+            // currentIngredients.push(result)
+            // this.appService.ingredients$.next(currentIngredients)
         }));
     }
 }

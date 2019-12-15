@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { RecipeService } from "../recipe.service";
 import { Router } from "@angular/router";
-import { forkJoin } from 'rxjs';
 import { HelperService } from 'src/app/shared/helper.service';
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { AppService } from 'src/app/app.service';
@@ -39,21 +38,21 @@ export class RecipeListComponent implements OnInit {
   ngOnInit() {
     this.typeAheadQueryList = [];
     let that = this;
-    this.appService.recipes$.subscribe(result => {
-      this.recipes = result;
-      console.log(this.recipes)
-      this.filteredRecipes = result;
-      this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Ingredient" })
-      result.forEach(e => {
-        that.typeAheadQueryList.push({ name: e.title, id: e.id, type: "Recipe" });
-      })
-    });
-    this.appService.ingredients$.subscribe(result => {
-      this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Recipe" })
-      result.forEach(e => {
-        that.typeAheadQueryList.push({ name: e.name, id: e.id, type: "Ingredient" });
-      })
-    });
+    // this.appService.recipes$.subscribe(result => {
+    //   this.recipes = result;
+    //   console.log(this.recipes)
+    //   this.filteredRecipes = result;
+    //   this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Ingredient" })
+    //   result.forEach(e => {
+    //     that.typeAheadQueryList.push({ name: e.title, id: e.id, type: "Recipe" });
+    //   })
+    // });
+    // this.appService.ingredients$.subscribe(result => {
+    //   this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Recipe" })
+    //   result.forEach(e => {
+    //     that.typeAheadQueryList.push({ name: e.name, id: e.id, type: "Ingredient" });
+    //   })
+    // });
 
   }
   // removeFilter(event) {
@@ -73,10 +72,11 @@ export class RecipeListComponent implements OnInit {
   // }
 
   //probably needs to go into service...
-  onAddRemoveToShoppingList(recipe: Recipe) {
-    recipe.shoppingListItem = !recipe.shoppingListItem
-    this.recipeService.updateRecipeSubject(recipe)
-  }
+
+  // onAddRemoveToShoppingList(recipe: Recipe) {
+  //   recipe.shoppingListItem = !recipe.shoppingListItem
+  //   this.recipeService.updateRecipeSubject(recipe)
+  // }
 
   selectedCount() {
     return this.recipes.filter(e => { return e.shoppingListItem == true }).length

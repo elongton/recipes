@@ -31,60 +31,40 @@
             </div>
 
         </div>
-
-
     </div>
 
 
-
-
-    <ng-container *ngIf="filteredRecipes.length > 0; else noRecipes">
-        <section style="display: flex; flex-wrap: wrap;">
-            <div *ngFor="let recipe of filteredRecipes" class="recipe-wrapper">
-                <div class="recipe-image" [ngStyle]="{
+    <section *ngIf="filterPillArray.length > 0 || filterTagArray.length > 0; else dashboard">
+        <ng-container *ngIf="filteredRecipes.length > 0; else noRecipes">
+            <section style="display: flex; flex-wrap: wrap;">
+                <div *ngFor="let recipe of filteredRecipes" class="recipe-wrapper">
+                    <div class="recipe-image" [ngStyle]="{
                     'background-image': 'url(' + imageUrl + recipe.image + ')'
                   }" (click)="recipeService.nagivateToRecipe(recipe.id)">
-                    <div class="recipe-image-overlay">
-                        <fa-icon class="recipe-image-icon" icon=share></fa-icon>
+                        <div class="recipe-image-overlay">
+                            <fa-icon class="recipe-image-icon" icon=share></fa-icon>
+                        </div>
                     </div>
+                    {{recipe.title}}
                 </div>
-                {{recipe.title}}
+
+            </section>
+        </ng-container>
+
+        <ng-template #noRecipes>
+            <div class="mt-2">
+                <span class="ml-2">No recipes found...</span>
             </div>
+        </ng-template>
+    </section>
 
-        </section>
-        <!-- <ul class="list-group" *ngFor="let recipe of filteredRecipes">
-            <li class="list-group-item d-flex align-items-center justify-content-between mb-1 recipe-list-item"
-                (click)="recipeService.nagivateToRecipe(recipe.id)">
-                <div class="d-flex align-items-center">
-                    <input type="checkbox" class="mr-3" [checked]="recipe.shoppingListItem"
-                        (click)="onAddRemoveToShoppingList(recipe); $event.stopPropagation()">
-                    {{ recipe.title }}
-                </div>
-
-                <div>
-                    <button #deleteButton class="btn btn-danger mr-2" style="display:none;"
-                        (click)="recipeService.deleteRecipe(recipe); $event.stopPropagation()"
-                        (dblclick)="$event.stopPropagation()">
-                        Yes Delete!
-                    </button>
-                    <button class="btn btn-outline-danger" (click)="
-              deleteButton.style.display == 'none'
-                ? (deleteButton.style.display = 'inline')
-                : (deleteButton.style.display = 'none');
-              $event.stopPropagation()
-            " (dblclick)="$event.stopPropagation()">
-                        <fa-icon icon="times"></fa-icon>
-                    </button>
-                </div>
-            </li>
-        </ul> -->
-    </ng-container>
-
-    <ng-template #noRecipes>
-        <div class="mt-2">
-            <span class="ml-2">No recipes found...</span>
-        </div>
+    <ng-template #dashboard>
+        <app-dashboard></app-dashboard>
     </ng-template>
+
+
+
+
 
 
 </ng-container>

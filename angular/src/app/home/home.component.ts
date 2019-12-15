@@ -12,8 +12,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // this.appService.getIngredients();
-    this.appService.getUserMeta();
-    this.appService.updateUserMeta();
+    // this.appService.getUserMeta();
+    // this.appService.updateUserMeta();
   }
 
 }

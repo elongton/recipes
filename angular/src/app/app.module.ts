@@ -30,7 +30,7 @@ import { RecipeBookComponent } from './recipe-book/recipe-book.component';
 import { MealPlannerComponent } from './meal-planner/meal-planner.component';
 import { NavbarComponent } from './navigation/navbar/navbar.component';
 import { SearchComponent } from './home/search/search.component';
-import { DashboardComponent } from './home/dashboard/dashboard.component';
+import { DashboardComponent } from './home/search/dashboard/dashboard.component';
 import { TagDropdownComponent } from './home/search/tag-dropdown/tag-dropdown.component';
 import { TagComponent } from './home/search/tag/tag.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
