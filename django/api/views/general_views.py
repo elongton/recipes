@@ -31,6 +31,14 @@ class TagEditDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        response_object = instance.id
+        print(response_object)
+        self.perform_destroy(instance)
+        # return Response(response_object, status=status.HTTP_204_NO_CONTENT)
+        return Response(response_object, status=status.HTTP_202_ACCEPTED) #this works...
+
 
 class ReferenceList(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]

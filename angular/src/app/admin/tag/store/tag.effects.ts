@@ -41,10 +41,10 @@ export class TagEffects {
     deleteTag = this.actions$.pipe(
         ofType(TagActions.BEGIN_DELETE_TAG),
         switchMap((action: TagActions.BeginDeleteTag) => {
-            return this.http.delete(`/api/tags/${action.payload}`)
+            return this.http.delete<Number>(`/api/tags/${action.payload}`)
         }),
-        map(() => {
-            return new TagActions.SuccessDeleteTag(1);
+        map((response) => {
+            return new TagActions.SuccessDeleteTag(response);
         }),
         catchError((error: Error) => {
             return of(new TagActions.TagHTTPError(error));

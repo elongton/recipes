@@ -48,11 +48,12 @@ export function tagReducer(state = initialState, action: TagActions.TagActions) 
                 loading: false,
             };
         case TagActions.SUCCESS_DELETE_TAG:
+            console.log(action.payload)
             return {
                 ...state,
-                tags: state.tags.filter(tag => {
-                    tag.id != action.payload;
-                }),
+                tags: [...state.tags.filter(tag => {
+                    return tag.id != action.payload
+                })],
                 submitting: false,
             };
         default:
