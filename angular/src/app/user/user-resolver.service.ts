@@ -17,8 +17,7 @@ export class UserResolverService implements Resolve<any>{
         return this.store.select('user').pipe(
             take(1),
             map(user => {
-                console.log(user)
-                if (user.meta === null) { this.store.dispatch(new UserActions.BeginRetrieveMeta) }
+                if (user.meta.viewed_recipes.length === 0) { this.store.dispatch(new UserActions.BeginRetrieveMeta) }
                 return this.actions$.pipe(ofType(UserActions.BEGIN_RETRIEVE_META), take(1));
             }));
     }

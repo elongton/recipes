@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store'
 
-export const BEGIN_RETRIEVE_META = '[User] Begin Get Meta'
-export const SUCCESS_RETRIEVE_META = '[User] Success Get Meta'
+export const BEGIN_RETRIEVE_META = '[User] Begin Retrieve Meta'
+export const SUCCESS_RETRIEVE_META = '[User] Success Retrieve Meta'
 
 export const UPDATE_META = '[User] Update Meta'
 

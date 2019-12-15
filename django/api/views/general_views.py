@@ -1,4 +1,4 @@
-from api.models import (StoreSection,Tag, Reference, User)
+from api.models import (StoreSection,Tag, Reference, User, UserMeta)
 from api.serializers import (StoreSectionSerializer, TagSerializer, ReferenceSerializer, UserMetaSerializer)
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication
 from drf_firebase_auth.authentication import FirebaseAuthentication
 from django.core import serializers
+import json
 
 
 from ..helpers.recipe_helpers import *
@@ -52,10 +53,11 @@ class UserMetaUpdateView(APIView):
         responseData = [user.user_meta.meta][0]
         return Response(responseData, status=status.HTTP_201_CREATED)
     def put(self, request, format=None):
-        user = User.objects.get(id=request.user.id)
-        new_meta = request.body
-        print(new_meta)
-        responseData = [new_meta][0]
+        meta = UserMeta.objects.get(user=request.user.id)
+        body = request.body
+        meta.meta = json.loads(str(request.body, encoding='utf-8'))
+        meta.save()
+        responseData = 'worked'
         return Response(responseData, status=status.HTTP_202_ACCEPTED)
     # queryset = User.objects.all()
     # serializer_class = UserMetaSerializer

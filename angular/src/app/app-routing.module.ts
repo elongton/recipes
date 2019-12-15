@@ -31,12 +31,15 @@ const routes: Routes = [
       TagResolverService,
       UserResolverService]
   },
+
   {
     path: "recipe/view/:recipeId",
     component: RecipeDetailComponent,
     canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
     resolve: [RecipeResolverService, IngredientResolverService, TagResolverService]
   },
+
+
   { path: "shopping-list", component: ShoppingListComponent },
   { path: "recipe-book", component: RecipeBookComponent },
   { path: "meal-planner", component: MealPlannerComponent },

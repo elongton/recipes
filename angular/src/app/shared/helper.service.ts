@@ -90,12 +90,3 @@ export class HelperService {
     }
 }
 
-
-
-
-
-
-// r.ingredients.forEach(ing => {
-//     if (ing.id === ingFilt.id) {
-//         return true
-//     }

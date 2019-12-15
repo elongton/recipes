@@ -6,7 +6,7 @@ export interface State {
 }
 
 const initialState = {
-    meta: null,
+    meta: { viewed_recipes: [] },
     loading: false,
 }
 
@@ -25,10 +25,23 @@ export function authReducer(state = initialState, action: UserActions.UserAction
             };
 
         case UserActions.UPDATE_META:
-            return state
+            let updated_viewed_recipes = [...state.meta.viewed_recipes]
+            if (!updated_viewed_recipes.includes(+action.payload)) {
+                updated_viewed_recipes.push(+action.payload)
+            }
+            return {
+                ...state,
+                meta: {
+                    ...state.meta,
+                    viewed_recipes: updated_viewed_recipes,
+                }
+
+            }
 
 
         default:
             return state;
     }
 }
+
+
