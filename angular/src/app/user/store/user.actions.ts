@@ -1,40 +1,35 @@
 import { Action } from '@ngrx/store'
 
-export const BEGIN_LOGIN = '[Auth] Begin Login'
-export const BEGIN_LOGOUT = '[Auth] Begin Logout'
+export const BEGIN_RETRIEVE_META = '[User] Begin Get Meta'
+export const SUCCESS_RETRIEVE_META = '[User] Success Get Meta'
+
+export const UPDATE_META = '[User] Update Meta'
+
+export const USER_HTTP_ERROR = '[User] Http Error'
 
 
-export const SUCCESS_LOGIN = '[Auth] Success Login'
-export const SUCCESS_LOGOUT = '[Auth] Success Logout'
-
-export const AUTH_HTTP_ERROR = '[Auth] Http Error'
-
-
-export class BeginLogin implements Action {
-    readonly type = BEGIN_LOGIN
+export class BeginRetrieveMeta implements Action {
+    readonly type = BEGIN_RETRIEVE_META
 }
-export class BeginLogout implements Action {
-    readonly type = BEGIN_LOGOUT
-}
-
-export class SuccessLogin implements Action {
-    readonly type = SUCCESS_LOGIN
+export class SuccessRetrieveMeta implements Action {
+    readonly type = SUCCESS_RETRIEVE_META
     constructor(public payload: any) { }
 }
-export class SuccessLogout implements Action {
-    readonly type = SUCCESS_LOGOUT
+
+export class UpdateMeta implements Action {
+    readonly type = UPDATE_META
+    constructor(public payload: any) { }
 }
 
-
-export class AuthHTTPError implements Action {
-    readonly type = AUTH_HTTP_ERROR
+export class UserHTTPError implements Action {
+    readonly type = USER_HTTP_ERROR
     constructor(public payload: Error) { }
 
 }
 
 
 export type UserActions
-    = BeginLogin
-    | BeginLogout
-    | SuccessLogin
-    | SuccessLogout
+    = BeginRetrieveMeta
+    | SuccessRetrieveMeta
+    | UserHTTPError
+    | UpdateMeta

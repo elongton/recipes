@@ -14,7 +14,7 @@ export interface AppState {
     ingredients: fromIngredients.State
     units: fromUnits.State
     general: fromGeneral.State
-    auth: fromUser.State
+    user: fromUser.State
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
@@ -23,6 +23,6 @@ export const appReducer: ActionReducerMap<AppState> = {
     ingredients: fromIngredients.ingredientReducer,
     units: fromUnits.unitReducer,
     general: fromGeneral.generalReducer,
-    auth: fromUser.authReducer,
+    user: fromUser.authReducer,
 
 }

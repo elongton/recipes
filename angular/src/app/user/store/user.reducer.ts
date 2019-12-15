@@ -1,34 +1,32 @@
 import * as UserActions from './user.actions';
 
 export interface State {
-    user: any,
+    meta: any,
     loading: Boolean
 }
 
 const initialState = {
-    user: null,
+    meta: null,
     loading: false,
 }
 
 export function authReducer(state = initialState, action: UserActions.UserActions) {
     switch (action.type) {
-        // case AuthActions.BEGIN_LOGIN:
-        //     return {
-        //         ...state,
-        //         loading: true,
-        //     };
-        // case AuthActions.BEGIN_LOGOUT:
-        //     return {
-        //         ...state,
-        //         loading: true,
-        //     }
+        case UserActions.BEGIN_RETRIEVE_META:
+            return {
+                ...state,
+                loading: true,
+            };
+        case UserActions.SUCCESS_RETRIEVE_META:
+            return {
+                ...state,
+                meta: action.payload,
+                loading: false,
+            };
 
-        // case AuthActions.SUCCESS_LOGIN:
-        //     return {
-        //         ...state,
-        //         user: action.payload,
-        //         loading: false,
-        //     }
+        case UserActions.UPDATE_META:
+            return state
+
 
         default:
             return state;

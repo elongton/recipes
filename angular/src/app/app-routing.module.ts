@@ -4,10 +4,7 @@ import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.comp
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { LoginComponent } from './auth/login/login.component';
-
-import { AuthGuard } from './auth/auth.guard';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-import { canActivate } from '@angular/fire/auth-guard';
 
 import { HomeComponent } from './home/home.component';
 import { RecipeBookComponent } from './recipe-book/recipe-book.component';
@@ -17,6 +14,7 @@ import { RecipeResolverService } from './recipe/recipe-resolver.service';
 import { IngredientResolverService } from './admin/ingredient/ingredient-resolver.service';
 import { TagResolverService } from './admin/tag/tag-resolver.service';
 import { GeneralResolverService } from './store/general/general-resolver.service';
+import { UserResolverService } from './user/user-resolver.service'
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
@@ -26,12 +24,17 @@ const routes: Routes = [
     path: "",
     component: HomeComponent,
     canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
-    resolve: [RecipeResolverService, IngredientResolverService, GeneralResolverService, TagResolverService]
+    resolve: [
+      RecipeResolverService,
+      IngredientResolverService,
+      GeneralResolverService,
+      TagResolverService,
+      UserResolverService]
   },
   {
     path: "recipe/view/:recipeId",
     component: RecipeDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
     resolve: [RecipeResolverService, IngredientResolverService, TagResolverService]
   },
   { path: "shopping-list", component: ShoppingListComponent },
@@ -42,21 +45,23 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-    canActivate: [AuthGuard],
+    canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
     // runGuardsAndResolvers: 'always'
   },
   {
     path: "recipe/edit/:recipeId",
     component: RecipeEditComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
     resolve: [RecipeResolverService, IngredientResolverService, TagResolverService]
   },
   {
     path: "recipe/new",
     component: RecipeEditComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
     resolve: [RecipeResolverService, IngredientResolverService, TagResolverService]
   },
+
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
