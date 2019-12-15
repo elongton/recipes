@@ -4,6 +4,9 @@ import { IngredientService } from 'src/app/admin/ingredient/ingredient.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { RecipeService } from 'src/app/recipe/recipe.service';
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../../../store/app.reducer';
 
 @Component({
   selector: 'app-edit-ingredient-modal',
@@ -13,20 +16,17 @@ import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 export class EditIngredientModalComponent implements OnInit, AfterViewInit {
   @ViewChildren('name') childChildren: QueryList<ElementRef>;
   ingredientForm: FormGroup;
-
-  // ingredients$ = this.appService.ingredients$;
-  // unitTypes$ = this.appService.unitTypes$;
-  storeSections$ = this.appService.storeSections$;
+  general$ = this.store.select('general');
   ingredientIndex: number;
   section: any;
   newIngredientName: string;
 
   constructor(
-    private appService: AppService,
     public ingredientService: IngredientService,
     public bsModalRef: BsModalRef,
     private recipeService: RecipeService,
     private formBuilder: FormBuilder,
+    private store: Store<fromApp.AppState>
   ) { }
 
   ngOnInit() {
@@ -53,9 +53,9 @@ export class EditIngredientModalComponent implements OnInit, AfterViewInit {
   }
 
   onSubmitIngredient() {
-    this.ingredientService.createIngredient(this.ingredientForm.value).subscribe(result => {
-      this.bsModalRef.hide()
-      this.recipeService.elementToFocus$.next({ ingredientIndex: this.ingredientIndex, section: this.section, ingredientName: this.ingredientForm.value.name })
-    })
+    // this.ingredientService.createIngredient(this.ingredientForm.value).subscribe(result => {
+    //   this.bsModalRef.hide()
+    //   this.recipeService.elementToFocus$.next({ ingredientIndex: this.ingredientIndex, section: this.section, ingredientName: this.ingredientForm.value.name })
+    // })
   }
 }

@@ -23,5 +23,19 @@ export class IngredientEffects {
         })
     )
 
+    @Effect()
+    createIngredient = this.actions$.pipe(
+        ofType(IngredientActions.BEGIN_CREATE_INGREDIENT),
+        switchMap((action: IngredientActions.BeginCreateIngredient) => {
+            return this.http.post<Ingredient>(`/api/ingredients/create/`, action.payload)
+        }),
+        map(ingredient => {
+            return new IngredientActions.SuccessCreateIngredient(ingredient);
+        }),
+        catchError((error: Error) => {
+            return of(new IngredientActions.IngredientHTTPError(error));
+        })
+    )
+
     constructor(private actions$: Actions, private http: HttpClient) { }
 }

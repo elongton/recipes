@@ -21,6 +21,19 @@ export class GeneralEffects {
             return of(new GeneralActions.GeneralHTTPError(error));
         })
     )
+    @Effect()
+    retrieveStoreSections = this.actions$.pipe(
+        ofType(GeneralActions.BEGIN_RETRIEVE_STORE_SECTIONS),
+        switchMap(() => {
+            return this.http.get<any[]>(`/api/store-sections/`)
+        }),
+        map(storeSections => {
+            return new GeneralActions.SuccessRetrieveStoreSections(storeSections);
+        }),
+        catchError((error: Error) => {
+            return of(new GeneralActions.GeneralHTTPError(error));
+        })
+    )
 
 
 

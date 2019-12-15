@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer'
 import { Subscription } from 'rxjs';
 import { Ingredient } from 'src/app/core/models/ingredient.model';
+import { switchMap } from 'rxjs/operators';
+import * as GeneralActions from '../../store/general/general.actions'
 @Component({
   selector: 'app-ingredient',
   templateUrl: './ingredient.component.html',
@@ -20,18 +22,21 @@ export class IngredientComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   ingredients: Ingredient[]
-  storeSections$ = this.appService.storeSections$;
+  general$ = this.store.select('general')
   constructor(
     public ingredientService: IngredientService,
     private modalService: BsModalService,
-    private appService: AppService,
     private store: Store<fromApp.AppState>) { }
 
 
   ngOnInit() {
-    this.subscription = this.store.select('ingredients').subscribe(ingredients => {
-      this.ingredients = ingredients.ingredients;
-    })
+    this.store.dispatch(new GeneralActions.BeginRetrieveStoreSections());
+    this.subscription = this.store.select('ingredients').pipe(switchMap(
+      (ingredients) => {
+        this.ingredients = ingredients.ingredients;
+        return this.store.select('general')
+      })
+    ).subscribe();
   }
 
   bsModalRef: BsModalRef;
@@ -41,6 +46,10 @@ export class IngredientComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  createIngredient(ingredient) {
+    console.log(ingredient)
   }
 
 }

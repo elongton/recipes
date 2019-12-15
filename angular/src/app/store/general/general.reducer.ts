@@ -2,11 +2,13 @@ import * as GeneralActions from './general.actions';
 
 export type State = {
     tagCategories: any,
+    storeSections: any,
     loading: Boolean,
 }
 
 const initialState = {
     tagCategories: [],
+    storeSections: [],
     loading: false,
 
 }
@@ -23,6 +25,17 @@ export function generalReducer(state = initialState, action: GeneralActions.Gene
             return {
                 ...state,
                 tagCategories: get('tag_category', [...action.payload]),
+                loading: false,
+            }
+        case GeneralActions.BEGIN_RETRIEVE_STORE_SECTIONS:
+            return {
+                ...state,
+                loading: true,
+            }
+        case GeneralActions.SUCCESS_RETRIEVE_STORE_SECTIONS:
+            return {
+                ...state,
+                storeSections: [...action.payload],
                 loading: false,
             }
 

@@ -16,7 +16,7 @@
         <div class="d-flex align-items-center mt-2">
             <label for="name" style="min-width: 100px;">Store Section</label>
             <select class="form-control" formControlName="store_section">
-                <option *ngFor="let storeSection of storeSections$ | async" [ngValue]="storeSection.id">
+                <option *ngFor="let storeSection of (general$ | async).storeSections" [ngValue]="storeSection.id">
                     {{ storeSection.name }}</option>
             </select>
         </div>

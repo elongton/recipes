@@ -29,11 +29,4 @@ export class IngredientService {
         })
     }
 
-    createIngredient(ingredient) {
-        return this.http.post(`/api/ingredients/create/`, ingredient).pipe(tap(result => {
-            // let currentIngredients = this.appService.ingredients$.getValue();
-            // currentIngredients.push(result)
-            // this.appService.ingredients$.next(currentIngredients)
-        }));
-    }
 }
