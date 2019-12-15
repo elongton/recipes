@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Observable, from } from 'rxjs';
@@ -11,15 +11,13 @@ export class AuthService {
 
     user: Observable<firebase.User>;
 
-    constructor(private afAuth: AngularFireAuth, private router: Router) {
+    constructor(private afAuth: AngularFireAuth, private router: Router, private ngZone: NgZone) {
         this.user = afAuth.authState;
     }
-
     loginGoogle() {
         this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
-            .then(res => {
-                console.log(res)
-                this.router.navigate(['/']);
+            .then(() => {
+                this.ngZone.run(() => this.router.navigate(['/']));
             }, err => {
                 console.log(err);
             });

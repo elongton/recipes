@@ -4,6 +4,9 @@ import { NgModule } from "@angular/core";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from "./app-routing.module";
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+
+
 import { AppComponent } from "./app.component";
 import { RecipeComponent } from "./recipe/recipe.component";
 import { RecipeDetailComponent } from "./recipe/recipe-detail/recipe-detail.component";
@@ -43,6 +46,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { IngredientEffects } from './admin/ingredient/store/ingredient.effects';
 import { UnitEffects } from './admin/unit/store/unit.effects';
 import { GeneralEffects } from './store/general/general.effects';
+import { UserEffects } from './user/store/user.effects';
 
 @NgModule({
   declarations: [
@@ -64,7 +68,7 @@ import { GeneralEffects } from './store/general/general.effects';
     TagComponent,
   ],
   imports: [
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebase, 'recipes'),
     AngularFireAuthModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -87,10 +91,12 @@ import { GeneralEffects } from './store/general/general.effects';
       TagEffects,
       IngredientEffects,
       UnitEffects,
-      GeneralEffects,]),
+      GeneralEffects,
+      UserEffects,]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production, }),
   ],
   providers: [
+    AngularFireAuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,

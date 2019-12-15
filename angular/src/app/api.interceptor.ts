@@ -9,13 +9,10 @@ export class ApiInterceptor implements HttpInterceptor {
     constructor(private auth: AuthService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
         return this.auth.getUserIdToken().pipe(
             mergeMap((token: any) => {
-                // console.log(token);
                 if (token) {
                     request = request.clone({ setHeaders: { Authorization: `JWT ${token}` } });
-                    // console.log(request)
                 }
                 return next.handle(request);
 

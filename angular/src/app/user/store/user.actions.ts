@@ -33,7 +33,7 @@ export class AuthHTTPError implements Action {
 }
 
 
-export type AuthActions
+export type UserActions
     = BeginLogin
     | BeginLogout
     | SuccessLogin
