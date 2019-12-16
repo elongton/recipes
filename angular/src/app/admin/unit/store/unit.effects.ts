@@ -9,7 +9,6 @@ import { Unit, UnitType } from '../../../core/models/unit.model';
 
 @Injectable()
 export class UnitEffects {
-    // private unit_types = [];
     private units = [];
 
 
@@ -40,6 +39,37 @@ export class UnitEffects {
         }),
         map(unitType => {
             return new UnitActions.SuccessCreateUnitType(unitType);
+        },
+            catchError((error: Error) => {
+                return of(new UnitActions.UnitHTTPError(error));
+            })
+        )
+    );
+
+    @Effect()
+    createUnit = this.actions$.pipe(
+        ofType(UnitActions.BEGIN_CREATE_UNIT),
+        switchMap((action: UnitActions.BeginCreateUnit) => {
+            return this.http.post<Unit>(`api/units/`, action.payload)
+        }),
+        map(unit => {
+            console.log(unit)
+            return new UnitActions.SuccessCreateUnit(unit);
+        },
+            catchError((error: Error) => {
+                return of(new UnitActions.UnitHTTPError(error));
+            })
+        )
+    );
+
+    @Effect()
+    deleteUnit = this.actions$.pipe(
+        ofType(UnitActions.BEGIN_DELETE_UNIT),
+        switchMap((action: UnitActions.BeginDeleteUnit) => {
+            return this.http.delete(`api/units/${action.payload}`)
+        }),
+        map((id: number) => {
+            return new UnitActions.SuccessDeleteUnit(id);
         },
             catchError((error: Error) => {
                 return of(new UnitActions.UnitHTTPError(error));

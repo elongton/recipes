@@ -43,14 +43,32 @@ export function unitReducer(state = initialState, action: UnitActions.UnitAction
         case UnitActions.BEGIN_CREATE_UNIT:
             return {
                 ...state,
-                loading: true,
+                submitting: true,
+            }
+
+        case UnitActions.SUCCESS_CREATE_UNIT:
+            return {
+                ...state,
+                units: [...state.units, action.payload],
+                submitting: false,
             }
 
         case UnitActions.BEGIN_DELETE_UNIT:
             return {
                 ...state,
-                loading: true,
+                submitting: true,
             }
+        case UnitActions.SUCCESS_DELETE_UNIT:
+            console.log(action.payload)
+            return {
+                ...state,
+                units: [...state.units.filter(unit => {
+                    return unit.id != action.payload
+                })],
+                submitting: false,
+            };
+
+
 
 
         //RETRIEVAL

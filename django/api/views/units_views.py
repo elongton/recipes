@@ -23,6 +23,12 @@ class UnitDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Unit.objects.all()
     serializer_class = UnitSerializer
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        response_object = instance.id
+        self.perform_destroy(instance)
+        return Response(response_object, status=status.HTTP_202_ACCEPTED) #this works...
+
 
 class UnitTypeList(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]

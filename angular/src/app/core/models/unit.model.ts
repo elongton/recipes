@@ -1,6 +1,9 @@
 export class Unit {
-    name: String;
-    id: Number;
+    id?: Number;
+    name: string;
+    unit_type: number;
+    base_unit: boolean;
+    multiplier: number;
 }
 
 

@@ -1,7 +1,8 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { UnitService } from './unit.service'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 import * as fromApp from '../../store/app.reducer';
 import * as UnitActions from '../../admin/unit/store/unit.actions';
@@ -10,7 +11,8 @@ import * as UnitActions from '../../admin/unit/store/unit.actions';
   templateUrl: './unit.component.html',
   styleUrls: ['./unit.component.scss']
 })
-export class UnitComponent implements OnInit {
+export class UnitComponent implements OnInit, OnDestroy {
+  subscription: Subscription;
   modalRef: BsModalRef;
   unitTypes: any = []
 
@@ -30,7 +32,7 @@ export class UnitComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.select('units').subscribe(units => { this.createUnitTypeArray(units); })
+    this.subscription = this.store.select('units').subscribe(units => { this.createUnitTypeArray(units); })
   }
 
   createUnitTypeArray(units) {
@@ -38,7 +40,7 @@ export class UnitComponent implements OnInit {
     this.unitTypes = [];
     units.types.forEach(type => {
       unitArray = units.units.filter(unit => { return unit.unit_type === type.id })
-      this.unitTypes.push({ name: type.name, units: unitArray });
+      this.unitTypes.push({ name: type.name, units: unitArray, id: type.id });
     })
   }
 
@@ -53,9 +55,9 @@ export class UnitComponent implements OnInit {
       base_unit: false,
       multiplier: this.newUnitMultiplier,
     }
-    this.unitService.createUnit(newUnit).subscribe(result => {
-      this.clearAndHideForms();
-    })
+    // console.log(newUnit)
+    this.store.dispatch(new UnitActions.BeginCreateUnit(newUnit));
+    this.clearAndHideForms();
   }
 
   createUnitType() {
@@ -63,7 +65,6 @@ export class UnitComponent implements OnInit {
       name: this.newUnitType,
       base_unit: this.newBaseUnit,
     }
-
 
     this.store.dispatch(new UnitActions.BeginCreateUnitType(newUnitType))
     this.clearAndHideForms();
@@ -78,7 +79,12 @@ export class UnitComponent implements OnInit {
   }
 
   deleteUnit(unit) {
-    this.unitService.deleteUnit(unit.id);
+    // this.unitService.deleteUnit(unit.id);
+    this.store.dispatch(new UnitActions.BeginDeleteUnit(unit.id))
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
 
