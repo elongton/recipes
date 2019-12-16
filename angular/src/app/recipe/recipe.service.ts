@@ -5,7 +5,6 @@ import { tap, map, catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { Recipe } from '../core/models/recipe.model';
-import { AppService } from '../app.service';
 import { HelperService } from '../shared/helper.service';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
@@ -19,7 +18,6 @@ export class RecipeService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private appService: AppService,
     private helperService: HelperService,
     private store: Store<fromApp.AppState>,
   ) { }

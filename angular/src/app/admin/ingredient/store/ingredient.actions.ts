@@ -15,13 +15,14 @@ export class BeginCreateIngredient implements Action {
     readonly type = BEGIN_CREATE_INGREDIENT;
     constructor(public payload: Ingredient) { }
 }
-export class BeginRetrieveIngredients implements Action {
-    readonly type = BEGIN_RETRIEVE_INGREDIENTS;
-}
 export class BeginDeleteIngredient implements Action {
     readonly type = BEGIN_DELETE_INGREDIENT;
     constructor(public payload: Number) { }
 }
+export class BeginRetrieveIngredients implements Action {
+    readonly type = BEGIN_RETRIEVE_INGREDIENTS;
+}
+
 
 export class SuccessCreateIngredient implements Action {
     readonly type = SUCCESS_CREATE_INGREDIENT;

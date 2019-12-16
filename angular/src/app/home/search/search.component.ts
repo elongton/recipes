@@ -3,7 +3,6 @@ import { Recipe } from 'src/app/core/models/recipe.model';
 import { HelperService } from 'src/app/shared/helper.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
-import { AppService } from 'src/app/app.service';
 
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
@@ -36,7 +35,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   constructor(
-    public appService: AppService,
     private router: Router,
     private helpers: HelperService,
     public authService: AuthService,

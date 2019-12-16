@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +7,9 @@ import { AppService } from '../app.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private appService: AppService) { }
+  constructor() { }
 
   ngOnInit() {
-    // this.appService.getIngredients();
-    // this.appService.getUserMeta();
-    // this.appService.updateUserMeta();
   }
 
 }

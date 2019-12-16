@@ -1,13 +1,12 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { tap } from 'rxjs/operators';
-import { AppService } from '../../app.service';
 
 @Injectable({
     providedIn: "root"
 })
 export class UnitService {
-    constructor(private http: HttpClient, private appService: AppService) { }
+    constructor(private http: HttpClient) { }
 
     getUnits() {
         return this.http.get<any[]>(`api/units/`);

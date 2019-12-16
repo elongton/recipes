@@ -37,5 +37,19 @@ export class IngredientEffects {
         })
     )
 
+    @Effect()
+    deleteIngredient = this.actions$.pipe(
+        ofType(IngredientActions.BEGIN_DELETE_INGREDIENT),
+        switchMap((action: IngredientActions.BeginDeleteIngredient) => {
+            return this.http.delete<Number>(`/api/ingredients/${action.payload}`)
+        }),
+        map((response) => {
+            return new IngredientActions.SuccessDeleteIngredient(response);
+        }),
+        catchError((error: Error) => {
+            return of(new IngredientActions.IngredientHTTPError(error));
+        })
+    )
+
     constructor(private actions$: Actions, private http: HttpClient) { }
 }

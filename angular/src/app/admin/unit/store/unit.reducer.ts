@@ -16,17 +16,36 @@ const initialState = {
 export function unitReducer(state = initialState, action: UnitActions.UnitActions) {
     switch (action.type) {
 
+        //UNIT TYPE
+        case UnitActions.BEGIN_CREATE_UNIT_TYPE:
+            return {
+                ...state,
+                submitting: true,
+            }
+        case UnitActions.SUCCESS_CREATE_UNIT_TYPE:
+            return {
+                ...state,
+                types: [...state.types, action.payload],
+                submitting: false,
+            }
+
+        case UnitActions.BEGIN_DELETE_UNIT_TYPE:
+            return {
+                ...state,
+                loading: true,
+            }
+        case UnitActions.SUCCESS_DELETE_UNIT_TYPE:
+            return {
+                ...state,
+                loading: true,
+            }
+        //UNIT
         case UnitActions.BEGIN_CREATE_UNIT:
             return {
                 ...state,
                 loading: true,
             }
-        case UnitActions.BEGIN_RETRIEVE_UNITS_AND_TYPES:
-            console.log('fired begin retrieve action')
-            return {
-                ...state,
-                loading: true,
-            }
+
         case UnitActions.BEGIN_DELETE_UNIT:
             return {
                 ...state,
@@ -34,6 +53,13 @@ export function unitReducer(state = initialState, action: UnitActions.UnitAction
             }
 
 
+        //RETRIEVAL
+        case UnitActions.BEGIN_RETRIEVE_UNITS_AND_TYPES:
+            console.log('fired begin retrieve action')
+            return {
+                ...state,
+                loading: true,
+            }
         case UnitActions.SUCCESS_RETRIEVE_UNITS_AND_TYPES:
             return {
                 ...state,

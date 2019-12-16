@@ -34,7 +34,7 @@
                         *ngFor="let unitType of ingredient.unit_types; let isLast=last">{{unitType.name}}{{isLast ? '' : ', '}}</span>
                 </td>
                 <td>{{ingredient.store_section}}</td>
-                <td class="text-danger text-center delete" (click)="ingredientService.deleteIngredient(ingredient)">
+                <td class="text-danger text-center delete" (click)="deleteIngredient(ingredient.id)">
                     <fa-icon icon=trash></fa-icon>
                 </td>
             </tr>

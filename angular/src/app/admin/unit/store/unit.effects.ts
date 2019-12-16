@@ -31,6 +31,23 @@ export class UnitEffects {
         })
 
     )
+
+    @Effect()
+    createUnitType = this.actions$.pipe(
+        ofType(UnitActions.BEGIN_CREATE_UNIT_TYPE),
+        switchMap((action: UnitActions.BeginCreateUnitType) => {
+            return this.http.post(`api/unit-types/create`, action.payload)
+        }),
+        map(unitType => {
+            return new UnitActions.SuccessCreateUnitType(unitType);
+        },
+            catchError((error: Error) => {
+                return of(new UnitActions.UnitHTTPError(error));
+            })
+        )
+    );
+
+
     constructor(private actions$: Actions, private http: HttpClient) { }
 }
 

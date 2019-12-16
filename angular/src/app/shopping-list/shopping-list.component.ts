@@ -3,7 +3,6 @@ import { RecipeService } from '../recipe/recipe.service';
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { AppService } from 'src/app/app.service';
 import { HelperService } from 'src/app/shared/helper.service';
 
 @Component({
@@ -21,14 +20,13 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   constructor(
     private recipeService: RecipeService,
     private router: Router,
-    private appService: AppService,
     public helper: HelperService) { }
 
   ngOnInit() {
     this.ingredientList = [];
-    this.appService.storeSections$.subscribe(storeSections => {
-      this.storeSections = storeSections;
-    })
+    // this.appService.storeSections$.subscribe(storeSections => {
+    //   this.storeSections = storeSections;
+    // })
     // this.recipeSub = this.appService.recipes$.subscribe(recipes => {
     //   this.selectedRecipes = recipes.filter(recipe => { return recipe.shoppingListItem === true })
     //   // if (this.selectedRecipes.length < 1) {

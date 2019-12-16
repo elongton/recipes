@@ -3,7 +3,6 @@ import { RecipeService } from "../recipe.service";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 import { environment } from "src/environments/environment";
-import { AppService } from 'src/app/app.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { EditIngredientModalComponent } from 'src/app/shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
 import { NgxImageCompressService } from 'ngx-image-compress';

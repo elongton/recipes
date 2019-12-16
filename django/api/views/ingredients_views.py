@@ -25,6 +25,14 @@ class IngredientDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        response_object = instance.id
+        print(response_object)
+        self.perform_destroy(instance)
+        # return Response(response_object, status=status.HTTP_204_NO_CONTENT)
+        return Response(response_object, status=status.HTTP_202_ACCEPTED) #this works...
+
 
 class IngredientCreate(APIView):
     permission_classes = [permissions.AllowAny]

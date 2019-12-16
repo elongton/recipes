@@ -1,12 +1,15 @@
 import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
-import { IngredientService } from './ingredient.service'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { EditIngredientModalComponent } from '../../shared/components/edit-ingredient-modal/edit-ingredient-modal.component';
-import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer'
 import { Subscription } from 'rxjs';
 import { Ingredient } from 'src/app/core/models/ingredient.model';
 import { tap } from 'rxjs/operators';
+
+import { Store } from '@ngrx/store';
+import * as IngredientActions from './store/ingredient.actions';
+
+
 @Component({
   selector: 'app-ingredient',
   templateUrl: './ingredient.component.html',
@@ -22,7 +25,6 @@ export class IngredientComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[]
   general$ = this.store.select('general')
   constructor(
-    public ingredientService: IngredientService,
     private modalService: BsModalService,
     private store: Store<fromApp.AppState>) { }
 
@@ -40,12 +42,15 @@ export class IngredientComponent implements OnInit, OnDestroy {
     this.bsModalRef = this.modalService.show(EditIngredientModalComponent);
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  deleteIngredient(id: Number) {
+    this.store.dispatch(new IngredientActions.BeginDeleteIngredient(id));
   }
 
   createIngredient(ingredient) {
     console.log(ingredient)
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

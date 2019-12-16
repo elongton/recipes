@@ -3,7 +3,6 @@ import { RecipeService } from "../recipe.service";
 import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from "@angular/router";
 import { Subscription, of } from "rxjs";
 import { Recipe } from 'src/app/core/models/recipe.model';
-import { AppService } from 'src/app/app.service';
 import { environment } from "src/environments/environment";
 import { HelperService } from 'src/app/shared/helper.service';
 import { Store } from '@ngrx/store';
@@ -27,7 +26,6 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
   constructor(
-    private appService: AppService,
     private route: ActivatedRoute,
     public helper: HelperService,
     private recipeService: RecipeService,

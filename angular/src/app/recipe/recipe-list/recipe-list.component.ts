@@ -3,7 +3,6 @@ import { RecipeService } from "../recipe.service";
 import { Router } from "@angular/router";
 import { HelperService } from 'src/app/shared/helper.service';
 import { Recipe } from 'src/app/core/models/recipe.model';
-import { AppService } from 'src/app/app.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
 
@@ -30,7 +29,6 @@ export class RecipeListComponent implements OnInit {
 
   constructor(
     public recipeService: RecipeService,
-    public appService: AppService,
     private router: Router,
     private helpers: HelperService,
     public authService: AuthService, ) { }
