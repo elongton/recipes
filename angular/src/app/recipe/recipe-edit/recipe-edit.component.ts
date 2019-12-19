@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { RecipeService } from "../recipe.service";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
@@ -12,17 +12,14 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as RecipeActions from '../store/recipe.actions'
-
 import { Subscription, of } from 'rxjs';
 import { map, switchMap, concatMap } from 'rxjs/operators';
-
-
 @Component({
   selector: "app-recipe-edit",
   templateUrl: "./recipe-edit.component.html",
   styleUrls: ["./recipe-edit.component.scss"]
 })
-export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RecipeEditComponent implements OnInit, OnDestroy {
   // @ViewChildren('ingredient') childChildren: QueryList<ElementRef>;
   recipeForm: FormGroup;
   recipeToEdit;
@@ -57,7 +54,7 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.buildForm();
     this.subscription = this.route.params.pipe(map(params => {
-      return +params['recipeId'];
+      return params['recipeId'];
     }), switchMap(id => {
       this.recipeId = id;
       return this.store.select('recipes')
@@ -70,71 +67,17 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
     })).subscribe(tags => {
       this.tags = tags.tags;
       if (!this.populated
-        && this.recipeId
         && this.recipes.length > 0
         && this.ingredients.length > 0
         && this.tags.length > 0) this.populateForm(this.recipeId)
     });
 
   }
-
-  ngAfterViewInit() {
-    this.recipeService.elementToFocus$.subscribe((val: any) => {
-      this.onBlurIngredient(val.ingredientName, val.section, val.ingredientIndex)
-      // this.childChildren.last.nativeElement.focus();
-    })
-    // this.childChildren.changes.subscribe(children => {
-    //   try {
-    //     if (children.last.nativeElement.value == null || children.last.nativeElement.value == '') {
-    //       children.last.nativeElement.focus();
-    //     }
-    //   } catch (e) { }
-    //   this.cdr.detectChanges();
-    // })
+  populateForm(recipeId: Number) {
+    if (recipeId) this.populateEditingRecipeForm(recipeId)
+    else this.populateNewRecipeForm()
+    this.populated = true;
   }
-
-  populateForm(recipeId) {
-    this.recipeToEdit = this.recipes.find(r => r.id == Number(recipeId))
-    this.selectedTagArray = this.recipeToEdit.tags;
-    if (this.recipeToEdit) {
-      this.recipeToEdit.ingredient_sections.forEach(section => {
-        let tempSection = this.addIngredientSection();
-        section.ingredients.forEach(() => {
-          this.addIngredient(tempSection);
-        });
-      });
-      this.recipeToEdit.steps.forEach(() => {
-        this.addStep();
-      });
-      let sections = this.recipeForm.get("ingredient_sections") as FormArray
-      for (let i = 0; i < sections.length; i++) {
-        let ingredients = sections.at(i).get("ingredients") as FormArray
-        for (let j = 0; j < ingredients.length; j++) {
-          let updateObject = this.recipeToEdit.ingredient_sections[i].ingredients[j];
-          ingredients.at(j).patchValue({
-            unitList: this.generateUnitList(updateObject.ingredient_id),
-            ingredient_id: Number(updateObject.ingredient_id),
-            unit_id: updateObject.unit_id,
-            ingredient_name: updateObject.ingredient_name,
-            ingredient_notes: updateObject.ingredient_notes,
-            recipe_notes: updateObject.recipe_notes,
-            recipe_name: updateObject.recipe_name,
-            recipe_id: updateObject.recipe_id,
-            ingredient_quantity: updateObject.ingredient_quantity,
-            recipe_quantity: updateObject.recipe_quantity
-          })
-        }
-      }
-      // } catch (e) { }
-
-      if (this.recipeToEdit.image) {
-        this.uploadedImage = environment.url + this.recipeToEdit.image;
-      }
-      this.recipeForm.patchValue(this.recipeToEdit)
-      this.populated = true;
-    }
-  }
-
   buildForm() {
     this.recipeForm = this.formBuilder.group({
       title: "",
@@ -145,7 +88,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
       notes: ''
     });
   }
-
   createIngredientSection(name?: string): FormGroup {
     return this.formBuilder.group({
       name: name ? name : "",
@@ -199,8 +141,20 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.steps.removeAt(i);
   }
+  switchIngredientToRecipe(ingredient) {
+    ingredient.get('is_recipe_as_ingredient').patchValue(!ingredient.get('is_recipe_as_ingredient').value)
+  }
+  onSelectTag(event) {
+    this.selectedTagArray.push(event.item)
+    this.selectedTag = '';
+  }
+  onRemoveTag(event) { this.selectedTagArray.splice(event.index, 1) }
+  populateNewRecipeForm() {
+    this.addIngredientSection('General');
+  }
 
   submit() {
+    console.log(this.recipeToEdit)
     //patch selectedTag array
     this.recipeForm.get('tags').patchValue(this.selectedTagArray)
     let formDataToSend = new FormData();
@@ -224,9 +178,9 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
       // this.recipeService.updateRecipe(formDataToSend, this.recipeToEdit.id).subscribe();
     } else {
       // this.recipeService.submitRecipe(formDataToSend).subscribe();
+      this.store.dispatch(new RecipeActions.BeginCreateRecipe(formDataToSend))
     }
   }
-
 
   compressFile() {
     // let compressedImage = null;
@@ -241,7 +195,6 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       );
     });
-
   }
 
   // onFileChanged(event, uploadedImage?) {
@@ -314,20 +267,65 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.bsModalRef = this.modalService.show(EditIngredientModalComponent, Object.assign({ initialState }));
   }
 
-  switchIngredientToRecipe(ingredient) {
-    ingredient.get('is_recipe_as_ingredient').patchValue(!ingredient.get('is_recipe_as_ingredient').value)
+
+  populateEditingRecipeForm(recipeId: Number) {
+    this.recipeToEdit = this.recipes.find(r => r.id == Number(recipeId))
+    if (this.recipeToEdit) {
+      this.recipeToEdit.ingredient_sections.forEach(section => {
+        let tempSection = this.addIngredientSection();
+        section.ingredients.forEach(() => {
+          this.addIngredient(tempSection);
+        });
+      });
+      this.recipeToEdit.steps.forEach(() => {
+        this.addStep();
+      });
+      let sections = this.recipeForm.get("ingredient_sections") as FormArray
+      for (let i = 0; i < sections.length; i++) {
+        let ingredients = sections.at(i).get("ingredients") as FormArray
+        for (let j = 0; j < ingredients.length; j++) {
+          let updateObject = this.recipeToEdit.ingredient_sections[i].ingredients[j];
+          ingredients.at(j).patchValue({
+            unitList: this.generateUnitList(updateObject.ingredient_id),
+            ingredient_id: Number(updateObject.ingredient_id),
+            unit_id: updateObject.unit_id,
+            ingredient_name: updateObject.ingredient_name,
+            ingredient_notes: updateObject.ingredient_notes,
+            recipe_notes: updateObject.recipe_notes,
+            recipe_name: updateObject.recipe_name,
+            recipe_id: updateObject.recipe_id,
+            ingredient_quantity: updateObject.ingredient_quantity,
+            recipe_quantity: updateObject.recipe_quantity
+          })
+        }
+      }
+      this.selectedTagArray = this.recipeToEdit.tags;
+      if (this.recipeToEdit.image) {
+        this.uploadedImage = environment.url + this.recipeToEdit.image;
+      }
+      this.recipeForm.patchValue(this.recipeToEdit)
+    }
   }
 
-  onSelectTag(event) {
-    this.selectedTagArray.push(event.item)
-    this.selectedTag = '';
-  }
-  onRemoveTag(event) {
-    this.selectedTagArray.splice(event.index, 1)
-  }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+  ngOnDestroy() { this.subscription.unsubscribe(); }
 
 }
+
+
+
+
+// ngAfterViewInit() {
+//   this.recipeService.elementToFocus$.subscribe((val: any) => {
+//     this.onBlurIngredient(val.ingredientName, val.section, val.ingredientIndex)
+    // this.childChildren.last.nativeElement.focus();
+  // })
+  // this.childChildren.changes.subscribe(children => {
+  //   try {
+  //     if (children.last.nativeElement.value == null || children.last.nativeElement.value == '') {
+  //       children.last.nativeElement.focus();
+  //     }
+  //   } catch (e) { }
+  //   this.cdr.detectChanges();
+  // })
+// }

@@ -30,6 +30,7 @@ export class RecipeEffects {
             return this.http.post<Recipe>(`api/recipes/`, action.payload)
         }),
         map(recipe => {
+            console.log(recipe)
             return new RecipeActions.SuccessCreateRecipe(recipe);
         }),
         catchError((error: Error) => {

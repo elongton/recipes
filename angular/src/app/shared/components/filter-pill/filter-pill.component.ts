@@ -12,7 +12,7 @@ export class FilterPillComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.filter.name)
+    // console.log(this.filter.name)
   }
 
   onClose() {
