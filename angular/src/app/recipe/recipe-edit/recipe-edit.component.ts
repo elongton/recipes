@@ -36,6 +36,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   populated: boolean = false;
   selectedTag;
   selectedTagArray = [];
+  loading: boolean;
 
 
   private subscription: Subscription;
@@ -67,13 +68,16 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     })).subscribe(tags => {
       this.tags = tags.tags;
       if (!this.populated
-        && this.recipes.length > 0
-        && this.ingredients.length > 0
-        && this.tags.length > 0) this.populateForm(this.recipeId)
+        && this.loading == false
+        // && this.recipes.length > 0
+        // && this.ingredients.length > 0
+        // && this.tags.length > 0
+      ) this.populateForm(this.recipeId)
     });
 
   }
   populateForm(recipeId: Number) {
+    console.log('populate')
     if (recipeId) this.populateEditingRecipeForm(recipeId)
     else this.populateNewRecipeForm()
     this.populated = true;
@@ -149,53 +153,14 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.selectedTag = '';
   }
   onRemoveTag(event) { this.selectedTagArray.splice(event.index, 1) }
+
   populateNewRecipeForm() {
     this.addIngredientSection('General');
   }
 
-  submit() {
-    console.log(this.recipeToEdit)
-    //patch selectedTag array
-    this.recipeForm.get('tags').patchValue(this.selectedTagArray)
-    let formDataToSend = new FormData();
-    formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
-    // console.log(this.recipeForm.value)
-    // if (this.selectedFile) {
-    if (this.uploadedImage) {
-      //if user uploads a new image, backend uploads and replaces
-      try {
-        formDataToSend.append("image", this.selectedFile, this.selectedFile.name);
-      } catch (e) {
-        console.error(e)
-      }
-    } else {
-      //if user doesn't change image, nothing is sent, and backend retains existing image
-      formDataToSend.append("image", '');
-    }
-    if (this.recipeToEdit) {
-      // this.store.dispatch(new RecipeActions.UpdateRecipe())
-      // console.log(this.recipeForm.value)
-      // this.recipeService.updateRecipe(formDataToSend, this.recipeToEdit.id).subscribe();
-    } else {
-      // this.recipeService.submitRecipe(formDataToSend).subscribe();
-      this.store.dispatch(new RecipeActions.BeginCreateRecipe(formDataToSend))
-    }
-  }
 
-  compressFile() {
-    // let compressedImage = null;
-    this.imageCompress.uploadFile().then(({ image, orientation }) => {
-      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(image, orientation, 50, 50).then(
-        result => {
-          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
-          this.uploadedImage = result
-          this.selectedFile = this.helpers.dataURLtoFile(result, 'image.jpg')
-        }
-      );
-    });
-  }
+
 
   // onFileChanged(event, uploadedImage?) {
   //   if (uploadedImage) {
@@ -269,6 +234,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
 
   populateEditingRecipeForm(recipeId: Number) {
+    console.log('populating existing recipe')
     this.recipeToEdit = this.recipes.find(r => r.id == Number(recipeId))
     if (this.recipeToEdit) {
       this.recipeToEdit.ingredient_sections.forEach(section => {
@@ -307,6 +273,31 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     }
   }
 
+  compressFile() {
+    // let compressedImage = null;
+    this.imageCompress.uploadFile().then(({ image, orientation }) => {
+      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+      this.imageCompress.compressFile(image, orientation, 50, 50).then(
+        result => {
+          console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+          this.uploadedImage = result
+          this.selectedFile = this.helpers.dataURLtoFile(result, 'image.jpg')
+        }
+      );
+    });
+  }
+
+  submit() {
+    //patch selectedTag array
+    this.recipeForm.get('tags').patchValue(this.selectedTagArray)
+    let formPrecursor = {
+      recipeForm: this.recipeForm.value,
+      image: this.selectedFile,
+    }
+    this.recipeService.createUpdateRecipe(formPrecursor, this.recipeId).subscribe(result => { console.log(result) })
+  }
+
 
   ngOnDestroy() { this.subscription.unsubscribe(); }
 
@@ -328,4 +319,31 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   //   } catch (e) { }
   //   this.cdr.detectChanges();
   // })
+// }
+
+
+
+// submit() {
+//   //patch selectedTag array
+//   this.recipeForm.get('tags').patchValue(this.selectedTagArray)
+//   let formDataToSend = new FormData();
+//   formDataToSend.append("fields", JSON.stringify(this.recipeForm.value));
+//   console.log(this.recipeForm.value)
+//   if (this.selectedFile) {
+//     //if user uploads a new image, backend uploads and replaces
+//     try {
+//       formDataToSend.append("image", this.selectedFile, this.selectedFile.name);
+//     } catch (e) {
+//       console.log(e)
+//     }
+//   } else {
+//     //if user doesn't change image, nothing is sent, and backend retains existing image
+//     formDataToSend.append("image", '');
+//   }
+//   if (this.recipeToEdit) {
+//     console.log(this.recipeForm.value)
+//     this.recipeService.updateRecipe(formDataToSend, this.recipeToEdit.id).subscribe();
+//   } else {
+//     this.recipeService.submitRecipe(formDataToSend).subscribe();
+//   }
 // }

@@ -13,6 +13,8 @@ from ..helpers.recipe_helpers import *
 import json
 
 
+
+
 #Create and List
 class RecipeList(generics.ListCreateAPIView):
     #overrides and settings
@@ -27,6 +29,7 @@ class RecipeList(generics.ListCreateAPIView):
         return Response(serializer.data)
 
     def perform_create(self, serializer):
+        print('trying trying trying')
         try:
             image = self.request.data['image']
         except:
@@ -109,3 +112,54 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
                 create_tag_link(tag, recipeObj)
         except ValueError:
             print('no tags, or issue creating')
+
+
+
+# class RecipeList(APIView):
+#     permission_classes = [permissions.AllowAny]
+#     # authentication_classes=[SessionAuthentication]
+#     def get(self, request, fomrat=None):
+#         responseData = []
+#         return Response(responseData, status=status.HTTP_201_CREATED)
+#     def post(self, request, format=None):
+#         print('trying trying trying')
+#         try:
+#             image = self.request.data['image']
+#             print('got the image')
+#         except:
+#             image = None
+#         data = json.loads(self.request.data['fields'])
+#         ingredient_sections = data['ingredient_sections']
+#         steps = data['steps']
+#         tags = data['tags']
+#         recipeObj = Recipe(
+#             author=None,
+#             title=data['title'],
+#             description=data['description'],
+#             notes = data['notes'],
+#             image=image
+#         )
+#         recipeObj.save()
+#         # ingredient sections
+#         try:
+#             for ingredient_section in ingredient_sections:
+#                 recipeSectionObj = create_recipe_ingredient_section(ingredient_section, recipeObj)
+#                 for ingredient in ingredient_section['ingredients']:
+#                     create_ingredient_link(ingredient, recipeSectionObj)
+#         except ValueError:
+#             print('no ingredients, or issue creating')
+#         # get list of steps from request, and add them to link table
+#         try:
+#             for step in steps:
+#                 create_step_link(recipeObj, step)
+#         except ValueError:
+#             print('no steps, or issue creating')
+
+#         try:
+#             for tag in tags:
+#                 create_tag_link(tag, recipeObj)
+#         except ValueError:
+#             print('no tags, or issue creating')
+
+#         responseData = 'success'
+#         return Response(responseData, status=status.HTTP_202_ACCEPTED)

@@ -18,7 +18,6 @@
           <filter-pill [filter]="{name: item.name, id: item.id, index: i}" (close)="onRemoveTag($event)"></filter-pill>
         </ng-container>
 
-
         <div class="d-flex section-heading align-items-center">
           <h4>Ingredients</h4>
           <button type="button" class="btn btn-light ml-2" (click)="addIngredientSection();">
@@ -137,9 +136,6 @@
         <div *ngIf="uploadedImage" class="image recipe-section"
           [ngStyle]="{ 'background-image': 'url(' + uploadedImage + ')' }"
           style="height: 400px; width: 500px; background-position: center; background-size: cover;"></div>
-
-
-
         <div>
           <button type="button" class="btn btn-success" (click)="submit()">Submit</button>
         </div>

@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { Recipe } from 'src/app/core/models/recipe.model';
 
 @Injectable({
   providedIn: "root"
@@ -9,11 +11,30 @@ export class RecipeService {
   elementToFocus$ = new Subject();
   constructor(
     private router: Router,
+    private http: HttpClient,
   ) { }
 
   public nagivateToRecipe(id) {
     this.router.navigate(["/recipe/view", id]);
   }
+
+
+  createUpdateRecipe(formPrecursor, recipeId?) {
+    let formDataToSend = new FormData();
+    formDataToSend.append("fields", JSON.stringify(formPrecursor.recipeForm));
+    if (formPrecursor.image) {
+      //if user uploads a new image, backend uploads and replaces
+      try {
+        formDataToSend.append("image", formPrecursor.image, formPrecursor.image.name);
+      } catch (e) { console.error(e) }
+    } else {
+      //if user doesn't change image, nothing is sent, and backend retains existing image
+      formDataToSend.append("image", '');
+    }
+    if (recipeId) return this.http.put<Recipe>(`api/recipes/${recipeId}`, formDataToSend)
+    else return this.http.post<Recipe>(`api/recipes/`, formDataToSend)
+  }
+
 
   scanRecipeList(selectedRecipes) {
     let shoppingList = [];

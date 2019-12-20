@@ -67,8 +67,7 @@ class UserMetaUpdateView(APIView):
         meta.save()
         responseData = 'worked'
         return Response(responseData, status=status.HTTP_202_ACCEPTED)
-    # queryset = User.objects.all()
-    # serializer_class = UserMetaSerializer
+
 
 
 

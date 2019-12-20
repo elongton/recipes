@@ -17,7 +17,7 @@ export const RECIPE_HTTP_ERROR = '[Recipes] Some HTTP Error';
 
 export class BeginCreateRecipe implements Action {
     readonly type = BEGIN_CREATE_RECIPE;
-    constructor(public payload: FormData) { }
+    constructor(public payload: any) { }
 }
 export class BeginRetrieveRecipes implements Action {
     readonly type = BEGIN_RETRIEVE_RECIPES;

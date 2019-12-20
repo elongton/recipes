@@ -38,7 +38,7 @@ export function recipeReducer(state = initialState, action: RecipeActions.Recipe
         case RecipeActions.SUCCESS_CREATE_RECIPE:
             return {
                 ...state,
-                recipes: [...state.recipes, action.payload],
+                recipes: [...state.recipes],
                 loading: false
             };
         case RecipeActions.SUCCESS_RETRIEVE_RECIPES:
