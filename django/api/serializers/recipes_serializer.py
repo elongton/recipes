@@ -61,6 +61,8 @@ class RecipeSerializer(serializers.ModelSerializer):
     steps = RecipeStepSerializer(many=True, read_only=True)
     ingredient_sections = RecipeIngredientSectionSerializer(many=True, read_only=True)
     tags = RecipeTagSerializer(many=True, read_only=True)
+    image = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Recipe
@@ -74,4 +76,10 @@ class RecipeSerializer(serializers.ModelSerializer):
                   'ingredient_sections',
                   'tags',
                   ]
+    def get_image(self, obj):
+        try:
+            image_url = obj.image.url
+        except:
+            image_url = None
+        return image_url
 

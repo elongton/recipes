@@ -38,7 +38,7 @@ export function recipeReducer(state = initialState, action: RecipeActions.Recipe
         case RecipeActions.SUCCESS_CREATE_RECIPE:
             return {
                 ...state,
-                recipes: [...state.recipes],
+                recipes: [...state.recipes, action.payload],
                 loading: false
             };
         case RecipeActions.SUCCESS_RETRIEVE_RECIPES:
@@ -48,6 +48,7 @@ export function recipeReducer(state = initialState, action: RecipeActions.Recipe
                 loading: false
             };
         case RecipeActions.SUCCESS_UPDATE_RECIPE:
+            console.log(action.payload)
             const updatedRecipes = [...state.recipes];
             const indexToUpdate = updatedRecipes.findIndex(recipe => { return recipe.id === action.payload.id })
             updatedRecipes[indexToUpdate] = action.payload;

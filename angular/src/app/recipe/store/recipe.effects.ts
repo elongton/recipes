@@ -1,6 +1,8 @@
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as RecipeActions from './recipe.actions';
 import { switchMap, map, catchError, mergeMap } from 'rxjs/operators';
+import { Router } from "@angular/router";
+
 
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { HttpClient } from '@angular/common/http';
@@ -23,33 +25,20 @@ export class RecipeEffects {
         })
     )
 
-    // @Effect()
-    // createRecipe = this.actions$.pipe(
-    //     ofType(RecipeActions.BEGIN_CREATE_RECIPE),
-    //     switchMap((action: RecipeActions.BeginCreateRecipe) => {
 
-    //     }),
-    //     map(recipe => {
-    //         console.log(recipe)
-    //         return new RecipeActions.SuccessCreateRecipe(recipe);
-    //     }),
-    //     catchError((error: Error) => {
-    //         return of(new RecipeActions.RecipeHTTPError(error));
-    //     })
-    // )
-
-    @Effect()
+    @Effect({ dispatch: false })
+    createRecipe = this.actions$.pipe(
+        ofType(RecipeActions.SUCCESS_CREATE_RECIPE),
+        map((action: RecipeActions.SuccessCreateRecipe) => {
+            this.router.navigate([`/recipe/view/${action.payload.id}`])
+        }),
+    )
+    @Effect({ dispatch: false })
     updateRecipe = this.actions$.pipe(
-        ofType(RecipeActions.BEGIN_UPDATE_RECIPE),
-        switchMap((action: RecipeActions.BeginUpdateRecipe) => {
-            return this.http.put<Recipe>(`api/recipes/${action.payload.id}`, action.payload.recipe)
+        ofType(RecipeActions.SUCCESS_UPDATE_RECIPE),
+        map((action: RecipeActions.SuccessUpdateRecipe) => {
+            this.router.navigate([`/recipe/view/${action.payload.id}`])
         }),
-        map(recipe => {
-            return new RecipeActions.SuccessUpdateRecipe(recipe);
-        }),
-        catchError((error: Error) => {
-            return of(new RecipeActions.RecipeHTTPError(error));
-        })
     )
 
     @Effect()
@@ -67,5 +56,5 @@ export class RecipeEffects {
     )
 
 
-    constructor(private actions$: Actions, private http: HttpClient) { }
+    constructor(private actions$: Actions, private http: HttpClient, private router: Router) { }
 }

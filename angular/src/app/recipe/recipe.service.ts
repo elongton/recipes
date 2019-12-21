@@ -3,6 +3,9 @@ import { Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 import { Recipe } from 'src/app/core/models/recipe.model';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
+import * as RecipeActions from './store/recipe.actions';
 
 @Injectable({
   providedIn: "root"
@@ -10,6 +13,7 @@ import { Recipe } from 'src/app/core/models/recipe.model';
 export class RecipeService {
   elementToFocus$ = new Subject();
   constructor(
+    private store: Store<fromApp.AppState>,
     private router: Router,
     private http: HttpClient,
   ) { }
@@ -23,17 +27,22 @@ export class RecipeService {
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(formPrecursor.recipeForm));
     if (formPrecursor.image) {
-      //if user uploads a new image, backend uploads and replaces
       try {
-        formDataToSend.append("image", formPrecursor.image, formPrecursor.image.name);
+        formDataToSend.append("imageToUpload", formPrecursor.image, formPrecursor.image.name);
       } catch (e) { console.error(e) }
     } else {
-      //if user doesn't change image, nothing is sent, and backend retains existing image
-      formDataToSend.append("image", '');
+      formDataToSend.append("imageToUpload", '');
     }
-    if (recipeId) return this.http.put<Recipe>(`api/recipes/${recipeId}`, formDataToSend)
-    else return this.http.post<Recipe>(`api/recipes/`, formDataToSend)
+    if (recipeId) return this.http.put<Recipe>(`api/recipes/${recipeId}`, formDataToSend).subscribe(
+      result => { console.log(result); this.store.dispatch(new RecipeActions.SuccessUpdateRecipe(result)) })
+    else return this.http.post<Recipe>(`api/recipes/`, formDataToSend).subscribe(
+      result => {
+        this.store.dispatch(new RecipeActions.SuccessCreateRecipe(result))
+      })
   }
+
+
+
 
 
   scanRecipeList(selectedRecipes) {

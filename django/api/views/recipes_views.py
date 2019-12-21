@@ -2,13 +2,10 @@ from api.models import (Recipe,
                         RecipeIngredientLink, 
                         RecipeStep, )
 from api.serializers import (RecipeSerializer,)
-
 from rest_framework import generics, permissions, status
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
-
 from ..helpers.recipe_helpers import *
 import json
 
@@ -29,9 +26,10 @@ class RecipeList(generics.ListCreateAPIView):
         return Response(serializer.data)
 
     def perform_create(self, serializer):
+        print(serializer.validated_data)
         print('trying trying trying')
         try:
-            image = self.request.data['image']
+            image = self.request.data['imageToUpload']
         except:
             image = None
         data = json.loads(self.request.data['fields'])
@@ -43,8 +41,10 @@ class RecipeList(generics.ListCreateAPIView):
             title=data['title'],
             description=data['description'],
             notes = data['notes'],
-            image=image
         )
+
+        recipeObj.image = image
+        recipeObj.save()
         # ingredient sections
         try:
             for ingredient_section in ingredient_sections:
@@ -80,7 +80,7 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
 
         pk = self.request.parser_context['kwargs']['pk']
         existingImage = Recipe.objects.get(id=pk).image
-        image = self.request.data['image']
+        image = self.request.data['imageToUpload']
         
         # update top level fields
         recipeObj = serializer.save(
@@ -94,6 +94,9 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
             recipeObj = serializer.save(image = existingImage)
         else:
             recipeObj = serializer.save(image = image)
+
+
+        # print(recipeObj.image.url)
         # delete and then create new set of ingredients
         delete_recipe_ingredient_sections(recipeObj)
         for ingredient_section in ingredient_sections:

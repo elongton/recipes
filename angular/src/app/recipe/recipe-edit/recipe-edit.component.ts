@@ -36,7 +36,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   populated: boolean = false;
   selectedTag;
   selectedTagArray = [];
-  loading: boolean;
+  loading: boolean = false;
 
 
   private subscription: Subscription;
@@ -295,9 +295,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       recipeForm: this.recipeForm.value,
       image: this.selectedFile,
     }
-    this.recipeService.createUpdateRecipe(formPrecursor, this.recipeId).subscribe(result => { console.log(result) })
+    this.recipeService.createUpdateRecipe(formPrecursor, this.recipeId)
   }
-
 
   ngOnDestroy() { this.subscription.unsubscribe(); }
 
