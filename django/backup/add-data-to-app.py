@@ -14,7 +14,10 @@ from api.models import (Ingredient,
                         UnitType,
                         StoreSection,
                         UnitTypeIngredientLink,
-                        RecipeIngredientSection)
+                        RecipeIngredientSection,
+                        Tag,
+                        Reference,
+                        RecipeTagLink)
 
 def reset_nextvals(seq_id_name, table_name):
     with connection.cursor() as cursor:
@@ -25,6 +28,47 @@ def reset_nextvals(seq_id_name, table_name):
 
 with open('data.json') as json_file:
     data = json.load(json_file)
+
+
+
+###### CREATE REFDATA
+    for ref in data['ref_data']:
+        try:
+            Reference.objects.create(
+                key=ref['key'],
+                value=ref['value'],
+                reference_type=ref['reference_type'],
+                id=ref['id'],
+            )
+        except:
+            print('created already')
+            pass
+    print('reference created')
+    try:
+        reset_nextvals("ref_seq", "api_reference")
+        print('ref db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass
+
+###### CREATE TAGS
+    for tag in data['tags']:
+        try:
+            Tag.objects.create(
+                name=tag['name'],
+                tag_type=tag['tag_type'],
+                id=tag['id']
+            )
+        except:
+            print('created already')
+            pass
+    print('tags created')
+    try:
+        reset_nextvals("tags_seq", "api_tag")
+        print('tag db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass
 
 
 ###### CREATE UNIT TYPES and UNITS
@@ -229,6 +273,26 @@ with open('data.json') as json_file:
     try:
         reset_nextvals("recipe_ingredient_link_seq", "api_recipeingredientlink")
         print('recipe ingredient link db nextval updated')
+    except ValueError:
+        print(ValueError)
+        pass
+
+
+###### CREATE RECIPE TAG LINKS
+    for recipe_tag_link in data['recipe_tag_links']:
+        try:
+            RecipeTagLink.objects.create(
+                recipe=Recipe.objects.get(id=recipe_tag_link['recipe']),
+                tag=Tag.objects.get(id=recipe_tag_link['tag']),
+                id=recipe_tag_link['id'],
+            )
+        except:
+            print('created already')
+            pass
+    print('recipe tag links created')
+    try:
+        reset_nextvals("recipe_tag_link_seq", "api_recipetaglink")
+        print('recipe tag links db nextval updated')
     except ValueError:
         print(ValueError)
         pass

@@ -1,4 +1,77 @@
 {
+    "tags": [
+        {
+            "name": "Winter",
+            "tag_type": "seasonal",
+            "id": 1
+        },
+        {
+            "name": "5 minutes",
+            "tag_type": "prep_time",
+            "id": 2
+        }
+    ],
+    "recipe_tag_links": [
+        {
+            "recipe": 1,
+            "tag": 1,
+            "id": 48
+        },
+        {
+            "recipe": 1,
+            "tag": 2,
+            "id": 49
+        },
+        {
+            "recipe": 7,
+            "tag": 2,
+            "id": 50
+        }
+    ],
+    "ref_data": [
+        {
+            "key": "world_cuisine",
+            "value": "World Cuisine",
+            "reference_type": "tag_category",
+            "id": 1
+        },
+        {
+            "key": "popular_tags",
+            "value": "Popular Tags",
+            "reference_type": "tag_category",
+            "id": 2
+        },
+        {
+            "key": "meal_type",
+            "value": "Meal Type",
+            "reference_type": "tag_category",
+            "id": 3
+        },
+        {
+            "key": "flavors",
+            "value": "Flavors",
+            "reference_type": "tag_category",
+            "id": 4
+        },
+        {
+            "key": "seasonal",
+            "value": "Seasonal",
+            "reference_type": "tag_category",
+            "id": 5
+        },
+        {
+            "key": "prep_time",
+            "value": "Prep Time",
+            "reference_type": "tag_category",
+            "id": 6
+        },
+        {
+            "key": "dietary_requirements",
+            "value": "Dietary Requirements",
+            "reference_type": "tag_category",
+            "id": 7
+        }
+    ],
     "unit_types": [
         {
             "name": "Dry",

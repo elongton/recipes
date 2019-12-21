@@ -42,7 +42,6 @@ class TagEditDeleteView(generics.RetrieveUpdateDestroyAPIView):
 
 class ReferenceList(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
-    # authentication_classes=[SessionAuthentication]
     queryset = Reference.objects.all()
     serializer_class = ReferenceSerializer
 

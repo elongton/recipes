@@ -15,6 +15,7 @@ export class GeneralEffects {
             return this.http.get<any[]>(`api/ref/`)
         }),
         map(ref => {
+            // console.log(ref)
             return new GeneralActions.SuccessRetrieveRefdata(ref);
         }),
         catchError((error: Error) => {

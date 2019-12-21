@@ -14,6 +14,12 @@ import * as fromApp from '../../store/app.reducer';
 import * as RecipeActions from '../store/recipe.actions'
 import { Subscription, of } from 'rxjs';
 import { map, switchMap, concatMap } from 'rxjs/operators';
+
+
+interface TagSelect {
+  name: string, id: number, tag_type: string
+}
+
 @Component({
   selector: "app-recipe-edit",
   templateUrl: "./recipe-edit.component.html",
@@ -35,7 +41,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   bsModalRef: BsModalRef;
   populated: boolean = false;
   selectedTag;
-  selectedTagArray = [];
+  selectedTagArray: TagSelect[] = [];
   loading: boolean = false;
 
 
@@ -149,6 +155,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     ingredient.get('is_recipe_as_ingredient').patchValue(!ingredient.get('is_recipe_as_ingredient').value)
   }
   onSelectTag(event) {
+    console.log(this.selectedTagArray)
+    console.log(event)
     this.selectedTagArray.push(event.item)
     this.selectedTag = '';
   }
@@ -265,7 +273,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           })
         }
       }
-      this.selectedTagArray = this.recipeToEdit.tags;
+      this.selectedTagArray = Object.assign([], this.recipeToEdit.tags);
+      console.log(this.recipeToEdit.tags)
       if (this.recipeToEdit.image) {
         this.uploadedImage = environment.url + this.recipeToEdit.image;
       }

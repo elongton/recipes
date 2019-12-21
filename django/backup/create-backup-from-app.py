@@ -15,6 +15,9 @@ from api.models import (Ingredient,
                         RecipeIngredientLink,
                         RecipeIngredientSection,
                         Recipe, 
+                        Reference,
+                        Tag,
+                        RecipeTagLink
                         )
 
 unit_types = UnitType.objects.all()
@@ -26,6 +29,9 @@ recipe_ingredient_sections = RecipeIngredientSection.objects.all()
 recipe_ingredient_links = RecipeIngredientLink.objects.all()
 recipes = Recipe.objects.all()
 recipe_steps = RecipeStep.objects.all()
+ref_data = Reference.objects.all()
+recipe_tag_links = RecipeTagLink.objects.all()
+tags = Tag.objects.all()
 
 
 data = {}
@@ -39,6 +45,19 @@ data['recipe_ingredient_links'] = []
 data['recipe_ingredient_sections'] = []
 data['recipes']= []
 
+data['ref_data'] = []
+data['tags'] = []
+data['recipe_tag_links'] = []
+
+
+for ref in ref_data:
+    data['ref_data'].append({"key": ref.key, "value": ref.value, "reference_type": ref.reference_type, "id": ref.id})
+
+for tag in tags:
+    data['tags'].append({"name": tag.name, "tag_type": tag.tag_type, "id": tag.id})
+
+for recipe_tag_link in recipe_tag_links:
+    data['recipe_tag_links'].append({"recipe": recipe_tag_link.recipe.id, "tag": recipe_tag_link.tag.id, "id": recipe_tag_link.id})
 
 for unit_type in unit_types:
     data['unit_types'].append({"name": unit_type.name, "base_unit": unit_type.base_unit.id, "id": unit_type.id})
