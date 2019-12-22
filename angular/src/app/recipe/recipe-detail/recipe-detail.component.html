@@ -22,12 +22,11 @@
     </div> -->
 
     <ng-container topMenu>
-      <button class="btn btn-outline-dark add-to-recipe-book-button" [ngClass]="{'active':isInRecipeBook}"
+      <button class="btn btn-outline-dark add-to-recipe-book-button" [ngClass]="{'no-clicky':isInRecipeBook}"
         (click)="addRecipeToRecipeBook();">{{isInRecipeBook ? 'You have this recipe': 'Add to
         Recipe
         Book'}}</button>
-      <fa-icon icon=shopping-basket style="font-size: 25px;" class="ml-2"
-        [ngClass]="{'shoppingListItem': recipe.shoppingListItem}"></fa-icon>
+      <fa-icon icon=shopping-basket style="font-size: 25px;" class="ml-2"></fa-icon>
 
       <a [routerLink]="['/recipe/edit/', recipe.id]" style="color: #212529;">
         <div class="ml-2">

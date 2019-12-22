@@ -16,7 +16,7 @@ export class UserEffects {
             return this.http.get(`api/user/`);
         }),
         map(data => {
-            console.log(data)
+            // console.log(data)
             return new UserActions.SuccessRetrieveUserData(data);
         }),
         catchError((error: Error) => {

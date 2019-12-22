@@ -1,1 +1,23 @@
-<p>recipe-book works!</p>
+<app-loader (loading)="loading = $event"></app-loader>
+
+<ng-container *ngIf="!loading">
+
+    <main style="display: flex; flex-direction: column;">
+        <section style="display: flex;">
+            <div style="flex-grow :1">
+                <div *ngFor="let recipe of userRecipes" class="mb-1">
+                    <recipe-circle [small]="true" [recipe]="recipe"></recipe-circle>
+                </div>
+
+            </div>
+            <div style="flex-grow :1">
+
+
+            </div>
+        </section>
+
+    </main>
+
+
+
+</ng-container>

@@ -33,7 +33,7 @@ export class HelperService {
     checkIfIngredient(recipeItem, ingredientId) {
         let recipeHasIngredient = false;
         recipeItem.ingredient_sections.forEach(section => {
-            console.log(section)
+            // console.log(section)
             if (section.ingredients.filter(r => { return r.ingredient_id == ingredientId }).length > 0) {
                 recipeHasIngredient = true
             }

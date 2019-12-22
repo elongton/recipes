@@ -25,10 +25,12 @@ export function authReducer(state = initialState, action: UserActions.UserAction
                 loading: true,
             };
         case UserActions.SUCCESS_RETRIEVE_USER_DATA:
+            // console.log(action.payload)
+            let incomingRecipeBook = action.payload.recipe_book;
             return {
                 ...state,
                 meta: action.payload.meta,
-                recipeBook: action.payload.recipe_book,
+                recipeBook: incomingRecipeBook ? action.payload.recipe_book : { recipes: [] },
                 loading: false,
             };
 

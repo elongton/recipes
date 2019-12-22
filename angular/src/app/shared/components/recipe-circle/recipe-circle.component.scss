@@ -1,11 +1,21 @@
 $image_size: 150px;
+$small_image_size: 50px;
 .recipe-image{
     width: $image_size;
     height: $image_size;
     border-radius: 100%;
     background-position: center;
     background-size: cover;
+} 
+
+.small-recipe-image{
+    width: $small_image_size;
+    height: $small_image_size;
+    border-radius: 100%;
+    background-position: center;
+    background-size: cover;
 }
+
 
 .recipe-image-overlay{
     height: 100%;
@@ -22,12 +32,9 @@ $image_size: 150px;
 .recipe-image-icon{
     visibility: hidden;
 }
-
 .recipe-image-overlay:hover{
     background-color: rgba(0, 51, 102, 0.7);
 }
-
-
 .recipe-image-overlay:hover .recipe-image-icon{
     visibility: visible;
 }

@@ -17,12 +17,14 @@
                     style="border-radius: 100%;">
             </div>
             <a [routerLink]="['/recipe/new']"><button class="btn btn-outline-primary ml-2">New Recipe</button></a>
-            <a [routerLink]="['/meal-planner']"><button class="btn btn-outline-primary ml-2">Meal Planner</button></a>
-            <a [routerLink]="['/recipe-book']"><button class="btn btn-outline-primary ml-2">Recipe Book</button></a>
-            <a [routerLink]="['/shopping-list']" style="color: inherit;">
+            <a [routerLink]="['/meal-planner']"><button class="btn btn-outline-primary ml-2" disabled>Meal
+                    Planner</button></a>
+            <a [routerLink]="['/recipe-book']"><button class="btn btn-outline-primary ml-2"
+                    [ngClass]="{'active': currentUrl=='/recipe-book'}">Recipe Book</button></a>
+            <a [routerLink]="['/shopping-list']" style="color: rgba(0,0,0,0.5); pointer-events: none;">
                 <div class="shopping-cart ml-2">
                     <fa-icon icon=shopping-cart></fa-icon>
-                    <span class="shopping-cart-quantity">2</span>
+                    <span class="shopping-cart-quantity">0</span>
                 </div>
             </a>
         </div>

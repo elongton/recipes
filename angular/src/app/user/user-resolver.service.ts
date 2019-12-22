@@ -16,7 +16,9 @@ export class UserResolverService implements Resolve<any>{
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.store.select('user').pipe(
             take(1),
+
             map(user => {
+                // console.log('user resolver')
                 if (user.meta.viewed_recipes.length === 0) { this.store.dispatch(new UserActions.BeginRetrieveUserData) }
                 return this.actions$.pipe(ofType(UserActions.BEGIN_RETRIEVE_USER_DATA), take(1));
             }));

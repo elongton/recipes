@@ -3,6 +3,7 @@ import { AuthService } from '../../auth/auth.service';
 import * as fromApp from '../../store/app.reducer'
 import * as RecipeActions from '../../recipe/store/recipe.actions'
 import { Store } from '@ngrx/store';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,9 +13,20 @@ import { Store } from '@ngrx/store';
 export class NavbarComponent implements OnInit {
 
   sidenav = false;
-  constructor(public authService: AuthService, private store: Store<fromApp.AppState>) { }
+  currentUrl: string = '';
+  constructor(
+    public authService: AuthService,
+    private store: Store<fromApp.AppState>,
+    public router: Router,
+  ) { }
 
   ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // console.log(event)
+        this.currentUrl = event.url;
+      }
+    });
   }
 
 }

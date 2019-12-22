@@ -13,6 +13,7 @@ import { RecipeService } from 'src/app/recipe/recipe.service';
 export class RecipeCircleComponent implements OnInit {
 
   @Input('recipe') recipe: Recipe
+  @Input('small') small: Boolean = false
   imageUrl: string = environment.url;
   constructor(public recipeService: RecipeService, ) { }
 

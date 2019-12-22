@@ -36,14 +36,19 @@ const routes: Routes = [
     path: "recipe/view/:recipeId",
     component: RecipeDetailComponent,
     canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
-    resolve: [RecipeResolverService, IngredientResolverService, TagResolverService]
+    resolve: [RecipeResolverService, IngredientResolverService, TagResolverService, UserResolverService]
   },
 
 
   { path: "shopping-list", component: ShoppingListComponent },
-  { path: "recipe-book", component: RecipeBookComponent },
   { path: "meal-planner", component: MealPlannerComponent },
 
+  {
+    path: "recipe-book",
+    component: RecipeBookComponent,
+    canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
+    resolve: [UserResolverService]
+  },
   //admin stuff
   {
     path: 'admin',
