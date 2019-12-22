@@ -75,9 +75,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       this.tags = tags.tags;
       if (!this.populated
         && this.loading == false
-        // && this.recipes.length > 0
-        // && this.ingredients.length > 0
-        // && this.tags.length > 0
+        && this.recipes.length > 0
+        && this.ingredients.length > 0
+        && this.tags.length > 0
       ) this.populateForm(this.recipeId)
     });
 
@@ -243,7 +243,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
 
   populateEditingRecipeForm(recipeId: Number) {
     console.log('populating existing recipe')
+    console.log(this.recipes)
+
     this.recipeToEdit = this.recipes.find(r => r.id == Number(recipeId))
+    // console.log(this.recipeToEdit)
     if (this.recipeToEdit) {
       this.recipeToEdit.ingredient_sections.forEach(section => {
         let tempSection = this.addIngredientSection();

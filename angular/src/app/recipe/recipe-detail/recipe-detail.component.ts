@@ -23,22 +23,31 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   recipeId: Number = null;
   units: any[];
   editingNotes: boolean = false;
+  userRecipeBook: any = []
+  isInRecipeBook: boolean = false;
 
   private subscription: Subscription;
   constructor(
     private route: ActivatedRoute,
     public helper: HelperService,
-    private recipeService: RecipeService,
+    // private recipeService: RecipeService,
     private store: Store<fromApp.AppState>,
   ) { }
 
   ngOnInit() {
     this.subscription = this.route.params.pipe(map(params => {
       return +params['recipeId'];
-    }), switchMap(id => {
-      this.recipeId = id;
-      return this.store.select('recipes')
-    })).subscribe(
+    })
+      , switchMap(id => {
+        this.recipeId = id;
+        return this.store.select('user')
+      })
+      , switchMap(user => {
+        this.userRecipeBook = user.recipeBook;
+        this.isInRecipeBook = this.checkIfInRecipeBook();
+        return this.store.select('recipes')
+      })
+    ).subscribe(
       (recipes) => {
         this.recipes = recipes.recipes;
         this.recipe = recipes.recipes.find(recipe => { return recipe.id === this.recipeId })
@@ -72,6 +81,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   }
 
+  checkIfInRecipeBook() {
+    if (this.userRecipeBook.filter(r => { return r.id === this.recipeId }).length > 0) return true
+    return false
+  }
+
   ngOnDestroy() {
     // this.recipeSubscription.unsubscribe();
     // this.unitSubscription.unsubscribe();
@@ -88,5 +102,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   addRecipeToShoppingList() {
     this.recipe.shoppingListItem = !this.recipe.shoppingListItem;
+  }
+
+  addRecipeToRecipeBook() {
+    console.log(this.recipe)
   }
 }

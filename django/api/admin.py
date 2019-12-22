@@ -12,7 +12,7 @@ from .models import (Recipe,
                     UnitTypeIngredientLink,
                     StoreSection,
                     User,
-                    UserMeta,
+                    UserData,
                     Reference)
 
 
@@ -57,7 +57,7 @@ class StoreSectionAdmin(admin.ModelAdmin):
 class UnitTypeIngredientLinkAdmin(admin.ModelAdmin):
     list_display = ('unit_type', 'ingredient', 'id')
 
-class UserMetaAdmin(admin.ModelAdmin):
+class UserDataAdmin(admin.ModelAdmin):
     list_display = ('user', 'id')
 
 class ReferenceAdmin(admin.ModelAdmin):
@@ -76,5 +76,5 @@ admin.site.register(UnitType, UnitTypeAdmin)
 admin.site.register(StoreSection, StoreSectionAdmin)
 admin.site.register(UnitTypeIngredientLink, UnitTypeIngredientLinkAdmin)
 admin.site.register(User, UserAdmin)
-admin.site.register(UserMeta, UserMetaAdmin)
+admin.site.register(UserData, UserDataAdmin)
 admin.site.register(Reference, ReferenceAdmin)

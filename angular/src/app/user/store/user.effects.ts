@@ -11,13 +11,13 @@ import * as fromApp from '../../store/app.reducer'
 export class UserEffects {
     @Effect()
     getMeta = this.actions$.pipe(
-        ofType(UserActions.BEGIN_RETRIEVE_META),
+        ofType(UserActions.BEGIN_RETRIEVE_USER_DATA),
         switchMap(() => {
             return this.http.get(`api/user/`);
         }),
         map(meta => {
-            // console.log(meta)
-            return new UserActions.SuccessRetrieveMeta(meta);
+            console.log(meta)
+            return new UserActions.SuccessRetrieveUserData(meta);
         }),
         catchError((error: Error) => {
             return of(new UserActions.UserHTTPError(error));
@@ -26,9 +26,10 @@ export class UserEffects {
 
     @Effect({ dispatch: false })
     updateMeta = this.actions$.pipe(
-        ofType(UserActions.UPDATE_META),
+        ofType(UserActions.UPDATE_META || UserActions.UPDATE_RECIPE_BOOK),
         withLatestFrom(this.store.select('user')),
         switchMap(([actionData, user]) => {
+            console.log(user)
             return this.http.put(`api/user/`, user.meta)
         }),
         catchError((error: Error) => {

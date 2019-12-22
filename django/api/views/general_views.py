@@ -1,5 +1,5 @@
-from api.models import (StoreSection,Tag, Reference, User, UserMeta)
-from api.serializers import (StoreSectionSerializer, TagSerializer, ReferenceSerializer, UserMetaSerializer)
+from api.models import (StoreSection,Tag, Reference, User, UserData)
+from api.serializers import (StoreSectionSerializer, TagSerializer, ReferenceSerializer, UserDataSerializer)
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -57,10 +57,11 @@ class UserMetaUpdateView(APIView):
     # authentication_classes=[SessionAuthentication]
     def get(self, request, format=None):
         user = User.objects.get(id=request.user.id)
-        responseData = [user.user_meta.meta][0]
+        serializer = UserDataSerializer(user)
+        responseData = serializer.data
         return Response(responseData, status=status.HTTP_201_CREATED)
     def put(self, request, format=None):
-        meta = UserMeta.objects.get(user=request.user.id)
+        meta = UserData.objects.get(user=request.user.id)
         body = request.body
         meta.meta = json.loads(str(request.body, encoding='utf-8'))
         meta.save()

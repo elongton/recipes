@@ -2,22 +2,24 @@ import * as UserActions from './user.actions';
 
 export interface State {
     meta: any,
+    recipeBook: any,
     loading: Boolean
 }
 
 const initialState = {
     meta: { viewed_recipes: [] },
+    recipeBook: [],
     loading: false,
 }
 
 export function authReducer(state = initialState, action: UserActions.UserActions) {
     switch (action.type) {
-        case UserActions.BEGIN_RETRIEVE_META:
+        case UserActions.BEGIN_RETRIEVE_USER_DATA:
             return {
                 ...state,
                 loading: true,
             };
-        case UserActions.SUCCESS_RETRIEVE_META:
+        case UserActions.SUCCESS_RETRIEVE_USER_DATA:
             return {
                 ...state,
                 meta: action.payload,
@@ -37,6 +39,10 @@ export function authReducer(state = initialState, action: UserActions.UserAction
                 }
 
             }
+
+
+        case UserActions.UPDATE_RECIPE_BOOK:
+            return state;
         case UserActions.USER_HTTP_ERROR:
             console.log(action.payload)
             return state;

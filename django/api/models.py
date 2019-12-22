@@ -8,9 +8,10 @@ from django.conf import settings
 class User(AbstractUser):
     pass
 
-class UserMeta(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_meta')
+class UserData(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_data')
     meta = JSONField(null=True, blank=True)
+    recipe_book = JSONField(null=True, blank=True)
 
 
 class Recipe(models.Model):

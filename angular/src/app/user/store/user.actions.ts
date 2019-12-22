@@ -1,23 +1,28 @@
 import { Action } from '@ngrx/store'
 
-export const BEGIN_RETRIEVE_META = '[User] Begin Retrieve Meta'
-export const SUCCESS_RETRIEVE_META = '[User] Success Retrieve Meta'
+export const BEGIN_RETRIEVE_USER_DATA = '[User] Begin Retrieve Meta'
+export const SUCCESS_RETRIEVE_USER_DATA = '[User] Success Retrieve Meta'
+
 
 export const UPDATE_META = '[User] Update Meta'
+export const UPDATE_RECIPE_BOOK = '[User] Update Recipe Book'
 
 export const USER_HTTP_ERROR = '[User] Http Error'
 
 
-export class BeginRetrieveMeta implements Action {
-    readonly type = BEGIN_RETRIEVE_META
+export class BeginRetrieveUserData implements Action {
+    readonly type = BEGIN_RETRIEVE_USER_DATA
 }
-export class SuccessRetrieveMeta implements Action {
-    readonly type = SUCCESS_RETRIEVE_META
+export class SuccessRetrieveUserData implements Action {
+    readonly type = SUCCESS_RETRIEVE_USER_DATA
     constructor(public payload: any) { }
 }
-
 export class UpdateMeta implements Action {
     readonly type = UPDATE_META
+    constructor(public payload: any) { }
+}
+export class UpdateRecipeBook implements Action {
+    readonly type = UPDATE_RECIPE_BOOK
     constructor(public payload: any) { }
 }
 
@@ -29,7 +34,8 @@ export class UserHTTPError implements Action {
 
 
 export type UserActions
-    = BeginRetrieveMeta
-    | SuccessRetrieveMeta
+    = BeginRetrieveUserData
+    | SuccessRetrieveUserData
     | UserHTTPError
     | UpdateMeta
+    | UpdateRecipeBook
