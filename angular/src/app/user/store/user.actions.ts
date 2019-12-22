@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store'
+import { Recipe } from 'src/app/core/models/recipe.model'
 
 export const BEGIN_RETRIEVE_USER_DATA = '[User] Begin Retrieve Meta'
 export const SUCCESS_RETRIEVE_USER_DATA = '[User] Success Retrieve Meta'
@@ -6,6 +7,7 @@ export const SUCCESS_RETRIEVE_USER_DATA = '[User] Success Retrieve Meta'
 
 export const UPDATE_META = '[User] Update Meta'
 export const UPDATE_RECIPE_BOOK = '[User] Update Recipe Book'
+export const ADD_TO_RECIPE_BOOK = '[User] Add Recipe to Recipe Book'
 
 export const USER_HTTP_ERROR = '[User] Http Error'
 
@@ -20,6 +22,12 @@ export class SuccessRetrieveUserData implements Action {
 export class UpdateMeta implements Action {
     readonly type = UPDATE_META
     constructor(public payload: any) { }
+}
+
+export class AddToRecipeBook implements Action {
+    readonly type = ADD_TO_RECIPE_BOOK
+    constructor(public payload: Recipe) { }
+
 }
 export class UpdateRecipeBook implements Action {
     readonly type = UPDATE_RECIPE_BOOK
@@ -39,3 +47,4 @@ export type UserActions
     | UserHTTPError
     | UpdateMeta
     | UpdateRecipeBook
+    | AddToRecipeBook

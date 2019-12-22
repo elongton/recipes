@@ -1,14 +1,19 @@
 import * as UserActions from './user.actions';
+import { Recipe } from 'src/app/core/models/recipe.model';
+
+interface RecipeBook {
+    recipes: Recipe[]
+}
 
 export interface State {
     meta: any,
-    recipeBook: any,
+    recipeBook: RecipeBook,
     loading: Boolean
 }
 
 const initialState = {
     meta: { viewed_recipes: [] },
-    recipeBook: [],
+    recipeBook: { recipes: [] },
     loading: false,
 }
 
@@ -22,7 +27,8 @@ export function authReducer(state = initialState, action: UserActions.UserAction
         case UserActions.SUCCESS_RETRIEVE_USER_DATA:
             return {
                 ...state,
-                meta: action.payload,
+                meta: action.payload.meta,
+                recipeBook: action.payload.recipe_book,
                 loading: false,
             };
 
@@ -39,10 +45,17 @@ export function authReducer(state = initialState, action: UserActions.UserAction
                 }
 
             }
-
-
-        case UserActions.UPDATE_RECIPE_BOOK:
-            return state;
+        // case UserActions.UPDATE_RECIPE_BOOK:
+        //     let updated_recipe_book = [...state.recipeBook]
+        //     return state;
+        case UserActions.ADD_TO_RECIPE_BOOK:
+            return {
+                ...state,
+                recipeBook: {
+                    recipes: [...state.recipeBook.recipes, action.payload]
+                },
+                loading: false
+            }
         case UserActions.USER_HTTP_ERROR:
             console.log(action.payload)
             return state;

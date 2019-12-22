@@ -10,6 +10,7 @@ import * as fromApp from '../../store/app.reducer';
 import { map, switchMap, tap } from 'rxjs/operators';
 
 import * as RecipeActions from '../store/recipe.actions';
+import * as UserActions from '../../user/store/user.actions'
 
 @Component({
   selector: "app-recipe-detail",
@@ -30,7 +31,6 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     public helper: HelperService,
-    // private recipeService: RecipeService,
     private store: Store<fromApp.AppState>,
   ) { }
 
@@ -54,44 +54,12 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       }
     )
 
-
-    // let recipeId = this.route.snapshot.paramMap.get("recipeId");
-    // this.recipeSubscription = this.appService.recipes$.subscribe(result => {
-    //   this.recipes = result;
-    //   this.recipe = result.find(x => x.id === Number(recipeId));
-    //   if (!this.recipe) {
-    //     this.recipeService.retrieveRecipe(Number(recipeId)).subscribe(result => {
-    //       this.recipe = result
-    //       this.recipe.image = this.helper.replaceImageUrl(result)
-    //     })
-    //   }
-    //   console.log(this.recipe)
-    // });
-    // this.unitSubscription = this.appService.units$.subscribe(result => {
-    //   this.units = result;
-    // })
-
-    // this.router.events.subscribe((val) => {
-    //   if (val instanceof NavigationEnd) {
-    //     recipeId = this.route.snapshot.paramMap.get("recipeId");
-    //     this.recipe = this.recipes.find(x => x.id === Number(recipeId));
-    //     // console.log(this.recipe)
-    //   }
-    // });
-
   }
 
   checkIfInRecipeBook() {
-    if (this.userRecipeBook.filter(r => { return r.id === this.recipeId }).length > 0) return true
+    if (this.userRecipeBook.recipes.filter(r => { return r.id === this.recipeId }).length > 0) return true
     return false
   }
-
-  ngOnDestroy() {
-    // this.recipeSubscription.unsubscribe();
-    // this.unitSubscription.unsubscribe();
-    this.subscription.unsubscribe();
-  }
-
 
   updateNotes() {
     let formDataToSend = new FormData();
@@ -105,6 +73,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   addRecipeToRecipeBook() {
+    this.store.dispatch(new UserActions.AddToRecipeBook(this.recipe))
     console.log(this.recipe)
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

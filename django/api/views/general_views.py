@@ -52,19 +52,34 @@ class ReferenceList(generics.ListAPIView):
 #     queryset = User.objects.all()
 #     serializer_class = UserMetaSerializer
 
-class UserMetaUpdateView(APIView):
+
+class UserDataRetrieveView(APIView):
     permission_classes = [permissions.AllowAny]
-    # authentication_classes=[SessionAuthentication]
     def get(self, request, format=None):
         user = User.objects.get(id=request.user.id)
         serializer = UserDataSerializer(user)
         responseData = serializer.data
         return Response(responseData, status=status.HTTP_201_CREATED)
+
+class UserMetaUpdateView(APIView):
+    permission_classes = [permissions.AllowAny]
+    # authentication_classes=[SessionAuthentication]
     def put(self, request, format=None):
-        meta = UserData.objects.get(user=request.user.id)
+        userdata = UserData.objects.get(user=request.user.id)
         body = request.body
-        meta.meta = json.loads(str(request.body, encoding='utf-8'))
-        meta.save()
+        userdata.meta = json.loads(str(request.body, encoding='utf-8'))
+        userdata.save()
+        responseData = 'worked'
+        return Response(responseData, status=status.HTTP_202_ACCEPTED)
+
+class UserRecipeBookUpdateView(APIView):
+    permission_classes = [permissions.AllowAny]
+    # authentication_classes=[SessionAuthentication]
+    def put(self, request, format=None):
+        userdata = UserData.objects.get(user=request.user.id)
+        body = request.body
+        userdata.recipe_book = json.loads(str(request.body, encoding='utf-8'))
+        userdata.save()
         responseData = 'worked'
         return Response(responseData, status=status.HTTP_202_ACCEPTED)
 

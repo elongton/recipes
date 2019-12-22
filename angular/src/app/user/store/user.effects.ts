@@ -10,14 +10,14 @@ import * as fromApp from '../../store/app.reducer'
 @Injectable()
 export class UserEffects {
     @Effect()
-    getMeta = this.actions$.pipe(
+    getData = this.actions$.pipe(
         ofType(UserActions.BEGIN_RETRIEVE_USER_DATA),
         switchMap(() => {
             return this.http.get(`api/user/`);
         }),
-        map(meta => {
-            console.log(meta)
-            return new UserActions.SuccessRetrieveUserData(meta);
+        map(data => {
+            console.log(data)
+            return new UserActions.SuccessRetrieveUserData(data);
         }),
         catchError((error: Error) => {
             return of(new UserActions.UserHTTPError(error));
@@ -26,11 +26,24 @@ export class UserEffects {
 
     @Effect({ dispatch: false })
     updateMeta = this.actions$.pipe(
-        ofType(UserActions.UPDATE_META || UserActions.UPDATE_RECIPE_BOOK),
+        ofType(UserActions.UPDATE_META),
         withLatestFrom(this.store.select('user')),
         switchMap(([actionData, user]) => {
-            console.log(user)
-            return this.http.put(`api/user/`, user.meta)
+            // console.log('effect fired')
+            // console.log(user)
+            return this.http.put(`api/user/meta`, user.meta)
+        }),
+        catchError((error: Error) => {
+            return of(new UserActions.UserHTTPError(error));
+        })
+    );
+
+    @Effect({ dispatch: false })
+    addToRecipeBook = this.actions$.pipe(
+        ofType(UserActions.ADD_TO_RECIPE_BOOK),
+        withLatestFrom(this.store.select('user')),
+        switchMap(([actionData, user]) => {
+            return this.http.put(`api/user/recipebook`, user.recipeBook)
         }),
         catchError((error: Error) => {
             return of(new UserActions.UserHTTPError(error));

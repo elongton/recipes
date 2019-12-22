@@ -17,5 +17,7 @@ urlpatterns = [
     path('tags/', TagListCreateView.as_view()),
     path('tags/<int:pk>', TagEditDeleteView.as_view()),
     path('ref/', ReferenceList.as_view()),
-    path('user/', UserMetaUpdateView.as_view()),
+    path('user/', UserDataRetrieveView.as_view()),
+    path('user/meta', UserMetaUpdateView.as_view()),
+    path('user/recipebook', UserRecipeBookUpdateView.as_view()),
 ]
