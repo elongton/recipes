@@ -6,7 +6,9 @@
         <div class="d-flex align-items-center">
             <fa-icon style="font-size: 25px;" (click)="sidenav = !sidenav" class="mr-3" icon=bars></fa-icon>
             <a [routerLink]="['/']" style="color: inherit;">
-                <h2 class="cursive">Max's Recipes</h2>
+                <h2 class="cursive">
+                    {{currentUrl==='/recipe-book' ? userFirstName + '\'s Recipes' : 'Max\'s Recipes'}}
+                </h2>
             </a>
 
         </div>

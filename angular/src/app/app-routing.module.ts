@@ -15,6 +15,7 @@ import { IngredientResolverService } from './admin/ingredient/ingredient-resolve
 import { TagResolverService } from './admin/tag/tag-resolver.service';
 import { RefResolverService } from './store/general/ref-resolver.service';
 import { UserResolverService } from './user/user-resolver.service'
+import { UserRecipeDetailComponent } from './recipe/user-recipe-detail/user-recipe-detail.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
@@ -35,6 +36,12 @@ const routes: Routes = [
   {
     path: "recipe/view/:recipeId",
     component: RecipeDetailComponent,
+    canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
+    resolve: [RecipeResolverService, IngredientResolverService, TagResolverService, UserResolverService]
+  },
+  {
+    path: "user/recipe/view/:recipeId",
+    component: UserRecipeDetailComponent,
     canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
     resolve: [RecipeResolverService, IngredientResolverService, TagResolverService, UserResolverService]
   },

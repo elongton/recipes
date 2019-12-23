@@ -6,21 +6,6 @@
       <h1>{{ recipe.title }}</h1>
     </div>
 
-    <!-- <div edit>
-      <a [routerLink]="['/recipe/edit/', recipe.id]">
-        <div class="ml-2">
-          <fa-icon icon=pencil-alt style="font-size: 25px;"></fa-icon>
-        </div>
-      </a>
-    </div>
-    <div addToShoppingList>
-      <fa-icon icon=shopping-basket style="font-size: 25px;" [ngClass]="{'shoppingListItem': recipe.shoppingListItem}"
-        (click)="addRecipeToShoppingList();"></fa-icon>
-    </div>
-    <div recipeBook>
-      <button class="btn btn-outline-success" (click)="addRecipeToRecipeBook();">Add to Recipe Book</button>
-    </div> -->
-
     <ng-container topMenu>
       <button class="btn btn-outline-dark add-to-recipe-book-button" [ngClass]="{'no-clicky':isInRecipeBook}"
         (click)="addRecipeToRecipeBook();">{{isInRecipeBook ? 'You have this recipe': 'Add to

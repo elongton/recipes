@@ -48,6 +48,7 @@ import { UnitEffects } from './admin/unit/store/unit.effects';
 import { GeneralEffects } from './store/general/general.effects';
 import { UserEffects } from './user/store/user.effects';
 import { RecipeCircleComponent } from './shared/components/recipe-circle/recipe-circle.component';
+import { UserRecipeDetailComponent } from './recipe/user-recipe-detail/user-recipe-detail.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { RecipeCircleComponent } from './shared/components/recipe-circle/recipe-
     TagDropdownComponent,
     TagComponent,
     RecipeCircleComponent,
+    UserRecipeDetailComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase, 'recipes'),

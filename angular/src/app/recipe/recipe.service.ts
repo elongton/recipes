@@ -18,11 +18,6 @@ export class RecipeService {
     private http: HttpClient,
   ) { }
 
-  public nagivateToRecipe(id) {
-    this.router.navigate(["/recipe/view", id]);
-  }
-
-
   createUpdateRecipe(formPrecursor, recipeId?) {
     let formDataToSend = new FormData();
     formDataToSend.append("fields", JSON.stringify(formPrecursor.recipeForm));

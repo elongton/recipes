@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
 
   sidenav = false;
   currentUrl: string = '';
+  userFirstName: string = '';
   constructor(
     public authService: AuthService,
     private store: Store<fromApp.AppState>,
@@ -27,6 +28,11 @@ export class NavbarComponent implements OnInit {
         this.currentUrl = event.url;
       }
     });
+    this.authService.user.subscribe(user => {
+      if (user) {
+        this.userFirstName = user.displayName.split(" ")[0];
+      }
+    })
   }
 
 }
