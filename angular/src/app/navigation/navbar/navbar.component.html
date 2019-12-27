@@ -23,10 +23,10 @@
                     Planner</button></a>
             <a [routerLink]="['/recipe-book']"><button class="btn btn-outline-primary ml-2"
                     [ngClass]="{'active': currentUrl=='/recipe-book'}">Recipe Book</button></a>
-            <a [routerLink]="['/shopping-list']" style="color: rgba(0,0,0,0.5); pointer-events: none;">
+            <a [routerLink]="['/shopping-list']" style="color:inherit;">
                 <div class="shopping-cart ml-2">
                     <fa-icon icon=shopping-cart></fa-icon>
-                    <span class="shopping-cart-quantity">0</span>
+                    <span class="shopping-cart-quantity">{{shoppingListQuant}}</span>
                 </div>
             </a>
         </div>

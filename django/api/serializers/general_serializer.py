@@ -21,6 +21,7 @@ class ReferenceSerializer(serializers.ModelSerializer):
 class UserDataSerializer(serializers.ModelSerializer):
     meta = serializers.JSONField(source='user_data.meta')
     recipe_book = serializers.JSONField(source='user_data.recipe_book')
+    shopping_list = serializers.JSONField(source='user_data.shopping_list')
     class Meta:
         model = User
-        fields = ['meta', 'recipe_book']
+        fields = ['meta', 'recipe_book', 'shopping_list']

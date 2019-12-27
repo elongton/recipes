@@ -12,6 +12,7 @@ class UserData(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_data')
     meta = JSONField(null=True, blank=True)
     recipe_book = JSONField(null=True, blank=True)
+    shopping_list = JSONField(null=True, blank=True)
 
 
 class Recipe(models.Model):

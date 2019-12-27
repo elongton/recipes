@@ -24,6 +24,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   units: any[];
   editingNotes: boolean = false;
   userRecipeBook: any = []
+  userShoppingList: any = [];
+  isInShoppingList: boolean = false;
   isInRecipeBook: boolean = false;
 
   private subscription: Subscription;
@@ -43,8 +45,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
         return this.store.select('user')
       })
       , switchMap(user => {
+        this.userShoppingList = user.shoppingList
         this.userRecipeBook = user.recipeBook;
         this.isInRecipeBook = this.checkIfInRecipeBook();
+        this.isInShoppingList = this.checkIfInShoppingList();
         return this.store.select('recipes')
       })
     ).subscribe(
@@ -58,6 +62,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   checkIfInRecipeBook() {
     if (this.userRecipeBook.recipes.filter(r => { return r.id === this.recipeId }).length > 0) return true
+    return false
+  }
+
+  checkIfInShoppingList() {
+    if (this.userShoppingList.recipes.filter(r => { return r.id === this.recipeId }).length > 0) return true
     return false
   }
 
@@ -79,6 +88,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       this.store.dispatch(new UserActions.AddToRecipeBook(this.recipe))
     }
     console.log(this.recipe)
+  }
+
+  addToShoppingList() {
+    this.store.dispatch(new UserActions.AddToShoppingList(this.recipe))
   }
 
   ngOnDestroy() {

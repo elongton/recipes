@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
   sidenav = false;
   currentUrl: string = '';
   userFirstName: string = '';
+  shoppingListQuant: number = 0;
   constructor(
     public authService: AuthService,
     private store: Store<fromApp.AppState>,
@@ -24,10 +25,14 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        // console.log(event)
         this.currentUrl = event.url;
       }
     });
+
+    this.store.select('user').subscribe(user => {
+      this.shoppingListQuant = user.shoppingList.recipes.length;
+    });
+
     this.authService.user.subscribe(user => {
       if (user) {
         this.userFirstName = user.displayName.split(" ")[0];

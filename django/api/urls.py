@@ -20,4 +20,5 @@ urlpatterns = [
     path('user/', UserDataRetrieveView.as_view()),
     path('user/meta', UserMetaUpdateView.as_view()),
     path('user/recipebook', UserRecipeBookUpdateView.as_view()),
+    path('user/shoppinglist', UserShoppingListUpdateView.as_view()),
 ]

@@ -83,6 +83,17 @@ class UserRecipeBookUpdateView(APIView):
         responseData = userdata.recipe_book
         return Response(responseData, status=status.HTTP_202_ACCEPTED)
 
+class UserShoppingListUpdateView(APIView):
+    permission_classes = [permissions.AllowAny]
+    # authentication_classes=[SessionAuthentication]
+    def put(self, request, format=None):
+        userdata = UserData.objects.get(user=request.user.id)
+        body = request.body
+        userdata.shopping_list = json.loads(str(request.body, encoding='utf-8'))
+        userdata.save()
+        responseData = userdata.shopping_list
+        return Response(responseData, status=status.HTTP_202_ACCEPTED)
+
 
 
 

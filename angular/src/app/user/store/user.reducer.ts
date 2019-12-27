@@ -8,6 +8,7 @@ interface RecipeBook {
 export interface State {
     meta: any,
     recipeBook: RecipeBook,
+    shoppingList: any,
     loading: boolean,
     updating: boolean,
 }
@@ -15,6 +16,7 @@ export interface State {
 const initialState = {
     meta: { viewed_recipes: [] },
     recipeBook: { recipes: [] },
+    shoppingList: { recipes: [] },
     loading: false,
     updating: false,
 }
@@ -29,10 +31,12 @@ export function authReducer(state = initialState, action: UserActions.UserAction
         case UserActions.SUCCESS_RETRIEVE_USER_DATA:
             // console.log(action.payload)
             let incomingRecipeBook = action.payload.recipe_book;
+            let incomingShoppingList = action.payload.shopping_list;
             return {
                 ...state,
                 meta: action.payload.meta,
                 recipeBook: incomingRecipeBook ? action.payload.recipe_book : { recipes: [] },
+                shoppingList: incomingShoppingList ? action.payload.shopping_list : { recipes: [] },
                 loading: false,
             };
 
@@ -54,6 +58,15 @@ export function authReducer(state = initialState, action: UserActions.UserAction
                 ...state,
                 recipeBook: {
                     recipes: [...state.recipeBook.recipes, action.payload]
+                },
+                loading: false
+            }
+
+        case UserActions.ADD_TO_SHOPPING_LIST:
+            return {
+                ...state,
+                shoppingList: {
+                    recipes: [...state.shoppingList.recipes, action.payload]
                 },
                 loading: false
             }
