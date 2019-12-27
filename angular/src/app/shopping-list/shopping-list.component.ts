@@ -2,8 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipeService } from '../recipe/recipe.service';
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HelperService } from 'src/app/shared/helper.service';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../store/app.reducer';
+import { ShoppingListService } from './shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -15,15 +20,29 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   selectedRecipes: Recipe[] = [];
   recipeSub: Subscription;
   ingredientList: any[];
+  recipes: Recipe[] = [];
   storeSections;
 
   constructor(
-    private recipeService: RecipeService,
-    private router: Router,
+    private shoppingListService: ShoppingListService,
+    private store: Store<fromApp.AppState>,
     public helper: HelperService) { }
 
   ngOnInit() {
     this.ingredientList = [];
+    this.store.select('user').pipe(switchMap(user => {
+      let selectedRecipes = JSON.parse(JSON.stringify(user.shoppingList.recipes))
+      this.ingredientList = this.shoppingListService.scanRecipeList(selectedRecipes);
+      return this.store.select('general')
+    })).
+      subscribe(general => {
+        this.storeSections = general.storeSections;
+      })
+
+
+
+
+
     // this.appService.storeSections$.subscribe(storeSections => {
     //   this.storeSections = storeSections;
     // })

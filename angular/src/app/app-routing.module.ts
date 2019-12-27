@@ -16,6 +16,7 @@ import { TagResolverService } from './admin/tag/tag-resolver.service';
 import { RefResolverService } from './store/general/ref-resolver.service';
 import { UserResolverService } from './user/user-resolver.service'
 import { UserRecipeDetailComponent } from './recipe/user-recipe-detail/user-recipe-detail.component';
+import { StoreSectionResolverService } from './store/general/store-section-resolver.service';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
@@ -47,7 +48,11 @@ const routes: Routes = [
   },
 
 
-  { path: "shopping-list", component: ShoppingListComponent },
+  {
+    path: "shopping-list",
+    component: ShoppingListComponent,
+    resolve: [StoreSectionResolverService]
+  },
   { path: "meal-planner", component: MealPlannerComponent },
 
   {
