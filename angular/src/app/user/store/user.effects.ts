@@ -51,5 +51,24 @@ export class UserEffects {
     );
 
 
+    @Effect()
+    updateRecipeBook = this.actions$.pipe(
+        ofType(UserActions.BEGIN_UPDATE_RECIPE_BOOK),
+        withLatestFrom(this.store.select('user')),
+        switchMap(([actionData, user]: [UserActions.BeginUpdateRecipeBook, any]) => {
+            const updatedRecipes = [...user.recipeBook.recipes];
+            const indexToUpdate = updatedRecipes.findIndex(recipe => { return recipe.id === actionData.payload.id })
+            updatedRecipes[indexToUpdate] = actionData.payload;
+            return this.http.put(`api/user/recipebook`, { recipes: updatedRecipes })
+        }),
+        map(updatedRecipeBook => {
+            return new UserActions.SuccessUpdateRecipeBook(updatedRecipeBook);
+        }),
+        catchError((error: Error) => {
+            return of(new UserActions.UserHTTPError(error));
+        })
+    );
+
+
     constructor(private actions$: Actions, private http: HttpClient, private store: Store<fromApp.AppState>) { }
 }

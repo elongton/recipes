@@ -80,7 +80,7 @@ class UserRecipeBookUpdateView(APIView):
         body = request.body
         userdata.recipe_book = json.loads(str(request.body, encoding='utf-8'))
         userdata.save()
-        responseData = 'worked'
+        responseData = userdata.recipe_book
         return Response(responseData, status=status.HTTP_202_ACCEPTED)
 
 

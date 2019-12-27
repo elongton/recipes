@@ -8,13 +8,15 @@ interface RecipeBook {
 export interface State {
     meta: any,
     recipeBook: RecipeBook,
-    loading: Boolean
+    loading: boolean,
+    updating: boolean,
 }
 
 const initialState = {
     meta: { viewed_recipes: [] },
     recipeBook: { recipes: [] },
     loading: false,
+    updating: false,
 }
 
 export function authReducer(state = initialState, action: UserActions.UserActions) {
@@ -47,9 +49,6 @@ export function authReducer(state = initialState, action: UserActions.UserAction
                 }
 
             }
-        // case UserActions.UPDATE_RECIPE_BOOK:
-        //     let updated_recipe_book = [...state.recipeBook]
-        //     return state;
         case UserActions.ADD_TO_RECIPE_BOOK:
             return {
                 ...state,
@@ -58,6 +57,20 @@ export function authReducer(state = initialState, action: UserActions.UserAction
                 },
                 loading: false
             }
+
+        case UserActions.BEGIN_UPDATE_RECIPE_BOOK:
+            return {
+                ...state,
+                updating: true,
+            }
+
+        case UserActions.SUCCESS_UPDATE_RECIPE_BOOK:
+            return {
+                ...state,
+                recipeBook: action.payload,
+                updating: false,
+            }
+
         case UserActions.USER_HTTP_ERROR:
             console.log(action.payload)
             return state;
@@ -69,3 +82,8 @@ export function authReducer(state = initialState, action: UserActions.UserAction
 }
 
 
+
+
+            // const updatedRecipes = [...state.recipeBook.recipes];
+            // const indexToUpdate = updatedRecipes.findIndex(recipe => { return recipe.id === action.payload.id })
+            // updatedRecipes[indexToUpdate] = action.payload;

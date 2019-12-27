@@ -6,7 +6,9 @@ export const SUCCESS_RETRIEVE_USER_DATA = '[User] Success Retrieve Meta'
 
 
 export const UPDATE_META = '[User] Update Meta'
-export const UPDATE_RECIPE_BOOK = '[User] Update Recipe Book'
+
+export const BEGIN_UPDATE_RECIPE_BOOK = '[User] Begin Update Recipe Book'
+export const SUCCESS_UPDATE_RECIPE_BOOK = '[User] Success Update Recipe Book'
 export const ADD_TO_RECIPE_BOOK = '[User] Add Recipe to Recipe Book'
 
 export const USER_HTTP_ERROR = '[User] Http Error'
@@ -29,8 +31,14 @@ export class AddToRecipeBook implements Action {
     constructor(public payload: Recipe) { }
 
 }
-export class UpdateRecipeBook implements Action {
-    readonly type = UPDATE_RECIPE_BOOK
+
+export class BeginUpdateRecipeBook implements Action {
+    readonly type = BEGIN_UPDATE_RECIPE_BOOK
+    constructor(public payload: any) { }
+}
+
+export class SuccessUpdateRecipeBook implements Action {
+    readonly type = SUCCESS_UPDATE_RECIPE_BOOK
     constructor(public payload: any) { }
 }
 
@@ -46,5 +54,6 @@ export type UserActions
     | SuccessRetrieveUserData
     | UserHTTPError
     | UpdateMeta
-    | UpdateRecipeBook
+    | BeginUpdateRecipeBook
+    | SuccessUpdateRecipeBook
     | AddToRecipeBook
