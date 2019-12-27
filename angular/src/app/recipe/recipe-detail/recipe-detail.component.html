@@ -7,7 +7,7 @@
     </div>
 
     <ng-container topMenu>
-      <button class="btn btn-outline-dark add-to-recipe-book-button" [ngClass]="{'no-clicky':isInRecipeBook}"
+      <button class="btn btn-outline-dark add-to-recipe-book-button" [ngClass]="{'active': isInRecipeBook}"
         (click)="addRecipeToRecipeBook();">{{isInRecipeBook ? 'You have this recipe': 'Add to
         Recipe
         Book'}}</button>

@@ -31,6 +31,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public helper: HelperService,
     private store: Store<fromApp.AppState>,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -72,7 +73,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   addRecipeToRecipeBook() {
-    this.store.dispatch(new UserActions.AddToRecipeBook(this.recipe))
+    if (this.isInRecipeBook) {
+      this.router.navigate(['user/recipe/view/' + this.recipeId])
+    } else {
+      this.store.dispatch(new UserActions.AddToRecipeBook(this.recipe))
+    }
     console.log(this.recipe)
   }
 

@@ -20,6 +20,8 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
   recipeId: Number = null;
   userRecipeBook: any = []
   imageUrl: string = environment.url;
+  editingIngredients: boolean = false;
+  editingInstructions: boolean = false;
 
   private subscription: Subscription;
 

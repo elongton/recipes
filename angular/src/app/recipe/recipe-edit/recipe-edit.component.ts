@@ -8,10 +8,8 @@ import { EditIngredientModalComponent } from 'src/app/shared/components/edit-ing
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { HelperService } from 'src/app/shared/helper.service';
 
-
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
-import * as RecipeActions from '../store/recipe.actions'
 import { Subscription, of } from 'rxjs';
 import { map, switchMap, concatMap } from 'rxjs/operators';
 
