@@ -155,14 +155,14 @@
             <div style="width: 100%;">
                 <div class="d-flex align-items-center">
                     <h3>Notes</h3>
-                    <fa-icon (click)="editingNotes = !editingNotes" icon=pencil-alt style="font-size: 16px;"
-                        class="ml-1 mt-1">
+                    <fa-icon (click)="onEditNotes();" *ngIf="editingNotes == false;" icon=pencil-alt
+                        style="font-size: 16px;" class="ml-1 mt-1">
                     </fa-icon>
                 </div>
                 <span *ngIf="!editingNotes; else notesEdit;">{{recipe.notes}}</span>
                 <ng-template #notesEdit>
-                    <textarea rows="5" [(ngModel)]="recipe.notes" style="width: 100%;"></textarea>
-                    <button class="btn-primary btn" (click)="updateNotes(); editingNotes = false">Save</button>
+                    <textarea rows="5" [(ngModel)]="editedNotes" style="width: 100%;"></textarea>
+                    <button class="btn-primary btn" (click)="onSaveNotes()">Save</button>
                 </ng-template>
             </div>
         </ng-container>

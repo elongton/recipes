@@ -26,6 +26,8 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
   editingInstructions: boolean = false;
   editedInstructions = [];
   editedIngredientSections = [];
+  editedNotes: string = '';
+  editingNotes: boolean = false;
 
   private subscription: Subscription;
 
@@ -74,6 +76,22 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
     this.store.dispatch(new UserActions.BeginUpdateRecipeBook(recipe))
     this.editingInstructions = false;
   }
+
+
+
+  onEditNotes() {
+    this.editedNotes = JSON.parse(JSON.stringify(this.recipe.notes))
+    this.editingNotes = true;
+  }
+  onSaveNotes() {
+    let recipe = {
+      ...this.recipe,
+      notes: this.editedNotes
+    }
+    this.store.dispatch(new UserActions.BeginUpdateRecipeBook(recipe))
+    this.editingNotes = false;
+  }
+
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
