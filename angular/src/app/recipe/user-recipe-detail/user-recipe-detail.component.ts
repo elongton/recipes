@@ -9,6 +9,7 @@ import { HelperService } from 'src/app/shared/helper.service';
 
 import * as fromApp from '../../store/app.reducer';
 import * as UserActions from '../../user/store/user.actions'
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-user-recipe-detail',
@@ -28,6 +29,7 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
   editedIngredientSections = [];
   editedNotes: string = '';
   editingNotes: boolean = false;
+  isInShoppingList: boolean = false;
 
   private subscription: Subscription;
 
@@ -35,6 +37,7 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store<fromApp.AppState>,
     public helper: HelperService,
+    private recipeService: RecipeService,
   ) { }
 
   ngOnInit() {
@@ -45,6 +48,10 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
       return this.store.select('user')
     })).subscribe(user => {
       this.userRecipeBook = user.recipeBook.recipes;
+      let userShoppingList = user.shoppingList;
+      this.isInShoppingList = this.recipeService.checkIfInShoppingList(userShoppingList, this.recipeId);
+
+
       this.updating = user.updating;
       this.recipe = this.userRecipeBook.find((recipe: Recipe) => { return recipe.id === this.recipeId })
     })
@@ -95,6 +102,10 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  addToShoppingList() {
+    this.store.dispatch(new UserActions.AddToShoppingList(this.recipe))
   }
 
 }

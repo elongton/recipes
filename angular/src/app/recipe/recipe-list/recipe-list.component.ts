@@ -3,7 +3,7 @@ import { RecipeService } from "../recipe.service";
 import { Router } from "@angular/router";
 import { HelperService } from 'src/app/shared/helper.service';
 import { Recipe } from 'src/app/core/models/recipe.model';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/auth/archive/auth.service';
 
 
 interface SearchResult {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth/archive/auth.service';
 import * as fromApp from '../../store/app.reducer'
 import * as RecipeActions from '../../recipe/store/recipe.actions'
 import { Store } from '@ngrx/store';
@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
 
   sidenav = false;
   currentUrl: string = '';
-  userFirstName: string = '';
+  user: any = null;
   shoppingListQuant: number = 0;
   constructor(
     public authService: AuthService,
@@ -31,13 +31,14 @@ export class NavbarComponent implements OnInit {
 
     this.store.select('user').subscribe(user => {
       this.shoppingListQuant = user.shoppingList.recipes.length;
+      this.user = user;
+      // this.userFirstName = user.authUser.given_name;
+      // this.userFirstName = user.authUser.given_name;
     });
 
-    this.authService.user.subscribe(user => {
-      if (user) {
-        this.userFirstName = user.displayName.split(" ")[0];
-      }
-    })
+    // this.authService.userFirstName().subscribe(firstName => {
+    //   this.userFirstName = firstName;
+    // })
   }
 
 }

@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromApp from '../store/app.reducer';
 import { ShoppingListService } from './shopping-list.service';
+import { AuthService } from '../auth/archive/auth.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -26,15 +27,18 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   constructor(
     private shoppingListService: ShoppingListService,
     private store: Store<fromApp.AppState>,
-    public helper: HelperService) { }
+    public helper: HelperService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.ingredientList = [];
-    this.store.select('user').pipe(switchMap(user => {
-      let selectedRecipes = JSON.parse(JSON.stringify(user.shoppingList.recipes))
-      this.ingredientList = this.shoppingListService.scanRecipeList(selectedRecipes);
-      return this.store.select('general')
-    })).
+    this.store.select('user').pipe(
+      switchMap(user => {
+        this.selectedRecipes = JSON.parse(JSON.stringify(user.shoppingList.recipes))
+        this.ingredientList = this.shoppingListService.scanRecipeList(this.selectedRecipes);
+        return this.store.select('general')
+      })
+    ).
       subscribe(general => {
         this.storeSections = general.storeSections;
       })

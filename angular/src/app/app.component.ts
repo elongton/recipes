@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromApp from './store/app.reducer'
 import * as UserActions from './user/store/user.actions'
+import * as AuthActions from './auth/store/auth.actions';
 
 @Component({
   selector: "app-root",
@@ -14,6 +15,9 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
+
+    this.store.dispatch(new AuthActions.GetUser());
+
 
     //for storing recently viewed user recipes
     const url = '/recipe/view/'

@@ -11,6 +11,7 @@ export interface State {
     shoppingList: any,
     loading: boolean,
     updating: boolean,
+    authUser: any,
 }
 
 const initialState = {
@@ -19,10 +20,18 @@ const initialState = {
     shoppingList: { recipes: [] },
     loading: false,
     updating: false,
+    authUser: null,
 }
 
-export function authReducer(state = initialState, action: UserActions.UserActions) {
+export function userReducer(state = initialState, action: UserActions.UserActions) {
     switch (action.type) {
+
+        case UserActions.UPDATE_USER_FROM_AUTH:
+            return {
+                ...state,
+                authUser: action.payload,
+            }
+
         case UserActions.BEGIN_RETRIEVE_USER_DATA:
             return {
                 ...state,
@@ -54,10 +63,11 @@ export function authReducer(state = initialState, action: UserActions.UserAction
 
             }
         case UserActions.ADD_TO_RECIPE_BOOK:
+            let updatedRecipe = { ...action.payload, user_recipe: true }
             return {
                 ...state,
                 recipeBook: {
-                    recipes: [...state.recipeBook.recipes, action.payload]
+                    recipes: [...state.recipeBook.recipes, updatedRecipe]
                 },
                 loading: false
             }

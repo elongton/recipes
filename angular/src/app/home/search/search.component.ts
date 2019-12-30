@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { HelperService } from 'src/app/shared/helper.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/auth/archive/auth.service';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';

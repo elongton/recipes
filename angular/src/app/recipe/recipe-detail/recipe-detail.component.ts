@@ -10,6 +10,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 
 import * as RecipeActions from '../store/recipe.actions';
 import * as UserActions from '../../user/store/user.actions'
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: "app-recipe-detail",
@@ -34,6 +35,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     public helper: HelperService,
     private store: Store<fromApp.AppState>,
     private router: Router,
+    private recipeService: RecipeService
   ) { }
 
   ngOnInit() {
@@ -47,8 +49,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       , switchMap(user => {
         this.userShoppingList = user.shoppingList
         this.userRecipeBook = user.recipeBook;
-        this.isInRecipeBook = this.checkIfInRecipeBook();
-        this.isInShoppingList = this.checkIfInShoppingList();
+        this.isInRecipeBook = this.recipeService.checkIfInRecipeBook(this.userRecipeBook, this.recipeId);
+        this.isInShoppingList = this.recipeService.checkIfInShoppingList(this.userShoppingList, this.recipeId);
         return this.store.select('recipes')
       })
     ).subscribe(
@@ -58,16 +60,6 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       }
     )
 
-  }
-
-  checkIfInRecipeBook() {
-    if (this.userRecipeBook.recipes.filter(r => { return r.id === this.recipeId }).length > 0) return true
-    return false
-  }
-
-  checkIfInShoppingList() {
-    if (this.userShoppingList.recipes.filter(r => { return r.id === this.recipeId }).length > 0) return true
-    return false
   }
 
   updateNotes() {

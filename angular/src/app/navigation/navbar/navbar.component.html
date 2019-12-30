@@ -14,9 +14,12 @@
         </div>
 
         <div class="d-flex align-items-center">
-            <div class="user ml-2" *ngIf="authService.user | async" (click)="authService.logout();">
+            <!-- <div class="user ml-2" *ngIf="authService.user | async" (click)="authService.logout();">
                 <img *ngIf="authService.currentUser()" [src]="authService.currentUser().photoURL" alt=""
                     style="border-radius: 100%;">
+            </div> -->
+            <div class="user ml-2" (click)="authService.logout();">
+                <img *ngIf="user.authUser" [src]="user.authUser.picture" alt="" style="border-radius: 100%;">
             </div>
             <a [routerLink]="['/recipe/new']"><button class="btn btn-outline-primary ml-2">New Recipe</button></a>
             <a [routerLink]="['/meal-planner']"><button class="btn btn-outline-primary ml-2" disabled>Meal

@@ -6,6 +6,7 @@ export const SUCCESS_RETRIEVE_USER_DATA = '[User] Success Retrieve Meta'
 
 
 export const UPDATE_META = '[User] Update Meta'
+export const UPDATE_USER_FROM_AUTH = '[User] Update User from Auth'
 
 export const BEGIN_UPDATE_RECIPE_BOOK = '[User] Begin Update Recipe Book'
 export const SUCCESS_UPDATE_RECIPE_BOOK = '[User] Success Update Recipe Book'
@@ -54,6 +55,11 @@ export class UserHTTPError implements Action {
 
 }
 
+export class UpdateUserFromAuth implements Action {
+    readonly type = UPDATE_USER_FROM_AUTH
+    constructor(public payload: any) { }
+}
+
 
 export type UserActions
     = BeginRetrieveUserData
@@ -64,3 +70,4 @@ export type UserActions
     | SuccessUpdateRecipeBook
     | AddToRecipeBook
     | AddToShoppingList
+    | UpdateUserFromAuth

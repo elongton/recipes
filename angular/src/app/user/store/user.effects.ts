@@ -1,14 +1,28 @@
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { switchMap, map, catchError, withLatestFrom } from 'rxjs/operators';
+import { switchMap, map, catchError, withLatestFrom, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as UserActions from './user.actions';
 import * as fromApp from '../../store/app.reducer'
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserEffects {
+
+    @Effect({ dispatch: false })
+    updateUserFromAuth = this.actions$.pipe(
+        ofType(UserActions.UPDATE_USER_FROM_AUTH),
+        tap(() => {
+            this.ngZone.run(() => this.router.navigate(['/']));
+        }),
+        catchError((error: Error) => {
+            return of(new UserActions.UserHTTPError(error));
+        })
+    );
+
+
     @Effect()
     getData = this.actions$.pipe(
         ofType(UserActions.BEGIN_RETRIEVE_USER_DATA),
@@ -62,7 +76,6 @@ export class UserEffects {
         })
     );
 
-
     @Effect()
     updateRecipeBook = this.actions$.pipe(
         ofType(UserActions.BEGIN_UPDATE_RECIPE_BOOK),
@@ -82,5 +95,9 @@ export class UserEffects {
     );
 
 
-    constructor(private actions$: Actions, private http: HttpClient, private store: Store<fromApp.AppState>) { }
+    constructor(private actions$: Actions,
+        private http: HttpClient,
+        private store: Store<fromApp.AppState>,
+        private router: Router,
+        private ngZone: NgZone) { }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../archive/auth.service';
 import * as AuthActions from '../../user/store/user.actions';
 import * as fromApp from '../../store/app.reducer';
 @Component({

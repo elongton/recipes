@@ -7,6 +7,7 @@ import * as fromIngredients from '../admin/ingredient/store/ingredient.reducer';
 import * as fromUnits from '../admin/unit/store/unit.reducer';
 import * as fromGeneral from './general/general.reducer';
 import * as fromUser from '../user/store/user.reducer';
+import * as fromAuth from '../auth/store/auth.reducer';
 
 export interface AppState {
     recipes: fromRecipes.State
@@ -15,6 +16,7 @@ export interface AppState {
     units: fromUnits.State
     general: fromGeneral.State
     user: fromUser.State
+    auth: fromAuth.State
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
@@ -23,6 +25,7 @@ export const appReducer: ActionReducerMap<AppState> = {
     ingredients: fromIngredients.ingredientReducer,
     units: fromUnits.unitReducer,
     general: fromGeneral.generalReducer,
-    user: fromUser.authReducer,
+    user: fromUser.userReducer,
+    auth: fromAuth.authReducer,
 
 }

@@ -14,19 +14,20 @@ export class AuthGuard implements CanActivate {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-        return this.auth.user.pipe(
-            take(1),
-            map(user => {
-                return !!user
-            }),
-            tap(loggedIn => {
-                // console.log("loggedIn: ", loggedIn);
-                if (!loggedIn) {
-                    // console.log("access denied");
-                    this.router.navigate(['/login']);
-                }
-            })
-        );
+        // return this.auth.user.pipe(
+        //     take(1),
+        //     map(user => {
+        //         return !!user
+        //     }),
+        //     tap(loggedIn => {
+        //         // console.log("loggedIn: ", loggedIn);
+        //         if (!loggedIn) {
+        //             // console.log("access denied");
+        //             this.router.navigate(['/login']);
+        //         }
+        //     })
+        // );
+        return null;
     }
 
 }
