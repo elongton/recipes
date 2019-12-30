@@ -12,7 +12,10 @@
     <div body>
         <h4>Recipes Selected:</h4>
         <ul>
-            <li *ngFor="let recipe of selectedRecipes">{{recipe.title}}</li>
+            <li *ngFor="let recipe of selectedRecipes">
+                <span *ngIf="recipe.user_recipe">{{userFirstName}}'s</span> {{recipe.title}}
+
+            </li>
         </ul>
         <h4><u>Shopping List</u></h4>
         <div class="row">

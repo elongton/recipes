@@ -47,11 +47,11 @@ const routes: Routes = [
     resolve: [RecipeResolverService, IngredientResolverService, TagResolverService, UserResolverService]
   },
 
-
   {
     path: "shopping-list",
     component: ShoppingListComponent,
-    resolve: [StoreSectionResolverService]
+    canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
+    resolve: [StoreSectionResolverService, UserResolverService]
   },
   { path: "meal-planner", component: MealPlannerComponent },
 

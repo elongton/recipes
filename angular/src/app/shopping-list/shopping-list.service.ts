@@ -15,7 +15,7 @@ export class ShoppingListService {
     scanRecipeList(selectedRecipes) {
         let shoppingList = [];
         selectedRecipes.forEach(recipe => {
-            console.log(recipe)
+            // console.log(recipe)
             recipe.ingredient_sections.forEach(section => {
                 section.ingredients.forEach(ingredient => {
                     let found = false;

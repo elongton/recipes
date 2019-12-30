@@ -18,6 +18,7 @@ import { ShoppingListService } from './shopping-list.service';
 export class ShoppingListComponent implements OnInit, OnDestroy {
 
   selectedRecipes: Recipe[] = [];
+  userFirstName: string = '';
   recipeSub: Subscription;
   ingredientList: any[];
   recipes: Recipe[] = [];
@@ -34,8 +35,12 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
       switchMap(user => {
         this.selectedRecipes = JSON.parse(JSON.stringify(user.shoppingList.recipes))
         this.ingredientList = this.shoppingListService.scanRecipeList(this.selectedRecipes);
+        return this.store.select('auth');
+      }),
+      switchMap(auth => {
+        this.userFirstName = auth.firstName;
         return this.store.select('general')
-      })
+      }),
     ).
       subscribe(general => {
         this.storeSections = general.storeSections;

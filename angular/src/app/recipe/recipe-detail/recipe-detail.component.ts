@@ -79,7 +79,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     } else {
       this.store.dispatch(new UserActions.AddToRecipeBook(this.recipe))
     }
-    console.log(this.recipe)
+    // console.log(this.recipe)
   }
 
   addToShoppingList() {
