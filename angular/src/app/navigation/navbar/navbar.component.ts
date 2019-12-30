@@ -4,7 +4,9 @@ import * as fromApp from '../../store/app.reducer'
 import * as RecipeActions from '../../recipe/store/recipe.actions'
 import { Store } from '@ngrx/store';
 import { Router, NavigationEnd } from '@angular/router';
+import { Logout } from 'src/app/auth/store/auth.actions';
 
+import * as AuthActions from '../../auth/store/auth.actions'
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -15,6 +17,7 @@ export class NavbarComponent implements OnInit {
   sidenav = false;
   currentUrl: string = '';
   user: any = null;
+  userImage: any = null;
   shoppingListQuant: number = 0;
   constructor(
     public authService: AuthService,
@@ -32,13 +35,21 @@ export class NavbarComponent implements OnInit {
     this.store.select('user').subscribe(user => {
       this.shoppingListQuant = user.shoppingList.recipes.length;
       this.user = user;
-      // this.userFirstName = user.authUser.given_name;
-      // this.userFirstName = user.authUser.given_name;
     });
+
+    this.store.select('auth').subscribe(authUser => {
+      this.userImage = authUser.picture;
+    })
+
+
 
     // this.authService.userFirstName().subscribe(firstName => {
     //   this.userFirstName = firstName;
     // })
+  }
+
+  logout() {
+    this.store.dispatch(new AuthActions.Logout());
   }
 
 }

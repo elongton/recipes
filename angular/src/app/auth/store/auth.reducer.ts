@@ -1,9 +1,19 @@
 import * as AuthActions from './auth.actions';
 import { User } from '../../core/models/user.model';
 
-export type State = User
+export type State = {
+    uid: string;
+    displayName: string;
+    picture: string;
+    loading?: boolean;
+    error?: string;
+}
 
-const initialState = new User(null, 'GUEST');
+const initialState = {
+    uid: null,
+    displayName: 'GUEST',
+    picture: null,
+}
 
 
 /// Reducer function
@@ -27,6 +37,9 @@ export function authReducer(state: User = initialState, action: AuthActions.Auth
 
         case AuthActions.LOGOUT:
             return { ...state, loading: true };
+
+        default:
+            return state;
 
     }
 }

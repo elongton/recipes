@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { User } from '../../core/models/user.model';
 
@@ -10,65 +10,63 @@ import { map, switchMap, catchError, delay, } from 'rxjs/operators';
 
 
 
-import * as userActions from './auth.actions';
+import * as AuthActions from './auth.actions';
+import { Router } from '@angular/router';
 
 
 @Injectable()
-export class UserEffects {
+export class AuthEffects {
 
     private googleLogin() {
         const provider = new firebase.auth.GoogleAuthProvider();
         return this.afAuth.auth.signInWithPopup(provider);
     }
-    constructor(private actions: Actions, private afAuth: AngularFireAuth) { }
-
 
     @Effect()
     getUser = this.actions.pipe(
-        ofType(userActions.GET_USER),
-        map((action: userActions.GetUser) => action.payload),
+        ofType(AuthActions.GET_USER),
+        map((action: AuthActions.GetUser) => action.payload),
         switchMap(payload => this.afAuth.authState),
-        delay(2000), // delay to show loading spinner, delete me!
         map(authData => {
             if (authData) {
-                /// User logged in
-                const user = new User(authData.uid, authData.displayName);
-                return new userActions.Authenticated(user);
+                const user = new User(authData.uid, authData.displayName, authData.photoURL);
+                return new AuthActions.Authenticated({ ...user });
             } else {
-                /// User not logged in
-                return new userActions.NotAuthenticated();
+                return new AuthActions.NotAuthenticated();
             }
 
-        }), catchError(err => of(new userActions.AuthError())));
+        }), catchError(err => of(new AuthActions.AuthError())));
 
 
     @Effect()
     login = this.actions.pipe(
-        ofType(userActions.GOOGLE_LOGIN),
-        map((action: userActions.GoogleLogin) => action.payload),
+        ofType(AuthActions.GOOGLE_LOGIN),
+        map((action: AuthActions.GoogleLogin) => action.payload),
         switchMap(payload => {
             return from(this.googleLogin());
         }),
         map(credential => {
             // successful login
-            return new userActions.GetUser();
+            return new AuthActions.GetUser();
         }),
         catchError(err => {
-            return of(new userActions.AuthError({ error: err.message }));
+            return of(new AuthActions.AuthError({ error: err.message }));
         }));
 
 
     @Effect()
     logout = this.actions.pipe(
-        ofType(userActions.LOGOUT),
-        map((action: userActions.Logout) => action.payload),
+        ofType(AuthActions.LOGOUT),
+        map((action: AuthActions.Logout) => action.payload),
         switchMap(payload => {
             return of(this.afAuth.auth.signOut());
         }),
         map(authData => {
-            return new userActions.NotAuthenticated();
+            this.ngZone.run(() => this.router.navigate(['/login']));
+            return new AuthActions.NotAuthenticated();
         }),
-        catchError(err => of(new userActions.AuthError({ error: err.message }))))
+        catchError(err => of(new AuthActions.AuthError({ error: err.message }))))
 
+    constructor(private actions: Actions, private afAuth: AngularFireAuth, private router: Router, private ngZone: NgZone) { }
 
 }

@@ -47,6 +47,7 @@ import { IngredientEffects } from './admin/ingredient/store/ingredient.effects';
 import { UnitEffects } from './admin/unit/store/unit.effects';
 import { GeneralEffects } from './store/general/general.effects';
 import { UserEffects } from './user/store/user.effects';
+import { AuthEffects } from './auth/store/auth.effects';
 import { RecipeCircleComponent } from './shared/components/recipe-circle/recipe-circle.component';
 import { UserRecipeDetailComponent } from './recipe/user-recipe-detail/user-recipe-detail.component';
 
@@ -96,7 +97,8 @@ import { UserRecipeDetailComponent } from './recipe/user-recipe-detail/user-reci
       IngredientEffects,
       UnitEffects,
       GeneralEffects,
-      UserEffects,]),
+      UserEffects,
+      AuthEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production, }),
   ],
   providers: [
