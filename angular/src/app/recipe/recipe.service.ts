@@ -36,17 +36,6 @@ export class RecipeService {
       })
   }
 
-
-  checkIfInRecipeBook(recipeBook, recipeId) {
-    if (recipeBook.recipes.filter(r => { return r.id === recipeId }).length > 0) return true
-    return false
-  }
-
-  checkIfInShoppingList(shoppingList, recipeId) {
-    if (shoppingList.recipes.filter(r => { return r.id === recipeId }).length > 0) return true
-    return false
-  }
-
 }
 
 

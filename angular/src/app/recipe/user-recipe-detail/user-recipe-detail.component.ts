@@ -56,12 +56,17 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
     ).subscribe(user => {
       this.userRecipeBook = user.recipeBook.recipes;
       let userShoppingList = user.shoppingList;
-      this.isInShoppingList = this.recipeService.checkIfInShoppingList(userShoppingList, this.recipeId);
+      this.isInShoppingList = this.checkIfInShoppingList(userShoppingList, this.recipeId);
 
 
       this.updating = user.updating;
       this.recipe = this.userRecipeBook.find((recipe: Recipe) => { return recipe.id === this.recipeId })
     })
+  }
+
+  checkIfInShoppingList(shoppingList, recipeId) {
+    if (shoppingList.recipes.filter(r => { return r.id === recipeId && r.user_recipe }).length > 0) return true
+    return false
   }
 
   onEditIngredients() {

@@ -12,6 +12,7 @@ export const BEGIN_UPDATE_RECIPE_BOOK = '[User] Begin Update Recipe Book'
 export const SUCCESS_UPDATE_RECIPE_BOOK = '[User] Success Update Recipe Book'
 export const ADD_TO_RECIPE_BOOK = '[User] Add Recipe to Recipe Book'
 export const ADD_TO_SHOPPING_LIST = '[User] Add Recipe to Shopping List'
+export const REMOVE_FROM_SHOPPING_LIST = '[User] Remove Recipe to Shopping List'
 
 export const USER_HTTP_ERROR = '[User] Http Error'
 
@@ -48,6 +49,10 @@ export class AddToShoppingList implements Action {
     readonly type = ADD_TO_SHOPPING_LIST
     constructor(public payload: Recipe) { }
 }
+export class RemoveFromShoppingList implements Action {
+    readonly type = REMOVE_FROM_SHOPPING_LIST
+    constructor(public payload: Recipe) { }
+}
 
 export class UserHTTPError implements Action {
     readonly type = USER_HTTP_ERROR
@@ -70,4 +75,5 @@ export type UserActions
     | SuccessUpdateRecipeBook
     | AddToRecipeBook
     | AddToShoppingList
+    | RemoveFromShoppingList
     | UpdateUserFromAuth

@@ -8,6 +8,7 @@ export class Recipe {
     ingredient_sections: [];
     notes: String = '';
     shoppingListItem: boolean = false;
+    user_recipe: boolean = false;
 
 }
 

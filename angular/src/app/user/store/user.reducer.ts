@@ -81,6 +81,18 @@ export function userReducer(state = initialState, action: UserActions.UserAction
                 loading: false
             }
 
+        case UserActions.REMOVE_FROM_SHOPPING_LIST:
+            let updatedShoppingList = state.shoppingList.recipes.filter(r => {
+                return (r.id != action.payload.id || r.user_recipe != action.payload.user_recipe)
+            })
+            return {
+                ...state,
+                shoppingList: {
+                    recipes: updatedShoppingList
+                },
+                loading: false
+            }
+
         case UserActions.BEGIN_UPDATE_RECIPE_BOOK:
             return {
                 ...state,

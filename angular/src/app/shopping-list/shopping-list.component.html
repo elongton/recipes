@@ -9,44 +9,47 @@
         <h1 style="margin-bottom: 0; font-family: 'Pacifico', cursive; font-size: 32px;">Shopping List</h1>
     </div>
 
+
     <div body>
-        <h4>Recipes Selected:</h4>
-        <ul>
-            <li *ngFor="let recipe of selectedRecipes">
-                <span *ngIf="recipe.user_recipe">{{userFirstName}}'s</span> {{recipe.title}}
-
-            </li>
-        </ul>
-        <h4><u>Shopping List</u></h4>
-        <div class="row">
-            <div class="col">
-                <ng-container *ngFor="let section of storeSections">
-                    <ng-container
-                        *ngIf="(ingredientList | filterObjectArray : 'ingredient_store_section' : section.name).length > 0;">
-                        <h5>{{section.name}}</h5>
-                        <ul>
-                            <li
-                                *ngFor="let ingredient of ingredientList | filterObjectArray : 'ingredient_store_section' : section.name">
-                                <div *ngIf="ingredient.editing; else displayShoppingListItem" style="display: flex;">
-                                    <input type="text" style="width: 300px;" [(ngModel)]="ingredient.edited_value">
-                                    <div class="save-ingredient-button ml-1">
-                                        <fa-icon icon=check></fa-icon>
+        <ng-container *ngIf="selectedRecipes.length > 0">
+            <h4>Recipes Selected:</h4>
+            <ul>
+                <li *ngFor="let recipe of selectedRecipes" (click)="removeFromShoppingList(recipe)">
+                    <span *ngIf="recipe.user_recipe">{{userFirstName}}'s</span> {{recipe.title}}
+                </li>
+            </ul>
+            <h4><u>Shopping List</u></h4>
+            <div class="row">
+                <div class="col">
+                    <ng-container *ngFor="let section of storeSections">
+                        <ng-container
+                            *ngIf="(ingredientList | filterObjectArray : 'ingredient_store_section' : section.name).length > 0;">
+                            <h5>{{section.name}}</h5>
+                            <ul>
+                                <li
+                                    *ngFor="let ingredient of ingredientList | filterObjectArray : 'ingredient_store_section' : section.name">
+                                    <div *ngIf="ingredient.editing; else displayShoppingListItem"
+                                        style="display: flex;">
+                                        <input type="text" style="width: 300px;" [(ngModel)]="ingredient.edited_value">
+                                        <div class="save-ingredient-button ml-1">
+                                            <fa-icon icon=check></fa-icon>
+                                        </div>
                                     </div>
-                                </div>
-                                <ng-template #displayShoppingListItem>
-                                    <span (click)="clickShoppingListItem(ingredient)">
-                                        {{helper.numberToFraction(ingredient.ingredient_quantity)}}
-                                        {{ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
-                                        {{ingredient.ingredient_name}}
-                                    </span>
-                                </ng-template>
+                                    <ng-template #displayShoppingListItem>
+                                        <span (click)="clickShoppingListItem(ingredient)">
+                                            {{helper.numberToFraction(ingredient.ingredient_quantity)}}
+                                            {{ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
+                                            {{ingredient.ingredient_name}}
+                                        </span>
+                                    </ng-template>
 
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        </ng-container>
                     </ng-container>
-                </ng-container>
+                </div>
             </div>
-        </div>
 
+        </ng-container>
     </div>
 </app-popover>

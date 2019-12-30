@@ -49,8 +49,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       , switchMap(user => {
         this.userShoppingList = user.shoppingList
         this.userRecipeBook = user.recipeBook;
-        this.isInRecipeBook = this.recipeService.checkIfInRecipeBook(this.userRecipeBook, this.recipeId);
-        this.isInShoppingList = this.recipeService.checkIfInShoppingList(this.userShoppingList, this.recipeId);
+        this.isInRecipeBook = this.checkIfInRecipeBook(this.userRecipeBook, this.recipeId);
+        this.isInShoppingList = this.checkIfInShoppingList(this.userShoppingList, this.recipeId);
         return this.store.select('recipes')
       })
     ).subscribe(
@@ -60,6 +60,16 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       }
     )
 
+  }
+
+  checkIfInRecipeBook(recipeBook, recipeId) {
+    if (recipeBook.recipes.filter(r => { return r.id === recipeId }).length > 0) return true
+    return false
+  }
+
+  checkIfInShoppingList(shoppingList, recipeId) {
+    if (shoppingList.recipes.filter(r => { return r.id === recipeId && !r.user_recipe }).length > 0) return true
+    return false
   }
 
   updateNotes() {

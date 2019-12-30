@@ -8,6 +8,7 @@ import { HelperService } from 'src/app/shared/helper.service';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from '../store/app.reducer';
+import * as UserActions from '../user/store/user.actions';
 import { ShoppingListService } from './shopping-list.service';
 
 @Component({
@@ -45,24 +46,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
       subscribe(general => {
         this.storeSections = general.storeSections;
       })
+  }
 
-
-
-
-
-    // this.appService.storeSections$.subscribe(storeSections => {
-    //   this.storeSections = storeSections;
-    // })
-    // this.recipeSub = this.appService.recipes$.subscribe(recipes => {
-    //   this.selectedRecipes = recipes.filter(recipe => { return recipe.shoppingListItem === true })
-    //   // if (this.selectedRecipes.length < 1) {
-    //   //   this.router.navigate(['/']);
-    //   // }
-    //   // console.log(this.selectedRecipes)
-    //   let selectedRecipes = JSON.parse(JSON.stringify(this.selectedRecipes))
-    //   this.ingredientList = this.recipeService.scanRecipeList(selectedRecipes);
-    //   // console.log(this.ingredientList)
-    // })
+  removeFromShoppingList(recipe) {
+    this.store.dispatch(new UserActions.RemoveFromShoppingList(recipe));
   }
 
   print() {
