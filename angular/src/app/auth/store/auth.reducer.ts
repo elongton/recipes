@@ -4,6 +4,7 @@ import { User } from '../../core/models/user.model';
 export type State = {
     uid: string;
     displayName: string;
+    firstName: string;
     picture: string;
     loading?: boolean;
     error?: string;
@@ -12,6 +13,7 @@ export type State = {
 const initialState = {
     uid: null,
     displayName: 'GUEST',
+    firstName: 'none',
     picture: null,
 }
 

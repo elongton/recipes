@@ -2,15 +2,17 @@
 
 <ng-container *ngIf="!loading">
   <app-recipe-card>
-    <div header>
+    <div header style="display: flex;">
       <h1>{{ recipe.title }}</h1>
     </div>
 
     <ng-container topMenu>
-      <button class="btn btn-outline-dark add-to-recipe-book-button" [ngClass]="{'active': isInRecipeBook}"
+      <!-- <button class="btn btn-outline-dark add-to-recipe-book-button" [ngClass]="{'active': isInRecipeBook}"
         (click)="addRecipeToRecipeBook();">{{isInRecipeBook ? 'You have this recipe': 'Add to
-        Recipe
-        Book'}}</button>
+Recipe
+Book'}}</button> -->
+      <fa-icon icon="book" style="font-size: 25px;" (click)="addRecipeToRecipeBook();"
+        [ngClass]="{'in-shopping-list': isInRecipeBook}"></fa-icon>
       <fa-icon icon=shopping-basket [ngClass]="{'in-shopping-list': isInShoppingList}" (click)="addToShoppingList();"
         style="font-size: 25px;" class="ml-2"></fa-icon>
 

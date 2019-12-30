@@ -11,8 +11,6 @@ export class ApiInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return from(this.afAuth.auth.currentUser.getIdToken()).pipe(
             mergeMap((token: any) => {
-                console.log(token)
-                console.log('checking if user logged in')
                 if (token) {
                     request = request.clone({ setHeaders: { Authorization: `JWT ${token}` } });
                 }

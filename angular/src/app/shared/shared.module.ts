@@ -27,6 +27,8 @@ import {
     faShoppingCart,
     faCog,
     faShare,
+    faBookOpen,
+    faBook,
 } from '@fortawesome/free-solid-svg-icons';
 import { FilterPillComponent } from './components/filter-pill/filter-pill.component';
 import { PopoverComponent } from './components/popover/popover.component';
@@ -91,6 +93,8 @@ export class SharedModule {
             faCheck,
             faCog,
             faShare,
+            faBookOpen,
+            faBook,
         );
     }
 

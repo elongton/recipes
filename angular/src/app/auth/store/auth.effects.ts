@@ -32,7 +32,8 @@ export class AuthEffects {
                 if (this.router.routerState.snapshot.url == '/login') {
                     this.ngZone.run(() => this.router.navigate(['/']));
                 }
-                const user = new User(authData.uid, authData.displayName, authData.photoURL);
+                let firstName = authData.displayName.split(' ')[0];
+                const user = new User(authData.uid, authData.displayName, firstName, authData.photoURL);
                 return new AuthActions.Authenticated({ ...user });
             } else {
                 return new AuthActions.NotAuthenticated();

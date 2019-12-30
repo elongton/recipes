@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { Store } from '@ngrx/store';
 import { HelperService } from 'src/app/shared/helper.service';
@@ -21,6 +21,7 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
   recipe: Recipe;
   recipeId: Number = null;
   userRecipeBook: any = []
+  userFirstName: string = '';
   updating: boolean = false;
   imageUrl: string = environment.url;
   editingIngredients: boolean = false;
@@ -35,6 +36,7 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private store: Store<fromApp.AppState>,
     public helper: HelperService,
     private recipeService: RecipeService,
@@ -45,8 +47,13 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
       return +params['recipeId'];
     }), switchMap(id => {
       this.recipeId = id;
-      return this.store.select('user')
-    })).subscribe(user => {
+      return this.store.select('auth');
+    }),
+      switchMap((auth) => {
+        this.userFirstName = auth.firstName;
+        return this.store.select('user')
+      })
+    ).subscribe(user => {
       this.userRecipeBook = user.recipeBook.recipes;
       let userShoppingList = user.shoppingList;
       this.isInShoppingList = this.recipeService.checkIfInShoppingList(userShoppingList, this.recipeId);
@@ -105,7 +112,11 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   addToShoppingList() {
-    this.store.dispatch(new UserActions.AddToShoppingList(this.recipe))
+    if (this.isInShoppingList) {
+      this.router.navigate(['/shopping-list'])
+    } else {
+      this.store.dispatch(new UserActions.AddToShoppingList(this.recipe))
+    }
   }
 
 }

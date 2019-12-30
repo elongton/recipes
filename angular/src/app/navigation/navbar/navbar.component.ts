@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
   user: any = null;
   userImage: any = null;
   shoppingListQuant: number = 0;
+  userFirstName: string = '';
   constructor(
     private store: Store<fromApp.AppState>,
     public router: Router,
@@ -32,18 +33,12 @@ export class NavbarComponent implements OnInit {
 
     this.store.select('user').subscribe(user => {
       this.shoppingListQuant = user.shoppingList.recipes.length;
-      this.user = user;
     });
 
     this.store.select('auth').subscribe(authUser => {
       this.userImage = authUser.picture;
+      this.userFirstName = authUser.firstName
     })
-
-
-
-    // this.authService.userFirstName().subscribe(firstName => {
-    //   this.userFirstName = firstName;
-    // })
   }
 
   logout() {

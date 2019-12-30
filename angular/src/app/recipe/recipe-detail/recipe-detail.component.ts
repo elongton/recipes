@@ -83,7 +83,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   addToShoppingList() {
-    this.store.dispatch(new UserActions.AddToShoppingList(this.recipe))
+    if (this.isInShoppingList) {
+      this.router.navigate(['/shopping-list'])
+    } else {
+      this.store.dispatch(new UserActions.AddToShoppingList(this.recipe))
+    }
   }
 
   ngOnDestroy() {
