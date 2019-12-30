@@ -3,7 +3,6 @@ import { RecipeService } from "../recipe.service";
 import { Router } from "@angular/router";
 import { HelperService } from 'src/app/shared/helper.service';
 import { Recipe } from 'src/app/core/models/recipe.model';
-import { AuthService } from 'src/app/auth/archive/auth.service';
 
 
 interface SearchResult {
@@ -30,8 +29,7 @@ export class RecipeListComponent implements OnInit {
   constructor(
     public recipeService: RecipeService,
     private router: Router,
-    private helpers: HelperService,
-    public authService: AuthService, ) { }
+    private helpers: HelperService, ) { }
 
   ngOnInit() {
     this.typeAheadQueryList = [];

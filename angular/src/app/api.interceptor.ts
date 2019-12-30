@@ -1,16 +1,17 @@
 import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { AuthService } from './auth/archive/auth.service';
+import { Observable, of, from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-    constructor(private auth: AuthService) { }
+    constructor(private afAuth: AngularFireAuth, ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return this.auth.getUserIdToken().pipe(
+        return from(this.afAuth.auth.currentUser.getIdToken()).pipe(
             mergeMap((token: any) => {
+                console.log(token)
                 console.log('checking if user logged in')
                 if (token) {
                     request = request.clone({ setHeaders: { Authorization: `JWT ${token}` } });

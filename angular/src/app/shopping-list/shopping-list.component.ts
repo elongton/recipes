@@ -9,7 +9,6 @@ import { Store } from '@ngrx/store';
 
 import * as fromApp from '../store/app.reducer';
 import { ShoppingListService } from './shopping-list.service';
-import { AuthService } from '../auth/archive/auth.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -27,8 +26,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   constructor(
     private shoppingListService: ShoppingListService,
     private store: Store<fromApp.AppState>,
-    public helper: HelperService,
-    private authService: AuthService) { }
+    public helper: HelperService, ) { }
 
   ngOnInit() {
     this.ingredientList = [];

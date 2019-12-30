@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../archive/auth.service';
-import * as AuthActions from '../../user/store/user.actions';
 import * as fromApp from '../../store/app.reducer';
+import * as AuthActions from '../store/auth.actions';
+import { Store } from '@ngrx/store';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,13 +10,13 @@ import * as fromApp from '../../store/app.reducer';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
   }
 
   loginGoogle() {
-    this.authService.loginGoogle();
+    this.store.dispatch(new AuthActions.GoogleLogin());
   }
 
 

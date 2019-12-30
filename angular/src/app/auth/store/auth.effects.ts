@@ -11,7 +11,7 @@ import { map, switchMap, catchError, delay, } from 'rxjs/operators';
 
 
 import * as AuthActions from './auth.actions';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Injectable()
@@ -29,6 +29,9 @@ export class AuthEffects {
         switchMap(payload => this.afAuth.authState),
         map(authData => {
             if (authData) {
+                if (this.router.routerState.snapshot.url == '/login') {
+                    this.ngZone.run(() => this.router.navigate(['/']));
+                }
                 const user = new User(authData.uid, authData.displayName, authData.photoURL);
                 return new AuthActions.Authenticated({ ...user });
             } else {
@@ -47,6 +50,7 @@ export class AuthEffects {
         }),
         map(credential => {
             // successful login
+            this.ngZone.run(() => this.router.navigate(['/']));
             return new AuthActions.GetUser();
         }),
         catchError(err => {
@@ -67,6 +71,10 @@ export class AuthEffects {
         }),
         catchError(err => of(new AuthActions.AuthError({ error: err.message }))))
 
-    constructor(private actions: Actions, private afAuth: AngularFireAuth, private router: Router, private ngZone: NgZone) { }
+    constructor(private actions: Actions,
+        private afAuth: AngularFireAuth,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
+        private ngZone: NgZone) { }
 
 }

@@ -16,7 +16,6 @@
       <!-- <button  class="btn btn-outline-primary ml-2">Logout</button> -->
       <div class="user ml-2" *ngIf="authService.user | async" (click)="authService.logout();">
         <img [src]="authService.currentUser().photoURL" alt="" style="border-radius: 100%;">
-        <!-- {{authService.currentUser().displayName}} -->
       </div>
     </div>
   </div>

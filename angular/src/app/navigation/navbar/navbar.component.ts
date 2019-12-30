@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth/archive/auth.service';
 import * as fromApp from '../../store/app.reducer'
 import * as RecipeActions from '../../recipe/store/recipe.actions'
 import { Store } from '@ngrx/store';
@@ -20,7 +19,6 @@ export class NavbarComponent implements OnInit {
   userImage: any = null;
   shoppingListQuant: number = 0;
   constructor(
-    public authService: AuthService,
     private store: Store<fromApp.AppState>,
     public router: Router,
   ) { }
