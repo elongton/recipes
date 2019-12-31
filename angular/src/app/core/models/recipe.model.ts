@@ -9,6 +9,7 @@ export class Recipe {
     notes: String = '';
     shoppingListItem: boolean = false;
     user_recipe: boolean = false;
+    tags: any = null;
 
 }
 

@@ -10,7 +10,6 @@ import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { AppComponent } from "./app.component";
 import { RecipeComponent } from "./recipe/recipe.component";
 import { RecipeDetailComponent } from "./recipe/recipe-detail/recipe-detail.component";
-import { RecipeListComponent } from "./recipe/recipe-list/recipe-list.component";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { SharedModule } from './shared/shared.module';
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
@@ -56,7 +55,6 @@ import { UserRecipeDetailComponent } from './recipe/user-recipe-detail/user-reci
     AppComponent,
     RecipeComponent,
     RecipeDetailComponent,
-    RecipeListComponent,
     RecipeEditComponent,
     ShoppingListComponent,
     SidenavComponent,
@@ -90,6 +88,7 @@ import { UserRecipeDetailComponent } from './recipe/user-recipe-detail/user-reci
         strictStateSerializability: true,
         strictActionSerializability: true,
       },
+      metaReducers: [fromApp.logout]
     }),
     EffectsModule.forRoot([
       RecipeEffects,

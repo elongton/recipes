@@ -12,7 +12,7 @@ import * as AuthActions from './auth/store/auth.actions';
 })
 export class AppComponent implements OnInit {
   title = "recipeApp";
-  constructor(private router: Router, private store: Store<fromApp.AppState>) { }
+  constructor(public router: Router, private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
 

@@ -1,5 +1,5 @@
 import { ActionReducerMap } from '@ngrx/store';
-
+import * as AuthActions from '../auth/store/auth.actions';
 
 import * as fromRecipes from '../recipe/store/recipe.reducer';
 import * as fromTags from '../admin/tag/store/tag.reducer';
@@ -28,4 +28,10 @@ export const appReducer: ActionReducerMap<AppState> = {
     user: fromUser.userReducer,
     auth: fromAuth.authReducer,
 
+}
+
+export function logout(reducer) {
+    return function (state, action) {
+        return reducer(action.type === AuthActions.LOGOUT ? undefined : state, action);
+    }
 }

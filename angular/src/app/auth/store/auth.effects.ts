@@ -9,9 +9,11 @@ import { map, switchMap, catchError, delay, } from 'rxjs/operators';
 
 
 
-
+// import 
 import * as AuthActions from './auth.actions';
 import { Router, ActivatedRoute } from '@angular/router';
+
+
 
 
 @Injectable()
@@ -67,6 +69,7 @@ export class AuthEffects {
             return of(this.afAuth.auth.signOut());
         }),
         map(authData => {
+
             this.ngZone.run(() => this.router.navigate(['/login']));
             return new AuthActions.NotAuthenticated();
         }),

@@ -19,7 +19,7 @@ export class IngredientComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
   query: String;
   sidenav: Boolean;
-
+  loading: boolean = false;
   subscription: Subscription;
 
   ingredients: Ingredient[]

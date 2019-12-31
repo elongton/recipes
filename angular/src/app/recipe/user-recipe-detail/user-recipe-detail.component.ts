@@ -31,6 +31,7 @@ export class UserRecipeDetailComponent implements OnInit, OnDestroy {
   editedNotes: string = '';
   editingNotes: boolean = false;
   isInShoppingList: boolean = false;
+  loading: boolean = false;
 
   private subscription: Subscription;
 

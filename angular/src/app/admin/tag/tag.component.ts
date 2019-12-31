@@ -19,6 +19,8 @@ export class TagComponent implements OnInit {
   newTagType: string = '';
   modalRef: BsModalRef;
   tags: Tag[];
+  query: string = '';
+  loading: boolean = false;
 
 
   constructor(

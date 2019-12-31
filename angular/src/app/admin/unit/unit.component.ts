@@ -15,6 +15,7 @@ export class UnitComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   modalRef: BsModalRef;
   unitTypes: any = []
+  loading: boolean = false;
 
   //add unit
   unitTypeToAdd: { name: string, type: number };

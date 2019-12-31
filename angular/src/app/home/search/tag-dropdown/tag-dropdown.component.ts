@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 export class TagDropdownComponent implements OnInit {
 
   @Output('tag') tag = new EventEmitter();
-  constructor(private store: Store<fromApp.AppState>) { }
+  constructor(public store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
   }

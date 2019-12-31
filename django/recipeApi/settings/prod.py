@@ -35,7 +35,12 @@ SECRET_KEY = 'y2km(3q^)x2nsly1dc5#$7%a6e-q@&6ybl18z8lgn-w1_mq@=u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.253', 'localhost', 'recipes.maxlongton.com', 'recipebackend.maxlongton.com']
+ALLOWED_HOSTS = ['192.168.1.253',
+                 'localhost',
+                 'recipes.maxlongton.com',
+                 'recipebackend.maxlongton.com',
+                 'max.recipes',
+                 'backend.max.recipes',]
 
 
 # Application definition
@@ -48,8 +53,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_firebase_auth',
     'api'
 ]
+
+AUTH_USER_MODEL = 'api.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -133,10 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static-root')
 
-MEDIA_URL = '/mediafiles/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -144,10 +149,15 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'drf_firebase_auth.authentication.FirebaseAuthentication',
     ],
 }
 
+DRF_FIREBASE_AUTH = {
+    'FIREBASE_SERVICE_ACCOUNT_KEY': os.path.join(BASE_DIR + '/firebase/firebase.json'),
+    'FIREBASE_ATTEMPT_CREATE_WITH_DISPLAY_NAME': False,
+}
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
@@ -175,6 +185,10 @@ SIMPLE_JWT = {
 }
 
 
+
+
+MEDIA_URL = '/mediafiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 
 

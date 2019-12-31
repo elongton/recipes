@@ -30,6 +30,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   filterTagArray = []
   tagDropdown: boolean = false;
   sidenav: Boolean = false;
+  loading: boolean = false;
 
   private subscription: Subscription;
 

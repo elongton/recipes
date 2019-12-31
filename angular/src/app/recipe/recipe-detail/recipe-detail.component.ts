@@ -25,6 +25,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   units: any[];
   editingNotes: boolean = false;
   user: any = null;
+  loading: boolean = false;
   // userRecipeBook: any = []
   // userShoppingList: any = [];
   isInShoppingList: boolean = false;

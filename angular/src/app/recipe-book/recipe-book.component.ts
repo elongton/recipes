@@ -14,6 +14,7 @@ export class RecipeBookComponent implements OnInit, OnDestroy {
 
   storeSub: Subscription;
   userRecipes: Recipe[];
+  loading: boolean = false;
 
   constructor(
     private store: Store<fromApp.AppState>
