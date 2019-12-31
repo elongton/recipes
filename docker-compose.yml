@@ -6,7 +6,8 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
   api:
-    build: django/.
+    image: elongton/recipes_django:v0
+    # build: django/.
     command: bash -c "python manage.py makemigrations &&
                       python manage.py migrate &&
                       python setup_webapp.py &&
@@ -19,7 +20,8 @@ services:
     depends_on:
       - db
   angular:
-    build: angular/.
+    image: elongton/recipes_angular:v0
+    # build: angular/.
     ports:
       - "4200:80"
     depends_on:
