@@ -24,4 +24,4 @@ class UserDataSerializer(serializers.ModelSerializer):
     shopping_list = serializers.JSONField(source='user_data.shopping_list')
     class Meta:
         model = User
-        fields = ['meta', 'recipe_book', 'shopping_list']
+        fields = ['meta', 'recipe_book', 'shopping_list', 'is_staff']

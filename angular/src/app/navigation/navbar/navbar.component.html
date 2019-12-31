@@ -4,19 +4,21 @@
 <div style="z-index: 1; background-color: white; padding: 15px 20px 15px; border-bottom: 1px solid black;">
     <div class="d-flex justify-content-between">
         <div class="d-flex align-items-center">
-            <fa-icon style="font-size: 25px;" (click)="sidenav = !sidenav" class="mr-3" icon=bars></fa-icon>
+            <fa-icon style="font-size: 25px;" *ngIf="user.is_staff" (click)="sidenav = !sidenav" class="mr-3" icon=bars>
+            </fa-icon>
             <a [routerLink]="['/']" style="color: inherit;">
                 <h2 class="cursive">
-                    {{currentUrl==='/recipe-book' ? userFirstName + '\'s Recipes' : 'Max\'s Recipes'}}
+                    {{currentUrl==='/recipe-book' ? authUser.firstName + '\'s Recipes' : 'Max\'s Recipes'}}
                 </h2>
             </a>
         </div>
 
         <div class="d-flex align-items-center">
             <div class="user ml-2" (click)="logout()">
-                <img *ngIf="userImage" [src]="userImage" alt="" style="border-radius: 100%;">
+                <img *ngIf="authUser.picture" [src]="authUser.picture" alt="" style="border-radius: 100%;">
             </div>
-            <a [routerLink]="['/recipe/new']"><button class="btn btn-outline-primary ml-2">New Recipe</button></a>
+            <a *ngIf="user.is_staff" [routerLink]="['/recipe/new']"><button class="btn btn-outline-primary ml-2">New
+                    Recipe</button></a>
             <a [routerLink]="['/meal-planner']"><button class="btn btn-outline-primary ml-2" disabled>Meal
                     Planner</button></a>
             <a [routerLink]="['/recipe-book']"><button class="btn btn-outline-primary ml-2"

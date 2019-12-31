@@ -75,6 +75,17 @@ export class UserEffects {
             return of(new UserActions.UserHTTPError(error));
         })
     );
+    @Effect({ dispatch: false })
+    removeFromShoppingList = this.actions$.pipe(
+        ofType(UserActions.REMOVE_FROM_SHOPPING_LIST),
+        withLatestFrom(this.store.select('user')),
+        switchMap(([actionData, user]) => {
+            return this.http.put(`api/user/shoppinglist`, user.shoppingList)
+        }),
+        catchError((error: Error) => {
+            return of(new UserActions.UserHTTPError(error));
+        })
+    );
 
     @Effect()
     updateRecipeBook = this.actions$.pipe(

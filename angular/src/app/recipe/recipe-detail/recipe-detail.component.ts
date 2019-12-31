@@ -24,8 +24,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   recipeId: Number = null;
   units: any[];
   editingNotes: boolean = false;
-  userRecipeBook: any = []
-  userShoppingList: any = [];
+  user: any = null;
+  // userRecipeBook: any = []
+  // userShoppingList: any = [];
   isInShoppingList: boolean = false;
   isInRecipeBook: boolean = false;
 
@@ -47,10 +48,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
         return this.store.select('user')
       })
       , switchMap(user => {
-        this.userShoppingList = user.shoppingList
-        this.userRecipeBook = user.recipeBook;
-        this.isInRecipeBook = this.checkIfInRecipeBook(this.userRecipeBook, this.recipeId);
-        this.isInShoppingList = this.checkIfInShoppingList(this.userShoppingList, this.recipeId);
+        this.user = user;
+        this.isInRecipeBook = this.checkIfInRecipeBook(user.recipeBook, this.recipeId);
+        this.isInShoppingList = this.checkIfInShoppingList(user.shoppingList, this.recipeId);
         return this.store.select('recipes')
       })
     ).subscribe(

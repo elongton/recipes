@@ -11,7 +11,7 @@
 
 
     <div body>
-        <ng-container *ngIf="selectedRecipes.length > 0">
+        <ng-container *ngIf="selectedRecipes.length > 0; else noRecipes">
             <h4>Recipes Selected:</h4>
             <ul>
                 <li *ngFor="let recipe of selectedRecipes" (click)="removeFromShoppingList(recipe)">
@@ -28,20 +28,20 @@
                             <ul>
                                 <li
                                     *ngFor="let ingredient of ingredientList | filterObjectArray : 'ingredient_store_section' : section.name">
-                                    <div *ngIf="ingredient.editing; else displayShoppingListItem"
+                                    <!-- <div *ngIf="ingredient.editing; else displayShoppingListItem"
                                         style="display: flex;">
                                         <input type="text" style="width: 300px;" [(ngModel)]="ingredient.edited_value">
                                         <div class="save-ingredient-button ml-1">
                                             <fa-icon icon=check></fa-icon>
                                         </div>
-                                    </div>
-                                    <ng-template #displayShoppingListItem>
-                                        <span (click)="clickShoppingListItem(ingredient)">
-                                            {{helper.numberToFraction(ingredient.ingredient_quantity)}}
-                                            {{ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
-                                            {{ingredient.ingredient_name}}
-                                        </span>
-                                    </ng-template>
+                                    </div> -->
+                                    <!-- <ng-template #displayShoppingListItem> -->
+                                    <span (click)="clickShoppingListItem(ingredient)">
+                                        {{helper.numberToFraction(ingredient.ingredient_quantity)}}
+                                        {{ingredient.unit_multiplier > 0 ? ingredient.unit : ''}}
+                                        {{ingredient.ingredient_name}}
+                                    </span>
+                                    <!-- </ng-template> -->
 
                                 </li>
                             </ul>
@@ -51,5 +51,9 @@
             </div>
 
         </ng-container>
+        <ng-template #noRecipes>
+            <div>No recipes in your shopping list...</div>
+        </ng-template>
+
     </div>
 </app-popover>

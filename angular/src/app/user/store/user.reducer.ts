@@ -11,7 +11,7 @@ export interface State {
     shoppingList: any,
     loading: boolean,
     updating: boolean,
-    authUser: any,
+    is_staff: boolean,
 }
 
 const initialState = {
@@ -20,7 +20,7 @@ const initialState = {
     shoppingList: { recipes: [] },
     loading: false,
     updating: false,
-    authUser: null,
+    is_staff: false,
 }
 
 export function userReducer(state = initialState, action: UserActions.UserActions) {
@@ -46,6 +46,7 @@ export function userReducer(state = initialState, action: UserActions.UserAction
                 meta: action.payload.meta,
                 recipeBook: incomingRecipeBook ? action.payload.recipe_book : { recipes: [] },
                 shoppingList: incomingShoppingList ? action.payload.shopping_list : { recipes: [] },
+                is_staff: action.payload.is_staff,
                 loading: false,
             };
 
