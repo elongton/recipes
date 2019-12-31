@@ -3,7 +3,7 @@
 <ng-container *ngIf="!loading">
 
     <main style="display: flex; flex-direction: column;">
-        <section style="display: flex;">
+        <section *ngIf="userRecipes.length > 0; else noRecipes" style="display: flex;">
             <div style="flex-grow :1">
                 <div *ngFor="let recipe of userRecipes" class="mb-1">
                     <recipe-circle [small]="true" [recipe]="recipe"></recipe-circle>
@@ -15,6 +15,12 @@
 
             </div>
         </section>
+        <ng-template #noRecipes>
+            <section>
+                You don't have any recipes yet. Why don't you add a couple?
+            </section>
+        </ng-template>
+
 
     </main>
 
