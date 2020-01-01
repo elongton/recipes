@@ -13,7 +13,7 @@ export class IngredientEffects {
     retrieveIngredients = this.actions$.pipe(
         ofType(IngredientActions.BEGIN_RETRIEVE_INGREDIENTS),
         switchMap(() => {
-            return this.http.get<Ingredient[]>(`api/ingredients`)
+            return this.http.get<Ingredient[]>(`api/ingredients/`)
         }),
         map(ingredients => {
             return new IngredientActions.SuccessRetrieveIngredients(ingredients);

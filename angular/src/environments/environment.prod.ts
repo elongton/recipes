@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  url: 'http://recipes.maxlongton.com',
+  url: '//maxs.recipes',
   imageDomain: "http://localhost:8000",
   firebase: {
     apiKey: "AIzaSyAOiCmIPtSggC657alZUWeimwjOlCmSGS0",
