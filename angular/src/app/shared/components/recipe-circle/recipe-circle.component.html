@@ -10,12 +10,16 @@
 </ng-container>
 
 <ng-template #regular>
-  <div class="recipe-image" [ngStyle]="{
-    'background-image': 'url(' + imageUrl + recipe.image + ')'
-  }" (click)="navigateToRecipe(recipe.id)">
-    <div class="recipe-image-overlay">
-      <fa-icon class="recipe-image-icon" icon=share></fa-icon>
+  <div style="display: flex; align-items: center; flex-direction: column;">
+    <div class="recipe-image" [ngStyle]="{
+      'background-image': 'url(' + imageUrl + recipe.image + ')'
+    }" (click)="navigateToRecipe(recipe.id)">
+      <!-- <div class="recipe-image-overlay">
+        <fa-icon class="recipe-image-icon" icon=share></fa-icon>
+      </div> -->
     </div>
+    <span style="font-family: Walter Turncoat">{{recipe.title}}</span>
+
   </div>
-  {{recipe.title}}
+
 </ng-template>

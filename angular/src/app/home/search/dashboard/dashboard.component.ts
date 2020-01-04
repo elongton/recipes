@@ -12,7 +12,8 @@ import { Recipe } from '../../../core/models/recipe.model'
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   subscription: Subscription;
-  viewedRecipes: Recipe[] = [];
+  viewedRecipes: {} = {};
+  viewedRecipeIds: Number[];
   allRecipes: Recipe[] = []
 
   constructor(private store: Store<fromApp.AppState>) { }
@@ -21,8 +22,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     let sub = combineLatest(this.store.select('recipes'), this.store.select('user'));
     this.subscription = sub.subscribe(([recipes, user]) => {
       this.allRecipes = recipes.recipes;
-      const viewedRecipeIds = user.meta.viewed_recipes;
-      this.viewedRecipes = this.allRecipes.filter(recipe => { return viewedRecipeIds.includes(recipe.id) })
+      this.viewedRecipeIds = user.meta.viewed_recipes;
+      const filteredRecipes = this.allRecipes.filter(recipe => { return this.viewedRecipeIds.includes(recipe.id) })
+      filteredRecipes.forEach(r => {
+        this.viewedRecipes[String(r.id)] = r;
+      })
+      // console.log(this.viewedRecipes)
     })
     // 
   }

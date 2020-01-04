@@ -1,15 +1,31 @@
-<ng-container *ngIf="viewedRecipes.length > 0">
+<!-- <ng-container *ngIf="viewedRecipeIds.length > 0">
     <h3>Recently Viewed Recipes</h3>
     <section style="display: flex; flex-wrap: wrap; margin-top: 10px;">
-        <div *ngFor="let recipe of viewedRecipes" class="recipe-wrapper">
-            <recipe-circle [recipe]="recipe"></recipe-circle>
+        <div *ngFor="let recipeId of viewedRecipeIds" class="recipe-wrapper">
+            <recipe-circle [recipe]="viewedRecipes[recipeId]"></recipe-circle>
+        </div>
+    </section>
+</ng-container> -->
+<ng-container *ngIf="viewedRecipeIds.length > 0">
+
+    <div style="padding-bottom: 15px;">
+        <h3>Recently Viewed</h3>
+    </div>
+    <section style="padding-bottom: 15px;">
+        <div style="display:flex;">
+            <div *ngFor="let recipeId of viewedRecipeIds;" style="padding-right: 15px; max-width: 300px;">
+                <recipe-circle [small]="true" [recipe]="viewedRecipes[recipeId]">
+                </recipe-circle>
+            </div>
         </div>
     </section>
 </ng-container>
 
 
 
-<h3>Featured Recipes</h3>
+<div style="padding-bottom: 15px;">
+    <h3>Featured Recipes</h3>
+</div>
 <section style="display: flex; flex-wrap: wrap; margin-top: 10px;">
     <div *ngFor="let recipe of allRecipes" class="recipe-wrapper">
         <recipe-circle [recipe]="recipe"></recipe-circle>

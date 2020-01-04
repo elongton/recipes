@@ -53,7 +53,11 @@ export function userReducer(state = initialState, action: UserActions.UserAction
         case UserActions.UPDATE_META:
             let updated_viewed_recipes = [...state.meta.viewed_recipes]
             if (!updated_viewed_recipes.includes(+action.payload)) {
-                updated_viewed_recipes.push(+action.payload)
+                updated_viewed_recipes.unshift(+action.payload)
+                if (updated_viewed_recipes.length > 3) updated_viewed_recipes.pop();
+            } else {
+                updated_viewed_recipes = updated_viewed_recipes.filter(id => { return id != +action.payload });
+                updated_viewed_recipes.unshift(+action.payload)
             }
             return {
                 ...state,
