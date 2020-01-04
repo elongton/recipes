@@ -3,6 +3,11 @@
 
 <ng-container *ngIf="!loading">
   <app-popover>
+
+    <div header>
+      <h3 style="font-family: Pacifico;">{{recipeToEdit ? 'Edit Recipe' : 'New Recipe'}}</h3>
+    </div>
+
     <div body>
       <form [formGroup]="recipeForm" *ngIf="recipeForm">
         <input type="text" formControlName="title" class="form-control" placeholder="Recipe Title" />
