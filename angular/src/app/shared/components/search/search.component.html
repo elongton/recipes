@@ -1,0 +1,53 @@
+<div class="d-flex mb-2 mt-2 align-items-start">
+    <div style="flex-shrink:0; position: relative;">
+        <div>
+            <button class="btn btn-outline-primary form-control" (click)="openDropdown();">Browse by Tag</button>
+            <div *ngFor="let tag of filterTagArray; let i = index">
+                <app-tag (click)="removeTag(i);">{{tag.name}}</app-tag>
+            </div>
+        </div>
+        <div style="position: relative;">
+            <app-tag-dropdown (tag)="addTagToFilter($event)" *ngIf="tagDropdown"></app-tag-dropdown>
+        </div>
+    </div>
+
+
+
+    <div style="width: 100%; padding-right: 8px;">
+        <input [typeaheadOptionsLimit]="7" (typeaheadOnSelect)="onSelect($event)" [(ngModel)]="selected"
+            [typeahead]="typeAheadQueryList" class="form-control ml-2"
+            placeholder="Search a recipe or filter by ingredient" typeaheadOptionField="name"
+            typeaheadGroupField="type" />
+
+        <div class="mt-2 ml-2">
+            <ng-container *ngFor="let item of filterPillArray; let i = index">
+                <filter-pill [filter]="{name: item.name, id: item.id, index: i}" (close)="removeFilter($event)">
+                </filter-pill>
+            </ng-container>
+        </div>
+
+    </div>
+</div>
+
+
+<section *ngIf="filterPillArray.length > 0 || filterTagArray.length > 0">
+    <ng-container *ngIf="filteredRecipes.length > 0; else noRecipes">
+        <section style="display: flex; flex-wrap: wrap;">
+            <div *ngFor="let recipe of filteredRecipes" class="recipe-wrapper">
+                <recipe-circle [recipe]="recipe"></recipe-circle>
+            </div>
+
+        </section>
+    </ng-container>
+
+    <ng-template #noRecipes>
+        <div class="mt-2">
+            <span class="ml-2">No recipes found...</span>
+        </div>
+    </ng-template>
+</section>
+
+
+<div class="dropdown-backdrop" (click)="tagDropdown = false;"
+    [ngStyle]="{'display':tagDropdown == true ? 'inline': 'none' }">
+</div>

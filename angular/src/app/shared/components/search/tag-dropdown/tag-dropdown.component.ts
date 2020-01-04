@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import * as fromApp from '../../../store/app.reducer';
+import * as fromApp from '../../../../store/app.reducer';
 import { Store } from '@ngrx/store';
 
 @Component({

@@ -1,5 +1,5 @@
 <ng-container *ngIf="small; else regular">
-  <div (click)="navigateToUserRecipe(recipe.id)"
+  <div (click)="navigateToRecipe(recipe.id)"
     style="display: flex; align-items: center; cursor: pointer; width: -webkit-fit-content;">
     <div class="small-recipe-image mr-2" [ngStyle]="{
       'background-image': 'url(' + imageUrl + recipe.image + ')'

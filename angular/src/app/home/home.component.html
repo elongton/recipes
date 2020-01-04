@@ -1,1 +1,6 @@
-<app-search></app-search>
+<app-loader (loading)="loading = $event"></app-loader>
+
+<ng-container *ngIf="!loading">
+    <app-search [recipes]="recipeObservable" (searching)="isSearching = $event"></app-search>
+    <app-dashboard *ngIf="isSearching == false"></app-dashboard>
+</ng-container>

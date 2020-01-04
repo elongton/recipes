@@ -15,6 +15,7 @@ export class RecipeCircleComponent implements OnInit {
 
   @Input('recipe') recipe: Recipe
   @Input('small') small: Boolean = false
+  @Input('isUserRecipe') isUserRecipe: boolean = false;
   imageUrl: string = environment.url;
   constructor(public recipeService: RecipeService, private router: Router) { }
 
@@ -22,13 +23,8 @@ export class RecipeCircleComponent implements OnInit {
   }
 
   navigateToRecipe(id) {
-    this.router.navigate(["/recipe/view", id]);
+    if (this.isUserRecipe) this.router.navigate(["/user/recipe/view", id]);
+    else this.router.navigate(["/recipe/view", id]);
   }
-
-  navigateToUserRecipe(id) {
-    this.router.navigate(["/user/recipe/view", id]);
-  }
-
-
 
 }

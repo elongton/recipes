@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription, of, combineLatest } from 'rxjs'
-import * as fromApp from '../../../store/app.reducer'
-import { Recipe } from '../../../core/models/recipe.model'
+import * as fromApp from '../../store/app.reducer'
+import { Recipe } from '../../core/models/recipe.model'
 
 
 @Component({

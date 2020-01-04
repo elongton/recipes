@@ -3,10 +3,13 @@
 <ng-container *ngIf="!loading">
 
     <main style="display: flex; flex-direction: column;">
+        <app-search [recipes]="userRecipeObservable" (searching)="isSearching = $event"></app-search>
+
+
         <section *ngIf="userRecipes.length > 0; else noRecipes" style="display: flex;">
             <div style="flex-grow :1">
                 <div *ngFor="let recipe of userRecipes" class="mb-1">
-                    <recipe-circle [small]="true" [recipe]="recipe"></recipe-circle>
+                    <recipe-circle [isUserRecipe]="true" [small]="true" [recipe]="recipe"></recipe-circle>
                 </div>
 
             </div>

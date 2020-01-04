@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, Input, EventEmitter } from '@angular/core';
 import { Recipe } from 'src/app/core/models/recipe.model';
 import { HelperService } from 'src/app/shared/helper.service';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import * as fromApp from '../../store/app.reducer';
+import * as fromApp from '../../../store/app.reducer';
 import { map, switchMap } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 
 
@@ -21,6 +21,10 @@ interface SearchResult {
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
+
+  @Output('searching') searching = new EventEmitter();
+  @Input('recipes') recipeObservable: Observable<Recipe[]>
+
   recipes: Recipe[] = [];
   filteredRecipes: Recipe[] = [];
   ingredients = [];
@@ -29,7 +33,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   filterPillArray = [];
   filterTagArray = []
   tagDropdown: boolean = false;
-  sidenav: Boolean = false;
   loading: boolean = false;
 
   private subscription: Subscription;
@@ -42,8 +45,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.typeAheadQueryList = [];
     let that = this;
-    this.subscription = this.store.select('recipes').pipe(switchMap(recipes => {
-      this.recipes = recipes.recipes;
+    this.subscription = this.recipeObservable.pipe(switchMap(recipes => {
+      this.recipes = recipes;
       this.filteredRecipes = this.recipes;
       this.typeAheadQueryList = this.typeAheadQueryList.filter(e => { return e.type === "Ingredient" })
       this.filteredRecipes.forEach(e => {
@@ -61,24 +64,18 @@ export class SearchComponent implements OnInit, OnDestroy {
   removeFilter(event) {
     this.filterPillArray.splice(event.index, 1)
     this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray, this.filterTagArray)
+    this.checkIfSearching();
   }
   onSelect(event) {
     if (event.item.type === 'Ingredient') {
       this.filterPillArray.push({ name: event.item.name, id: event.item.id })
       this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray, this.filterTagArray)
-
+      this.searching.emit(true);
     } else if (event.item.type === 'Recipe') {
       this.router.navigate(['recipe/view/', event.item.id])
     }
     this.selected = ''
   }
-
-  //probably needs to go into service...
-
-  // onAddRemoveToShoppingList(recipe: Recipe) {
-  //   recipe.shoppingListItem = !recipe.shoppingListItem
-  //   this.recipeService.updateRecipeSubject(recipe)
-  // }
 
   selectedCount() {
     return this.recipes.filter(e => { return e.shoppingListItem == true }).length
@@ -92,11 +89,19 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.tagDropdown = false;
     this.filterTagArray.push(tag)
     this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray, this.filterTagArray)
+    this.searching.emit(true);
   }
 
   removeTag(i) {
     this.filterTagArray.splice(i, 1)
     this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray, this.filterTagArray)
+    this.checkIfSearching();
+  }
+
+  checkIfSearching() {
+    if (this.filterTagArray.length == 0 && this.filterPillArray.length == 0) {
+      this.searching.emit(false);
+    }
   }
 
 

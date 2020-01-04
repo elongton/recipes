@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, of } from 'rxjs';
 import { Recipe } from '../core/models/recipe.model'
 
 import * as fromApp from '../store/app.reducer';
@@ -14,6 +14,7 @@ export class RecipeBookComponent implements OnInit, OnDestroy {
 
   storeSub: Subscription;
   userRecipes: Recipe[];
+  userRecipeObservable: Observable<Recipe[]>;
   loading: boolean = false;
 
   constructor(
@@ -23,6 +24,7 @@ export class RecipeBookComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.storeSub = this.store.select('user').subscribe(user => {
       this.userRecipes = user.recipeBook.recipes;
+      this.userRecipeObservable = of(this.userRecipes);
     })
   }
 
