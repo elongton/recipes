@@ -24,6 +24,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   @Output('searching') searching = new EventEmitter();
   @Input('recipes') recipeObservable: Observable<Recipe[]>
+  @Input('isUserRecipes') isUserRecipes: boolean = false;
 
   recipes: Recipe[] = [];
   filteredRecipes: Recipe[] = [];
@@ -72,7 +73,9 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.filteredRecipes = this.helpers.filterRecipes(this.recipes, this.filterPillArray, this.filterTagArray)
       this.searching.emit(true);
     } else if (event.item.type === 'Recipe') {
-      this.router.navigate(['recipe/view/', event.item.id])
+      if (this.isUserRecipes) this.router.navigate(['user/recipe/view/', event.item.id])
+      else this.router.navigate(['recipe/view/', event.item.id])
+
     }
     this.selected = ''
   }

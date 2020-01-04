@@ -16,6 +16,7 @@ export class RecipeBookComponent implements OnInit, OnDestroy {
   userRecipes: Recipe[];
   userRecipeObservable: Observable<Recipe[]>;
   loading: boolean = false;
+  isSearching: boolean = false;
 
   constructor(
     private store: Store<fromApp.AppState>

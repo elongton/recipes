@@ -34,7 +34,7 @@
     <ng-container *ngIf="filteredRecipes.length > 0; else noRecipes">
         <section style="display: flex; flex-wrap: wrap;">
             <div *ngFor="let recipe of filteredRecipes" class="recipe-wrapper">
-                <recipe-circle [recipe]="recipe"></recipe-circle>
+                <recipe-circle [isUserRecipe]="isUserRecipes" [recipe]="recipe"></recipe-circle>
             </div>
 
         </section>

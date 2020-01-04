@@ -59,7 +59,7 @@ const routes: Routes = [
     path: "recipe-book",
     component: RecipeBookComponent,
     canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
-    resolve: [UserResolverService]
+    resolve: [UserResolverService, IngredientResolverService, RefResolverService, TagResolverService]
   },
   //admin stuff
   {

@@ -3,26 +3,31 @@
 <ng-container *ngIf="!loading">
 
     <main style="display: flex; flex-direction: column;">
-        <app-search [recipes]="userRecipeObservable" (searching)="isSearching = $event"></app-search>
+        <app-search [isUserRecipes]="true" [recipes]="userRecipeObservable" (searching)="isSearching = $event">
+        </app-search>
 
 
-        <section *ngIf="userRecipes.length > 0; else noRecipes" style="display: flex;">
-            <div style="flex-grow :1">
-                <div *ngFor="let recipe of userRecipes" class="mb-1">
-                    <recipe-circle [isUserRecipe]="true" [small]="true" [recipe]="recipe"></recipe-circle>
+        <ng-container *ngIf="isSearching == false">
+            <section *ngIf="userRecipes.length > 0; else noRecipes" style="display: flex;">
+                <div style="flex-grow :1">
+                    <div *ngFor="let recipe of userRecipes" class="mb-1">
+                        <recipe-circle [isUserRecipe]="true" [small]="true" [recipe]="recipe"></recipe-circle>
+                    </div>
+
                 </div>
-
-            </div>
-            <div style="flex-grow :1">
+                <div style="flex-grow :1">
 
 
-            </div>
-        </section>
-        <ng-template #noRecipes>
-            <section>
-                You don't have any recipes yet. Why don't you add a couple?
+                </div>
             </section>
-        </ng-template>
+            <ng-template #noRecipes>
+                <section>
+                    You don't have any recipes yet. Why don't you add a couple?
+                </section>
+            </ng-template>
+        </ng-container>
+
+
 
 
     </main>
