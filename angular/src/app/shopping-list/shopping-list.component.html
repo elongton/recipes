@@ -1,14 +1,13 @@
 <app-popover>
 
 
-    <div print>
-        <fa-icon (click)="print();" style="font-size: 25px;" icon="print"></fa-icon>
-    </div>
-
     <div header>
         <h3 style="font-family: Pacifico;">Shopping List</h3>
     </div>
 
+    <ng-container topMenu>
+        <fa-icon (click)="print();" style="font-size: 35px;" icon="print"></fa-icon>
+    </ng-container>
 
     <div body>
         <ng-container *ngIf="selectedRecipes.length > 0; else noRecipes">
