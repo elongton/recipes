@@ -13,3 +13,13 @@ $image_wrapper_width: $image_size + 20px;
     align-items: center;
     text-align:center;
 }
+
+.recently-viewed-wrapper{
+    display:flex;
+}
+
+@media(max-width: 600px){
+    .recently-viewed-wrapper{
+        flex-direction: column;
+    }
+}
