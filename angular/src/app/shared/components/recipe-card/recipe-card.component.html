@@ -3,12 +3,14 @@
 
         <div class="recipe-menu">
             <div (click)="goBack();" class="back-button">
-                <fa-icon icon=arrow-left style="font-size: 35px;"></fa-icon>
+                <fa-icon icon=arrow-left></fa-icon>
             </div>
             <div (click)="goHome();" class="home-button">
-                <fa-icon icon=home style="font-size: 35px;"></fa-icon>
+                <fa-icon icon=home></fa-icon>
             </div>
-
+            <div (click)="goToRecipeBook();" class="recipe-book-button">
+                <fa-icon icon=book></fa-icon>
+            </div>
             <div class="top-menu">
                 <ng-content select="[topMenu]"></ng-content>
             </div>

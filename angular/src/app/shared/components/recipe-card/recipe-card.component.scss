@@ -3,7 +3,7 @@
     top: 15px;
     left: 0;
     // height: 200px;
-    width: 75px;
+    width: 95px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -107,17 +107,6 @@ main{
 }
 
 
-.back-button{
-    font-size: 25px;
-    // position: absolute;
-    // top: 15px;
-    // left: 20px;
-    // z-index: 2;
-  }
-  .home-button{
-    font-size: 25px;
-    // position: absolute;
-    // top: 15px;
-    // left: 50px;
-    // z-index: 2;
-  }
+.back-button, .recipe-book-button, .home-button{
+    font-size: 35px;
+}

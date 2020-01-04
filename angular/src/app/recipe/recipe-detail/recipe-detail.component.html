@@ -11,7 +11,7 @@
       <fa-icon icon=shopping-basket [ngClass]="{'in-shopping-list': isInShoppingList}" (click)="addToShoppingList();"
         style="font-size: 35px;"></fa-icon>
 
-      <fa-icon icon="book" style="font-size: 35px;" (click)="addRecipeToRecipeBook();"
+      <fa-icon icon="plus" style="font-size: 35px;" (click)="addRecipeToRecipeBook();"
         [ngClass]="{'in-shopping-list': isInRecipeBook}"></fa-icon>
       <a *ngIf="user.is_staff" [routerLink]="['/recipe/edit/', recipe.id]" style="color: #212529;">
         <div>
