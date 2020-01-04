@@ -1,25 +1,30 @@
 <div class="over" style="display: flex; justify-content: center;">
     <main>
-        <div style="display: flex; align-items: center; margin-top: 20px;">
-            <div style="flex-grow: 1; text-align:left;">
-                <ng-content select="[header]"></ng-content>
+
+        <div class="menu">
+            <div (click)="goBack();" class="back-button">
+                <fa-icon icon=arrow-left></fa-icon>
+            </div>
+            <div (click)="goHome();" class="home-button">
+                <fa-icon icon=home></fa-icon>
+            </div>
+            <div (click)="goToRecipeBook();" class="recipe-book-button">
+                <fa-icon icon=book></fa-icon>
+            </div>
+            <div class="top-menu">
+                <ng-content select="[topMenu]"></ng-content>
             </div>
         </div>
-        <div style="padding: 20px 20px 20px 20px;">
+
+        <section>
+            <div style="display: flex; align-items: center; margin-top: 20px;">
+                <div style="flex-grow: 1; text-align:left;">
+                    <ng-content select="[header]"></ng-content>
+                </div>
+            </div>
             <ng-content select="[body]"></ng-content>
-        </div>
+        </section>
+
 
     </main>
-
-    <div class="print-button">
-        <ng-content select="[print]"></ng-content>
-    </div>
-
-
-    <div (click)="goBack();" class="back-button">
-        <fa-icon icon=arrow-left style="font-size: 25px;"></fa-icon>
-    </div>
-    <div (click)="goHome();" class="home-button">
-        <fa-icon icon=home style="font-size: 25px;"></fa-icon>
-    </div>
 </div>

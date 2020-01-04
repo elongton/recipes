@@ -92,3 +92,29 @@ textarea:focus, input:focus{
       display: none!important;
   }
 }
+
+
+.menu{
+  position: fixed;
+  top: 15px;
+  left: 0;
+  // height: 200px;
+  width: 95px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.top-menu{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.back-button, .recipe-book-button, .home-button{
+  font-size: 35px;
+}
