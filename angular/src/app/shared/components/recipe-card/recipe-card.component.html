@@ -1,5 +1,20 @@
 <div class="over" style="display: flex; justify-content: center;">
     <main>
+
+        <div class="recipe-menu">
+            <div (click)="goBack();" class="back-button">
+                <fa-icon icon=arrow-left style="font-size: 35px;"></fa-icon>
+            </div>
+            <div (click)="goHome();" class="home-button">
+                <fa-icon icon=home style="font-size: 35px;"></fa-icon>
+            </div>
+
+            <div class="top-menu">
+                <ng-content select="[topMenu]"></ng-content>
+            </div>
+
+        </div>
+
         <section class="top-section">
             <div class="recipe-title">
                 <ng-content select="[header]"></ng-content>
@@ -29,7 +44,7 @@
     </main>
 
 
-    <div (click)="goBack();" class="back-button">
+    <!-- <div (click)="goBack();" class="back-button">
         <fa-icon icon=arrow-left style="font-size: 25px;"></fa-icon>
     </div>
     <div (click)="goHome();" class="home-button">
@@ -38,5 +53,5 @@
 
     <div class="top-menu">
         <ng-content select="[topMenu]"></ng-content>
-    </div>
+    </div> -->
 </div>

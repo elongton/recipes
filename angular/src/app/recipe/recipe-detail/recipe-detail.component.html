@@ -7,18 +7,15 @@
     </div>
 
     <ng-container topMenu>
-      <!-- <button class="btn btn-outline-dark add-to-recipe-book-button" [ngClass]="{'active': isInRecipeBook}"
-        (click)="addRecipeToRecipeBook();">{{isInRecipeBook ? 'You have this recipe': 'Add to
-Recipe
-Book'}}</button> -->
-      <fa-icon icon="book" style="font-size: 25px;" (click)="addRecipeToRecipeBook();"
-        [ngClass]="{'in-shopping-list': isInRecipeBook}"></fa-icon>
-      <fa-icon icon=shopping-basket [ngClass]="{'in-shopping-list': isInShoppingList}" (click)="addToShoppingList();"
-        style="font-size: 25px;" class="ml-2"></fa-icon>
 
+      <fa-icon icon=shopping-basket [ngClass]="{'in-shopping-list': isInShoppingList}" (click)="addToShoppingList();"
+        style="font-size: 35px;"></fa-icon>
+
+      <fa-icon icon="book" style="font-size: 35px;" (click)="addRecipeToRecipeBook();"
+        [ngClass]="{'in-shopping-list': isInRecipeBook}"></fa-icon>
       <a *ngIf="user.is_staff" [routerLink]="['/recipe/edit/', recipe.id]" style="color: #212529;">
-        <div class="ml-2">
-          <fa-icon icon=pencil-alt style="font-size: 25px;"></fa-icon>
+        <div>
+          <fa-icon icon=pencil-alt style="font-size: 35px;"></fa-icon>
         </div>
       </a>
     </ng-container>
