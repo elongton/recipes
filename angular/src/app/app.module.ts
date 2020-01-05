@@ -49,6 +49,7 @@ import { UserEffects } from './user/store/user.effects';
 import { AuthEffects } from './auth/store/auth.effects';
 import { RecipeCircleComponent } from './shared/components/recipe-circle/recipe-circle.component';
 import { UserRecipeDetailComponent } from './recipe/user-recipe-detail/user-recipe-detail.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { UserRecipeDetailComponent } from './recipe/user-recipe-detail/user-reci
       UserEffects,
       AuthEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production, }),
+    BsDatepickerModule.forRoot(),
   ],
   providers: [
     AngularFireAuthGuard,

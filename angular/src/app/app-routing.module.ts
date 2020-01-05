@@ -61,6 +61,12 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
     resolve: [UserResolverService, IngredientResolverService, RefResolverService, TagResolverService]
   },
+  {
+    path: "meal-planner",
+    component: MealPlannerComponent,
+    canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin },
+    resolve: [UserResolverService]
+  },
   //admin stuff
   {
     path: 'admin',
