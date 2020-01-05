@@ -35,6 +35,7 @@ import { PopoverComponent } from './components/popover/popover.component';
 import { EditIngredientModalComponent } from './components/edit-ingredient-modal/edit-ingredient-modal.component';
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { LoaderComponent } from './components/loader/loader.component';
         PopoverComponent,
         EditIngredientModalComponent,
         RecipeCardComponent,
+        TruncatePipe,
     ],
     imports: [
         CommonModule,
@@ -67,6 +69,7 @@ import { LoaderComponent } from './components/loader/loader.component';
         FilterPillComponent,
         PopoverComponent,
         RecipeCardComponent,
+        TruncatePipe,
 
     ],
     entryComponents: [EditIngredientModalComponent, LoaderComponent],
