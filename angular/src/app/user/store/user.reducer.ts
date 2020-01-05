@@ -41,9 +41,13 @@ export function userReducer(state = initialState, action: UserActions.UserAction
             // console.log(action.payload)
             let incomingRecipeBook = action.payload.recipe_book;
             let incomingShoppingList = action.payload.shopping_list;
+            let incomingViewedRecipes = action.payload.meta.viewed_recipes;
+            if (incomingViewedRecipes.length > 3) {
+                incomingViewedRecipes = incomingViewedRecipes.slice(0, 2);
+            }
             return {
                 ...state,
-                meta: action.payload.meta,
+                meta: { ...action.payload.meta, viewed_recipes: incomingViewedRecipes },
                 recipeBook: incomingRecipeBook ? action.payload.recipe_book : { recipes: [] },
                 shoppingList: incomingShoppingList ? action.payload.shopping_list : { recipes: [] },
                 is_staff: action.payload.is_staff,

@@ -14,7 +14,7 @@
     <section style="padding-bottom: 15px;">
         <div class="recently-viewed-wrapper">
             <div *ngFor="let recipeId of viewedRecipeIds;" style="padding-right: 15px; max-width: 300px;">
-                <recipe-circle [small]="true" [recipe]="viewedRecipes[recipeId]">
+                <recipe-circle [truncTitle]="true" [small]="true" [recipe]="viewedRecipes[recipeId]">
                 </recipe-circle>
             </div>
         </div>

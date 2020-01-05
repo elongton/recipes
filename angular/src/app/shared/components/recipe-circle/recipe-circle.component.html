@@ -5,7 +5,9 @@
       'background-image': 'url(' + imageUrl + recipe.image + ')'
     }">
     </div>
-    <span style="font-family: Walter Turncoat">{{recipe.title}}</span>
+    <!-- <span style="font-family: Walter Turncoat">{{recipe.title}}</span> -->
+    <span
+      style="font-family: Walter Turncoat">{{ (truncTitle && recipe.title.length > titleTruncLength) ? (recipe.title | slice:0:titleTruncLength)+'...':(recipe.title) }}</span>
   </div>
 </ng-container>
 
@@ -18,7 +20,8 @@
         <fa-icon class="recipe-image-icon" icon=share></fa-icon>
       </div> -->
     </div>
-    <span style="font-family: Walter Turncoat">{{recipe.title}}</span>
+    <span
+      style="font-family: Walter Turncoat">{{ (truncTitle && recipe.title.length > titleTruncLength) ? (recipe.title | slice:0:titleTruncLength)+'...':(recipe.title) }}</span>
 
   </div>
 

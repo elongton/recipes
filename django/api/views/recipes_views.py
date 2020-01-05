@@ -91,9 +91,13 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
         )
         # handle image upload
         if not image:
-            recipeObj = serializer.save(image = existingImage)
+            print('no image')
+            recipeObj.image = existingImage
         else:
-            recipeObj = serializer.save(image = image)
+            print('there\'s a new image')
+            recipeObj.image = image
+
+        recipeObj.save()
 
 
         # print(recipeObj.image.url)

@@ -16,6 +16,8 @@ export class RecipeCircleComponent implements OnInit {
   @Input('recipe') recipe: Recipe
   @Input('small') small: Boolean = false
   @Input('isUserRecipe') isUserRecipe: boolean = false;
+  @Input('truncTitle') truncTitle: boolean = false;
+  titleTruncLength: number = 20;
   imageUrl: string = environment.url;
   constructor(public recipeService: RecipeService, private router: Router) { }
 
