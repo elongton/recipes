@@ -1,26 +1,53 @@
 <main>
-    <div style="display:flex; align-items: center;">
+    <section style="display:flex; align-items: center;">
         <span style="font-family: Walter Turncoat;">Date Range</span>
-        <input style="width: 250px;" type="text" placeholder="Daterangepicker" class="form-control ml-2"
-            bsDaterangepicker [bsConfig]="{ adaptivePosition: true }">
+        <input style="width: 250px;" type="text" placeholder="Daterangepicker" [(ngModel)]="bsRangeValue"
+            class="form-control ml-2" (onHidden)="updateDateRange();" bsDaterangepicker
+            [bsConfig]="{ adaptivePosition: true }">
 
 
         <div class="ml-2">
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                <input type="radio" id="customRadioInline1" checked name="customRadioInline1"
+                    class="custom-control-input">
                 <label class="custom-control-label" for="customRadioInline1">Week</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                <input type="radio" disabled id="customRadioInline2" name="customRadioInline1"
+                    class="custom-control-input">
                 <label class="custom-control-label" for="customRadioInline2">Month</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline3" name="customRadioInline1" class="custom-control-input">
+                <input type="radio" disabled id="customRadioInline3" name="customRadioInline1"
+                    class="custom-control-input">
                 <label class="custom-control-label" for="customRadioInline3">Season</label>
             </div>
         </div>
 
-    </div>
+        <button class="btn btn-primary" (click)="updateDateRange()">Update</button>
+    </section>
+
+
+    <section>
+        <div class="row">
+            <div class="col-sm-4">
+                <ng-container *ngIf="dateArray">
+                    <div *ngFor="let date of dateArray">
+                        <h3>
+                            {{date.begin | date:'MMM d'}} -
+                            <span *ngIf="date.sameMonth">{{date.end | date: 'd'}}</span>
+                            <span *ngIf="!date.sameMonth">{{date.end | date: 'MMM d'}}</span>
+                        </h3>
+
+                    </div>
+                </ng-container>
+            </div>
+            <div class="col-sm-8">
+
+            </div>
+        </div>
+
+    </section>
 
 
 
