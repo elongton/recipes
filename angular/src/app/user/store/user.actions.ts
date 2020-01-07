@@ -13,8 +13,11 @@ export const SUCCESS_UPDATE_RECIPE_BOOK = '[User] Success Update Recipe Book'
 export const ADD_TO_RECIPE_BOOK = '[User] Add Recipe to Recipe Book'
 export const ADD_TO_SHOPPING_LIST = '[User] Add Recipe to Shopping List'
 
+
 export const BEGIN_REMOVE_FROM_SHOPPING_LIST = '[User] Begin Remove Recipe from Shopping List'
 export const REMOVE_FROM_SHOPPING_LIST = '[User] Remove Recipe to Shopping List'
+
+export const UPDATE_MEAL_PLANNING_PERIOD = '[User] Update Meal Planning Period'
 
 export const USER_HTTP_ERROR = '[User] Http Error'
 
@@ -62,6 +65,11 @@ export class UserHTTPError implements Action {
 
 }
 
+export class UpdateMealPlanningPeriod implements Action {
+    readonly type = UPDATE_MEAL_PLANNING_PERIOD
+    constructor(public payload: Date[]) { }
+}
+
 export class UpdateUserFromAuth implements Action {
     readonly type = UPDATE_USER_FROM_AUTH
     constructor(public payload: any) { }
@@ -79,3 +87,4 @@ export type UserActions
     | AddToShoppingList
     | RemoveFromShoppingList
     | UpdateUserFromAuth
+    | UpdateMealPlanningPeriod

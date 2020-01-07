@@ -8,6 +8,7 @@ interface RecipeBook {
 export interface State {
     meta: any,
     recipeBook: RecipeBook,
+    mealPlanner: any,
     shoppingList: any,
     loading: boolean,
     updating: boolean,
@@ -18,6 +19,7 @@ const initialState = {
     meta: { viewed_recipes: [] },
     recipeBook: { recipes: [] },
     shoppingList: { recipes: [] },
+    mealPlanner: { date_range: [], recipes: [] },
     loading: false,
     updating: false,
     is_staff: false,
@@ -79,6 +81,15 @@ export function userReducer(state = initialState, action: UserActions.UserAction
                     recipes: [...state.recipeBook.recipes, updatedRecipe]
                 },
                 loading: false
+            }
+
+        case UserActions.UPDATE_MEAL_PLANNING_PERIOD:
+            return {
+                ...state,
+                mealPlanner: {
+                    ...state.mealPlanner,
+                    date_range: action.payload
+                }
             }
 
         case UserActions.ADD_TO_SHOPPING_LIST:

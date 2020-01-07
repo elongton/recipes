@@ -1,54 +1,71 @@
-<main>
-    <section style="display:flex; align-items: center;">
-        <span style="font-family: Walter Turncoat;">Date Range</span>
-        <input style="width: 250px;" type="text" placeholder="Daterangepicker" [(ngModel)]="bsRangeValue"
-            class="form-control ml-2" (onHidden)="updateDateRange();" bsDaterangepicker
-            [bsConfig]="{ adaptivePosition: true }">
+<app-loader (loading)="loading = $event"></app-loader>
+
+<ng-container *ngIf="!loading">
+
+    <main>
+        <section style="display:flex; align-items: center;">
+            <span style="font-family: Walter Turncoat;">Date Range</span>
+            <input style="width: 250px;" type="text" placeholder="Daterangepicker" [(ngModel)]="bsRangeValue"
+                class="form-control ml-2" (onHidden)="updateDateRange();" bsDaterangepicker
+                [bsConfig]="{ adaptivePosition: true }">
 
 
-        <div class="ml-2">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline1" checked name="customRadioInline1"
-                    class="custom-control-input">
-                <label class="custom-control-label" for="customRadioInline1">Week</label>
+            <div class="ml-2">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" checked name="customRadioInline1"
+                        class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline1">Week</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" disabled id="customRadioInline2" name="customRadioInline1"
+                        class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">Month</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" disabled id="customRadioInline3" name="customRadioInline1"
+                        class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline3">Season</label>
+                </div>
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" disabled id="customRadioInline2" name="customRadioInline1"
-                    class="custom-control-input">
-                <label class="custom-control-label" for="customRadioInline2">Month</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" disabled id="customRadioInline3" name="customRadioInline1"
-                    class="custom-control-input">
-                <label class="custom-control-label" for="customRadioInline3">Season</label>
-            </div>
-        </div>
-
-        <button class="btn btn-primary" (click)="updateDateRange()">Update</button>
-    </section>
+        </section>
 
 
-    <section>
-        <div class="row">
-            <div class="col-sm-4">
-                <ng-container *ngIf="dateArray">
-                    <div *ngFor="let date of dateArray">
-                        <h3>
-                            {{date.begin | date:'MMM d'}} -
-                            <span *ngIf="date.sameMonth">{{date.end | date: 'd'}}</span>
-                            <span *ngIf="!date.sameMonth">{{date.end | date: 'MMM d'}}</span>
-                        </h3>
+        <section class="mt-3">
+            <div class="row">
+                <div class="col-sm-4">
+                    <ng-container *ngIf="dateArray; else noDateArray">
+                        <div *ngFor="let date of dateArray">
+                            <h4 (click)="outputDate(date.begin);">
+                                {{date.begin | date:'MMM d'}} -
+                                <span *ngIf="date.sameMonth">{{date.end | date: 'd'}}</span>
+                                <span *ngIf="!date.sameMonth">{{date.end | date: 'MMM d'}}</span>
+                            </h4>
 
+                            <div class="mt-1 mb-1" *ngFor="let recipe of plannedRecipes">
+                                <recipe-circle [recipe]="recipe" [small]="true" [truncTitle]="true"
+                                    *ngIf="dateIncluded(recipe.dates, date.begin)"></recipe-circle>
+                            </div>
+
+                        </div>
+                    </ng-container>
+                    <ng-template #noDateArray>
+                        <h4>No dates added...yet.</h4>
+                    </ng-template>
+
+                </div>
+                <div class="col-sm-8">
+                    <div *ngFor="let recipe of userRecipeArray" class="mt-1 mb-1">
+                        <recipe-circle [selected]="recipe.selected" (selectedRecipe)="addToHolding($event)"
+                            [recipePlanner]="true" [recipe]="recipe">
+                        </recipe-circle>
                     </div>
-                </ng-container>
+                </div>
             </div>
-            <div class="col-sm-8">
 
-            </div>
-        </div>
-
-    </section>
+        </section>
 
 
 
-</main>
+    </main>
+
+</ng-container>
