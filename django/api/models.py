@@ -13,6 +13,7 @@ class UserData(models.Model):
     meta = JSONField(null=True, blank=True)
     recipe_book = JSONField(null=True, blank=True)
     shopping_list = JSONField(null=True, blank=True)
+    meal_planner = JSONField(null=True, blank=True)
 
 
 class Recipe(models.Model):

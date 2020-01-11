@@ -8,8 +8,8 @@ interface RecipeBook {
 export interface State {
     meta: any,
     recipeBook: RecipeBook,
-    mealPlanner: any,
     shoppingList: any,
+    mealPlanner: any,
     loading: boolean,
     updating: boolean,
     is_staff: boolean,
@@ -40,18 +40,31 @@ export function userReducer(state = initialState, action: UserActions.UserAction
                 loading: true,
             };
         case UserActions.SUCCESS_RETRIEVE_USER_DATA:
-            // console.log(action.payload)
+            console.log(action.payload)
+
             let incomingRecipeBook = action.payload.recipe_book;
             let incomingShoppingList = action.payload.shopping_list;
             let incomingViewedRecipes = action.payload.meta.viewed_recipes;
+            let incomingMealPlanner = action.payload.meal_planner;
             if (incomingViewedRecipes.length > 3) {
                 incomingViewedRecipes = incomingViewedRecipes.slice(0, 2);
             }
+
+            if (incomingMealPlanner) {
+                const dateRange = action.payload.meal_planner.date_range;
+                incomingMealPlanner = {
+                    date_range: [new Date(dateRange[0]), new Date(dateRange[1])],
+                    recipes: action.payload.meal_planner.recipes
+                }
+            }
+
+
             return {
                 ...state,
                 meta: { ...action.payload.meta, viewed_recipes: incomingViewedRecipes },
                 recipeBook: incomingRecipeBook ? action.payload.recipe_book : { recipes: [] },
                 shoppingList: incomingShoppingList ? action.payload.shopping_list : { recipes: [] },
+                mealPlanner: incomingMealPlanner ? incomingMealPlanner : { date_range: [], recipes: [] },
                 is_staff: action.payload.is_staff,
                 loading: false,
             };
@@ -89,6 +102,14 @@ export function userReducer(state = initialState, action: UserActions.UserAction
                 mealPlanner: {
                     ...state.mealPlanner,
                     date_range: action.payload
+                }
+            }
+        case UserActions.UPDATED_PLANNED_MEALS_ARRAY:
+            return {
+                ...state,
+                mealPlanner: {
+                    ...state.mealPlanner,
+                    recipes: [...action.payload]
                 }
             }
 

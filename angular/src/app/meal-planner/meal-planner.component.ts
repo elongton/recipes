@@ -3,7 +3,8 @@ import { MealPlannerService } from './meal-planner.service';
 import { Store } from '@ngrx/store';
 import * as UserActions from '../user/store/user.actions';
 import * as fromApp from '../store/app.reducer';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 // import { BsDatepickerConfig, BsDatepickerViewMode } from 'ngx-bootstrap/datepicker';
 
@@ -37,64 +38,77 @@ export class MealPlannerComponent implements OnInit {
   // minMode: BsDatepickerViewMode = 'month';
   // bsConfig: Partial<BsDatepickerConfig>;
 
+  private userRecipeSub: Subscription
+
   constructor(private mealPlannerService: MealPlannerService, private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    this.store.select('user').pipe(
-      switchMap(user => {
-        this.userRecipeArray = user.recipeBook.recipes.map(r => {
-          return <PlannedRecipe>{
-            id: r.id,
-            image: r.image,
-            user_recipe: true,
-            dates: [],
-            title: r.title,
-            selected: false,
-          }
-        });
 
-        this.bsRangeValue = user.mealPlanner.date_range;
-        this.updateDateArray();
-
-        return this.store.select('recipes')
-      })).subscribe(recipes => {
-        this.recipeArray = recipes.recipes.map(r => {
-          return <PlannedRecipe>{
-            id: r.id,
-            image: r.image,
-            user_recipe: true,
-            dates: [],
-            title: r.title,
-            selected: false,
-          }
-        });
+    this.userRecipeSub = this.store.select('user').subscribe(user => {
+      this.userRecipeArray = user.recipeBook.recipes.map(r => {
+        return <PlannedRecipe>{
+          id: r.id,
+          image: r.image,
+          user_recipe: true,
+          dates: [],
+          title: r.title,
+          selected: false,
+        }
+      })
+      if (this.userRecipeArray.length > 0 && this.userRecipeSub) {
+        this.userRecipeSub.unsubscribe();
       }
+    });
 
-      )
-    // this.bsConfig = Object.assign({}, {
-    //   minMode: this.minMode
-    // });
-    // this.maxDate.setDate(this.maxDate.getDate() + 7);
-    // this.bsRangeValue = [this.bsValue, this.maxDate];
-    // console.log(this.bsRangeValue)
+
+    // this.store.select('recipes').pipe(take(10), tap(
+    //   recipes => {
+    //     this.recipeArray = recipes.recipes.map(r => {
+    //       return <PlannedRecipe>{
+    //         id: r.id,
+    //         image: r.image,
+    //         user_recipe: false,
+    //         dates: [],
+    //         title: r.title,
+    //         selected: false,
+    //       }
+    //     });
+    //   }
+    // ));
+
+    this.store.select('user').subscribe(
+      user => {
+        if (user.mealPlanner.date_range[0] && user.mealPlanner.date_range[1]) {
+          this.bsRangeValue = Object.assign(user.mealPlanner.date_range)
+        }
+        this.plannedRecipes = JSON.parse(JSON.stringify(user.mealPlanner.recipes));
+        // console.log(user.mealPlanner.date_range)
+        this.updateDateArray();
+      })
+
+
   }
+
+
+
+
+  // this.bsConfig = Object.assign({}, {
+  //   minMode: this.minMode
+  // });
+  // this.maxDate.setDate(this.maxDate.getDate() + 7);
+  // this.bsRangeValue = [this.bsValue, this.maxDate];
+  // console.log(this.bsRangeValue
 
   updateDateRange() {
     this.updateDateArray();
     this.store.dispatch(new UserActions.UpdateMealPlanningPeriod(this.bsRangeValue));
-    // this.recipeHoldingArray.forEach(r => {
-    //   r.selected = false;
-    // })
-    // this.recipeHoldingArray = [];
   }
 
   updateDateArray() {
-    this.dateArray = this.mealPlannerService.getDates(this.bsRangeValue[0], this.bsRangeValue[1])
+    if (this.bsRangeValue) this.dateArray = this.mealPlannerService.getDates(this.bsRangeValue[0], this.bsRangeValue[1])
   }
 
-
   addToHolding(recipe) {
-
     if (this.recipeHoldingArray.includes(recipe)) {
       recipe.selected = false;
       this.recipeHoldingArray = this.recipeHoldingArray.filter(r => {
@@ -104,18 +118,41 @@ export class MealPlannerComponent implements OnInit {
       recipe.selected = true;
       this.recipeHoldingArray.push(recipe);
     }
+    console.log(this.recipeHoldingArray)
   }
 
-  outputDate(date) {
+  addDateToSelectedRecipes(date) {
     this.recipeHoldingArray.forEach(r => {
+      console.log('trying to push a date')
       r.dates.push(date)
     })
-    this.plannedRecipes = [...this.plannedRecipes, ...this.recipeHoldingArray]
-    console.log(this.plannedRecipes)
+    this.recipeHoldingArray.forEach(r => {
+      let recipeToUpdate = this.plannedRecipes.find(pr => { return pr.id == r.id });
+      if (recipeToUpdate) {
+        if (!this.dateIncluded(recipeToUpdate.dates, date)) {
+          recipeToUpdate.dates.push(date)
+        }
+      }
+      else {
+        console.log('pushed')
+        this.plannedRecipes.push(r)
+      }
+    })
+    this.store.dispatch(new UserActions.UpdatedPlannedMealsArray(JSON.parse(JSON.stringify(this.plannedRecipes))));
+    // console.log(this.plannedRecipes)
   }
 
+
   dateIncluded(dates: Date[], listDate: Date) {
-    return dates.includes(listDate)
+    let included = false;
+    let min = new Date(new Date(listDate).getTime() - 60 * 60 * 24 * 1000)
+    let max = new Date(new Date(listDate).getTime() + 60 * 60 * 24 * 1000)
+    dates.forEach(d => {
+      let dd = new Date(d);
+      if (dd < max && dd > min) { included = true }
+    })
+    // console.log(included)
+    return included
   }
 
 }

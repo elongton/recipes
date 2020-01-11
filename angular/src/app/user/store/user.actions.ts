@@ -18,6 +18,7 @@ export const BEGIN_REMOVE_FROM_SHOPPING_LIST = '[User] Begin Remove Recipe from 
 export const REMOVE_FROM_SHOPPING_LIST = '[User] Remove Recipe to Shopping List'
 
 export const UPDATE_MEAL_PLANNING_PERIOD = '[User] Update Meal Planning Period'
+export const UPDATED_PLANNED_MEALS_ARRAY = '[User] Update Planned Meals Array'
 
 export const USER_HTTP_ERROR = '[User] Http Error'
 
@@ -69,6 +70,10 @@ export class UpdateMealPlanningPeriod implements Action {
     readonly type = UPDATE_MEAL_PLANNING_PERIOD
     constructor(public payload: Date[]) { }
 }
+export class UpdatedPlannedMealsArray implements Action {
+    readonly type = UPDATED_PLANNED_MEALS_ARRAY
+    constructor(public payload: any) { }
+}
 
 export class UpdateUserFromAuth implements Action {
     readonly type = UPDATE_USER_FROM_AUTH
@@ -88,3 +93,4 @@ export type UserActions
     | RemoveFromShoppingList
     | UpdateUserFromAuth
     | UpdateMealPlanningPeriod
+    | UpdatedPlannedMealsArray

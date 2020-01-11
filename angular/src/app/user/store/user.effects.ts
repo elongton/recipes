@@ -65,19 +65,8 @@ export class UserEffects {
     );
 
     @Effect({ dispatch: false })
-    addToShoppingList = this.actions$.pipe(
-        ofType(UserActions.ADD_TO_SHOPPING_LIST),
-        withLatestFrom(this.store.select('user')),
-        switchMap(([actionData, user]) => {
-            return this.http.put(`api/user/shoppinglist`, user.shoppingList)
-        }),
-        catchError((error: Error) => {
-            return of(new UserActions.UserHTTPError(error));
-        })
-    );
-    @Effect({ dispatch: false })
-    removeFromShoppingList = this.actions$.pipe(
-        ofType(UserActions.REMOVE_FROM_SHOPPING_LIST),
+    updateShoppingList = this.actions$.pipe(
+        ofType(UserActions.ADD_TO_SHOPPING_LIST || UserActions.REMOVE_FROM_SHOPPING_LIST),
         withLatestFrom(this.store.select('user')),
         switchMap(([actionData, user]) => {
             return this.http.put(`api/user/shoppinglist`, user.shoppingList)
@@ -96,6 +85,22 @@ export class UserEffects {
             const indexToUpdate = updatedRecipes.findIndex(recipe => { return recipe.id === actionData.payload.id })
             updatedRecipes[indexToUpdate] = actionData.payload;
             return this.http.put(`api/user/recipebook`, { recipes: updatedRecipes })
+        }),
+        map(updatedRecipeBook => {
+            return new UserActions.SuccessUpdateRecipeBook(updatedRecipeBook);
+        }),
+        catchError((error: Error) => {
+            return of(new UserActions.UserHTTPError(error));
+        })
+    );
+
+
+    @Effect()
+    updateMealPlanner = this.actions$.pipe(
+        ofType(UserActions.UPDATE_MEAL_PLANNING_PERIOD),
+        withLatestFrom(this.store.select('user')),
+        switchMap(([actionData, user]: [UserActions.UpdateMealPlanningPeriod, any]) => {
+            return this.http.put(`api/user/mealplanner`, user.mealPlanner)
         }),
         map(updatedRecipeBook => {
             return new UserActions.SuccessUpdateRecipeBook(updatedRecipeBook);
