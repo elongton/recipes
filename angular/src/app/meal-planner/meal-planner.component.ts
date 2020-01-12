@@ -35,8 +35,6 @@ export class MealPlannerComponent implements OnInit {
 
   recipeArray: PlannedRecipe[];
   userRecipeArray: PlannedRecipe[];
-  // minMode: BsDatepickerViewMode = 'month';
-  // bsConfig: Partial<BsDatepickerConfig>;
 
   private userRecipeSub: Subscription
 
@@ -85,19 +83,7 @@ export class MealPlannerComponent implements OnInit {
         // console.log(user.mealPlanner.date_range)
         this.updateDateArray();
       })
-
-
   }
-
-
-
-
-  // this.bsConfig = Object.assign({}, {
-  //   minMode: this.minMode
-  // });
-  // this.maxDate.setDate(this.maxDate.getDate() + 7);
-  // this.bsRangeValue = [this.bsValue, this.maxDate];
-  // console.log(this.bsRangeValue
 
   updateDateRange() {
     this.updateDateArray();
@@ -118,7 +104,19 @@ export class MealPlannerComponent implements OnInit {
       recipe.selected = true;
       this.recipeHoldingArray.push(recipe);
     }
-    console.log(this.recipeHoldingArray)
+    // console.log(this.recipeHoldingArray)
+  }
+
+  removeDateFromRecipe(recipe, date) {
+    let minmax = this.getMinMaxDate(date.begin);
+    let dd = null
+    recipe.dates = recipe.dates.filter(d => {
+      dd = new Date(d);
+      if (dd > minmax.max || dd < minmax.min) {
+        return true
+      } else { return false }
+    })
+    this.updatePlannedrecipes();
   }
 
   addDateToSelectedRecipes(date) {
@@ -138,21 +136,35 @@ export class MealPlannerComponent implements OnInit {
         this.plannedRecipes.push(r)
       }
     })
-    this.store.dispatch(new UserActions.UpdatedPlannedMealsArray(JSON.parse(JSON.stringify(this.plannedRecipes))));
-    // console.log(this.plannedRecipes)
+    this.updatePlannedrecipes();
   }
 
 
   dateIncluded(dates: Date[], listDate: Date) {
     let included = false;
-    let min = new Date(new Date(listDate).getTime() - 60 * 60 * 24 * 1000)
-    let max = new Date(new Date(listDate).getTime() + 60 * 60 * 24 * 1000)
+    let minmax = this.getMinMaxDate(listDate);
     dates.forEach(d => {
       let dd = new Date(d);
-      if (dd < max && dd > min) { included = true }
+      if (dd < minmax.max && dd > minmax.min) { included = true }
     })
     // console.log(included)
     return included
+  }
+
+  getMinMaxDate(listDate) {
+    let min = new Date(new Date(listDate).getTime() - 60 * 60 * 24 * 1000)
+    let max = new Date(new Date(listDate).getTime() + 60 * 60 * 24 * 1000)
+    return { min: min, max: max }
+  }
+
+
+  updatePlannedrecipes() {
+    this.store.dispatch(new UserActions.UpdatedPlannedMealsArray(JSON.parse(JSON.stringify(this.plannedRecipes))));
+  }
+
+  clearSelected() {
+    this.recipeHoldingArray.map(r => { r.selected = false; })
+    this.recipeHoldingArray = [];
   }
 
 }

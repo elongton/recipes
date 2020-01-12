@@ -104,7 +104,7 @@ export function userReducer(state = initialState, action: UserActions.UserAction
                     date_range: action.payload
                 }
             }
-        case UserActions.UPDATED_PLANNED_MEALS_ARRAY:
+        case UserActions.UPDATE_PLANNED_MEALS_ARRAY:
             return {
                 ...state,
                 mealPlanner: {

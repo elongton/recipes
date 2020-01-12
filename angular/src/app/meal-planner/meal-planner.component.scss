@@ -5,3 +5,11 @@
 h3, h4{
     font-family: Walter Turncoat;
 }
+
+.remove-recipe-button{
+    width: 25px; height: 25px; border-radius: 100%; background-color: rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;
+}
+
+.remove-recipe-button:hover{
+    background-color: rgba(0,0,0,0.2)
+}

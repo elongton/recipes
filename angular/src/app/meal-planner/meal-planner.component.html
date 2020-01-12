@@ -27,6 +27,9 @@
                     <label class="custom-control-label" for="customRadioInline3">Season</label>
                 </div>
             </div>
+
+            <button class="btn btn-primary" *ngIf="recipeHoldingArray.length > 0" (click)="clearSelected();">Clear
+                Selected</button>
         </section>
 
 
@@ -42,8 +45,14 @@
                             </h4>
 
                             <div class="mt-1 mb-1" *ngFor="let recipe of plannedRecipes">
-                                <recipe-circle [recipe]="recipe" [small]="true" [truncTitle]="true"
-                                    *ngIf="dateIncluded(recipe.dates, date.begin)"></recipe-circle>
+
+                                <div *ngIf="dateIncluded(recipe.dates, date.begin)"
+                                    style="display: flex; align-items: center;">
+                                    <div class="mr-2 remove-recipe-button" (click)="removeDateFromRecipe(recipe, date)">
+                                        <fa-icon icon="times"></fa-icon>
+                                    </div>
+                                    <recipe-circle [recipe]="recipe" [small]="true" [truncTitle]="true"></recipe-circle>
+                                </div>
                             </div>
 
                         </div>

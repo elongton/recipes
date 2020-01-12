@@ -66,7 +66,7 @@ export class UserEffects {
 
     @Effect({ dispatch: false })
     updateShoppingList = this.actions$.pipe(
-        ofType(UserActions.ADD_TO_SHOPPING_LIST || UserActions.REMOVE_FROM_SHOPPING_LIST),
+        ofType(UserActions.ADD_TO_SHOPPING_LIST, UserActions.REMOVE_FROM_SHOPPING_LIST),
         withLatestFrom(this.store.select('user')),
         switchMap(([actionData, user]) => {
             return this.http.put(`api/user/shoppinglist`, user.shoppingList)
@@ -97,7 +97,7 @@ export class UserEffects {
 
     @Effect()
     updateMealPlanner = this.actions$.pipe(
-        ofType(UserActions.UPDATE_MEAL_PLANNING_PERIOD),
+        ofType(UserActions.UPDATE_MEAL_PLANNING_PERIOD, UserActions.UPDATE_PLANNED_MEALS_ARRAY),
         withLatestFrom(this.store.select('user')),
         switchMap(([actionData, user]: [UserActions.UpdateMealPlanningPeriod, any]) => {
             return this.http.put(`api/user/mealplanner`, user.mealPlanner)
