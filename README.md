@@ -1,7 +1,5 @@
-# recipes
-a recipe manager
-
-
+# commands
+docker-compose -f docker-compose.yml up --build
 
 ### stuff to come:
 
