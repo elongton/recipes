@@ -1,0 +1,19 @@
+version: '3.2'
+
+services:
+  web:
+      restart: always
+      build: .
+      ports:
+        - "80:80"
+      # volumes:
+      #   - /path/in/vm/www:/usr/share/nginx/html
+      networks:
+        - custom
+      external_links:
+        - recipes_angular_1:recipes_angular
+        - recipes_api_1:recipes_django
+
+networks:
+  custom:
+    external: true

@@ -15,17 +15,24 @@ services:
     volumes:
       - ./media_volume:/src/mediafiles
       # - ./backup:/src/backup
-    ports:
-      - "8000:8000"
+    networks:
+      - custom
+    # ports:
+    #   - "8000:8000"
     depends_on:
       - db
   angular:
     image: elongton/recipes_angular:v0
     # build: angular/.
+    networks:
+      - custom
     ports:
       - "4200:80"
-    depends_on:
-      - api
+
+networks:
+  custom:
+    external: true
 
 volumes:
   media_volume:
+
