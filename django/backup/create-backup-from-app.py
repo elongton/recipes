@@ -110,10 +110,15 @@ for step in recipe_steps:
                                  "instruction": step.instruction})
 
 for recipe in recipes:
+    try:
+        image_url = recipe.image.url
+    except:
+        image_url = None
     data['recipes'].append({"id": recipe.id,
                             "title": recipe.title,
                             "description": recipe.description,
-                            "notes": recipe.notes})
+                            "notes": recipe.notes,
+                            "image": image_url})
 
 with open('data.json', 'w') as outfile:
     json.dump(data, outfile)

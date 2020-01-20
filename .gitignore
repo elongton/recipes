@@ -2,6 +2,8 @@
 postgres-data/
 django/media/
 django/mediafiles/
+/media_volume
+/backup
 ### Django ###
 *.log
 *.pot

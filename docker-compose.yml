@@ -19,8 +19,8 @@ services:
       - ./backup:/src/backup
     networks:
       - custom
-    ports:
-      - "8000:8000"
+    # ports:
+    #   - "8000:8000"
     depends_on:
       - db
   angular:
@@ -28,8 +28,8 @@ services:
     # build: angular/.
     networks:
       - custom
-    ports:
-      - "4200:80"
+    # ports:
+    #   - "4200:80"
 
 networks:
   custom:

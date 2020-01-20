@@ -6,8 +6,8 @@ services:
       build: .
       ports:
         - "80:80"
-      # volumes:
-      #   - /path/in/vm/www:/usr/share/nginx/html
+      volumes:
+        - ../media_volume:/usr/share/nginx/media_volume
       networks:
         - custom
       external_links:

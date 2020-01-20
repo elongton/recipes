@@ -177,13 +177,18 @@ with open('data.json') as json_file:
 
 ###### CREATE RECIPES
     for recipe in data['recipes']:
+        if recipe['image']:
+            split_url = recipe['image'].split("mediafiles/", 1)[1]
         try:
-            Recipe.objects.create(
+            new_recipe = Recipe.objects.create(
                 id=recipe['id'],
                 title=recipe['title'],
                 description=recipe['description'],
                 notes=recipe['notes'],
             )
+            if recipe['image']:
+                new_recipe.image = split_url
+                new_recipe.save()
         except:
             print('created already')
             pass
