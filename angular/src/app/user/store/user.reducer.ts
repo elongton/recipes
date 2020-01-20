@@ -52,10 +52,13 @@ export function userReducer(state = initialState, action: UserActions.UserAction
 
             if (incomingMealPlanner) {
                 const dateRange = action.payload.meal_planner.date_range;
-                incomingMealPlanner = {
+                if (dateRange){
+                  incomingMealPlanner = {
                     date_range: [new Date(dateRange[0]), new Date(dateRange[1])],
                     recipes: action.payload.meal_planner.recipes
                 }
+              }
+
             }
 
 
