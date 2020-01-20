@@ -5,8 +5,10 @@ services:
     image: postgres:latest
     # volumes:
     #   - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - custom
   api:
-    image: elongton/recipes_django:v0
+    image: elongton/recipes_django:latest
     # build: django/.
     command: bash -c "python manage.py makemigrations &&
                       python manage.py migrate &&
@@ -14,15 +16,15 @@ services:
                       gunicorn recipeApi.wsgi -b 0.0.0.0:8000"
     volumes:
       - ./media_volume:/src/mediafiles
-      # - ./backup:/src/backup
+      - ./backup:/src/backup
     networks:
       - custom
-    # ports:
-    #   - "8000:8000"
+    ports:
+      - "8000:8000"
     depends_on:
       - db
   angular:
-    image: elongton/recipes_angular:v0
+    image: elongton/recipes_angular:latest
     # build: angular/.
     networks:
       - custom
@@ -35,4 +37,5 @@ networks:
 
 volumes:
   media_volume:
+  backup:
 
